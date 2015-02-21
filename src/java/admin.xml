@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : sistema.xml
+    Created on : 15 de Febrero del 2014
+    Author     : Nicolas Sierra
+    Description: Archivo de configuracion de Struts2 para manejo de peticiones por autenticacion.
+-->
+
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>    
+    <package name="admin" namespace="/" extends="struts-default">  
+        <interceptors>
+            <interceptor name="iterceptorAtuenticacion" class="co.com.hotel.validadores.InterAutenticacion" />
+            <interceptor-stack name="secureStack">
+                <interceptor-ref name="iterceptorAtuenticacion" />
+                <interceptor-ref name="defaultStack" />
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="secureStack" />
+
+        <global-results>
+            <result name="login" type="redirect">/inicio.jsp</result>
+            <result name="exception">/exception.jsp</result>
+        </global-results> 
+        
+        <global-exception-mappings>
+            <exception-mapping exception="java.sql.SQLException" result="exception"/>
+            <exception-mapping exception="java.lang.Exception" result="exception"/>
+            <exception-mapping exception="java.io.IOException" result="exception"/>
+        </global-exception-mappings>
+         
+        <!-- REENVIO GENERAL DE LA APLICACION -->   
+        <action name="adm_insertPerfil" class="co.com.hotel.action.admin.Adm_PerfilAccion">
+            <result name="success">/WEB-INF/ACCIONES/ADMINISTRACION/CREACION/Adm_InsertPerfil.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/ADMINISTRACION/CREACION/Adm_InsertPerfil.jsp</result>          
+            <result name="error">/inicio.jsp</result>
+        </action>
+        <action name="adm_updatePerfil" class="co.com.hotel.action.admin.Adm_PerfilAccion" method="actualizar">
+            <result name="success">/WEB-INF/ACCIONES/ADMINISTRACION/MODIFICAR/Adm_UpdPerfil.jsp</result>          
+            <result name="input">/WEB-INF/ACCIONES/ADMINISTRACION/MODIFICAR/Adm_UpdPerfil.jsp</result>          
+            <result name="error">/inicio.jsp</result>
+        </action> 
+        <action name="adm_consultaPerfil" class="co.com.hotel.action.admin.Adm_PerfilAccion" method="consultar">
+            <result name="success">/WEB-INF/ACCIONES/ADMINISTRACION/CONSULTA/Adm_ConsPerfil.jsp</result>
+            <result name="error">/inicio.jsp</result>
+        </action>
+        <action name="ingUsuario" class="co.com.hotel.action.admin.NuevoUsuarioAction" method="agregarUsuario">
+            <result name="success">/WEB-INF/ACCIONES/ADMINISTRACION/CREACION/Adm_InsertUsuarios.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/ADMINISTRACION/CREACION/Adm_InsertUsuarios.jsp</result>
+            <result name="error">/inicio.jsp</result>
+        </action>            
+        <action name="consDatosXUsua" class="co.com.hotel.action.admin.NuevoUsuarioAction" method="consultaUsuario">
+            <result name="success">/WEB-INF/ACCIONES/ADMINISTRACION/MODIFICAR/Adm_UpdUsuario.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/ADMINISTRACION/MODIFICAR/Adm_UpdUsuario.jsp</result>
+            <result name="error">/inicio.jsp</result>
+        </action>
+        <action name="adm_consultaUsuario" class="co.com.hotel.action.admin.Adm_UsuarioAccion">
+            <result name="success">/WEB-INF/ACCIONES/ADMINISTRACION/CONSULTA/Adm_ConsUsuarios.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/ADMINISTRACION/CONSULTA/Adm_ConsUsuarios.jsp</result>
+            <result name="error">/inicio.jsp</result>
+        </action>
+        <action name="adm_updateUsua" class="co.com.hotel.action.admin.Adm_UsuarioAccion" method="updateUsuario">
+            <result name="success">/WEB-INF/ACCIONES/ADMINISTRACION/MODIFICAR/Adm_UpdUsuario.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/ADMINISTRACION/MODIFICAR/Adm_UpdUsuario.jsp</result>
+            <result name="error">/inicio.jsp</result>
+        </action>
+        <action name="adm_insertHabitacion" class="co.com.hotel.action.admin.Adm_ServicioAccion" method="insertHabitacion">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Adm_InsertHabitacion.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Adm_InsertHabitacion.jsp</result>
+            <result name="error">/inicio.jsp</result>
+        </action>
+        <action name="adm_updPermisos" class="co.com.hotel.action.admin.Adm_PermisosAccion" method="actualizaPerfil">
+            <result name="success">/WEB-INF/ACCIONES/ADMINISTRACION/MODIFICAR/Adm_UpdPermisos.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/ADMINISTRACION/MODIFICAR/Adm_UpdPermisos.jsp</result>
+            <result name="error">/inicio.jsp</result>
+        </action>
+        <action name="Adm_UpdPermPerf" class="co.com.hotel.action.admin.Adm_PermisosAccion" method="actualizaPermisoPerfil">
+            <result name="success">/WEB-INF/ACCIONES/ADMINISTRACION/CONSULTA/Adm_ConsPerfil.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/ADMINISTRACION/MODIFICAR/Adm_UpdPermisos.jsp</result>
+            <result name="error">/inicio.jsp</result>
+        </action>        
+        <action name="adm_updtParaEmp" class="co.com.hotel.action.admin.Adm_ParametrosEmpresaAccion" method="modificarParametros">
+            <result name="success">/WEB-INF/ACCIONES/ADMINISTRACION/CREACION/Adm_ParametrosEmpresariales.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/ADMINISTRACION/CREACION/Adm_ParametrosEmpresariales.jsp</result>
+            <result name="error">/inicio.jsp</result>
+        </action>
+        <action name="adm_updtParaGenEmp" class="co.com.hotel.action.admin.Adm_ParametrosEmpresaAccion" method="modificaParametrosGeneralesEmp">
+            <result name="success">/WEB-INF/ACCIONES/ADMINISTRACION/CREACION/Adm_ParamGenerales.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/ADMINISTRACION/CREACION/AAdm_ParamGenerales.jsp</result>
+            <result name="error">/inicio.jsp</result>
+        </action>
+        <action name="adm_paramgenerales" class="co.com.hotel.action.admin.Adm_ParametrosEmpresaAccion">
+            <result name="succes">/WEB-INF/ACCIONES/ADMINISTRACION/CREACION/Adm_ParamGenerales.jsp</result>
+        </action>    
+        <action name="adm_insertSede" class="co.com.hotel.action.admin.Adm_SedeAccion" method="insertarSede">
+            <result name="success">/WEB-INF/ACCIONES/ADMINISTRACION/CREACION/Adm_InsertSede.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/ADMINISTRACION/CREACION/Adm_InsertSede.jsp</result>
+            <result name="error">/inicio.jsp</result>
+        </action>
+        
+         <action name="adm_consultaSede" class="co.com.hotel.action.admin.Adm_SedeAccion" method="consultar">
+            <result name="success">/WEB-INF/ACCIONES/ADMINISTRACION/CONSULTA/Adm_ConsGenSede.jsp</result>
+            <result name="error">/inicio.jsp</result>
+        </action>
+        <action name="adm_conEspSede" class="co.com.hotel.action.admin.Adm_SedeAccion" method="consultaSedeEspecifico">
+            <result name="success">/WEB-INF/ACCIONES/ADMINISTRACION/MODIFICAR/Adm_UpdSede.jsp</result>
+            <result name="error">/inicio.jsp</result>
+        </action>
+        <action name="adm_UpdSede" class="co.com.hotel.action.admin.Adm_SedeAccion" method="actualizaSede">
+            <result name="success">/WEB-INF/ACCIONES/ADMINISTRACION/MODIFICAR/Adm_UpdSede.jsp</result>
+            <result name="error">/inicio.jsp</result>
+        </action>
+    </package>
+</struts>

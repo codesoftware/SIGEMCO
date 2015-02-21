@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : sistema.xml
+    Created on : 15 de Febrero del 2014
+    Author     : Nicolas Sierra
+    Description: Archivo de configuracion de Struts2 para manejo de peticiones por autenticacion.
+-->
+
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="sistema" namespace="/" extends="struts-default">  
+        <interceptors>
+            <interceptor name="iterceptorAtuenticacion" class="co.com.hotel.validadores.InterAutenticacion" />
+            <interceptor-stack name="secureStack">
+                <interceptor-ref name="iterceptorAtuenticacion" />
+                <interceptor-ref name="defaultStack" />
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="secureStack" />
+
+        <global-results>
+            <result name="login" type="redirect">/inicio.jsp</result>
+            <result name="exception">/exception.jsp</result>
+        </global-results> 
+        
+ 
+        <!-- REENVIO GENERAL DE LA APLICACION -->   
+        <action name="reenvioGeneral" class="co.com.hotel.action.reenvio.reenvioGeneral" >
+            <result name="adm_con_usuario">/WEB-INF/ACCIONES/ADMINISTRACION/CONSULTA/Adm_ConsUsuarios.jsp</result>
+            <result name="adm_ins_usuario">/WEB-INF/ACCIONES/ADMINISTRACION/CREACION/Adm_InsertUsuarios.jsp</result>
+            <result name="adm_upd_usuario">/WEB-INF/ACCIONES/ADMINISTRACION/MODIFICAR/Adm_UpdUsuario.jsp</result>
+            <result name="adm_ins_perfil">/WEB-INF/ACCIONES/ADMINISTRACION/CREACION/Adm_InsertPerfil.jsp</result>
+            <result name="adm_ins_empresa">/WEB-INF/ACCIONES/ADMINISTRACION/CREACION/Adm_ParametrosEmpresariales.jsp</result>
+            <result name="adm_upd_perfil">/WEB-INF/ACCIONES/ADMINISTRACION/MODIFICAR/Adm_UpdPerfil.jsp</result>
+            <result name="adm_con_perfil">/WEB-INF/ACCIONES/ADMINISTRACION/CONSULTA/Adm_ConsPerfil.jsp</result>
+            <result name="inv_ins_producto">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Adm_InsertProducto.jsp</result>
+            <result name="inv_ins_prodexis">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Adm_AddProdExistentes.jsp</result>
+            <result name="fac_ins_factura">/WEB-INF/ACCIONES/FACTURACION/CREACION/Fac_InsertCliFactura.jsp</result>
+            <result name="inv_ins_servicio">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Adm_InsertHabitacion.jsp</result>
+            <result name="inv_con_producto">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsProducto.jsp</result>
+            <result name="inv_con_servicio">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsGenServ.jsp</result>
+            <result name="inv_upd_producto">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_UpdProducto.jsp</result>
+            <result name="rep_inv_ponderado">/WEB-INF/ACCIONES/REPORTES/JSP/inv_reporteinventario.jsp</result>
+            <result name="inv_upd_servicio">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_UpdServicio.jsp</result>
+            <result name="inv_aci_producto">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_ActIncProductos.jsp</result>
+            <result name="inv_par_preciospr">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_ParPrecioProd.jsp</result>
+            <result name="inv_aci_servicio">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_ActIncServicios.jsp</result>
+            <result name="inv_par_preciosv">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_ParPrecios.jsp</result>
+            <result name="fac_upd_factura">/WEB-INF/ACCIONES/FACTURACION/MODIFICAR/Fact_ModificacionFactura.jsp</result>
+            <result name="rep_inv_usuarios">/WEB-INF/ACCIONES/REPORTES/JSP/adm_reporteUsuarios.jsp</result>
+            <result name="inv_ins_movinventario">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_AddMovInventario.jsp</result>
+            <result name="inv_upd_movinventario">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_UpdMovInventario.jsp</result>
+            <result name="inv_con_movinventario">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsGenMvInv.jsp</result>
+            <result name="adm_con_sede">/WEB-INF/ACCIONES/ADMINISTRACION/CONSULTA/Adm_ConsGenSede.jsp</result>
+            <result name="adm_ins_sede">/WEB-INF/ACCIONES/ADMINISTRACION/CREACION/Adm_InsertSede.jsp</result>
+            <result name="inv_ins_celular">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertCelulares.jsp</result>
+            <result name="inv_ins_referencia">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertReferencia.jsp</result>
+            <result name="Inv_ConReferencia">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsReferencia.jsp</result>
+            <result name="Inv_ConCategoria">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsCategoria.jsp</result>
+            <result name="inv_con_celular">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsGenRemision.jsp</result>
+            <result name="adm_ins_parempre">/WEB-INF/ACCIONES/ADMINISTRACION/CREACION/Adm_ParamGenerales.jsp</result>
+            <result name="con_consgenclases">/WEB-INF/ACCIONES/CONTABILIDAD/CONSULTA/Con_ConsGenClase.jsp</result>
+            <result name="error">/inicio.jsp</result>
+        </action>
+        <!-- Acciones que sirven para redireccionar -->    
+        <action name="inicioAdmin" class="co.com.hotel.action.admin.InicioAdmin">
+            <result name="success">/WEB-INF/ACCIONES/ADMIN/inicio.jsp</result>
+            <result name="error">/inicio.jsp</result>
+        </action>
+        <action name="nuevoUsuario" class="co.com.hotel.action.admin.NuevoUsuarioAction">
+            <result name="success">/WEB-INF/ACCIONES/ADMIN/USUARIO/nuevoUsuario.jsp</result>
+            <result name="error">/inicio.jsp</result>
+        </action>
+        <action name="consUsuarioLista" class="co.com.hotel.action.admin.ConsUsuaListaAction">
+            <result name="success">/WEB-INF/ACCIONES/ADMIN/USUARIO/listConsuUsua.jsp</result>
+            <result name="error">/inicio.jsp</result>           
+            <result name="input">/WEB-INF/ACCIONES/ADMIN/USUARIO/listConsuUsua.jsp</result>
+        </action>    
+        <action name="consUsuario" class="co.com.hotel.action.admin.ConsUsuaAction">
+            <result name="success">/WEB-INF/ACCIONES/ADMIN/USUARIO/ConsUsuario.jsp</result>
+        </action>
+        <action name="dirInInsNwPr" class="co.com.hotel.action.admin.InProductosAction">
+            <result name="success">/WEB-INF/ACCIONES/ADMIN/INVENTARIO/ingresoProducto.jsp</result>
+        </action>
+        <action name="dirInInsNwMvIn" class="co.com.hotel.action.admin.InMoviInAccion">
+            <result name="success">/WEB-INF/ACCIONES/ADMIN/INVENTARIO/IngresoMovIn.jsp</result>
+        </action>
+        <!-- Acciones que sirven para ejecutar procesos -->        
+        <action name="cambioContra" class="co.com.hotel.action.admin.InicioAdmin" method="cambioContra">
+            <result name="success">/WEB-INF/ACCIONES/ADMIN/inicio.jsp</result>
+            <result name="error">/WEB-INF/ACCIONES/bienvenidaAdmin.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/bienvenidaAdmin.jsp</result>            
+            <result name="login">/inicio.jsp</result>
+        </action>            
+        <action name="buscaXUsuario" class="co.com.hotel.action.admin.ConsUsuaListaAction" method="consultaXUsua">
+            <result name="success">/WEB-INF/ACCIONES/ADMIN/USUARIO/listConsuUsua.jsp</result>
+            <result name="error">/inicio.jsp</result>           
+            <result name="input">/WEB-INF/ACCIONES/ADMIN/USUARIO/listConsuUsua.jsp</result>
+        </action>
+        <action name="buscaUsuarioAvn" class="co.com.hotel.action.admin.ConsUsuaAction" method="consultaUsuaAvn">
+            <result name="success">/WEB-INF/ACCIONES/ADMIN/USUARIO/listConsuUsua.jsp</result>
+            <result name="error">/inicio.jsp</result>           
+            <result name="input">/WEB-INF/ACCIONES/ADMIN/USUARIO/listConsuUsua.jsp</result>
+        </action>
+        <action name="insertarProductoNuevo" class="co.com.hotel.action.admin.InProductosAction" method="ingresoProductoNuevo">
+            <result name="success">/WEB-INF/ACCIONES/ADMIN/INVENTARIO/ingresoProducto.jsp</result>
+            <result name="input"  >/WEB-INF/ACCIONES/ADMIN/INVENTARIO/ingresoProducto.jsp</result>
+        </action>              
+        <action name="inv_InsReferencia" class="co.com.sigemco.alfa.inventario.action.ReferenciaAction" method="insertar">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertReferencia.jsp</result>
+            <result name="input"  >/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertReferencia.jsp</result>
+        </action>              
+        <action name="inv_ConReferencia" class="co.com.sigemco.alfa.inventario.action.ReferenciaAction" method="consultaReferencias">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsReferencia.jsp</result>
+            <result name="input"  >/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsReferencia.jsp</result>
+        </action>              
+        <action name="inv_conUpdReferencia" class="co.com.sigemco.alfa.inventario.action.ReferenciaAction" method="consultaReferenciaEspecifica">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/inv_conUpdReferencia.jsp</result>
+            <result name="input"  >/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/inv_conUpdReferencia.jsp</result>
+        </action>              
+        <action name="inv_UpdReferencia" class="co.com.sigemco.alfa.inventario.action.ReferenciaAction" method="actualizaReferencia">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/inv_conUpdReferencia.jsp</result>
+            <result name="input"  >/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/inv_conUpdReferencia.jsp</result>
+        </action>              
+    </package>
+</struts> 

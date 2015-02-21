@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : sistema.xml
+    Created on : 15 de Febrero del 2014
+    Author     : Nicolas Sierra
+    Description: Archivo de configuracion de Struts2 para manejo de peticiones por autenticacion.
+-->
+
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="contabilidad" namespace="/" extends="struts-default">  
+        <interceptors>
+            <interceptor name="iterceptorAtuenticacion" class="co.com.hotel.validadores.InterAutenticacion" />
+            <interceptor-stack name="secureStack">
+                <interceptor-ref name="iterceptorAtuenticacion" />
+                <interceptor-ref name="defaultStack" />
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="secureStack" />
+
+        <global-results>
+            <result name="login" type="redirect">/inicio.jsp</result>
+            <result name="exception">/exception.jsp</result>
+        </global-results> 
+        
+        <global-exception-mappings>
+            <exception-mapping exception="java.sql.SQLException" result="exception"/>
+            <exception-mapping exception="java.lang.Exception" result="exception"/>
+            <exception-mapping exception="java.io.IOException" result="exception"/>
+        </global-exception-mappings> 
+        <!-- REENVIO GENERAL DE LA APLICACION MODULO CONTABLE  -->
+        <action name="buscaGruposXClase" class="co.com.sigemco.alfa.contabilidad.action.ClaseAction" method="buscaGruposPorClase" >
+            <result name="success">/WEB-INF/ACCIONES/CONTABILIDAD/CONSULTA/Con_ConsGenGrupos.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/CONTABILIDAD/CONSULTA/Con_ConsGenGrupos.jsp</result>
+        </action>
+        <action name="buscaCuentasXGrup" class="co.com.sigemco.alfa.contabilidad.action.GrupoAction" method="buscarCuentasXGrupo" >
+            <result name="success">/WEB-INF/ACCIONES/CONTABILIDAD/CONSULTA/Con_ConsGenCuenta.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/CONTABILIDAD/CONSULTA/Con_ConsGenCuenta.jsp</result>
+        </action>
+        <action name="buscaSubCuentasXCuen" class="co.com.sigemco.alfa.contabilidad.action.CuentaAction" method="buscarSubCuentaXCuenta" >
+            <result name="success">/WEB-INF/ACCIONES/CONTABILIDAD/CONSULTA/Con_ConsGenSubCuentas.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/CONTABILIDAD/CONSULTA/Con_ConsGenCuenta.jsp</result>
+        </action>
+        <action name="insertSubCuenta" class="co.com.sigemco.alfa.contabilidad.action.SubCuentaAction" method="guadaDatos" >
+            <result name="success">/WEB-INF/ACCIONES/CONTABILIDAD/CREACION/Con_InsertSubCuentas.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/CONTABILIDAD/CREACION/Con_InsertSubCuentas.jsp</result>
+        </action>
+        <action name="Con_InsertSubCuentas" class="co.com.sigemco.alfa.contabilidad.action.SubCuentaAction" method="insertSubCuenta" >
+            <result name="success">/WEB-INF/ACCIONES/CONTABILIDAD/CONSULTA/Con_ConsGenSubCuentas.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/CONTABILIDAD/CONSULTA/Con_ConsGenSubCuentas.jsp</result>
+        </action>
+    </package>
+</struts>

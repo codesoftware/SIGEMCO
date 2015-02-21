@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : sistema.xml
+    Created on : 15 de Febrero del 2014
+    Author     : Nicolas Sierra
+    Description: Archivo de configuracion de Struts2 para manejo de peticiones por autenticacion.
+-->
+
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="facturacion" namespace="/" extends="struts-default">  
+        <interceptors>
+            <interceptor name="iterceptorAtuenticacion" class="co.com.hotel.validadores.InterAutenticacion" />
+            <interceptor-stack name="secureStack">
+                <interceptor-ref name="iterceptorAtuenticacion" />
+                <interceptor-ref name="defaultStack" />
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="secureStack" />
+
+        <global-results>
+            <result name="login" type="redirect">/inicio.jsp</result>
+            <result name="exception">/exception.jsp</result>
+        </global-results> 
+        
+        <global-exception-mappings>
+            <exception-mapping exception="java.sql.SQLException" result="exception"/>
+            <exception-mapping exception="java.lang.Exception" result="exception"/>
+            <exception-mapping exception="java.io.IOException" result="exception"/>
+        </global-exception-mappings> 
+        <!-- REENVIO GENERAL DE LA APLICACION MODULO DE FACTURACION  -->
+        <!--        
+        <action name="Fac_BuscaHabitaciones" class="co.com.hotel.action.facturacion.Fact_FacturacionAction" method="buscaHabitacion">
+            <result name="error">/WEB-INF/ACCIONES/FACTURACION/CREACION/Fac_ReservaHabitacion.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/FACTURACION/CREACION/Fac_ReservaHabitacion.jsp</result>
+            <result name="success">/WEB-INF/ACCIONES/FACTURACION/CREACION/Fac_ReservaHabitacion.jsp</result>
+        </action>
+        <action name="Fac_DetalleReservasHabitacion" class="co.com.hotel.action.facturacion.Fact_DetalleHabitacionesAction" method="DetalleReservasHabitacion">
+            <result name="error">/WEB-INF/ACCIONES/FACTURACION/CONSULTA/Fac_ConDetalleRsvXHabitacion.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/FACTURACION/CONSULTA/Fac_ConDetalleRsvXHabitacion.jsp</result>
+            <result name="success">/WEB-INF/ACCIONES/FACTURACION/CONSULTA/Fac_ConDetalleRsvXHabitacion.jsp</result>
+        </action>
+        <action name="Fac_ReservarHabitaciones" class="co.com.hotel.action.facturacion.Fact_DetalleHabitacionesAction" method="ReservarHabitaciones">
+            <result name="error">/WEB-INF/ACCIONES/FACTURACION/CREACION/Fac_ReservaHabitacion.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/FACTURACION/CREACION/Fac_ReservaHabitacion.jsp</result>
+            <result name="success">/WEB-INF/ACCIONES/FACTURACION/CONSULTA/Fac_ResultadoCreacionFact.jsp</result>
+        </action>
+        <action name="Fact_AprobarFactura" class="co.com.hotel.action.facturacion.Fact_DetalleHabitacionesAction" method="AprobacionFactura">
+            <result name="error">/WEB-INF/ACCIONES/FACTURACION/CONSULTA/Fac_ResultadoCreacionFact.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/FACTURACION/CONSULTA/Fac_ResultadoCreacionFact.jsp</result>
+            <result name="success">/WEB-INF/ACCIONES/FACTURACION/CONSULTA/Fac_ResultadoCreacionFact.jsp</result>
+        </action>
+        <action name="Fact_buscaFactura" class="co.com.hotel.action.facturacion.Fact_GestionFacturaAction" method="buscaFacturas">
+            <result name="error">/WEB-INF/ACCIONES/FACTURACION/MODIFICAR/Fact_ModificacionFactura.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/FACTURACION/MODIFICAR/Fact_ModificacionFactura.jsp</result>
+            <result name="success">/WEB-INF/ACCIONES/FACTURACION/MODIFICAR/Fact_ModificacionFactura.jsp</result>
+        </action>
+        <action name="Fact_BuscaFacEspecificaGestion" class="co.com.hotel.action.facturacion.Fact_GestionFacturaAction" method="buscaFacturaEspecifica">
+            <result name="error">/WEB-INF/ACCIONES/FACTURACION/MODIFICAR/Fact_GestionFacturacion.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/FACTURACION/MODIFICAR/Fact_GestionFacturacion.jsp</result>
+            <result name="success">/WEB-INF/ACCIONES/FACTURACION/MODIFICAR/Fact_GestionFacturacion.jsp</result>
+        </action>
+        <action name="Fact_BuscaFacEspecificaGestion" class="co.com.hotel.action.facturacion.Fact_GestionFacturaAction" method="buscaFacturaEspecifica">
+            <result name="error">/WEB-INF/ACCIONES/FACTURACION/MODIFICAR/Fact_GestionFacturacion.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/FACTURACION/MODIFICAR/Fact_GestionFacturacion.jsp</result>
+            <result name="success">/WEB-INF/ACCIONES/FACTURACION/MODIFICAR/Fact_GestionFacturacion.jsp</result>
+        </action>-->
+        <action name="Fac_consCliente" class="co.com.sigemco.alfa.facturacion.action.ClienteAction" method="consultaClienteIniFactura">
+            <result name="inexistente">/WEB-INF/ACCIONES/FACTURACION/CREACION/Fac_InsertCliFactura.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/FACTURACION/CREACION/Fac_InsertCliFactura.jsp</result>
+            <result name="success">/WEB-INF/ACCIONES/FACTURACION/MODIFICAR/Fact_GestionFacturacion.jsp</result>
+        </action>
+        <action name="Fac_nuevoCliente" class="co.com.sigemco.alfa.facturacion.action.ClienteAction" method="insertarCliente">
+            <result name="error">/WEB-INF/ACCIONES/FACTURACION/CREACION/Fac_InsertCliFactura.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/FACTURACION/CREACION/Fac_InsertCliFactura.jsp</result>
+            <result name="success">/WEB-INF/ACCIONES/FACTURACION/MODIFICAR/Fact_GestionFacturacion.jsp</result>
+        </action>
+    </package>
+</struts>

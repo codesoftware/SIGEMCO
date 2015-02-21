@@ -1,0 +1,113 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!-- Author: nicolas -->
+ 
+<struts>
+    <package name="inventarios" namespace="/" extends="struts-default">  
+        <interceptors>
+            <interceptor name="iterceptorAtuenticacion" class="co.com.hotel.validadores.InterAutenticacion" />
+            <interceptor-stack name="secureStack">
+                <interceptor-ref name="iterceptorAtuenticacion" />
+                <interceptor-ref name="defaultStack" />
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="secureStack" />
+
+        <global-results>
+            <result name="login" type="redirect">/inicio.jsp</result>
+            <result name="exception">/exception.jsp</result>
+        </global-results> 
+        <global-exception-mappings>
+            <exception-mapping exception="java.sql.SQLException" result="exception"/>
+            <exception-mapping exception="java.lang.Exception" result="exception"/>
+            <exception-mapping exception="java.io.IOException" result="exception"/>
+        </global-exception-mappings> 
+        <action name="inv_insertProducto" class="co.com.hotel.action.inventarios.Inv_ProductoAccion" method="insertar">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Adm_InsertProducto.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Adm_InsertProducto.jsp</result>
+        </action>
+        <!-- Consulta la cual se utiliza por medio del codigo del producto traer su demas informacion para adicionar preoductos al inventario--> 
+        <action name="inv_consPrIndAddExistente" class="co.com.hotel.action.inventarios.Inv_ProdAccion" method="consultaIndividual">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Adm_AddProdExistentes.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Adm_AddProdExistentes.jsp</result>
+        </action>
+        <action name="inv_addProdExstInv" class="co.com.hotel.action.inventarios.Inv_ProdAccion" method="addProdExisInv">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Adm_AddProdExistentes.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Adm_AddProdExistentes.jsp</result>
+        </action>
+        <action name="inv_consProdPorFiltro" class="co.com.hotel.action.inventarios.Inv_ProdAccion" method="consultaProdXFiltroIndv">
+            <result name="success">/WEB-INF/ACCIONES/REPORTES/JSP/inv_reporteinventario.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/REPORTES/JSP/inv_reporteinventario.jsp</result>
+        </action>
+        <action name="inv_consProdPorFiltrosGen" class="co.com.sigemco.alfa.inventario.action.ProductoAction" method="consultaGenXFiltros">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsProducto.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsProducto.jsp</result>
+        </action>
+        <action name="rep_PromPonderado" class="co.com.hotel.action.reportes.Rep_ReportesAcciones">
+            <result name="success">/WEB-INF/ACCIONES/popUp/promedioPonderado.jsp</result>
+        </action>
+        <action name="inv_consGenServ" class="co.com.hotel.action.inventarios.Inv_ServAccion" method="consGeneralServ">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsGenServ.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsGenServ.jsp</result>
+        </action>
+        <action name="inv_UpdProducto" class="co.com.hotel.action.inventarios.Inv_ProdAccion" method="actualizaProducto">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_UpdProducto.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_UpdProducto.jsp</result>            
+        </action>
+        <action name="adm_updServicio" class="co.com.hotel.action.inventarios.Inv_ServicioAccion" method="updateServicio">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_UpdServicio.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_UpdServicio.jsp</result>            
+        </action>
+        <action name="inv_ConsultaServ" class="co.com.hotel.action.inventarios.Inv_PrecioSvAccion" method="consultaServicio">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_ParPrecios.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_ParPrecios.jsp</result>            
+        </action>
+        <action name="inv_ParamPrecioSv" class="co.com.hotel.action.inventarios.Inv_PrecioSvAccion" method="paramPrecioSv">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_ParPrecios.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_ParPrecios.jsp</result>            
+        </action>
+        <action name="inv_BuscaProducto" class="co.com.hotel.action.inventarios.Inv_PreciosPrAccion" method="buscaProductoEspecifico">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_ParPrecioProd.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_ParPrecioProd.jsp</result>            
+        </action>
+        <action name="inv_ParamPrecioPr" class="co.com.hotel.action.inventarios.Inv_PreciosPrAccion" method="paramPrecioPr">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_ParPrecioProd.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_ParPrecioProd.jsp</result>            
+        </action>
+        <action name="inv_addMovInventario" class="co.com.hotel.action.admin.InMoviInAccion" method="insertarMovimientoInventario">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_AddMovInventario.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_AddMovInventario.jsp</result>            
+        </action>
+        <action name="inv_consMovInventario" class="co.com.hotel.action.admin.InMoviInAccion" method="consultaGeneralXFiltros">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsGenMvInv.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsGenMvInv.jsp</result>            
+        </action>
+        <action name="inv_conUpdInventario" class="co.com.hotel.action.admin.InMoviInAccion" method="consultaActualizaMovimientoInv">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_UpdMovInventario.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_UpdMovInventario.jsp</result>            
+        </action>
+        <action name="inv_UpdMvInventario" class="co.com.hotel.action.admin.InMoviInAccion" method="ActualizaMovimientoInv">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_UpdMovInventario.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_UpdMovInventario.jsp</result>            
+        </action>
+        <action name="inv_insCelular" class="co.com.sigemco.alfa.inventario.action.RemisionAction" method="insertarRemision">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertCelulares.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertCelulares.jsp</result>            
+        </action>
+        <action name="inv_consRemPorFiltrosGen" class="co.com.sigemco.alfa.inventario.action.RemisionAction" method="consultaGeneralRem">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsGenRemision.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsGenRemision.jsp</result>
+        </action>        
+        <action name="inv_ConCelular" class="co.com.sigemco.alfa.inventario.action.RemisionAction" method="consultaEspecificaCelular">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/inv_UpdCelular.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/inv_UpdCelular.jsp</result>
+        </action>        
+        <action name="inv_UpdCelular" class="co.com.sigemco.alfa.inventario.action.RemisionAction" method="actualizaEspecificoCelular">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/inv_UpdCelular.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/inv_UpdCelular.jsp</result>
+            
+        </action>        
+    </package>
+</struts>

@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="539" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" uuid="34e003fa-ee7e-4242-b131-51453ec314c8">
+	<property name="ireport.zoom" value="1.2100000000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="56"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="detalleFactura" uuid="f7806324-ea9b-43d4-a92f-18a348e4b764">
+		<parameter name="fact_id" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[select *
+from (select dtsv_dtsv id,
+       1 cantidad, 
+       'Alquiler habitacion No. ' || dsha_num_hab ||' por ' || rvha_num_dias || ' dias'  descripcion , 
+       to_char(dtsv_valor_sv,'LFM9,999,999.99') valorUni, 
+       to_char(dtsv_valor_venta,'LFM9,999,999.99') valorTotal
+from fa_tdtsv, in_trvha, in_tdsha
+where dtsv_rvha = rvha_rvha
+and dtsv_fact = $P{fact_id}
+and dtsv_estado = 'A'
+and rvha_dsha = dsha_dsha
+order by id)tabla1
+UNION ALL
+select *
+from (select dtpr_dtpr id,
+       dtpr_num_prod numProd, 
+       'Compra de ' || dska_desc nomProd, 
+       to_char(dtpr_vl_uni_prod,'LFM9,999,999.99'), 
+       to_char(dtpr_valor_pr,'LFM9,999,999.99')
+from fa_tdtpr, in_tdska
+where dska_dska = dtpr_dska
+and dtpr_fact = $P{fact_id}
+order by id)tabla2]]>
+		</queryString>
+		<field name="id" class="java.lang.Integer"/>
+		<field name="cantidad" class="java.lang.Integer"/>
+		<field name="descripcion" class="java.lang.String"/>
+		<field name="valoruni" class="java.lang.String"/>
+		<field name="valortotal" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="fact_fact" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[105]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'NIT') NIT,  
+       (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'NOMBREEMPRESA') NOMBRE,
+       (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'TELEFONOS') TELEFONOS,
+       (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'DIRECCION') DIRECCION,
+       (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'CIUDAD') CIUDAD,
+       fa.fact_fact numFactura,
+       pe.pers_apellido || ' ' ||pe.pers_nombre nombCliente,
+       pe.pers_tel telefonoCliente,
+       pe.pers_cedula cedula_cliente,
+       to_char(fact_fec_ini, 'dd/mm/yyyy') fecha,
+       (select pu.pers_apellido || ' ' ||pu.pers_nombre from us_tpers pu, us_ttius tu where fa.fact_tius = tu.tius_tius and tius_pers = pers_pers )atendidoPor,
+       to_char(fact_vlr_total,'LFM9,999,999.99') neto,
+       to_char(fact_vlr_iva,'LFM9,999,999.99') iva,
+       to_char(fact_vlr_total+fact_vlr_iva,'LFM9,999,999.99') total
+FROM fa_tfact fa, us_tclien cl, us_tpers pe
+WHERE cl.clien_clien = fa.fact_clien
+AND pe.pers_pers = cl.clien_pers
+AND fa.fact_fact = $P{fact_fact}]]>
+	</queryString>
+	<field name="nit" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="telefonos" class="java.lang.String"/>
+	<field name="direccion" class="java.lang.String"/>
+	<field name="ciudad" class="java.lang.String"/>
+	<field name="numfactura" class="java.lang.Integer"/>
+	<field name="nombcliente" class="java.lang.String"/>
+	<field name="telefonocliente" class="java.lang.String"/>
+	<field name="cedula_cliente" class="java.lang.String"/>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="atendidopor" class="java.lang.String"/>
+	<field name="neto" class="java.lang.String"/>
+	<field name="iva" class="java.lang.String"/>
+	<field name="total" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="160" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="539" height="160" uuid="4e54b90b-d609-4061-8b44-566894a79e6d"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<staticText>
+					<reportElement x="1" y="0" width="537" height="40" forecolor="#000000" backcolor="#999999" uuid="06de2101-ec05-4c05-8a87-a3f733bd5a4d"/>
+					<box>
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[FACTURA DE VENTA]]></text>
+				</staticText>
+				<frame>
+					<reportElement x="180" y="40" width="359" height="60" uuid="8ff214f9-fe1d-4e18-858b-98c7c164a7c9"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<staticText>
+						<reportElement x="0" y="0" width="100" height="20" uuid="1f36ce72-8c83-49ee-af86-e5ead3cb9170"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font size="11" isBold="true"/>
+						</textElement>
+						<text><![CDATA[NIT:]]></text>
+					</staticText>
+					<textField>
+						<reportElement x="112" y="0" width="244" height="20" uuid="1cd919d4-8a23-4421-a196-c86c0aa4b83d"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{nit}]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement x="0" y="20" width="100" height="20" uuid="19eef21e-8f67-479d-836a-551e0dc8f151"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font size="11" isBold="true"/>
+						</textElement>
+						<text><![CDATA[FACTURA NO.:]]></text>
+					</staticText>
+					<textField>
+						<reportElement x="112" y="21" width="244" height="20" uuid="0b286ad6-4763-40df-8ac9-7116fe9b9bdd"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{numfactura}]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement x="0" y="40" width="100" height="20" uuid="439eb53a-f990-4399-a4c4-e26e13bc4c0a"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font size="11" isBold="true"/>
+						</textElement>
+						<text><![CDATA[ATENDIDO POR:]]></text>
+					</staticText>
+					<textField>
+						<reportElement x="112" y="40" width="244" height="20" uuid="6e50691d-e994-4b70-996f-38340473b114"/>
+						<textElement verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA[$F{atendidopor}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<frame>
+					<reportElement x="0" y="40" width="180" height="60" uuid="7c32a41e-d187-4a0d-9dc8-38ccd468b9d0"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textField>
+						<reportElement x="0" y="0" width="180" height="40" uuid="1cc36072-bd09-4f09-898e-bbef04b46e91"/>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font size="14" isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="0" y="40" width="90" height="19" uuid="8f9afa85-f22e-4bbe-beb9-3d1e730af8b3"/>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font size="8"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{telefonos}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="90" y="40" width="90" height="19" uuid="c1c50078-0b81-499d-903f-1266a215257f"/>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font size="8"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{direccion}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<frame>
+					<reportElement x="0" y="100" width="538" height="60" uuid="127bef2e-6a70-47ac-b85d-6cc579301869"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<staticText>
+						<reportElement x="0" y="0" width="536" height="20" uuid="71fcbc12-83a3-4bae-aacb-5baa00cb31f7"/>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font size="14" isBold="true"/>
+						</textElement>
+						<text><![CDATA[DATOS DEL CLIENTE]]></text>
+					</staticText>
+					<staticText>
+						<reportElement x="1" y="20" width="100" height="20" uuid="a2904330-a450-4e1a-82de-7b94307c4298"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font size="12" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Nombre:  ]]></text>
+					</staticText>
+					<staticText>
+						<reportElement x="1" y="40" width="100" height="20" uuid="329779ec-3362-4ea4-91d2-58c53a6df906"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font size="12" isBold="true"/>
+						</textElement>
+						<text><![CDATA[ Cedula:  ]]></text>
+					</staticText>
+					<textField>
+						<reportElement x="101" y="20" width="435" height="20" uuid="7b86b3d7-12a7-4575-9476-98ab86ad64a8"/>
+						<textElement verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA[$F{nombcliente}]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement x="280" y="40" width="65" height="20" uuid="43927be2-2059-49f2-b250-52c947482070"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font size="12" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Telefono:]]></text>
+					</staticText>
+					<textField>
+						<reportElement x="345" y="40" width="191" height="20" uuid="d7b30cd0-1f4a-492d-8ccf-f29a14e571f4"/>
+						<textElement verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA[$F{telefonocliente}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="101" y="40" width="179" height="20" uuid="1c28dfc4-78d0-441d-8bdc-14c84a51805a"/>
+						<textElement verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA[$F{cedula_cliente}]]></textFieldExpression>
+					</textField>
+				</frame>
+			</frame>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="50" splitType="Stretch">
+			<componentElement>
+				<reportElement key="table 2" style="table 2" x="0" y="0" width="539" height="50" uuid="21d72cf4-9040-4d8b-946e-59a3de5a8664"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="detalleFactura" uuid="4bb61ace-2fd2-4670-80b9-4ab1b0c932d2">
+						<datasetParameter name="fact_id">
+							<datasetParameterExpression><![CDATA[$P{fact_fact}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="ed939577-43cb-40ac-a285-124001c83873">
+						<jr:columnHeader style="table" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="a99d927b-306a-47b2-8a61-9973f11d0d16"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[CANTIDAD]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="8793e55c-e36e-4559-8b8b-86ccf9aa946c"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="200" uuid="fff5757d-300c-48d7-af90-a0591db337e6">
+						<jr:columnHeader style="table" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="200" height="30" uuid="58ea2087-5b72-4f72-bbbc-93a219f708f0"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[DESCRIPCIÓN]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="10" y="0" width="190" height="20" uuid="a18ceb7e-2d75-4f35-b77c-44e5d34bc62d"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="124" uuid="4ddb4035-9fab-4730-81b0-9ab1b4ad2e96">
+						<jr:columnHeader style="table" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="124" height="30" uuid="40c4956b-a42f-4448-9a14-7e87651c9615"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[VALOR UNITARIO]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="124" height="20" uuid="e27e44c8-ab3e-483a-a6b6-df7f8d29a710"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{valoruni}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="124" uuid="a951819a-6b50-4788-8fac-fa0f61936d32">
+						<jr:columnHeader style="table" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="124" height="30" uuid="30295d20-cd2f-4cf4-bac2-6034d67db8a6"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[VALOR TOTAL]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="124" height="20" uuid="bb086bfc-279f-4a12-b6f2-106a5e8f436a"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{valortotal}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<summary>
+		<band height="60" splitType="Stretch">
+			<frame>
+				<reportElement x="281" y="0" width="258" height="60" uuid="e29ce9b3-5bfd-43b5-9d55-aaf8c7ee3020"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<staticText>
+					<reportElement x="31" y="0" width="80" height="20" uuid="7d69dc23-2649-4d2c-bd14-22815fc64c25"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[NETO:  ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="31" y="20" width="80" height="20" uuid="c4bc6bf3-3151-4811-8ebb-92f91acd2060"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[I.V.A:  ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="31" y="40" width="80" height="20" uuid="2556a881-e694-477b-9acb-df5657b6302c"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TOTAL:  ]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="154" y="0" width="101" height="20" uuid="30fc6112-bcba-4404-b339-81849939bafc"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{neto}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="154" y="20" width="101" height="20" uuid="0613f20f-bade-4993-9064-7bde40092db5"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{iva}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="154" y="40" width="101" height="20" uuid="a04154c6-e329-49b4-9270-6848b4ecd869"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="111" y="0" width="43" height="20" uuid="aa528d85-57e7-44dc-8689-68fe6a4345b3"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[  ........]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="111" y="20" width="43" height="20" uuid="cb17e94d-89d1-477a-8752-dd0632ce07bf"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[  ........]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="111" y="40" width="43" height="20" uuid="9e52cc4b-f49d-43f8-8702-67a666c64c3c"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[  ........]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</summary>
+</jasperReport>

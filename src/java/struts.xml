@@ -1,0 +1,33 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <!-- Configuration for the default package. -->
+    <package name="default" extends="struts-default">
+        <action name="recuperarContra">
+            <result>/RECUPERACONTRA/recuperarContra.jsp</result>            
+        </action>        
+        <action name="logout" class="co.com.hotel.action.general.LoginAction" method="logout">
+            <result name="success">/inicio.jsp</result>
+        </action>
+        <action name="inicio">
+            <result>/inicio.jsp</result>
+        </action>
+        <action name="recupera" class="co.com.hotel.action.general.RecuperarContrasena">
+            <result name="success">/RECUPERACONTRA/recuperaSuccess.jsp</result>
+            <result name="error">/RECUPERACONTRA/recuperaError.jsp</result>
+        </action>
+        <action name="logeo" class="co.com.hotel.action.general.LoginAction">
+            <result name="administrador">/WEB-INF/ACCIONES/bienvenidaAdmin.jsp</result>            
+            <result name="cajero">/WEB-INF/ACCIONES/bienvenidaCajero.jsp</result>
+            <result name="error">/inicio.jsp</result>
+        </action>        
+    </package>
+    <include file="sistema.xml" />
+    <include file="admin.xml" />
+    <include file="facturacion.xml" /> 
+    <include file="inventarios.xml" /> 
+    <include file="report.xml" /> 
+    <include file="contabilidad.xml" />
+</struts>
