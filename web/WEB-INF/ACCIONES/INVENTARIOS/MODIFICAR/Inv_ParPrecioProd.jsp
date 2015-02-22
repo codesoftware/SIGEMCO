@@ -55,7 +55,7 @@
                                 </tr>
                                 <tr>
                                     <td>Codigo del Producto</td>
-                                    <td><s:textfield name="producto.codigo" id="codigoProd" cssClass="form-control" onkeyup="remplazaGuion(this.value,'codigoProd');validar(event)" /></td>
+                                    <td><s:textfield name="producto.codigo" id="codigoProd" cssClass="form-control" onkeyup="remplazaGuion(this.value,'codigoProd');validarEnter(event,'1')" /></td>
                                 </tr>
                             </tbody>
                             <tfoot>

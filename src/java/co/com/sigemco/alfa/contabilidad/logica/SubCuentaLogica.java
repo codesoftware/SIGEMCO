@@ -84,6 +84,63 @@ public class SubCuentaLogica {
     }
 
     /**
+     * Funcion encargada de validar la existencia de una subcuenta
+     *
+     * @param sbcu_codigo
+     * @return
+     */
+    public String validaExistenciaSubCuenta(String sbcu_codigo) {
+        String rta = "";
+        try (EnvioFunction function = new EnvioFunction()) {
+            SubCuentaDao objDao = new SubCuentaDao();
+            objDao.setSbcu_codigo(sbcu_codigo);
+            ResultSet rs = function.enviarSelect(objDao.validaSubcuenta());
+            if (rs.next()) {
+                rta = "" + rs.getString("valida");
+            } else {
+                rta = "Error";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            rta = "Error SubCuentaLogica.validaExistenciaSubCuenta " + e;
+        }
+        return rta;
+    }
+
+    /**
+     * Funcion encargada de realizar la busqueda de una subcuenta por medio de
+     * su codigo
+     *
+     * @param sbcu_codigo
+     * @return
+     */
+    public SubCuentaDto buscaSubcuentaXCodigo(String sbcu_codigo) {
+        SubCuentaDto objDto = null;
+        try (EnvioFunction function = new EnvioFunction()) {
+            SubCuentaDao objDao = new SubCuentaDao();
+            objDao.setSbcu_codigo(sbcu_codigo);
+            ResultSet rs = function.enviarSelect(objDao.buscaSubCuentaXCodigo());
+            if (rs.next()) {
+                objDto = new SubCuentaDto();
+                objDto.setSbcu_sbcu(rs.getString("SBCU_SBCU"));
+                objDto.setSbcu_cuen(rs.getString("SBCU_CUEN"));
+                objDto.setSbcu_clas(rs.getString("SBCU_CLAS"));
+                objDto.setSbcu_grup(rs.getString("SBCU_GRUP"));
+                objDto.setSbcu_estado(rs.getString("SBCU_ESTADO"));
+                objDto.setSbcu_nombre(rs.getString("SBCU_NOMBRE"));
+                objDto.setSbcu_codigo(rs.getString("SBCU_CODIGO"));
+                objDto.setSbcu_descripcion(rs.getString("SBCU_DESCRIPCION"));
+                objDto.setSbcu_naturaleza(rs.getString("SBCU_NATURALEZA"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            objDto = null;
+        }
+        return objDto;
+    }
+
+    /**
      * Funcion encargada de poblar del dao de SubCuentas con el Dto de
      * SubCuentas
      *
@@ -92,7 +149,7 @@ public class SubCuentaLogica {
      */
     public SubCuentaDao poblarDao(SubCuentaDto objDto) {
         SubCuentaDao objDao = new SubCuentaDao();
-        try {            
+        try {
             objDao.setSbcu_clas(objDto.getSbcu_clas());
             objDao.setSbcu_codigo(objDto.getSbcu_codigo());
             objDao.setSbcu_cuen(objDto.getSbcu_cuen());

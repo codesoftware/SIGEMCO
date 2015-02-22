@@ -17,3 +17,7 @@
     list-style: none;
 }
 
+a{
+    cursor: pointer;
+    cursor: hand;
+}

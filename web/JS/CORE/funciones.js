@@ -167,10 +167,10 @@ function remplazaGuion(valor, id) {
     document.getElementById(id).value = nuevoVal;
 }
 
-function validar(e) {
+function validarEnter(e,valor) {
     tecla = (document.all) ? e.keyCode : e.which;
     if (tecla == 13) {
-        despuesEnter();
+        despuesEnter(valor);
     }
 }
 

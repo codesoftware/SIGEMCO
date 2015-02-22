@@ -34,6 +34,6 @@ function insertarParametro() {
     });
 }
 
-function despuesEnter() {
+function despuesEnter(valor) {
     consultarProd();
 }

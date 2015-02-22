@@ -125,4 +125,36 @@ public class SubCuentaDao {
         sql += "'" + this.getSbcu_descripcion() + "',UPPER('" + this.getSbcu_naturaleza() + "'),'" + this.getSbcu_codigo() + "');";
         return sql;
     }
+
+    /**
+     * Funcion encargada de realizar el Query para validar si existe una sub
+     * cuenta
+     *
+     * @return
+     */
+    public String validaSubcuenta() {
+        String sql = "";
+        sql += "SELECT CASE                                          \n";
+        sql += "            WHEN contador = 0 THEN 'NO'              \n";
+        sql += "            WHEN contador = 1 THEN 'SI'              \n";
+        sql += "            WHEN contador > 1 THEN 'ERROR'           \n";
+        sql += "       END valida                                    \n";
+        sql += "FROM (select count(*) contador from co_tsbcu where sbcu_codigo = '" + this.getSbcu_codigo() + "') tabla \n";
+        return sql;
+    }
+
+    /**
+     * Funcion encargada de retornar un Query para buscar una subcuenta por su
+     * codigo
+     *
+     * @return
+     */
+    public String buscaSubCuentaXCodigo() {
+        String sql = "";
+        sql += "SELECT sbcu_sbcu, sbcu_cuen, sbcu_clas, sbcu_grup, sbcu_estado, sbcu_nombre, \n";
+        sql += "       sbcu_codigo, sbcu_descripcion, sbcu_naturaleza                        \n";
+        sql += "  FROM co_tsbcu                                                              \n";
+        sql += " WHERE sbcu_codigo = '"+ this.getSbcu_codigo() +"'";
+        return sql;
+    }
 }
