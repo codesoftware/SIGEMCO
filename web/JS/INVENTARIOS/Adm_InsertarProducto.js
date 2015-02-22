@@ -64,16 +64,75 @@ function determinaAccionDeCategoria(objeto) {
 function cambioVlr(valor) {
     if (valor == '') {
         $('#vlrTotal').html('0');
+        $('#vlrTotalText').val('0');
     } else {
         $('#vlrTotal').html(valor);
+        $('#vlrTotalText').val(valor);
     }
 
 }
 
+function validaDatosProducto() {
+    var nombre = $('#producto_nombre').val();
+    if (nombre == '') {
+        $('#textoMsn').html('El nombre del producto no puede ser nulo');
+        $('#mensaje').modal('show');
+        return false;
+    }
+    var desc = $('#producto_descripcion').val();
+    if (desc == '') {
+        $('#textoMsn').html('La descripcion del producto no puede ser nulo');
+        $('#mensaje').modal('show');
+        return false;
+    }
+    var ref = $('#producto_referencia').val();
+    if (ref == '') {
+        $('#textoMsn').html('La referencia del producto no puede ser nula');
+        $('#mensaje').modal('show');
+        return false;
+    }
+    var marca = $('#producto_marca').val();
+    if (marca == '') {
+        $('#textoMsn').html('La marca del producto no puede ser nula');
+        $('#mensaje').modal('show');
+        return false;
+    }
+    var cant = $('#producto_cantidad').val();
+    if (cant == '') {
+        $('#textoMsn').html('La cantidad del producto no puede ser nulo');
+        $('#mensaje').modal('show');
+        return false;
+    }
+    var cost = $('#producto_costo').val();
+    if (cost == '') {
+        $('#textoMsn').html('El costo del producto no puede ser nulo');
+        $('#mensaje').modal('show');
+        return false;
+    }
+    var cat = $('#producto_categoria').val();
+    if (cat == '-1') {
+        $('#textoMsn').html('Por Favor seleccione una categoria para el producto');
+        $('#mensaje').modal('show');
+        return false;
+    }
+    var sedes = $('#sedes').val();
+    if (sedes == '-1') {
+        $('#textoMsn').html('Por Favor seleccione una sede para el producto');
+        $('#mensaje').modal('show');
+        return false;
+    }
+
+    return true;
+}
+
 function contabilizar() {
-    $('.datosProd').hide('slow');
-    $('.contabilidad').show('slow');
-    $('#codigo_subcuenta').focus();
+    var datosOk = validaDatosProducto();
+    if (datosOk) {
+        buscaSubCuentasFijas();
+        $('.datosProd').hide('slow');
+        $('.contabilidad').show('slow');
+        $('#codigo_subcuenta').focus();
+    }
 }
 
 function datosProducto() {
@@ -82,8 +141,8 @@ function datosProducto() {
     $('#producto_nombre').focus();
 }
 
-function despuesEnter(valor){
-    if(valor=='1'){
+function despuesEnter(valor) {
+    if (valor == '1') {
         var datos = new Object();
         datos.sbcu_codigo = $('#codigo_subcuenta').val();
         $.ajax({
@@ -92,31 +151,111 @@ function despuesEnter(valor){
             dataType: 'json',
             async: false,
             success: function(data, textStatus, jqXHR) {
-                if(data.respuesta == 'inexistente'){
+                if (data.respuesta == 'inexistente') {
                     $('#textoMsn').html('La subcuenta ingresada es inexistente porfavor parametricela o verifique el codigo');
-                    $('#mensaje').modal('show');  
+                    $('#mensaje').modal('show');
                     $('#tableFacturaCompra').html('');
                     $('#codigo_subcuenta').focus();
-                }else if(data.respuesta == 'error'){
+                } else if (data.respuesta == 'error') {
                     $('#textoMsn').html('Error al realizar la busqueda de la subcuenta por favor verifique e intente de nuevo');
-                    $('#mensaje').modal('show');    
+                    $('#mensaje').modal('show');
                     $('#tableFacturaCompra').html('');
                     $('#codigo_subcuenta').focus();
-                }else{
-                    var linea = '<td>Nombre:</td>'+
-                                '<td>'+data.objeto.sbcu_nombre + '<input type=\"hidden\" id=\"sbcuElegida\" value=\"'+data.objeto.sbcu_sbcu+'\" /></td>';
+                } else {
+                    var linea = '<td>Nombre:</td>' +
+                            '<td>' + data.objeto.sbcu_nombre + '<input type=\"hidden\" id=\"sbcuElegida\" value=\"' + data.objeto.sbcu_sbcu + '\" /></td>';
                     var natu = '';
-                    if(data.objeto.sbcu_naturaleza == 'C'){
+                    if (data.objeto.sbcu_naturaleza == 'C') {
                         natu = 'CREDITO';
-                    }else{
+                    } else {
                         natu = 'DEBITO';
                     }
-                    linea += '<td>Naturaleza:</td>'+
-                             '<td>'+natu+'</td>';
+                    linea += '<td>Naturaleza:</td>' +
+                            '<td>' + natu + '</td>';
                     $('#tableFacturaCompra').html(linea);
                     $('#valorSubCuenta').focus();
                 }
-            }            
-        });        
+            }
+        });
     }
+}
+
+function buscaSubCuentasFijas() {
+    var datos = new Object();
+    datos.tido_nombre = 'FACTCOMPRA';
+    $.ajax({
+        url: RutaSitio + "/AJAX/JSP/ajaxBuscaSubcuentasFijasTipoDocumento.jsp",
+        data: datos,
+        dataType: 'json',
+        async: false,
+        success: function(data, textStatus, jqXHR) {
+            if (data.respuesta == 'Ok') {
+                $.each(data.obj, function(key, value) {
+                    if (value.sbft_porcentaje == null) {
+                        value.sbft_porcentaje = '0';
+                    }
+                    var porcentaje = parseInt(value.sbft_porcentaje);
+                    var vlrTotal = parseInt($('#vlrTotalText').val());
+                    var vlrCuenta = parseInt((vlrTotal * porcentaje) / 100);
+                    adicionaDetalleSubucentasAgregadas(value.sbcu_codigo, vlrCuenta, value.sbcu_naturaleza, 'N', value.sbft_comentario);
+                });
+            } else {
+                //Aqui se hace algo por si no hay nada parametrizado en el sistema
+            }
+
+        }
+    })
+}
+
+/**
+ * 
+ * @param {type} codigo: Codigo con el cual identifica la subcuenta
+ * @param {type} valor:  Valor al cuan le agregara a la cuenta
+ * @param {type} naturaleza: naturaleza por la cual se adicionara al movimiento contable
+ * @param {type} elimina: Indica si se puede eliminar esta fila por el usuario 
+ * @param {type} comentario: Comentario especial esta adicion
+ * @returns {undefined}
+ */
+function adicionaDetalleSubucentasAgregadas(codigo, valor, naturaleza, elimina, comentario) {
+    var datos = new Object();
+    datos.sbcu_codigo = codigo;
+    $.ajax({
+        url: RutaSitio + "/AJAX/JSP/ajaxValidaSubCuenta.jsp",
+        data: datos,
+        dataType: 'json',
+        async: false,
+        success: function(data, textStatus, jqXHR) {
+            if (data.respuesta == 'inexistente') {
+                $('#textoMsn').html('La subcuenta ' + comentario + ' no existe o no esta parametrizada en el sistema por favor revise e intente de nuevo');
+                $('#mensaje').modal('show');
+                $('#tableFacturaCompra').html('');
+                $('#codigo_subcuenta').focus();
+            } else if (data.respuesta == 'error') {
+                $('#textoMsn').html('Error al realizar la busqueda de la subcuenta por favor verifique e intente de nuevo');
+                $('#mensaje').modal('show');
+                $('#tableFacturaCompra').html('');
+                $('#codigo_subcuenta').focus();
+            } else {
+                var natu = '';
+                if (naturaleza == 'C') {
+                    natu = 'CREDITO';
+                } else {
+                    natu = 'DEBITO';
+                }
+                var vlrTotalSuma = parseInt($('#vlrSumCuentasText').val());
+                vlrTotalSuma = vlrTotalSuma + valor;
+                $('#vlrSumCuentasText').val(valor);
+                $('#vlrSumCuentas').html(valor);                
+                var linea = '<tr>' +
+                        '<td>' + data.objeto.sbcu_codigo + '</td>' +
+                        '<td>' + data.objeto.sbcu_nombre + '</td>' +
+                        '<td>' + natu + '</td>' +
+                        '<td> $ ' + valor + '</td>' +
+                        '<td>' + elimina + '</td>' +
+                        '</tr>';                
+                $('#subcuentasAdicionadas').append(linea);
+            }
+        }
+    });
+
 }

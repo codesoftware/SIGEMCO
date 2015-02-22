@@ -33,7 +33,8 @@ public class SubCuentaLogica {
         SubCuentaDao objDao = null;
         try (EnvioFunction function = new EnvioFunction();) {
             objDao = new SubCuentaDao();
-            ResultSet rs = function.enviarSelect(objDao.subCuentasXIdCuenta(cuen_cuen));
+            objDao.setSbcu_cuen(cuen_cuen);
+            ResultSet rs = function.enviarSelect(objDao.subCuentasXIdCuenta());
             while (rs.next()) {
                 if (rta == null) {
                     rta = new ArrayList<SubCuentaDto>();
@@ -138,6 +139,35 @@ public class SubCuentaLogica {
             objDto = null;
         }
         return objDto;
+    }
+
+    /**
+     * Funcion encargada de buscar las subcuentas fijas por cada tipo de
+     * documento
+     *
+     * @param tido_nombre
+     * @return
+     */
+    public List<SubCuentaDto> buscaSubCuentasFijasPorTipoDocumento(String tido_nombre) {
+        List<SubCuentaDto> rta = null;
+        try (EnvioFunction function = new EnvioFunction()) {
+            SubCuentaDao objDao = new SubCuentaDao();
+            ResultSet rs = function.enviarSelect(objDao.buscaSubCuentasFijas(tido_nombre));
+            while (rs.next()) {
+                if (rta == null) {
+                    rta = new ArrayList<SubCuentaDto>();
+                }
+                SubCuentaDto aux = new SubCuentaDto();
+                aux.setSbcu_codigo(rs.getString("sbcu_codigo"));
+                aux.setSbft_porcentaje(rs.getString("sbft_porcentaje"));
+                aux.setSbft_comentario(rs.getString("sbft_comentario"));
+                aux.setSbcu_naturaleza(rs.getString("sbft_naturaleza"));
+                rta.add(aux);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rta;
     }
 
     /**

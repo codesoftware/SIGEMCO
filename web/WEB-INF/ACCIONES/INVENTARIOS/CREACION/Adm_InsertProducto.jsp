@@ -84,7 +84,7 @@
                                 </tr>
                                 <tr>
                                     <td>Cantidad:</td>
-                                    <td><s:textfield name="producto.cantidad" requiered="true" cssClass="form-control" id="producto_cantidad" /></td>
+                                    <td><s:textfield name="producto.cantidad" requiered="true" cssClass="form-control" id="producto_cantidad" onkeypress="return validaNumeros(event)" /></td>
                                 </tr>
                                 <tr>
                                     <td>Costo:</td>
@@ -140,14 +140,14 @@
                             <tbody>
                                 <tr>
                                     <td style="width: 15%">Valor Total:</td>
-                                    <td style="width: 35%">$ <span id="vlrTotal">0</span></td>
+                                    <td style="width: 35%">$ <span id="vlrTotal">0</span><input type="hidden" id="vlrTotalText" /></td>
                                     <td style="width: 15%">Suma SubCuentas:</td>
-                                    <td style="width: 35%">$ <span id="vlrSumCuentas">0</span></td>
+                                    <td style="width: 35%">$ <span id="vlrSumCuentas">0</span><input type="hidden" id="vlrSumCuentasText" value="0"/></td>
                                 </tr>
                                 <tr>
                                     <td>SubCuenta</td>
                                     <td>
-                                        <input type="text" class="form-control" id="codigo_subcuenta" onkeyup="validarEnter(event, '1')" />
+                                        <input type="text" class="form-control" id="codigo_subcuenta" onkeyup="validarEnter(event, '1')" onblur="despuesEnter('1')"/>
                                     </td>
                                     <td>
                                         Valor:
@@ -155,7 +155,7 @@
                                     <td>
                                         <div class="input-group">
                                             <span class="input-group-addon">$</span>
-                                            <input type="text" id="valorSubCuenta" >
+                                            <input type="text" id="valorSubCuenta" class="form-control">
                                         </div>
                                     </td>
                                 </tr>    
@@ -179,24 +179,25 @@
                                 </tr>
                             </tfoot>
                         </table>
-                        <table class="table">
+                        <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th class="alert alert-info text-center" colspan="4">CUENTAS AGREGADAS</th>
+                                    <th class="alert alert-info text-center" colspan="5">CUENTAS AGREGADAS</th>
                                 </tr>
                                 <tr class="alert alert-success">
                                     <th>COD SUBCUENTA</th>
                                     <th>DESCRIPCION </th>
                                     <th>NATURALEZA</th>
                                     <th>VALOR</th>
+                                    <th>ELIMINA</th>
                                 </tr>
                             </thead> 
-                            <tbody>
+                            <tbody id="subcuentasAdicionadas">
 
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="4" style="text-align: right;">
+                                    <td colspan="5" style="text-align: right;">
                                         <s:include value="/WEB-INF/TEMPLATE/botones/add.jsp" > 
                                             <s:param name="function">insertar</s:param>
                                             <s:param name="title">Insertar el producto al inventario</s:param>

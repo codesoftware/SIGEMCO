@@ -100,12 +100,12 @@ public class SubCuentaDao {
      * @param cuen_cuen
      * @return
      */
-    public String subCuentasXIdCuenta(String cuen_cuen) {
+    public String subCuentasXIdCuenta() {
         String sql = "";
         sql += "SELECT sbcu_sbcu, sbcu_cuen, sbcu_clas, sbcu_grup, sbcu_estado, sbcu_nombre,\n";
         sql += "sbcu_codigo, sbcu_descripcion                                               \n";
-        sql += "FROM co_tsbcu;                                                              \n";
-        sql += " WHERE sbcu_cuen = " + cuen_cuen;
+        sql += "FROM co_tsbcu                                                               \n";
+        sql += " WHERE sbcu_cuen = " + this.getSbcu_cuen();
         return sql;
     }
 
@@ -154,7 +154,24 @@ public class SubCuentaDao {
         sql += "SELECT sbcu_sbcu, sbcu_cuen, sbcu_clas, sbcu_grup, sbcu_estado, sbcu_nombre, \n";
         sql += "       sbcu_codigo, sbcu_descripcion, sbcu_naturaleza                        \n";
         sql += "  FROM co_tsbcu                                                              \n";
-        sql += " WHERE sbcu_codigo = '"+ this.getSbcu_codigo() +"'";
+        sql += " WHERE sbcu_codigo = '" + this.getSbcu_codigo() + "'";
+        return sql;
+    }
+
+    /**
+     * Busca las subcuentas fijas que se deben visualizar y usar para cada tipo
+     * de documento
+     *
+     * @param tido_nombre
+     * @return
+     */
+    public String buscaSubCuentasFijas(String tido_nombre) {
+        String sql = "";
+        sql += "SELECT sbft_sbcu_codigo sbcu_codigo, sbft_naturaleza ,sbft_porcentaje,sbft_comentario \n";
+        sql += " FROM co_ttido, co_tsbft                      \n";
+        sql += "WHERE upper(tido_nombre) = upper('" + tido_nombre + "')\n";
+        sql += "  AND sbft_tido = tido_tido                   \n";
+        sql += "  AND sbft_visible = 'S'                      \n";
         return sql;
     }
 }

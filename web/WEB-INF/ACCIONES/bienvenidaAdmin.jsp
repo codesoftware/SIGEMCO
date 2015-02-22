@@ -16,6 +16,22 @@
                     <div class="col-sm-1 col-md-4"></div>
                     <div class="col-sm-10 col-md-4 thumbnail">
                         <div class="form-group col-sm-12 col-md-12">
+                            <div class="Mensajes" style="display: none;">
+                                <s:if test="hasActionErrors()">
+                                    <div class="alert alert-danger" id="info" role="alert" ><h4><s:actionerror /></h4></div>
+                                    <script>
+                                        mostrarMsn();
+                                    </script>
+                                </s:if>
+                            </div>
+                            <div class="MensajesOk" style="display: none;">
+                                <s:if test="hasActionMessages()">
+                                    <div class="alert alert-success" id="info" role="alert" ><h4><s:actionmessage/></h4></div>
+                                    <script>
+                                        mostrarMsnOk();
+                                    </script>
+                                </s:if>
+                            </div>
                             <div class="alert alert-info text-center" role="alert"><h1>CAMBIO DE CLAVE INICIAL</h1></div>
                             <p>Por razones de Seguridad Se solicita cambiar su clave ya que la 
                                 clave con la que ingreso fue generada por el sistema.</p>
@@ -42,7 +58,7 @@
             </script>
         </s:else>
         <script type="text/javascript">
-            $(function () {
+            $(function() {
                 $('.btn-primary').val('Enviar');
             });
         </script>

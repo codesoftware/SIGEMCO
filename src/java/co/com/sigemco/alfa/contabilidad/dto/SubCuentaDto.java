@@ -20,6 +20,9 @@ public class SubCuentaDto {
     private String sbcu_codigo;
     private String sbcu_descripcion;
     private String sbcu_naturaleza;
+    //Variable usada para obtener subcuentas fijas y poder calcular el porcentaje
+    private String sbft_porcentaje;
+    private String sbft_comentario;
 
     public String getSbcu_sbcu() {
         return sbcu_sbcu;
@@ -92,6 +95,21 @@ public class SubCuentaDto {
     public void setSbcu_naturaleza(String sbcu_naturaleza) {
         this.sbcu_naturaleza = sbcu_naturaleza;
     }
-    
-    
+
+    public String getSbft_porcentaje() {
+        return sbft_porcentaje;
+    }
+
+    public void setSbft_porcentaje(String sbft_porcentaje) {
+        this.sbft_porcentaje = sbft_porcentaje;
+    }
+
+    public String getSbft_comentario() {
+        return sbft_comentario;
+    }
+
+    public void setSbft_comentario(String sbft_comentario) {
+        this.sbft_comentario = sbft_comentario;
+    }
+
 }
