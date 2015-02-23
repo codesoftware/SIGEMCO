@@ -182,3 +182,15 @@ function replaceAll(text, busca, reemplaza) {
         text = text.toString().replace(busca, reemplaza);
     return text;
 }
+
+
+function eliminarPuntos(cadena) {
+    var auxiliar = "";
+    var tam = cadena.length;
+    for (var i = 0; i < tam; i++) {
+        if (cadena[i] != '\.') {
+            auxiliar += cadena[i];
+        }
+    }
+    return auxiliar;
+}

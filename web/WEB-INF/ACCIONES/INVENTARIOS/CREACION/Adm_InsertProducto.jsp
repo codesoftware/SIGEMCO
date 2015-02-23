@@ -147,7 +147,7 @@
                                 <tr>
                                     <td>SubCuenta</td>
                                     <td>
-                                        <input type="text" class="form-control" id="codigo_subcuenta" onkeyup="validarEnter(event, '1')" onblur="despuesEnter('1')"/>
+                                        <input type="text" class="form-control" id="codigo_subcuenta" onkeyup="validarEnter(event, '1')" />
                                     </td>
                                     <td>
                                         Valor:
@@ -155,7 +155,7 @@
                                     <td>
                                         <div class="input-group">
                                             <span class="input-group-addon">$</span>
-                                            <input type="text" id="valorSubCuenta" class="form-control">
+                                            <input type="text" id="valorSubCuenta" class="form-control" onkeypress="return validaNumeros(event)" onkeyup="mascaraMoneda(this)" />
                                         </div>
                                     </td>
                                 </tr>    

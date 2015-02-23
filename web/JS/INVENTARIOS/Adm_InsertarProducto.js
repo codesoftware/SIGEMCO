@@ -128,6 +128,7 @@ function validaDatosProducto() {
 function contabilizar() {
     var datosOk = validaDatosProducto();
     if (datosOk) {
+        $('#subcuentasAdicionadas').children('tr').remove();
         buscaSubCuentasFijas();
         $('.datosProd').hide('slow');
         $('.contabilidad').show('slow');
@@ -209,6 +210,8 @@ function buscaSubCuentasFijas() {
 
 /**
  * 
+ * Funcion encargada de agregar una subcuenta a la lista de creditos
+ * 
  * @param {type} codigo: Codigo con el cual identifica la subcuenta
  * @param {type} valor:  Valor al cuan le agregara a la cuenta
  * @param {type} naturaleza: naturaleza por la cual se adicionara al movimiento contable
@@ -217,16 +220,65 @@ function buscaSubCuentasFijas() {
  * @returns {undefined}
  */
 function adicionaDetalleSubucentasAgregadas(codigo, valor, naturaleza, elimina, comentario) {
+    var valida = validaSubcuentasRepetidas(codigo);
+    if (valida) {
+        var datos = new Object();
+        datos.sbcu_codigo = codigo;
+        $.ajax({
+            url: RutaSitio + "/AJAX/JSP/ajaxValidaSubCuenta.jsp",
+            data: datos,
+            dataType: 'json',
+            async: false,
+            success: function(data, textStatus, jqXHR) {
+                if (data.respuesta == 'inexistente') {
+                    $('#textoMsn').html('La subcuenta ' + comentario + ' no existe o no esta parametrizada en el sistema por favor revise e intente de nuevo');
+                    $('#mensaje').modal('show');
+                    $('#tableFacturaCompra').html('');
+                    $('#codigo_subcuenta').focus();
+                } else if (data.respuesta == 'error') {
+                    $('#textoMsn').html('Error al realizar la busqueda de la subcuenta por favor verifique e intente de nuevo');
+                    $('#mensaje').modal('show');
+                    $('#tableFacturaCompra').html('');
+                    $('#codigo_subcuenta').focus();
+                } else {
+                    var natu = '';
+                    if (naturaleza == 'C') {
+                        natu = 'CREDITO';
+                    } else {
+                        natu = 'DEBITO';
+                    }
+                    var vlrTotalSuma = parseInt(sumaValoresSubcuenta());
+                    vlrTotalSuma = vlrTotalSuma + parseInt(valor);
+                    $('#vlrSumCuentasText').val(vlrTotalSuma);
+                    $('#vlrSumCuentas').html(vlrTotalSuma);
+                    var linea = '<tr>' +
+                            '<td>' + data.objeto.sbcu_codigo + '<input type=\"text\" value=\"' + data.objeto.sbcu_codigo + '\" class=\"sbcu_codigoAdicionadas\" /> </td>' +
+                            '<td>' + data.objeto.sbcu_nombre + '</td>' +
+                            '<td>' + natu + '</td>' +
+                            '<td> $ ' + valor + '<input type=\"text\" value=\"' + valor + '\" class=\"vlrSubCuentas\" /></td>' +
+                            '<td>' + elimina + '</td>' +
+                            '</tr>';
+                    $('#subcuentasAdicionadas').append(linea);
+                }
+            }
+        });
+    }
+}
+
+
+function agrearCuenta() {
+    //var vlrSubCuenta = $('#valorSubCuenta').val();
+    //var valor =  eliminarPuntos(vlrSubCuenta);
     var datos = new Object();
-    datos.sbcu_codigo = codigo;
+    datos.sbcu_codigo = $('#codigo_subcuenta').val();
     $.ajax({
-        url: RutaSitio + "/AJAX/JSP/ajaxValidaSubCuenta.jsp",
         data: datos,
         dataType: 'json',
         async: false,
+        url: RutaSitio + "/AJAX/JSP/ajaxValidaSubCuenta.jsp",
         success: function(data, textStatus, jqXHR) {
             if (data.respuesta == 'inexistente') {
-                $('#textoMsn').html('La subcuenta ' + comentario + ' no existe o no esta parametrizada en el sistema por favor revise e intente de nuevo');
+                $('#textoMsn').html('La subcuenta ingresada es inexistente porfavor parametricela o verifique el codigo');
                 $('#mensaje').modal('show');
                 $('#tableFacturaCompra').html('');
                 $('#codigo_subcuenta').focus();
@@ -236,26 +288,42 @@ function adicionaDetalleSubucentasAgregadas(codigo, valor, naturaleza, elimina, 
                 $('#tableFacturaCompra').html('');
                 $('#codigo_subcuenta').focus();
             } else {
-                var natu = '';
-                if (naturaleza == 'C') {
-                    natu = 'CREDITO';
-                } else {
-                    natu = 'DEBITO';
-                }
-                var vlrTotalSuma = parseInt($('#vlrSumCuentasText').val());
-                vlrTotalSuma = vlrTotalSuma + valor;
-                $('#vlrSumCuentasText').val(valor);
-                $('#vlrSumCuentas').html(valor);                
-                var linea = '<tr>' +
-                        '<td>' + data.objeto.sbcu_codigo + '</td>' +
-                        '<td>' + data.objeto.sbcu_nombre + '</td>' +
-                        '<td>' + natu + '</td>' +
-                        '<td> $ ' + valor + '</td>' +
-                        '<td>' + elimina + '</td>' +
-                        '</tr>';                
-                $('#subcuentasAdicionadas').append(linea);
+                var vlrSubCuenta = $('#valorSubCuenta').val();
+                var valor = eliminarPuntos(vlrSubCuenta);
+                adicionaDetalleSubucentasAgregadas(data.objeto.sbcu_codigo, valor, 'C', 'S', '');
             }
         }
     });
+}
 
+
+function sumaValoresSubcuenta() {
+    var valores = $('.vlrSubCuentas');
+    if (valores.length == 0) {
+        return 0;
+    } else {
+        var sumatoria = 0;
+        $.each(valores, function(key, value) {
+            var aux = parseInt(value.value);
+            sumatoria = sumatoria + aux;
+        });
+        return sumatoria;
+    }
+}
+
+function validaSubcuentasRepetidas(subcuenta) {
+    var subCuentas = $('.sbcu_codigoAdicionadas');
+    var rta = true;
+    if (subCuentas.length == 0) {
+        return true;
+    } else {
+        $.each(subCuentas, function(key, value) {
+            if (value.value == subcuenta && rta == true) {
+                $('#textoMsn').html('Subcuenta agregada previamente operacion no permitida');
+                $('#mensaje').modal('show');
+                rta = false;
+            }
+        });
+    }
+    return rta;
 }
