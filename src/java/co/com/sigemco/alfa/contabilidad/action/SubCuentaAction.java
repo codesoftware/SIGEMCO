@@ -46,6 +46,7 @@ public class SubCuentaAction extends ActionSupport implements SessionAware, Usua
             SubCuentaLogica subCuentaLogica = new SubCuentaLogica();
             String rta = subCuentaLogica.insertSubCuenta(subCuenta, clase, cuenta, grupo);
             if (rta.equalsIgnoreCase("ok")) {
+                cuenta.setSubCuenta(subCuentaLogica.obtieneSubCuentaXCuenta(cuenta.getCuen_cuen()));
                 addActionMessage("SubCuenta insertada correctamente");
             } else {
                 addActionError("Error al insertar SubCuenta");

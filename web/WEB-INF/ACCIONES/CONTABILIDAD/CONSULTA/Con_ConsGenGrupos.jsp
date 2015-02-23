@@ -47,6 +47,7 @@
                                 <s:text name="clase.clas_nombre" />  
                             </a>
                         </h3>
+                        <a class="btn btn-danger" style="float: left">Editar</a>
                     </div>
                     <div class="panel panel-success">
                         <div class="panel-body">

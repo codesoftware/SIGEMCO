@@ -1,6 +1,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="/struts-tags" prefix="s" %>
 <%@include file="/WEB-INF/NEWTEMPLATE/Parametros.jsp" %>
+<%@page import="co.com.hotel.datos.session.Usuario"%>
+<%    Usuario usuario = (Usuario) session.getAttribute("usuario");
+    String permisos = usuario.getPermisos();
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -70,11 +74,15 @@
                     </div>
                 </div>
                 <div class="row">
+
                     <div class="form-group alert alert-warning">
                         <h3>SubCuentas
+                            <%if (permisos.indexOf(".CoPu2.") >= 0) {%>
                             <a class="text-right btn btn-danger" onclick="guardarScuenta();">Crear SubCuenta</a>
+                            <%}%>
                         </h3>
                     </div>
+
                     <div class="panel panel-warning" style="max-height: 250px;overflow-y: scroll;">
                         <table class="table table-hover">
                             <tbody>
