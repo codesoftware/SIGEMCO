@@ -29,6 +29,12 @@ public class ProductoAction extends ActionSupport implements SessionAware, Usuar
     private String perParamPrecio;  //Indica si el usuario que realiza determinada accion tiene permiso de parametrizar el precio
     private String accion;
 
+    /**
+     * Funcion encargada de realizar la accion de la consulta general por fitros
+     * de productos
+     *
+     * @return
+     */
     public String consultaGenXFiltros() {
         ProductoLogica logica = null;
         try {

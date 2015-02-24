@@ -2,10 +2,35 @@ $(function() {
     $('.input-group.date').datepicker({
         format: 'mm/dd/yyyy'
     });
+
+    $(document).on('click', '.elimnarFila', function() {
+        var suma = sumaValoresSubcuenta();
+        var valor = $(this).data('valor');
+        var resta = parseInt(suma) - parseInt(valor);
+        $('#vlrSumCuentasText').val(resta);
+        $('#vlrSumCuentas').html(resta);
+        $(this).closest('.filaAdicionada').remove();
+    });
 });
 
-function insertar() {
-    document.getElementById('inv_insertProducto').submit();
+function insertar(){
+    var suma = parseInt(sumaValoresSubcuenta());
+    var costo = parseInt($('#vlrTotalText').val());
+    if(suma == costo){
+        document.getElementById('inv_insertProducto').submit();
+    }else{
+        var diferencia = costo-suma;
+        if(diferencia<0){
+            $('#textoMsn').html('La suma de las subcuentas supera el costo del producto operacion no permitida');
+            $('#mensaje').modal('show');
+        }else if(diferencia<3){
+            document.getElementById('inv_insertProducto').submit();                        
+        }else{
+            $('#textoMsn').html('Las sumas no coinciden por favor verifique he intente de nuevo');
+            $('#mensaje').modal('show');            
+        }
+    }
+    
 }
 
 function cleanForm() {
@@ -195,9 +220,9 @@ function buscaSubCuentasFijas() {
                     if (value.sbft_porcentaje == null) {
                         value.sbft_porcentaje = '0';
                     }
-                    var porcentaje = parseInt(value.sbft_porcentaje);
-                    var vlrTotal = parseInt($('#vlrTotalText').val());
-                    var vlrCuenta = parseInt((vlrTotal * porcentaje) / 100);
+                    var porcentaje = parseFloat(value.sbft_porcentaje);
+                    var vlrTotal = parseFloat(eliminarPuntos($('#vlrTotalText').val()));
+                    var vlrCuenta = parseFloat((vlrTotal * porcentaje) / 100);
                     adicionaDetalleSubucentasAgregadas(value.sbcu_codigo, vlrCuenta, value.sbcu_naturaleza, 'N', value.sbft_comentario);
                 });
             } else {
@@ -251,13 +276,18 @@ function adicionaDetalleSubucentasAgregadas(codigo, valor, naturaleza, elimina, 
                     vlrTotalSuma = vlrTotalSuma + parseInt(valor);
                     $('#vlrSumCuentasText').val(vlrTotalSuma);
                     $('#vlrSumCuentas').html(vlrTotalSuma);
-                    var linea = '<tr>' +
-                            '<td>' + data.objeto.sbcu_codigo + '<input type=\"text\" value=\"' + data.objeto.sbcu_codigo + '\" class=\"sbcu_codigoAdicionadas\" /> </td>' +
-                            '<td>' + data.objeto.sbcu_nombre + '</td>' +
+                    var linea = '<tr class=\"filaAdicionada\">' +
+                            '<td>' + data.objeto.sbcu_codigo + '<input type=\"hidden\" value=\"' + data.objeto.sbcu_codigo + '\" class=\"sbcu_codigoAdicionadas\" /> </td>' +
+                            '<td>' + data.objeto.sbcu_nombre + '<input type=\"hidden\" value=\"' + data.objeto.sbcu_codigo + '&' + valor + '\" name=\"ArrayAddSubCuentas\" /></td>' +
                             '<td>' + natu + '</td>' +
-                            '<td> $ ' + valor + '<input type=\"text\" value=\"' + valor + '\" class=\"vlrSubCuentas\" /></td>' +
-                            '<td>' + elimina + '</td>' +
-                            '</tr>';
+                            '<td> $ ' + valor + '<input type=\"hidden\" value=\"' + valor + '\" class=\"vlrSubCuentas\" /></td>';
+                    if (elimina == 'S') {
+                        linea += '<td><button type=\"button\" class=\"btn btn-danger elimnarFila\" data-valor=\"' + valor + '\" >';
+                        linea += '<span class=\"glyphicon glyphicon-remove\" ></span> </button></td>';
+                    } else {
+                        linea += '<td>' + elimina + '</td>';
+                    }
+                    linea += '</tr>';
                     $('#subcuentasAdicionadas').append(linea);
                 }
             }
@@ -267,33 +297,44 @@ function adicionaDetalleSubucentasAgregadas(codigo, valor, naturaleza, elimina, 
 
 
 function agrearCuenta() {
-    //var vlrSubCuenta = $('#valorSubCuenta').val();
-    //var valor =  eliminarPuntos(vlrSubCuenta);
-    var datos = new Object();
-    datos.sbcu_codigo = $('#codigo_subcuenta').val();
-    $.ajax({
-        data: datos,
-        dataType: 'json',
-        async: false,
-        url: RutaSitio + "/AJAX/JSP/ajaxValidaSubCuenta.jsp",
-        success: function(data, textStatus, jqXHR) {
-            if (data.respuesta == 'inexistente') {
-                $('#textoMsn').html('La subcuenta ingresada es inexistente porfavor parametricela o verifique el codigo');
-                $('#mensaje').modal('show');
-                $('#tableFacturaCompra').html('');
-                $('#codigo_subcuenta').focus();
-            } else if (data.respuesta == 'error') {
-                $('#textoMsn').html('Error al realizar la busqueda de la subcuenta por favor verifique e intente de nuevo');
-                $('#mensaje').modal('show');
-                $('#tableFacturaCompra').html('');
-                $('#codigo_subcuenta').focus();
-            } else {
-                var vlrSubCuenta = $('#valorSubCuenta').val();
-                var valor = eliminarPuntos(vlrSubCuenta);
-                adicionaDetalleSubucentasAgregadas(data.objeto.sbcu_codigo, valor, 'C', 'S', '');
-            }
+    var vlrAdd = $('#valorSubCuenta').val();
+    var vlrTotal = $('#vlrTotalText').val();
+    if (vlrAdd != '' && vlrAdd != '0') {
+        if (parseInt(vlrAdd) <= parseInt(vlrTotal)) {
+            var datos = new Object();
+            datos.sbcu_codigo = $('#codigo_subcuenta').val();
+            $.ajax({
+                data: datos,
+                dataType: 'json',
+                async: false,
+                url: RutaSitio + "/AJAX/JSP/ajaxValidaSubCuenta.jsp",
+                success: function(data, textStatus, jqXHR) {
+                    if (data.respuesta == 'inexistente') {
+                        $('#textoMsn').html('La subcuenta ingresada es inexistente porfavor parametricela o verifique el codigo');
+                        $('#mensaje').modal('show');
+                        $('#tableFacturaCompra').html('');
+                        $('#codigo_subcuenta').focus();
+                    } else if (data.respuesta == 'error') {
+                        $('#textoMsn').html('Error al realizar la busqueda de la subcuenta por favor verifique e intente de nuevo');
+                        $('#mensaje').modal('show');
+                        $('#tableFacturaCompra').html('');
+                        $('#codigo_subcuenta').focus();
+                    } else {
+                        var vlrSubCuenta = $('#valorSubCuenta').val();
+                        var valor = eliminarPuntos(vlrSubCuenta);
+                        adicionaDetalleSubucentasAgregadas(data.objeto.sbcu_codigo, valor, 'C', 'S', '');
+                        $('#valorSubCuenta').val('0');
+                    }
+                }
+            });
+        } else {
+            $('#textoMsn').html('El valor a adicionar debe ser menor o igual al valor total pagado por el producto');
+            $('#mensaje').modal('show');
         }
-    });
+    } else {
+        $('#textoMsn').html('El valor que desea agregar a la lista de subcuentas debe ser diferente a nulo o a cero');
+        $('#mensaje').modal('show');
+    }
 }
 
 
@@ -327,3 +368,4 @@ function validaSubcuentasRepetidas(subcuenta) {
     }
     return rta;
 }
+

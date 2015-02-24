@@ -35,6 +35,7 @@ public class Inv_ProductoAccion extends ActionSupport implements SessionAware, U
     private Map<String, String> sedes;
     private Map<String, String> categorias;
     private Map<String, String> yesNo;
+    private ArrayList<String> ArrayAddSubCuentas;
 
     /**
      * Funcion encargada de realizar el llamado de la funcion que insertara
@@ -173,5 +174,13 @@ public class Inv_ProductoAccion extends ActionSupport implements SessionAware, U
 
     public void setYesNo(Map<String, String> yesNo) {
         this.yesNo = yesNo;
+    }
+
+    public ArrayList<String> getArrayAddSubCuentas() {
+        return ArrayAddSubCuentas;
+    }
+
+    public void setArrayAddSubCuentas(ArrayList<String> ArrayAddSubCuentas) {
+        this.ArrayAddSubCuentas = ArrayAddSubCuentas;
     }
 }
