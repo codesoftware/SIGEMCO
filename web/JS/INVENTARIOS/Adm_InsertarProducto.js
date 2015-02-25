@@ -223,7 +223,7 @@ function buscaSubCuentasFijas() {
                     var porcentaje = parseFloat(value.sbft_porcentaje);
                     var vlrTotal = parseFloat(eliminarPuntos($('#vlrTotalText').val()));
                     var vlrCuenta = parseFloat((vlrTotal * porcentaje) / 100);
-                    adicionaDetalleSubucentasAgregadas(value.sbcu_codigo, vlrCuenta, value.sbcu_naturaleza, 'N', value.sbft_comentario);
+                    adicionaDetalleSubucentasAgregadas(value.sbcu_codigo, vlrCuenta, value.sbcu_naturaleza, 'N', value.sbft_comentario,'S');
                 });
             } else {
                 //Aqui se hace algo por si no hay nada parametrizado en el sistema
@@ -242,9 +242,10 @@ function buscaSubCuentasFijas() {
  * @param {type} naturaleza: naturaleza por la cual se adicionara al movimiento contable
  * @param {type} elimina: Indica si se puede eliminar esta fila por el usuario 
  * @param {type} comentario: Comentario especial esta adicion
+ * @param {type} calculada: Indica si la adicion de la subcuenta fue calculada por el sistema(S) o por el usuario(U)
  * @returns {undefined}
  */
-function adicionaDetalleSubucentasAgregadas(codigo, valor, naturaleza, elimina, comentario) {
+function adicionaDetalleSubucentasAgregadas(codigo, valor, naturaleza, elimina, comentario,calculada ) {
     var valida = validaSubcuentasRepetidas(codigo);
     if (valida) {
         var datos = new Object();
@@ -278,7 +279,7 @@ function adicionaDetalleSubucentasAgregadas(codigo, valor, naturaleza, elimina, 
                     $('#vlrSumCuentas').html(vlrTotalSuma);
                     var linea = '<tr class=\"filaAdicionada\">' +
                             '<td>' + data.objeto.sbcu_codigo + '<input type=\"hidden\" value=\"' + data.objeto.sbcu_codigo + '\" class=\"sbcu_codigoAdicionadas\" /> </td>' +
-                            '<td>' + data.objeto.sbcu_nombre + '<input type=\"hidden\" value=\"' + data.objeto.sbcu_codigo + '&' + valor + '\" name=\"ArrayAddSubCuentas\" /></td>' +
+                            '<td>' + data.objeto.sbcu_nombre + '<input type=\"text\" value=\"' + data.objeto.sbcu_codigo + '&' + valor + '&'+calculada+'&C\" name=\"ArrayAddSubCuentas\" /></td>' +
                             '<td>' + natu + '</td>' +
                             '<td> $ ' + valor + '<input type=\"hidden\" value=\"' + valor + '\" class=\"vlrSubCuentas\" /></td>';
                     if (elimina == 'S') {
@@ -322,7 +323,7 @@ function agrearCuenta() {
                     } else {
                         var vlrSubCuenta = $('#valorSubCuenta').val();
                         var valor = eliminarPuntos(vlrSubCuenta);
-                        adicionaDetalleSubucentasAgregadas(data.objeto.sbcu_codigo, valor, 'C', 'S', '');
+                        adicionaDetalleSubucentasAgregadas(data.objeto.sbcu_codigo, valor, 'C', 'S', '','U');
                         $('#valorSubCuenta').val('0');
                     }
                 }

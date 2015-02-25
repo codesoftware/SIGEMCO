@@ -15,6 +15,7 @@ import co.com.hotel.logica.sede.Adm_SedeLogica;
 import co.com.hotel.utilidades.UsuarioHabilitado;
 import co.com.hotel.validacion.ValidaCampos;
 import co.com.hotel.validacion.ValidaDuplicadodosProd;
+import co.com.sigemco.alfa.contabilidad.logica.MoviContablesLogica;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,7 +46,10 @@ public class Inv_ProductoAccion extends ActionSupport implements SessionAware, U
      */
     public String insertar() {
         IngresaProductoNuevo ingreso = null;
+        MoviContablesLogica logica = null;
         try {
+            logica = new MoviContablesLogica();
+            logica.insertaSbcuTablaTempo(ArrayAddSubCuentas);
             ingreso = new IngresaProductoNuevo();
             String rta = ingreso.IngresaProducto(producto, usuario.getUsuario());
             if (rta.equalsIgnoreCase("Ok")) {
