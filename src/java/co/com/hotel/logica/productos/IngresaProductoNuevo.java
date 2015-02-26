@@ -17,7 +17,7 @@ import co.com.hotel.utilidades.ManejoString;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class IngresaProductoNuevo {
+public class IngresaProductoNuevo {                                     
     
     public String IngresaProducto(Producto producto, String usuario){
         try{
@@ -52,6 +52,7 @@ public class IngresaProductoNuevo {
                 function.adicionarNull();
                 //function.addicionarParametroDate(producto.getFechaVencimiento()); Se elimina ya que no es necesaria la funcionalidad
             }
+            function.adicionarNumeric("1");
             String rta = "";
             rta = function.llamarFunction(function.getSql());
             function.recuperarString();
