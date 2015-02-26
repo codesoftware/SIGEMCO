@@ -49,14 +49,20 @@ public class Inv_ProductoAccion extends ActionSupport implements SessionAware, U
         MoviContablesLogica logica = null;
         try {
             logica = new MoviContablesLogica();
-            logica.insertaSbcuTablaTempo(ArrayAddSubCuentas);
-            ingreso = new IngresaProductoNuevo();
-            String rta = ingreso.IngresaProducto(producto, usuario.getUsuario());
-            if (rta.equalsIgnoreCase("Ok")) {
-                limpiarProducto();
-                addActionMessage("Producto ingresado correctamente");
-            } else {
-                addActionError("Lamentablemente el producto no pudo ser ingresado por el siguiente error" + rta);
+            String idTaransc = logica.insertaSbcuTablaTempo(ArrayAddSubCuentas);
+            if (!idTaransc.matches("(.*)Error(.*)")) {
+                producto.setIdTranMvCo(idTaransc);
+                ingreso = new IngresaProductoNuevo();
+                String rta = ingreso.IngresaProducto(producto, usuario.getUsuario());
+                if (rta.equalsIgnoreCase("Ok")) {
+                    limpiarProducto();
+                    addActionMessage("Producto ingresado correctamente");
+                } else {
+                    addActionError("Lamentablemente el producto no pudo ser ingresado por el siguiente error" + rta);
+                }
+            }else{
+                addActionError(idTaransc);
+                
             }
         } catch (Exception e) {
             addActionError("Error al ingresar el producto");

@@ -85,8 +85,8 @@ public class TemMovContablesDao {
      * @return
      */
     public String eliminaTemporalXTran() {
-        String sql = "delete from co_ttem_mvco";
-        sql += "where tem_mvco_trans = "+ this.getTem_mvco_trans();
+        String sql = "DELETE FROM co_ttem_mvco\n";
+        sql += "WHERE tem_mvco_trans = "+ this.getTem_mvco_trans();
         return sql;
     }
 }

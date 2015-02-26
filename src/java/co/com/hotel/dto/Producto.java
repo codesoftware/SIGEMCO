@@ -28,6 +28,8 @@ public class Producto {
     private String categoria;
     private String fechaVencimiento;
     private String registroUnico;
+    //Id el cual sirve para realizar los movimientos contables
+    private String idTranMvCo;
 
     public String getReferencia() {
         return referencia;
@@ -147,6 +149,14 @@ public class Producto {
 
     public void setRegistroUnico(String registroUnico) {
         this.registroUnico = registroUnico;
+    }
+
+    public String getIdTranMvCo() {
+        return idTranMvCo;
+    }
+
+    public void setIdTranMvCo(String idTranMvCo) {
+        this.idTranMvCo = idTranMvCo;
     }
 
 }

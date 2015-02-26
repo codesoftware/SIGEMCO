@@ -29,7 +29,7 @@ public class MoviContablesLogica {
      */
     public String insertaSbcuTablaTempo(List<String> lista) {
         String idTransac = "";
-        try(EnvioFunction function = new EnvioFunction()) {
+        try (EnvioFunction function = new EnvioFunction()) {
             Iterator<String> it = lista.iterator();
             idTransac = obtineSecuenciaTemMvCo();
             if (idTransac != null) {
@@ -37,25 +37,28 @@ public class MoviContablesLogica {
                     String linea = it.next();
                     String[] aux = linea.split("&");
                     String validaCreaSbcu = aux[2];
-                    if ( !validaCreaSbcu.equalsIgnoreCase("S")) {
+                    if (!validaCreaSbcu.equalsIgnoreCase("S")) {
                         TemMovContablesDao objDao = new TemMovContablesDao();
                         if (aux.length == 4) {
                             objDao.setTem_mvco_trans(idTransac);
                             objDao.setTem_mvco_sbcu(aux[0]);
                             objDao.setTem_mvco_valor(aux[1]);
                             objDao.setTem_mvco_naturaleza(aux[3]);
-                            function.enviarUpdate(objDao.insert());                            
-                        } else {                            
+                            function.enviarUpdate(objDao.insert());
+                        } else {
                             return "Error el numero de datos no es concordante por favor verifique e intente de nuevo ";
                         }
-                    }else{
+                    } else {
                         it.remove();
                     }
                 }
+            }else{
+                return "Error al obtener la secuencia de la tabla temporal de moviminetos contables ";
             }
 
         } catch (Exception e) {
             e.printStackTrace();
+            eliminaTempMoCoXIdTrans(idTransac);
             idTransac = "Error MoviContablesLogica.insertaSbcuTablaTempo " + e;
         }
         return idTransac;
@@ -82,6 +85,22 @@ public class MoviContablesLogica {
             sec = null;
         }
         return sec;
+    }
+
+    /**
+     * Funcion encargada de realizar la logica para eliminar la tabla temporal
+     * de movimientos contables
+     *
+     * @param tem_mvco_trans String identificador de la transaccion
+     */
+    public void eliminaTempMoCoXIdTrans(String tem_mvco_trans) {
+        try (EnvioFunction function = new EnvioFunction()) {
+            TemMovContablesDao objDao = new TemMovContablesDao();
+            objDao.setTem_mvco_trans(tem_mvco_trans);
+            function.enviarUpdate(objDao.eliminaTemporalXTran());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
