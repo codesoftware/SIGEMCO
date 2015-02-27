@@ -15,8 +15,10 @@ $(function() {
 
 function insertar(){
     var suma = parseInt(sumaValoresSubcuenta());
-    var costo = parseInt($('#vlrTotalText').val());
+    var costoAux = eliminarPuntos($('#vlrTotalText').val());
+    var costo = parseInt(costoAux);
     if(suma == costo){
+        $('#producto_costo').val(costo);
         document.getElementById('inv_insertProducto').submit();
     }else{
         var diferencia = costo-suma;
@@ -279,7 +281,7 @@ function adicionaDetalleSubucentasAgregadas(codigo, valor, naturaleza, elimina, 
                     $('#vlrSumCuentas').html(vlrTotalSuma);
                     var linea = '<tr class=\"filaAdicionada\">' +
                             '<td>' + data.objeto.sbcu_codigo + '<input type=\"hidden\" value=\"' + data.objeto.sbcu_codigo + '\" class=\"sbcu_codigoAdicionadas\" /> </td>' +
-                            '<td>' + data.objeto.sbcu_nombre + '<input type=\"text\" value=\"' + data.objeto.sbcu_codigo + '&' + valor + '&'+calculada+'&C\" name=\"ArrayAddSubCuentas\" /></td>' +
+                            '<td>' + data.objeto.sbcu_nombre + '<input type=\"hidden\" value=\"' + data.objeto.sbcu_codigo + '&' + valor + '&'+calculada+'&C\" name=\"ArrayAddSubCuentas\" /></td>' +
                             '<td>' + natu + '</td>' +
                             '<td> $ ' + valor + '<input type=\"hidden\" value=\"' + valor + '\" class=\"vlrSubCuentas\" /></td>';
                     if (elimina == 'S') {
@@ -299,7 +301,9 @@ function adicionaDetalleSubucentasAgregadas(codigo, valor, naturaleza, elimina, 
 
 function agrearCuenta() {
     var vlrAdd = $('#valorSubCuenta').val();
+    vlrAdd = eliminarPuntos(vlrAdd);
     var vlrTotal = $('#vlrTotalText').val();
+    vlrTotal = eliminarPuntos(vlrTotal);
     if (vlrAdd != '' && vlrAdd != '0') {
         if (parseInt(vlrAdd) <= parseInt(vlrTotal)) {
             var datos = new Object();
