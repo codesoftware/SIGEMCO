@@ -2,7 +2,7 @@ $(function(){
     
 });
 
-function consultarCategoria(){
+function consultarCategorias(){
     document.getElementById('inv_ConCategoria').submit();
 }
 

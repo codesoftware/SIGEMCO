@@ -58,6 +58,7 @@
             <result name="inv_ins_referencia">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertReferencia.jsp</result>
             <result name="Inv_ConReferencia">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsReferencia.jsp</result>
             <result name="Inv_ConCategoria">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsCategoria.jsp</result>
+            <result name="inv_ins_categoria">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertCategoria.jsp</result>
             <result name="inv_con_celular">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsGenRemision.jsp</result>
             <result name="adm_ins_parempre">/WEB-INF/ACCIONES/ADMINISTRACION/CREACION/Adm_ParamGenerales.jsp</result>
             <result name="con_consgenclases">/WEB-INF/ACCIONES/CONTABILIDAD/CONSULTA/Con_ConsGenClase.jsp</result>

@@ -48,7 +48,7 @@
                     </s:if>
                 </div>
                 <br/>
-                <s:form name="inv_ConReferencia" action="inv_ConReferencia" theme="simple">
+                <s:form name="inv_ConCategoria" action="inv_ConCategoria" theme="simple">
                     <s:textfield name="accion" cssStyle="display:none" value="consultaGeneral"/>
                     <div class="form-group col-md-12 col-sm-12 col-xs-12 thumbnail">
                         <div class="row">

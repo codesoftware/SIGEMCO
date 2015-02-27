@@ -72,6 +72,14 @@ public class CategoriaDao {
         return select;
     }
 
+    public String consultaFiltros(String filtros) {
+        String select = "";
+        select += "SELECT cate_cate, cate_desc, cate_estado, cate_runic, cate_feven\n";
+        select += "  FROM in_tcate   where   " + filtros;
+
+        return select;
+    }
+
     /**
      * Funcion la cual genera el query para obtener una categoria en especifico
      * dado el id de la categoria
@@ -84,6 +92,21 @@ public class CategoriaDao {
         select += "  FROM in_tcate                                                 \n";
         select += " WHERE cate_cate = " + this.cate_cate + " \n";
         return select;
+    }
+
+    public String actualizaCategoria() {
+        String select = "UPDATE in_tcate set cate_desc = '" + this.cate_desc + "',cate_estado = '" + this.cate_estado + "',cate_runic = '" + this.cate_runic + "',cate_feven = '" + this.cate_feven + "' WHERE cate_cate = " + this.cate_cate + "";
+        System.out.println("Update " + select);
+        return select;
+    }
+
+    public String insertaCategoria() {
+        String select = "";
+        select = "INSERT into in_tcate (cate_desc,  cate_estado, cate_runic,cate_feven)"
+                .concat("values ('" + this.cate_desc + "','" + this.cate_estado + "','" + this.cate_runic + "','" + this.cate_feven + "')");
+        System.out.println("select"+select);
+        return select;
+
     }
 
 }
