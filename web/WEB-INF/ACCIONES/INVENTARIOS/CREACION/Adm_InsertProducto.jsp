@@ -160,7 +160,7 @@
                                     </td>
                                 </tr>    
                                 <tr id="tableFacturaCompra">
-                                    
+
                                 </tr>
                             </tbody>
                             <tfoot>
@@ -237,6 +237,23 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="partidaDoble">
+            <div class="modal-dialog">                
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">ASIENTO CONTABLE</h4>
+                    </div>
+                    <div class="modal-body">
+                        <span id="textoMsn"></span>
+                    </div>
+                    <div class="modal-footer">                        
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="parametrizarPrecio">
+                            ACEPTAR
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
     <script>
         var iva = '<s:text name="producto.porcIva" />';
@@ -246,4 +263,16 @@
             $('#msnErrorParametrizacion').show('slow');
         }
     </script>
+    <s:set name="variable" value="mandaParamePrecio"/>
+    <s:if test="%{#variable.equalsIgnoreCase('S')}">
+        <s:form action="inv_BuscaProducto" id="inv_BuscaProducto" autocomplete="off" theme="simple">
+            <s:textfield name="accion" cssStyle="display:none" value="buscarProducto" />
+            <s:textfield name="producto.codigo" />
+        </s:form>
+        <script>
+            $('#partidaDoble').modal('show');
+
+        </script>
+    </s:if>
+
 </html>

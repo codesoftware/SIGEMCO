@@ -11,28 +11,32 @@ $(function() {
         $('#vlrSumCuentas').html(resta);
         $(this).closest('.filaAdicionada').remove();
     });
+
+    $('#parametrizarPrecio').click(function() {
+        document.getElementById('inv_BuscaProducto').submit();
+    });
 });
 
-function insertar(){
+function insertar() {
     var suma = parseInt(sumaValoresSubcuenta());
     var costoAux = eliminarPuntos($('#vlrTotalText').val());
     var costo = parseInt(costoAux);
-    if(suma == costo){
+    if (suma == costo) {
         $('#producto_costo').val(costo);
         document.getElementById('inv_insertProducto').submit();
-    }else{
-        var diferencia = costo-suma;
-        if(diferencia<0){
+    } else {
+        var diferencia = costo - suma;
+        if (diferencia < 0) {
             $('#textoMsn').html('La suma de las subcuentas supera el costo del producto operacion no permitida');
             $('#mensaje').modal('show');
-        }else if(diferencia<3){
-            document.getElementById('inv_insertProducto').submit();                        
-        }else{
+        } else if (diferencia < 3) {
+            document.getElementById('inv_insertProducto').submit();
+        } else {
             $('#textoMsn').html('Las sumas no coinciden por favor verifique he intente de nuevo');
-            $('#mensaje').modal('show');            
+            $('#mensaje').modal('show');
         }
     }
-    
+
 }
 
 function cleanForm() {
@@ -225,7 +229,7 @@ function buscaSubCuentasFijas() {
                     var porcentaje = parseFloat(value.sbft_porcentaje);
                     var vlrTotal = parseFloat(eliminarPuntos($('#vlrTotalText').val()));
                     var vlrCuenta = parseFloat((vlrTotal * porcentaje) / 100);
-                    adicionaDetalleSubucentasAgregadas(value.sbcu_codigo, vlrCuenta, value.sbcu_naturaleza, 'N', value.sbft_comentario,'S');
+                    adicionaDetalleSubucentasAgregadas(value.sbcu_codigo, vlrCuenta, value.sbcu_naturaleza, 'N', value.sbft_comentario, 'S');
                 });
             } else {
                 //Aqui se hace algo por si no hay nada parametrizado en el sistema
@@ -247,7 +251,7 @@ function buscaSubCuentasFijas() {
  * @param {type} calculada: Indica si la adicion de la subcuenta fue calculada por el sistema(S) o por el usuario(U)
  * @returns {undefined}
  */
-function adicionaDetalleSubucentasAgregadas(codigo, valor, naturaleza, elimina, comentario,calculada ) {
+function adicionaDetalleSubucentasAgregadas(codigo, valor, naturaleza, elimina, comentario, calculada) {
     var valida = validaSubcuentasRepetidas(codigo);
     if (valida) {
         var datos = new Object();
@@ -281,7 +285,7 @@ function adicionaDetalleSubucentasAgregadas(codigo, valor, naturaleza, elimina, 
                     $('#vlrSumCuentas').html(vlrTotalSuma);
                     var linea = '<tr class=\"filaAdicionada\">' +
                             '<td>' + data.objeto.sbcu_codigo + '<input type=\"hidden\" value=\"' + data.objeto.sbcu_codigo + '\" class=\"sbcu_codigoAdicionadas\" /> </td>' +
-                            '<td>' + data.objeto.sbcu_nombre + '<input type=\"hidden\" value=\"' + data.objeto.sbcu_codigo + '&' + valor + '&'+calculada+'&C\" name=\"ArrayAddSubCuentas\" /></td>' +
+                            '<td>' + data.objeto.sbcu_nombre + '<input type=\"hidden\" value=\"' + data.objeto.sbcu_codigo + '&' + valor + '&' + calculada + '&C\" name=\"ArrayAddSubCuentas\" /></td>' +
                             '<td>' + natu + '</td>' +
                             '<td> $ ' + valor + '<input type=\"hidden\" value=\"' + valor + '\" class=\"vlrSubCuentas\" /></td>';
                     if (elimina == 'S') {
@@ -327,7 +331,7 @@ function agrearCuenta() {
                     } else {
                         var vlrSubCuenta = $('#valorSubCuenta').val();
                         var valor = eliminarPuntos(vlrSubCuenta);
-                        adicionaDetalleSubucentasAgregadas(data.objeto.sbcu_codigo, valor, 'C', 'S', '','U');
+                        adicionaDetalleSubucentasAgregadas(data.objeto.sbcu_codigo, valor, 'C', 'S', '', 'U');
                         $('#valorSubCuenta').val('0');
                     }
                 }

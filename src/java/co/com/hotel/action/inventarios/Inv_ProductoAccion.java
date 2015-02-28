@@ -37,6 +37,7 @@ public class Inv_ProductoAccion extends ActionSupport implements SessionAware, U
     private Map<String, String> categorias;
     private Map<String, String> yesNo;
     private ArrayList<String> ArrayAddSubCuentas;
+    private String mandaParamePrecio;
 
     /**
      * Funcion encargada de realizar el llamado de la funcion que insertara
@@ -54,8 +55,12 @@ public class Inv_ProductoAccion extends ActionSupport implements SessionAware, U
                 producto.setIdTranMvCo(idTaransc);
                 ingreso = new IngresaProductoNuevo();
                 String rta = ingreso.IngresaProducto(producto, usuario.getUsuario());
-                if (rta.equalsIgnoreCase("Ok")) {
+                String []aux = rta.split("&");
+                if (aux[0].equalsIgnoreCase("Ok")) {
+                    mandaParamePrecio = "S";
                     limpiarProducto();
+                    String codProd  = aux[1];
+                    producto.setCodigo(codProd);
                     addActionMessage("Producto ingresado correctamente");
                 } else {
                     addActionError("Lamentablemente el producto no pudo ser ingresado por el siguiente error" + rta);
@@ -193,4 +198,13 @@ public class Inv_ProductoAccion extends ActionSupport implements SessionAware, U
     public void setArrayAddSubCuentas(ArrayList<String> ArrayAddSubCuentas) {
         this.ArrayAddSubCuentas = ArrayAddSubCuentas;
     }
+
+    public String getMandaParamePrecio() {
+        return mandaParamePrecio;
+    }
+
+    public void setMandaParamePrecio(String mandaParamePrecio) {
+        this.mandaParamePrecio = mandaParamePrecio;
+    }
+    
 }
