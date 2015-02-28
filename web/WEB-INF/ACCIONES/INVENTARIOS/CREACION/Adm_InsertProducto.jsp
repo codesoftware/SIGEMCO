@@ -244,10 +244,10 @@
                         <h4 class="modal-title">ASIENTO CONTABLE</h4>
                     </div>
                     <div class="modal-body">
-                        <span id="textoMsn"></span>
+                        <span id="tablaAsientocontable"></span>
                     </div>
                     <div class="modal-footer">                        
-                        <button type="button" class="btn btn-default" data-dismiss="modal" id="parametrizarPrecio">
+                        <button type="button" class="btn btn-success" data-dismiss="modal" id="parametrizarPrecio">
                             ACEPTAR
                         </button>
                     </div>
@@ -270,8 +270,8 @@
             <s:textfield name="producto.codigo" />
         </s:form>
         <script>
+            obtenerAsientocontable('<s:text name="producto.idTranMvCo" />');
             $('#partidaDoble').modal('show');
-
         </script>
     </s:if>
 

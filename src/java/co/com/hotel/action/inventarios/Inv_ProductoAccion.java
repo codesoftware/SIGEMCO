@@ -61,6 +61,7 @@ public class Inv_ProductoAccion extends ActionSupport implements SessionAware, U
                     limpiarProducto();
                     String codProd  = aux[1];
                     producto.setCodigo(codProd);
+                    producto.setIdTranMvCo(idTaransc);
                     addActionMessage("Producto ingresado correctamente");
                 } else {
                     addActionError("Lamentablemente el producto no pudo ser ingresado por el siguiente error" + rta);
