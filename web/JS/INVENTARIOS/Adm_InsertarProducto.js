@@ -22,7 +22,9 @@ function insertar() {
     var costoAux = eliminarPuntos($('#vlrTotalText').val());
     var costo = parseInt(costoAux);
     if (suma == costo) {
-        $('#producto_costo').val(costo);
+        var costoSinDec = $('#producto_costo').val();
+        costoSinDec = eliminarPuntos(costoSinDec);
+        $('#producto_costo').val(costoSinDec);
         document.getElementById('inv_insertProducto').submit();
     } else {
         var diferencia = costo - suma;
@@ -93,14 +95,19 @@ function determinaAccionDeCategoria(objeto) {
 }
 
 function cambioVlr(valor) {
+    var vlrInt = parseInt(eliminarPuntos(valor));
     if (valor == '') {
-        $('#vlrTotal').html('0');
-        $('#vlrTotalText').val('0');
-    } else {
-        $('#vlrTotal').html(valor);
-        $('#vlrTotalText').val(valor);
+        $('#vlrProd').html('0');
+        $('#vlrIvaText').val('0');
+        $('#vlrIva').html('0');
+    } else {        
+        $('#vlrProd').html(valor);        
+        var vlrIva = (vlrInt *16)/100;
+        var vlrIvaMas = mascaraMonedaConValor(vlrIva.toString())
+        $('#vlrIvaText').val(vlrIva);
+        $('#vlrIva').html(vlrIvaMas);
+        
     }
-
 }
 
 function validaDatosProducto() {
@@ -152,7 +159,6 @@ function validaDatosProducto() {
         $('#mensaje').modal('show');
         return false;
     }
-
     return true;
 }
 
@@ -161,6 +167,13 @@ function contabilizar() {
     if (datosOk) {
         $('#subcuentasAdicionadas').children('tr').remove();
         buscaSubCuentasFijas();
+        var vlrProd = $('#producto_costo').val();
+        vlrProd = eliminarPuntos(vlrProd);
+        var vlrIva = $('#vlrIvaText').val();
+        var vlrTotal = parseInt(vlrProd) + parseInt(vlrIva);
+        $('#vlrTotalText').val(vlrTotal);
+        vlrTotal = mascaraMonedaConValor(vlrTotal.toString());
+        $('#vlrTotal').html(vlrTotal);
         $('.datosProd').hide('slow');
         $('.contabilidad').show('slow');
         $('#codigo_subcuenta').focus();
@@ -236,7 +249,7 @@ function buscaSubCuentasFijas() {
             }
 
         }
-    })
+    });
 }
 
 /**
@@ -253,6 +266,7 @@ function buscaSubCuentasFijas() {
  */
 function adicionaDetalleSubucentasAgregadas(codigo, valor, naturaleza, elimina, comentario, calculada) {
     var valida = validaSubcuentasRepetidas(codigo);
+    var valorMascara = mascaraMonedaConValor(valor);
     if (valida) {
         var datos = new Object();
         datos.sbcu_codigo = codigo;
@@ -282,12 +296,12 @@ function adicionaDetalleSubucentasAgregadas(codigo, valor, naturaleza, elimina, 
                     var vlrTotalSuma = parseInt(sumaValoresSubcuenta());
                     vlrTotalSuma = vlrTotalSuma + parseInt(valor);
                     $('#vlrSumCuentasText').val(vlrTotalSuma);
-                    $('#vlrSumCuentas').html(vlrTotalSuma);
+                    $('#vlrSumCuentas').html(mascaraMonedaConValor(vlrTotalSuma.toString()));
                     var linea = '<tr class=\"filaAdicionada\">' +
                             '<td>' + data.objeto.sbcu_codigo + '<input type=\"hidden\" value=\"' + data.objeto.sbcu_codigo + '\" class=\"sbcu_codigoAdicionadas\" /> </td>' +
                             '<td>' + data.objeto.sbcu_nombre + '<input type=\"hidden\" value=\"' + data.objeto.sbcu_codigo + '&' + valor + '&' + calculada + '&C\" name=\"ArrayAddSubCuentas\" /></td>' +
                             '<td>' + natu + '</td>' +
-                            '<td> $ ' + valor + '<input type=\"hidden\" value=\"' + valor + '\" class=\"vlrSubCuentas\" /></td>';
+                            '<td> $ ' + valorMascara + '<input type=\"hidden\" value=\"' + valor + '\" class=\"vlrSubCuentas\" /></td>';
                     if (elimina == 'S') {
                         linea += '<td><button type=\"button\" class=\"btn btn-danger elimnarFila\" data-valor=\"' + valor + '\" >';
                         linea += '<span class=\"glyphicon glyphicon-remove\" ></span> </button></td>';
@@ -332,7 +346,7 @@ function agrearCuenta() {
                         var vlrSubCuenta = $('#valorSubCuenta').val();
                         var valor = eliminarPuntos(vlrSubCuenta);
                         adicionaDetalleSubucentasAgregadas(data.objeto.sbcu_codigo, valor, 'C', 'S', '', 'U');
-                        $('#valorSubCuenta').val('0');
+                        $('#valorSubCuenta').val('');
                     }
                 }
             });
@@ -423,4 +437,8 @@ function obtenerAsientocontable(idTransac){
              $('#tablaAsientocontable').html(tabla);
         } 
     });
+}
+
+function calculaIva(){
+        
 }

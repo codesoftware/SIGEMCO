@@ -139,6 +139,12 @@
                             </thead>
                             <tbody>
                                 <tr>
+                                    <td>Valor Producto</td>
+                                    <td>$<span id="vlrProd"></span></td>
+                                    <td>Valor Iva:</td>
+                                    <td>$<span id="vlrIva"></span><input type="hidden" id="vlrIvaText" value="0"/></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 15%">Valor Total:</td>
                                     <td style="width: 35%">$ <span id="vlrTotal">0</span><input type="hidden" id="vlrTotalText" /></td>
                                     <td style="width: 15%">Suma SubCuentas:</td>
@@ -272,6 +278,15 @@
         <script>
             obtenerAsientocontable('<s:text name="producto.idTranMvCo" />');
             $('#partidaDoble').modal('show');
+        </script>
+    </s:if>
+    <s:if test="hasActionErrors()">
+        <script>
+                                    var costo = '<s:text name="producto.costo"/>';
+                                    costo = mascaraMonedaConValor(costo.toString());
+                                    $('#producto_costo').val(costo);
+                                    cambioVlr(costo);
+                                    mostrarMsn();
         </script>
     </s:if>
 
