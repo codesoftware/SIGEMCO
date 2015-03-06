@@ -21,7 +21,7 @@
             </s:include> 
         </s:div>        
         <br>
-        <s:form  action="inv_insertProducto" id="inv_insertProducto" theme="simple" method="post">
+        <s:form  action="inv_insertProducto" id="inv_insertProducto" theme="simple" method="post" autocomplete="off" >
             <div class="IngProducto">
                 <div class="row datosProd">
                     <div class="col-md-3 col-xs-0 col-sm-0"></div>
