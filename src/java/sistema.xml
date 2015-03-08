@@ -123,6 +123,23 @@
         <action name="inv_UpdReferencia" class="co.com.sigemco.alfa.inventario.action.ReferenciaAction" method="actualizaReferencia">
             <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/inv_conUpdReferencia.jsp</result>
             <result name="input"  >/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/inv_conUpdReferencia.jsp</result>
-        </action>              
+        </action>
+        
+        <action name="inv_ConCategoria" class="co.com.sigemco.alfa.inventario.action.CategoriaAction" method="consultaCategorias">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsCategoria.jsp</result>
+            <result name="input"  >/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsCategoria.jsp</result>
+        </action> 
+        <action name="inv_conUpdCategoria" class="co.com.sigemco.alfa.inventario.action.CategoriaAction" method="consultaCategoriaEspecifica">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/inv_conUpdCategoria.jsp</result>
+            <result name="input"  >/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/inv_conUpdCategoria.jsp</result>
+        </action>
+        <action name="inv_UpdCategoria" class="co.com.sigemco.alfa.inventario.action.CategoriaAction" method="actualizaCategoria">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/inv_conUpdCategoria.jsp</result>
+            <result name="input"  >/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/inv_conUpdCategoria.jsp</result>
+        </action>
+        <action name="inv_InsCategoria" class="co.com.sigemco.alfa.inventario.action.CategoriaAction" method="insertar">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertCategoria.jsp</result>
+            <result name="input"  >/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertCategoria.jsp</result>
+        </action>               
     </package>
 </struts> 

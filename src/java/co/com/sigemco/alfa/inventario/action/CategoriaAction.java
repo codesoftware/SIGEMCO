@@ -38,9 +38,9 @@ public class CategoriaAction extends ActionSupport implements SessionAware, Usua
         this.estadoMap.put("A", "Activo");
         this.estadoMap.put("I", "Inactivo");
         
-        if(accion.equalsIgnoreCase("insertar")){
-            
-        }
+//        if(accion.equalsIgnoreCase("insertar")){
+//            
+//        }
 
     }
 
