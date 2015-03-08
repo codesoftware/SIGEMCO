@@ -221,7 +221,6 @@ public class RemisionDao {
         String select = "SELECT rmce_rmce, rmce_refe, rmce_imei, rmce_iccid, rmce_valor rmce_valor , rmce_comision, rmce_tppl, rmce_fcve, rmce_fcsl, rmce_fcen, rmce_tius_ent, rmce_tius_sal,rmce_codigo, rmce_sede, rmce_estado, rmce_pagado, rmce_comdev FROM in_trmce where rmce_rmce='"
                 .concat(this.getRmce_rmce())
                 .concat("'");
-        System.out.println("select especifico" + select);
         return select;
     }
 
