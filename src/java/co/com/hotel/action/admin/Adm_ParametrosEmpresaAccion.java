@@ -54,8 +54,12 @@ public class Adm_ParametrosEmpresaAccion extends ActionSupport implements Sessio
     public String modificaParametrosGeneralesEmp() {
         Emp_EmpresaLogica logica = null;
         try {
-            String comisionAux = ManejoString.eliminaMascaraMoneda(empresa.getComision());
-            empresa.setComision(comisionAux);
+            String comisionPrepAux = ManejoString.eliminaMascaraMoneda(empresa.getComisionPrepago());
+            String comisionPostAux = ManejoString.eliminaMascaraMoneda(empresa.getComisionPostpago());
+            String comisionRepAux = ManejoString.eliminaMascaraMoneda(empresa.getComisionReposicion());
+            empresa.setComisionPrepago(comisionPrepAux);
+            empresa.setComisionPostpago(comisionPostAux);
+            empresa.setComisionReposicion(comisionRepAux);
             logica = new Emp_EmpresaLogica();
             String rta = logica.ingresarParametrosGeneEmpresa(empresa);
             if (rta.equalsIgnoreCase("Ok")) {

@@ -62,13 +62,31 @@
                                 <td><s:textfield id="diasVen" name="empresa.diasVen" cssClass="form-control" data-toggle="tooltip" data-placement="bottom" title="Número de días Previos a vencimiento de entrega del equipo"  onkeypress="soloNumeros();"/></td>
                             </tr>
                             <tr>
-                                <td>Comisi&oacute;n:</td>
+                                <td>Comisi&oacute;n Prepago:</td>
                                 <td>
                                     <div class="input-group">
                                         <span class="input-group-addon">$</span>
-                                        <s:textfield id="comision" name="empresa.comision" cssClass="form-control" data-toggle="tooltip" data-placement="bottom" title="Valor de comision que se cobrara por cada equipo celular al venderlo"  onkeypress="soloNumeros();" onkeyup="mascaraMoneda(this)"/>
+                                        <s:textfield id="comision" name="empresa.comisionPrepago" cssClass="form-control" data-toggle="tooltip" data-placement="bottom" title="Valor de comision que se cobrara por cada equipo celular prepago al venderlo"  onkeypress="soloNumeros();" onkeyup="mascaraMoneda(this)"/>
                                     </div>
-                                </td>
+                                </td>                                
+                            </tr>
+                            <tr>
+                                <td>Comisi&oacute;n Postpago:</td>
+                                <td>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">$</span>
+                                        <s:textfield id="comision" name="empresa.comisionPostpago" cssClass="form-control" data-toggle="tooltip" data-placement="bottom" title="Valor de comision que se cobrara por cada equipo celular postpago al venderlo"  onkeypress="soloNumeros();" onkeyup="mascaraMoneda(this)"/>
+                                    </div>
+                                </td>                                
+                            </tr>
+                            <tr>
+                                <td>Comisi&oacute;n Reposicion:</td>
+                                <td>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">$</span>
+                                        <s:textfield id="comision" name="empresa.comisionReposicion" cssClass="form-control" data-toggle="tooltip" data-placement="bottom" title="Valor de comision que se cobrara por cada equipo celular al venderlo"  onkeypress="soloNumeros();" onkeyup="mascaraMoneda(this)"/>
+                                    </div>
+                                </td>                                
                             </tr>
                             <tr>
                                 <td colspan="2" >

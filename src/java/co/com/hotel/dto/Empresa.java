@@ -18,7 +18,9 @@ public class Empresa {
     private String telefono;
     private String iva;
     private String diasVen;//Dias de vencimiento para las notificaciones
-    private String comision;
+    private String comisionPrepago;
+    private String comisionPostpago;
+    private String comisionReposicion;
 
     public String getNombre() {
         return nombre;
@@ -76,12 +78,28 @@ public class Empresa {
         this.diasVen = diasVen;
     }
 
-    public String getComision() {
-        return comision;
+    public String getComisionPrepago() {
+        return comisionPrepago;
     }
 
-    public void setComision(String comision) {
-        this.comision = comision;
+    public void setComisionPrepago(String comisionPrepago) {
+        this.comisionPrepago = comisionPrepago;
+    }
+
+    public String getComisionPostpago() {
+        return comisionPostpago;
+    }
+
+    public void setComisionPostpago(String comisionPostpago) {
+        this.comisionPostpago = comisionPostpago;
+    }
+
+    public String getComisionReposicion() {
+        return comisionReposicion;
+    }
+
+    public void setComisionReposicion(String comisionReposicion) {
+        this.comisionReposicion = comisionReposicion;
     }
 
 }

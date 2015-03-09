@@ -269,7 +269,7 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
                     logicaEmp = new Emp_EmpresaLogica();
                     empresa = logicaEmp.obtieneDatosEmpresa();
                     remision = new RemisionDto();
-                    remision.setRmce_comision(empresa.getComision());
+                    remision.setRmce_comision(empresa.getComisionPrepago());
                     nextPage = "inv_ins_celular";
                     break;
                 case INV_CON_CELULAR:
