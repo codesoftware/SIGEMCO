@@ -264,12 +264,14 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
                     this.tipoPlan = new HashMap<String, String>();
                     this.tipoPlan.put("ps", "POSTPAGO");
                     this.tipoPlan.put("pr", "PREPAGO");
+                    this.tipoPlan.put("rp", "REPOSICION");
                     refeLogica = new ReferenciaLogica();
                     this.referencias = refeLogica.obtieneIdDescrReferenciaActivos();
                     logicaEmp = new Emp_EmpresaLogica();
                     empresa = logicaEmp.obtieneDatosEmpresa();
                     remision = new RemisionDto();
-                    remision.setRmce_comision(empresa.getComisionPrepago());
+                    remision.setRmce_comision("N/A");
+                    //remision.setRmce_comision(empresa.getComisionPrepago()); // Se cambia ya que la comision ahora depende de acuerdo el plan
                     nextPage = "inv_ins_celular";
                     break;
                 case INV_CON_CELULAR:

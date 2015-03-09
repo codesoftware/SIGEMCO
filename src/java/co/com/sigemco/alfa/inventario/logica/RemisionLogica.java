@@ -217,30 +217,61 @@ public class RemisionLogica {
             return "ERROR AL ACTUALIZAR CELULAR";
         }
     }
-    
+
     /**
-     * Funcion encargada de devolver un  celular
+     * Funcion encargada de devolver un celular
+     *
      * @param rmce_rmce
      * @param rmce_comdev
-     * @return 
+     * @return
      */
-    
-    public String devolverCelular(String rmce_rmce, String rmce_comdev){
-         RemisionDao objDao = new RemisionDao();
-         try(EnvioFunction function = new EnvioFunction()) {
-            
+    public String devolverCelular(String rmce_rmce, String rmce_comdev) {
+        RemisionDao objDao = new RemisionDao();
+        try (EnvioFunction function = new EnvioFunction()) {
+
             objDao.setRmce_comdev(rmce_rmce);
             objDao.setRmce_rmce(rmce_rmce);
-             if (function.enviarUpdate(objDao.devuelveCelular())) {
+            if (function.enviarUpdate(objDao.devuelveCelular())) {
                 return "CELULAR DEVUELTO CORRECTAMENTE";
             } else {
                 return "NO PUDO DEVOLVER EL CELULAR EL CELULAR";
             }
         } catch (Exception e) {
-            
+
             e.printStackTrace();
             return "ERROR DEVOLVIENDO CELULAR";
         }
-        
+    }
+
+    /**
+     * Funcion encargada de realizar la logica para consultar el valor de la
+     * comision que le corresponde por cada tipo de plan
+     *
+     * @param tppl
+     * @return
+     */
+    public String consultaValorComisionXtppl(String tppl) {
+        String rta = "";
+        try(EnvioFunction function = new EnvioFunction()){
+            RemisionDao objDao = new RemisionDao();
+            String clavePlan = "";
+            if(tppl.equalsIgnoreCase("pr")){
+                clavePlan = "COMISIONPRE";
+            }else if(tppl.equalsIgnoreCase("ps")){                
+                clavePlan = "COMISIONPOST";
+            }else if(tppl.equalsIgnoreCase("rp")){
+                clavePlan = "COMISIONREP";                
+            }
+            ResultSet rs = function.enviarSelect(objDao.consultaComisionTppl(clavePlan));
+            if(rs.next()){
+                rta = rs.getString("para_valor");
+            }else{
+               rta = null;
+            }            
+        } catch (Exception e) {
+            e.printStackTrace();
+            rta = null;
+        }
+        return rta;
     }
 }

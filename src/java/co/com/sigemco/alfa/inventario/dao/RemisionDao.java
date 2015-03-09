@@ -239,6 +239,7 @@ public class RemisionDao {
         System.out.println("update especifico" + select);
         return select;
     }
+
     public String devuelveCelular() {
         String select = "UPDATE in_trmce SET  "
                 .concat("rmce_comdev='").concat(this.rmce_comdev)
@@ -306,6 +307,21 @@ public class RemisionDao {
         sql += "   AND rmce_estado = 'E'    \n";
         sql += "   AND rmce_refe = refe_refe\n";
         sql += "   AND rmce_sede = sede_sede\n";
+        return sql;
+    }
+
+    /**
+     * Funcion encargada de realizar el Query para consultar el valor de la
+     * comision dependiendo el tipo de plan que tenga el celular
+     *
+     * @param clave
+     * @return
+     */
+    public String consultaComisionTppl(String clave) {
+        String sql = "";
+        sql = "SELECT para_valor \n";
+        sql += "FROM em_tpara    \n";
+        sql += "WHERE para_clave = '" + clave + "'";
         return sql;
     }
 

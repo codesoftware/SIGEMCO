@@ -81,7 +81,7 @@
                             </tr>
                             <tr>
                                 <td>Tipo Plan:</td>
-                                <td><s:select cssClass="form-control" list="tipoPlan" name="remision.rmce_tppl"  headerKey="-1" headerValue="Plan del equipo" /></td>
+                                <td><s:select cssClass="form-control" list="tipoPlan" name="remision.rmce_tppl"  headerKey="-1" headerValue="Plan del equipo" onchange="cambioPlan(this.value)" /></td>
                             </tr>
                             <tr>
                                 <td>Fecha de Vencimiento:</td>
@@ -116,7 +116,8 @@
         </div>
         <s:if test="%{remision.rmce_comision != null }">
             <script type="text/javascript">
-                var valor = mascaraMonedaConValor('<s:text name="remision.rmce_comision" />');
+                //var valor = mascaraMonedaConValor('<s:text name="remision.rmce_comision" />');
+                var valor = '<s:text name="remision.rmce_comision" />';
                 document.getElementById('comision').value = valor;
             </script>
         </s:if>
