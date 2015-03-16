@@ -41,7 +41,7 @@ public class PrecioSedeDao {
 
     public String obtienePreciosProductoPorSedeConFormatos() {
         String sql = "";
-        sql += "SELECT prpr_prpr, prpr_dska, to_char(prpr_precio,'LFM9,999,999.00') as prpr_precio , prpr_tius_crea, prpr_tius_update, \n ";
+        sql += "SELECT prpr_prpr, prpr_dska, to_char(prpr_precio,'LFM9,999,999,999.00') as prpr_precio , prpr_tius_crea, prpr_tius_update, \n ";
         sql += "       prpr_estado, to_char(prpr_fecha,'dd/mm/yyyy') as prpr_fecha, prpr_sede                                   \n ";
         sql += "  FROM in_tprpr                                                             \n ";
         sql += " WHERE prpr_sede = " + this.getSede_sede() + "\n";
