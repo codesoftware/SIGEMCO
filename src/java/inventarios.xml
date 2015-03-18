@@ -106,8 +106,11 @@
         </action>        
         <action name="inv_UpdCelular" class="co.com.sigemco.alfa.inventario.action.RemisionAction" method="actualizaEspecificoCelular">
             <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/inv_UpdCelular.jsp</result>
-            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/inv_UpdCelular.jsp</result>
-            
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/inv_UpdCelular.jsp</result>            
         </action>        
+        <action name="inv_consProdForAddEx" class="co.com.sigemco.alfa.inventario.action.ProductoAction" method="buscaProductoAdicion">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_AddProductoExistente.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_AddProductoExistente.jsp</result>            
+        </action> 
     </package>
 </struts>

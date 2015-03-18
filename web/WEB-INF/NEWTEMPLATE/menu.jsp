@@ -163,11 +163,7 @@
                         <ul class="dropdown-menu">
                             <%if (permisos.indexOf(".InCat1.") >= 0) {%>
                             <li><a href="reenvioGeneral.action?accion=271">Adicionar Categoria</a></li>
-                                <%}
-                                    if (permisos.indexOf(".InCat2.") >= 0) {%>
-                            <li><a href="reenvioGeneral.action?accion=272">Actualizar Categoria </a></li>
-                                <%}
-                                    if (permisos.indexOf(".InCat3.") >= 0) {%>
+                                <%} if (permisos.indexOf(".InCat3.") >= 0) {%>
                             <li><a href="reenvioGeneral.action?accion=274">Consultar Categoria</a></li>
                                 <%}%>
                         </ul>

@@ -35,7 +35,8 @@
             <result name="adm_upd_perfil">/WEB-INF/ACCIONES/ADMINISTRACION/MODIFICAR/Adm_UpdPerfil.jsp</result>
             <result name="adm_con_perfil">/WEB-INF/ACCIONES/ADMINISTRACION/CONSULTA/Adm_ConsPerfil.jsp</result>
             <result name="inv_ins_producto">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Adm_InsertProducto.jsp</result>
-            <result name="inv_ins_prodexis">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Adm_AddProdExistentes.jsp</result>
+            <result name="inv_ins_prodexis">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_AddProductoExistente.jsp</result>
+            <!--<result name="inv_ins_prodexis">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Adm_AddProdExistentes.jsp</result> Se cambia para poder contabilizar el producto adicionado-->
             <result name="fac_ins_factura">/WEB-INF/ACCIONES/FACTURACION/CREACION/Fac_InsertCliFactura.jsp</result>
             <result name="inv_ins_servicio">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Adm_InsertHabitacion.jsp</result>
             <result name="inv_con_producto">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsProducto.jsp</result>

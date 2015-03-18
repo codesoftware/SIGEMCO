@@ -7,6 +7,7 @@ package co.com.sigemco.alfa.inventario.action;
 
 import co.com.hotel.datos.session.Usuario;
 import co.com.hotel.utilidades.UsuarioHabilitado;
+import co.com.hotel.validacion.ValidaCampos;
 import co.com.sigemco.alfa.inventario.dto.ProductoDto;
 import co.com.sigemco.alfa.inventario.logica.ProductoLogica;
 import com.opensymphony.xwork2.ActionSupport;
@@ -28,6 +29,7 @@ public class ProductoAction extends ActionSupport implements SessionAware, Usuar
     private String perActualizar;   //Indica si el usuario que realiza determinada accion tiene permiso de actualizar el producto
     private String perParamPrecio;  //Indica si el usuario que realiza determinada accion tiene permiso de parametrizar el precio
     private String accion;
+    private String bandera;
 
     /**
      * Funcion encargada de realizar la accion de la consulta general por fitros
@@ -63,14 +65,25 @@ public class ProductoAction extends ActionSupport implements SessionAware, Usuar
         }
         return SUCCESS;
     }
+    
+    public String buscaProductoAdicion(){
+        bandera = "N";
+        return SUCCESS;
+    }
 
     /**
      * Funcion encargada de validar los cmpos de cada uno de las acciones que
      * realice el usuario
      */
     public void validate() {
+        ValidaCampos valida = new ValidaCampos();
         if (accion.equalsIgnoreCase("consultaGen")) {
+        }if("consultaForAddEx".equalsIgnoreCase("consultaForAddEx")){
+            if(!valida.validaNulo(producto.getDska_cod())){
+                addActionError("El campo codigo no puede ser Nulo");
+            }
         }
+        valida = null;
     }
 
     public Usuario getUsuario() {
@@ -129,4 +142,11 @@ public class ProductoAction extends ActionSupport implements SessionAware, Usuar
         this.accion = accion;
     }
 
+    public String getBandera() {
+        return bandera;
+    }
+
+    public void setBandera(String bandera) {
+        this.bandera = bandera;
+    }
 }

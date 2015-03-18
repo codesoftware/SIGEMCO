@@ -51,9 +51,8 @@
                             <tr>
                                 <td><h4>Descripción:</h4></td>
                                 <td><s:textfield name="categoria.cate_desc" cssClass="form-control"  /></td>
-                            </tr>
-                         
-                             <tr>
+                            </tr>                        
+                            <tr style="display: none;">
                                 <td><h4>Fecha vencimiento:</h4></td>
                                 <td><s:textfield  name="categoria.cate_feven" required="true" maxLength="10" cssClass="form-control" /></td>
                             </tr>
@@ -62,7 +61,7 @@
                                 <td><h4>Estado:</h4></td>
                                 <td><s:select  list="estadoMap"  name="categoria.cate_estado" required="true" headerKey="-1" headerValue="Estado" cssClass="form-control"/></td>
                             </tr>
-                            <tr>
+                            <tr style="display: none;">
                                 <td><h4>registro Unico:</h4></td>
                                 <td><s:select  list="runico"  name="categoria.cate_runic" required="true" headerKey="-1" headerValue="Registo unico" cssClass="form-control"/></td>
                             </tr>

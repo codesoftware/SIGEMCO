@@ -29,8 +29,8 @@
             </s:include> 
         </s:div>
         <div class="row">
-            <div class="col-md-2 col-xs-0 col-sm-0"></div>
-            <div class="col-md-8 col-xs-12 col-sm-12">
+            <div class="col-md-3 col-xs-0 col-sm-0"></div>
+            <div class="col-md-6 col-xs-12 col-sm-12">
                 <div class="Mensajes" style="display: none;">
                     <s:if test="hasActionErrors()">
                         <div class="alert alert-danger" id="info" role="alert" ><h4><s:actionerror /></h4></div>
@@ -57,76 +57,86 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group col-md-7 col-sm-7 col-xs-7">
                                 Estado:<br>
                                 <s:select  list="estadoMap"  name="categoria.cate_estado" required="true" headerKey="-1" headerValue="Estado" cssClass="form-control"/>
 
                             </div>
-                            <div class="form-group col-md-4 col-sm-4 col-xs-4">
-                                Registro Único:<br>
-                                <s:select list="runico"  name="categoria.cate_runic" required="true" headerKey="-1" headerValue="Registro único" cssClass="form-control"/>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group col-md-5 col-sm-5 col-xs-5">
+                                &nbsp;&nbsp;&nbsp;<br>
                                 <s:include value="/WEB-INF/TEMPLATE/botones/find.jsp">
                                     <s:param name="function">consultarCategorias</s:param>
                                     <s:param name="title">Busqueda de Categorias</s:param>
                                 </s:include>
                             </div>
+                            <%--<div class="form-group col-md-4 col-sm-4 col-xs-4">
+                                Registro Único:<br>
+                                <s:select list="runico"  name="categoria.cate_runic" required="true" headerKey="-1" headerValue="Registro único" cssClass="form-control"/>
+                            </div> --%>
                         </div>
                     </div>                    
                 </s:form>
             </div>
-            <div class="col-md-2 col-xs-0 col-sm-0"></div>
+            <div class="col-md-3 col-xs-0 col-sm-0"></div>
         </div>
         <br/>
         <div class="row">
-            <div class="col-md-1 col-xs-0 col-sm-0"></div>
-            <div class="col-md-10 col-xs-12 col-sm-12">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Descripci&oacute;n</th>
-                            <th>Estado</th>
-                            <th>Registro Único</th>
-                        </tr> 
-                    </thead>
-                    <tbody>
-                        <%
-                            int i = 0;
-                        %>
-                        <s:iterator value="resultCategoria">
-                            <%
-                                if (i % 2 == 0) {
-                            %>
-                            <tr class="active">
-                                <%
-                                } else {
-                                %>
+            <div class="col-md-3 col-xs-0 col-sm-0"></div>
+            <div class="col-md-6 col-xs-12 col-sm-12">           
+                <s:if test="%{resultCategoria != null}">
+                    <table class="table table-hover">
+                        <thead>
                             <tr>
+                                <th>Descripci&oacute;n</th>
+                                <th>Estado</th>
+                                <th>Acción</th>
+                                <!--<th>Registro Único</th>-->
+                            </tr> 
+                        </thead>
+                        <tbody>
+                            <%
+                                int i = 0;
+                            %>
+                            <s:iterator value="resultCategoria">
                                 <%
-                                    }
-                                    i++;
+                                    if (i % 2 == 0) {
                                 %>
-                                <td><s:property value="cate_desc"/></td>
-                                <td><s:property value="cate_estado"/></td>
-                                <td><s:property value="cate_runic"/></td>
-
-                                <td>
-                                    <s:include value="/WEB-INF/TEMPLATE/botones/update.jsp" >
-                                        <s:param name="function">actulizarEspecifico</s:param>
-                                        <s:param name="title">Actualizar Categoria  </s:param>
-                                        <s:param name="paramFunction">'<s:property value="cate_cate"/>'</s:param>
-                                        <s:param name="clase">imagenIconoPeq</s:param>
-                                    </s:include>
-                                </td>
-                            </tr>
-                        </s:iterator>
-                    </tbody>
-                </table>
+                                <tr class="active">
+                                    <%
+                                    } else {
+                                    %>
+                                <tr>
+                                    <%
+                                        }
+                                        i++;
+                                    %>
+                                    <td><s:property value="cate_desc"/></td>
+                                    <td>
+                                        <script>
+                                            var estado = '<s:property value="cate_estado"/>';                                            
+                                            if(estado == 'A'){
+                                                document.write('ACTIVO');
+                                            }else{
+                                                document.write('INACTIVO');
+                                            }                                            
+                                        </script>                                    
+                                    </td>
+                                    <td style="display: none"><s:property value="cate_runic"/></td>
+                                    <td>
+                                        <s:include value="/WEB-INF/TEMPLATE/botones/update.jsp" >
+                                            <s:param name="function">actulizarEspecifico</s:param>
+                                            <s:param name="title">Actualizar Categoria  </s:param>
+                                            <s:param name="paramFunction">'<s:property value="cate_cate"/>'</s:param>
+                                            <s:param name="clase">imagenIconoPeq</s:param>
+                                        </s:include>
+                                    </td>
+                                </tr>
+                            </s:iterator>
+                        </tbody>
+                    </table>
+                </s:if>                
             </div>
-            <div class="col-md-1 col-xs-0 col-sm-0"></div>                        
+            <div class="col-md-3 col-xs-0 col-sm-0"></div>                        
         </div>
         <s:form action="inv_conUpdCategoria" id="inv_conUpdCategoria" cssStyle="display:none;"  theme="simple" >
             <s:textfield name="accion" id="accion" cssStyle="display:none" value="consultaUpd"/>
