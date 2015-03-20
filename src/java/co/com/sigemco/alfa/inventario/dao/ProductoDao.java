@@ -199,4 +199,34 @@ public class ProductoDao {
         return sql;
     }
 
+    /**
+     * Funcion encargada de realizar el query para buscar un producto por su
+     * codigo
+     *
+     * @return
+     */
+    public String buscaProductoXCodigo() {
+        String select = "";
+        select += "SELECT dska_dska, dska_refe, dska_cod, dska_nom_prod, dska_desc, dska_iva, \n";
+        select += "       dska_porc_iva, dska_marca, dska_estado, dska_fec_ingreso, dska_cate, \n";
+        select += "       dska_sbcu                                                           \n";
+        select += "  FROM in_tdska                                                            \n";
+        select += " WHERE dska_cod like '%" + this.getDska_cod() + "%' \n";
+        return select;
+    }
+    
+    /**
+     * Funcion encargada de realizar el query para obtener el valor promedio de
+     * cada producto  pero con la mascara de moneda
+     *
+     * @return String Query
+     */
+    public String encontrarValorPromedioXProdMascaraMon() {
+        String select = "SELECT to_char(kapr_cost_saldo_uni,'LFM9,999,999,999.00') costo "
+                .concat("  FROM in_tkapr k1 ")
+                .concat(" WHERE k1.kapr_dska = ").concat(this.getDska_dska())
+                .concat("   AND k1.kapr_kapr = (SELECT max(k2.kapr_kapr) FROM in_tkapr k2 WHERE k2.kapr_dska = k1.kapr_dska ) ");
+        return select;
+    }
+
 }

@@ -6,9 +6,13 @@
 package co.com.sigemco.alfa.inventario.action;
 
 import co.com.hotel.datos.session.Usuario;
+import co.com.hotel.dto.AddProdExistentes;
+import co.com.hotel.logica.sede.Adm_SedeLogica;
 import co.com.hotel.utilidades.UsuarioHabilitado;
 import co.com.hotel.validacion.ValidaCampos;
+import co.com.sigemco.alfa.inventario.dto.MoviInventarioDto;
 import co.com.sigemco.alfa.inventario.dto.ProductoDto;
+import co.com.sigemco.alfa.inventario.logica.MoviInventarioLogica;
 import co.com.sigemco.alfa.inventario.logica.ProductoLogica;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.List;
@@ -25,11 +29,14 @@ public class ProductoAction extends ActionSupport implements SessionAware, Usuar
     private Usuario usuario;
     private Map session;
     private List<ProductoDto> listProductos;
+    private Map<String, String> sedes;
     private ProductoDto producto;
     private String perActualizar;   //Indica si el usuario que realiza determinada accion tiene permiso de actualizar el producto
     private String perParamPrecio;  //Indica si el usuario que realiza determinada accion tiene permiso de parametrizar el precio
     private String accion;
     private String bandera;
+    private AddProdExistentes addicionProd;
+    private MoviInventarioDto moviInventario;
 
     /**
      * Funcion encargada de realizar la accion de la consulta general por fitros
@@ -65,8 +72,25 @@ public class ProductoAction extends ActionSupport implements SessionAware, Usuar
         }
         return SUCCESS;
     }
-    
-    public String buscaProductoAdicion(){
+
+    public String buscaProductoAdicion() {
+        ProductoLogica logica = null;
+        try {
+            logica = new ProductoLogica();
+            producto = logica.buscaProductoXCodigo(producto.getDska_cod());
+            if (producto == null) {
+                addActionError("Producto Inexistente por favor intente con otro codigo");
+                bandera = "S";
+            } else {
+                MoviInventarioLogica moviLogica = new MoviInventarioLogica();
+                Adm_SedeLogica sedeLogica = new Adm_SedeLogica();
+                this.sedes = sedeLogica.obtieneSedes();
+                this.moviInventario = moviLogica.buscaMoviInventarioCompra();
+                bandera = "N";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         bandera = "N";
         return SUCCESS;
     }
@@ -78,9 +102,13 @@ public class ProductoAction extends ActionSupport implements SessionAware, Usuar
     public void validate() {
         ValidaCampos valida = new ValidaCampos();
         if (accion.equalsIgnoreCase("consultaGen")) {
-        }if("consultaForAddEx".equalsIgnoreCase("consultaForAddEx")){
-            if(!valida.validaNulo(producto.getDska_cod())){
+        }
+        //Validaciones para cuando se va ha realizar la busqueda para la adicion de productos existentes
+        if ("consultaForAddEx".equalsIgnoreCase(accion)) {
+            if (!valida.validaNulo(producto.getDska_cod())) {
+                bandera = "S";
                 addActionError("El campo codigo no puede ser Nulo");
+
             }
         }
         valida = null;
@@ -148,5 +176,29 @@ public class ProductoAction extends ActionSupport implements SessionAware, Usuar
 
     public void setBandera(String bandera) {
         this.bandera = bandera;
+    }
+
+    public Map<String, String> getSedes() {
+        return sedes;
+    }
+
+    public void setSedes(Map<String, String> sedes) {
+        this.sedes = sedes;
+    }
+
+    public AddProdExistentes getAddicionProd() {
+        return addicionProd;
+    }
+
+    public void setAddicionProd(AddProdExistentes addicionProd) {
+        this.addicionProd = addicionProd;
+    }
+
+    public MoviInventarioDto getMoviInventario() {
+        return moviInventario;
+    }
+
+    public void setMoviInventario(MoviInventarioDto moviInventario) {
+        this.moviInventario = moviInventario;
     }
 }

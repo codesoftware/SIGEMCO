@@ -24,6 +24,7 @@ public class ProductoDto {
     private String dska_cate;
     private String filtros; //Indica S como se le debe mostrar al cliente y N como se le debe enviar a la base de datos
     private String cantExis; //Numero de cantidades existentes de cada producto
+    private String promPonderado;
 
     public String getDska_dska() {
         return dska_dska;
@@ -129,4 +130,11 @@ public class ProductoDto {
         this.cantExis = cantExis;
     }
 
+    public String getPromPonderado() {
+        return promPonderado;
+    }
+
+    public void setPromPonderado(String promPonderado) {
+        this.promPonderado = promPonderado;
+    }
 }

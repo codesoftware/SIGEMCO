@@ -50,6 +50,8 @@ public class ProductoLogica {
                 aux.setDska_cate(rs.getString("dska_cate"));
                 String cant = this.buscaCanProdExistenXId(aux.getDska_dska());
                 aux.setCantExis(cant);
+                String promPon = this.obtieneValorPonderadoProducto(objDto.getDska_dska());
+                aux.setPromPonderado(promPon);
                 rta.add(aux);
             }
         } catch (Exception e) {
@@ -145,8 +147,8 @@ public class ProductoLogica {
             int total = 0;
             ingresos = obtieneIngresosProdXSede(producto, sede_sede);
             egresos = obtieneEgresosProdXSede(producto, sede_sede);
-            total = ingresos- egresos;
-            rta = ""+total;
+            total = ingresos - egresos;
+            rta = "" + total;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -198,6 +200,61 @@ public class ProductoLogica {
             rta = 0;
         }
         return rta;
+    }
+
+    public ProductoDto buscaProductoXCodigo(String codigo) {
+        ProductoDto objDto = null;
+        try (EnvioFunction function = new EnvioFunction()) {
+            ProductoDao objDao = new ProductoDao();
+            objDao.setDska_cod(codigo);
+            ResultSet rs = function.enviarSelect(objDao.buscaProductoXCodigo());
+            if (rs.next()) {
+                if (objDto == null) {
+                    objDto = new ProductoDto();
+                }
+                objDto.setDska_dska(rs.getString("dska_dska"));
+                objDto.setDska_refe(rs.getString("dska_refe"));
+                objDto.setDska_cod(rs.getString("dska_cod"));
+                objDto.setDska_nom_prod(rs.getString("dska_nom_prod"));
+                objDto.setDska_desc(rs.getString("dska_desc"));
+                objDto.setDska_iva(rs.getString("dska_iva"));
+                objDto.setDska_porc_iva(rs.getString("dska_porc_iva"));
+                objDto.setDska_marca(rs.getString("dska_marca"));
+                objDto.setDska_estado(rs.getString("dska_estado"));
+                objDto.setDska_fec_ingreso(rs.getString("dska_fec_ingreso"));
+                objDto.setDska_cate(rs.getString("dska_cate"));
+                String cant = this.buscaCanProdExistenXId(objDto.getDska_dska());
+                objDto.setCantExis(cant);
+                String promPon = this.obtieneValorPonderadoProductoMascara(objDto.getDska_dska());
+                objDto.setPromPonderado(promPon);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return objDto;
+    }
+
+    /**
+     * Funcion encargada de obtener el promedio ponderado pero con mascara de
+     * moneda
+     *
+     * @param dska_dska
+     * @return
+     */
+    public String obtieneValorPonderadoProductoMascara(String dska_dska) {
+        String valor = null;
+        ProductoDao objDao = null;
+        try (EnvioFunction function = new EnvioFunction()) {
+            objDao = new ProductoDao();
+            objDao.setDska_dska(dska_dska);
+            ResultSet rs = function.enviarSelect(objDao.encontrarValorPromedioXProdMascaraMon());
+            while (rs.next()) {
+                valor = rs.getString("costo");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return valor;
     }
 
 }
