@@ -20,11 +20,10 @@ import co.com.hotel.utilidades.ManejoString;
 public class IngresaProductoNuevo {                                     
     
     public String IngresaProducto(Producto producto, String usuario){
-        try{
+        try(EnvioFunction function = new EnvioFunction()){
             //ManejoString manejo = new ManejoString();
             //String fechaNueva = manejo.convertirFormatoFechas(producto.getFechaVencimiento(), "mm/dd/yyyy", "/");
-            //producto.setFechaVencimiento(fechaNueva);
-            EnvioFunction function = new EnvioFunction();
+            //producto.setFechaVencimiento(fechaNueva);            
             function.adicionarNombre("US_FINSERT_NUEVO_PROD");
             function.adicionarParametro(producto.getReferencia());
             //function.adicionarParametro(producto.getCodigo());
@@ -56,7 +55,6 @@ public class IngresaProductoNuevo {
             String rta = "";
             rta = function.llamarFunction(function.getSql());
             function.recuperarString();
-            function.cerrarConexion();
             String[] rtaVector = rta.split("-");
             int tam = rtaVector.length;
             if (tam == 2) {

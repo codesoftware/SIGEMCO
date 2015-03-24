@@ -10,11 +10,13 @@ import co.com.hotel.dto.AddProdExistentes;
 import co.com.hotel.logica.sede.Adm_SedeLogica;
 import co.com.hotel.utilidades.UsuarioHabilitado;
 import co.com.hotel.validacion.ValidaCampos;
+import co.com.sigemco.alfa.contabilidad.logica.MoviContablesLogica;
 import co.com.sigemco.alfa.inventario.dto.MoviInventarioDto;
 import co.com.sigemco.alfa.inventario.dto.ProductoDto;
 import co.com.sigemco.alfa.inventario.logica.MoviInventarioLogica;
 import co.com.sigemco.alfa.inventario.logica.ProductoLogica;
 import com.opensymphony.xwork2.ActionSupport;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.apache.struts2.interceptor.SessionAware;
@@ -37,6 +39,8 @@ public class ProductoAction extends ActionSupport implements SessionAware, Usuar
     private String bandera;
     private AddProdExistentes addicionProd;
     private MoviInventarioDto moviInventario;
+    private ArrayList<String> ArrayAddSubCuentas;
+    private String idTrans = null;
 
     /**
      * Funcion encargada de realizar la accion de la consulta general por fitros
@@ -73,14 +77,23 @@ public class ProductoAction extends ActionSupport implements SessionAware, Usuar
         return SUCCESS;
     }
 
+    /**
+     * Funcion encargada de la accion de buscar un producto para adicionarlo al
+     * inventario
+     *
+     * @return
+     */
     public String buscaProductoAdicion() {
         ProductoLogica logica = null;
         try {
             logica = new ProductoLogica();
             producto = logica.buscaProductoXCodigo(producto.getDska_cod());
             if (producto == null) {
-                addActionError("Producto Inexistente por favor intente con otro codigo");
+                Adm_SedeLogica sedeLogica = new Adm_SedeLogica();
+                this.sedes = sedeLogica.obtieneSedes();
+                sedeLogica = null;
                 bandera = "S";
+                addActionError("Producto Inexistente por favor intente con otro codigo");
             } else {
                 MoviInventarioLogica moviLogica = new MoviInventarioLogica();
                 Adm_SedeLogica sedeLogica = new Adm_SedeLogica();
@@ -91,7 +104,46 @@ public class ProductoAction extends ActionSupport implements SessionAware, Usuar
         } catch (Exception e) {
             e.printStackTrace();
         }
-        bandera = "N";
+        //bandera = "N";
+        return SUCCESS;
+    }
+
+    /**
+     * Funcion encargade de adicionar productos al inventario
+     *
+     * @return
+     */
+    public String adicionaProductosInventario() {
+        MoviContablesLogica logicaCont = null;
+        try {
+            logicaCont = new MoviContablesLogica();
+            String idTaransc = logicaCont.insertaSbcuTablaTempo(ArrayAddSubCuentas);
+            if (!idTaransc.matches("(.*)Error(.*)")) {
+                producto.setTransMvcon(idTaransc);
+                ProductoLogica logica = new ProductoLogica();
+                String rtaFuncion = logica.adicionaProdInventario(producto, addicionProd, usuario.getIdTius());
+                if ("Ok".equalsIgnoreCase(rtaFuncion)) {
+                    this.idTrans = producto.getTransMvcon();
+                    addActionMessage("Producto Adicionado correctamente");
+                    bandera = "S";
+                    producto.setDska_cod("");
+                } else {
+                    Adm_SedeLogica sedeLogica = new Adm_SedeLogica();
+                    this.sedes = sedeLogica.obtieneSedes();
+                    sedeLogica = null;
+                    bandera = "S";
+                    addActionError("Error al insertar el producto msg DB: " + rtaFuncion);
+                }
+            } else {
+                Adm_SedeLogica sedeLogica = new Adm_SedeLogica();
+                this.sedes = sedeLogica.obtieneSedes();
+                sedeLogica = null;
+                bandera = "S";
+                addActionError("Error al insertar el producto msg DB: " + idTaransc);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return SUCCESS;
     }
 
@@ -110,6 +162,12 @@ public class ProductoAction extends ActionSupport implements SessionAware, Usuar
                 addActionError("El campo codigo no puede ser Nulo");
 
             }
+        }
+        //Validaciones para cuando se va ha realizar la insercion de productos al inventario
+        if ("addProdInventario".equalsIgnoreCase(accion)) {
+            Adm_SedeLogica sedeLogica = new Adm_SedeLogica();
+            this.sedes = sedeLogica.obtieneSedes();
+            sedeLogica = null;
         }
         valida = null;
     }
@@ -201,4 +259,21 @@ public class ProductoAction extends ActionSupport implements SessionAware, Usuar
     public void setMoviInventario(MoviInventarioDto moviInventario) {
         this.moviInventario = moviInventario;
     }
+
+    public ArrayList<String> getArrayAddSubCuentas() {
+        return ArrayAddSubCuentas;
+    }
+
+    public void setArrayAddSubCuentas(ArrayList<String> ArrayAddSubCuentas) {
+        this.ArrayAddSubCuentas = ArrayAddSubCuentas;
+    }
+
+    public String getIdTrans() {
+        return idTrans;
+    }
+
+    public void setIdTrans(String idTrans) {
+        this.idTrans = idTrans;
+    }
+
 }

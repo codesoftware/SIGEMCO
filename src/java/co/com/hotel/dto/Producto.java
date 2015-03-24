@@ -30,6 +30,7 @@ public class Producto {
     private String registroUnico;
     //Id el cual sirve para realizar los movimientos contables
     private String idTranMvCo;
+    private String promPonderado; //Valor ponderado del producto
 
     public String getReferencia() {
         return referencia;
@@ -159,4 +160,11 @@ public class Producto {
         this.idTranMvCo = idTranMvCo;
     }
 
+    public String getPromPonderado() {
+        return promPonderado;
+    }
+
+    public void setPromPonderado(String promPonderado) {
+        this.promPonderado = promPonderado;
+    }
 }

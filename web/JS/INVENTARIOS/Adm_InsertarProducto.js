@@ -392,53 +392,6 @@ function validaSubcuentasRepetidas(subcuenta) {
     return rta;
 }
 
-function obtenerAsientocontable(idTransac){
-    var datos = new Object();
-    datos.mvco_trans = idTransac;
-    $.ajax({
-        url: RutaSitio + "/AJAX/JSP/ajaxObtieneAsientoContable.jsp",
-        async: false,
-        data: datos,
-        dataType: 'json',
-        success: function(data, textStatus, jqXHR){
-            var tabla = '';
-            var cabezoteTabla = '<table class=\"table table-bordered table-hover\">'+
-                    '<thead>' + 
-                    '<tr>' + 
-                        '<th class=\"alert alert-info\"> Descripcion Cuenta </th>' + 
-                        '<th class=\"alert alert-info\"> Subcuenta </th>' +
-                        '<th class=\"alert alert-info\"> Debitos </th>' +
-                        '<th class=\"alert alert-info\"> Creditos </th>' +
-                    '</tr>'+
-                    '</thead>'
-                    '<tbody>';
-            var body = '';
-             if(data.respuesta == 'Ok'){
-                 if(data.list.length != 0){
-                     for(var i = 0; i< data.list.length ; i++){
-                        var objeto = data.list[i];
-                        var linea = '<tr>'+
-                             '<td>' + objeto.sbcu_nombre + '</td>'+
-                             '<td>' + objeto.sbcu_codigo + '</td>';
-                        if(objeto.debitos == 'N/A'){
-                            linea +=    '<td> </td>'+
-                                        '<td style=\"text-align:right\">' + objeto.creditos + '</td>';
-                        }else{
-                            linea +=    '<td style=\"text-align:right\">' + objeto.debitos + '</td>'+
-                                        '<td> </td>';
-                        }
-                             linea += '</tr>';
-                        body +=linea;
-                     }
-                     body += '</tbody></table>';
-                 }
-             }
-             tabla = cabezoteTabla + body;
-             $('#tablaAsientocontable').html(tabla);
-        } 
-    });
-}
-
 function calculaIva(){
         
 }

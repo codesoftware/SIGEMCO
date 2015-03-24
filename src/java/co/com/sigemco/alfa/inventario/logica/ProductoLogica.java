@@ -5,6 +5,7 @@
  */
 package co.com.sigemco.alfa.inventario.logica;
 
+import co.com.hotel.dto.AddProdExistentes;
 import co.com.hotel.persistencia.general.EnvioFunction;
 import co.com.sigemco.alfa.inventario.dao.ProductoDao;
 import co.com.sigemco.alfa.inventario.dto.ProductoDto;
@@ -255,6 +256,41 @@ public class ProductoLogica {
             e.printStackTrace();
         }
         return valor;
+    }
+
+    /**
+     * Funcion encargada de realizar la logica para adicionar un movimiento de
+     * inventario a el inventario
+     *
+     * @return
+     */
+    public String adicionaProdInventario(ProductoDto producto, AddProdExistentes movimiento,String tius_tius) {
+        String rta = "";
+        try(EnvioFunction function = new EnvioFunction()) {
+            function.adicionarNombre("IN_ADICIONA_PROD_EXIS");
+            function.adicionarNumeric(producto.getDska_dska());
+            function.adicionarNumeric(movimiento.getNoProductos());
+            function.adicionarNumeric(movimiento.getCosto());
+            function.adicionarNumeric(movimiento.getSede());
+            function.adicionarNumeric(tius_tius);
+            function.adicionarNumeric(producto.getTransMvcon());
+            rta = function.llamarFunction(function.getSql());
+            function.recuperarString();
+            String[] rtaVector = rta.split("-");
+            int tam = rtaVector.length;
+            if (tam == 2) {
+                // Este mensaje lo envia la funcion que envia la funcion de java que
+                // confirma que el llamado de a la funcion fue exitiso.
+                if (rtaVector[1].equalsIgnoreCase("Ok")) {
+                    // Aqui verifico si la consulta fue exitosa
+                    String rtaPg = function.getRespuesta();
+                    return rtaPg;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rta;
     }
 
 }

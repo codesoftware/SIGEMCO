@@ -117,11 +117,18 @@
                                         <td>
                                             Descripci&oacute;n del producto: 
                                         </td>
-                                        <td>
+                                        <td colspan="3">
                                             <s:text name="producto.descripcion" />
                                         </td>
+                                    <tr>
                                         <td>
-                                            Cantidades Existentes: 
+                                            Prom. Pond:
+                                        </td>
+                                        <td>
+                                            <s:text name="producto.promPonderado" />
+                                        </td>
+                                        <td>
+                                            Cant. Exis.: 
                                         </td>
                                         <td>
                                             <s:text name="producto.cantidad" />

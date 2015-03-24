@@ -11,6 +11,7 @@ import co.com.hotel.dto.PrecioProducto;
 import co.com.hotel.dto.Producto;
 import co.com.hotel.persistencia.general.EnvioFunction;
 import co.com.hotel.validacion.ValidaCampos;
+import co.com.sigemco.alfa.inventario.logica.ProductoLogica;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,11 +70,11 @@ public class Inv_ProductoLogica {
             sql += "where upper(dska_cod) like upper('%" + obj.getCodigo().trim() + "%')\n";
             sql += "and upper(dska_refe) like upper('%" + obj.getReferencia().trim() + "%')\n";
             sql += "and upper(dska_nom_prod) like upper('%" + obj.getNombre().trim() + "%')\n";
-            sql += "and upper(dska_desc) like upper('%" +obj.getDescripcion().trim() + "%')\n";
+            sql += "and upper(dska_desc) like upper('%" + obj.getDescripcion().trim() + "%')\n";
             //sql += "and upper(dska_iva) like upper('%" + obj.getIva().trim() + "%')\n";
             sql += "and prpr_dska = dska_dska\n";
             sql += "and prpr_estado = 'A'\n";
-            if(obj.getPorcIva() != null && !obj.getPorcIva().equalsIgnoreCase("")){
+            if (obj.getPorcIva() != null && !obj.getPorcIva().equalsIgnoreCase("")) {
                 sql += "and dska_porc_iva =" + obj.getPorcIva().trim() + "\n";
             }
             sql += "and upper(dska_marca) like upper('%" + obj.getMarca().trim() + "%')\n";
@@ -105,8 +106,15 @@ public class Inv_ProductoLogica {
         }
         return r;
     }
-    
-    public Producto buscaProductosXCodigo(String codigo,String id) {
+
+    /**
+     * Funcion encargada de buscar un producto por el codigo del producto
+     *
+     * @param codigo
+     * @param id
+     * @return
+     */
+    public Producto buscaProductosXCodigo(String codigo, String id) {
         Producto r = null;
         EnvioFunction function = new EnvioFunction();
         ResultSet rs = null;
@@ -117,8 +125,8 @@ public class Inv_ProductoLogica {
             sql += ", to_char(prpr_precio,'LFM9,999,999.99') prpr_precio\n ";
             sql += "from in_tdska LEFT JOIN in_tprpr\n";
             sql += "on dska_dska = prpr_dska\n";
-            sql += "where upper(dska_cod) like upper('%" + codigo.trim() + "%')\n";                    
-            if(id !=null && !id.equalsIgnoreCase("")){
+            sql += "where upper(dska_cod) like upper('%" + codigo.trim() + "%')\n";
+            if (id != null && !id.equalsIgnoreCase("")) {
                 sql += " and dska_dska = " + id + "\n";
             }
             rs = function.enviarSelect(sql);
@@ -139,6 +147,9 @@ public class Inv_ProductoLogica {
                 String aux = buscaCanProdExistenXId(prod.getId());
                 prod.setCantidad(aux);
                 prod.setCosto(rs.getString("prpr_precio"));
+                ProductoLogica logicaProd = new ProductoLogica();
+                String promPond = logicaProd.obtieneValorPonderadoProductoMascara(prod.getId());
+                prod.setPromPonderado(promPond);
                 r = prod;
             }
         } catch (Exception e) {
@@ -210,9 +221,9 @@ public class Inv_ProductoLogica {
             sql += "    kapr_cost_saldo_tot,                                \n";
             sql += "    sede_nombre  sede                              \n";
             sql += "from in_tkapr, in_tmvin, em_tsede                      \n";
-            sql += "where kapr_dska = "+id+"                               \n";
+            sql += "where kapr_dska = " + id + "                               \n";
             sql += "and kapr_mvin = mvin_mvin                              \n";
-            sql += "and kapr_fecha between '"+fechaIni+"' and '"+fechaFin+"' \n";
+            sql += "and kapr_fecha between '" + fechaIni + "' and '" + fechaFin + "' \n";
             sql += "and kapr_sede = sede_sede    ";
             sql += "order by kapr_cons_pro asc                             \n";
             rs = function.enviarSelect(sql);
@@ -245,8 +256,8 @@ public class Inv_ProductoLogica {
         }
         return r;
     }
-    
-    public Producto buscaProductoXId(String id){
+
+    public Producto buscaProductoXId(String id) {
         Producto producto = null;
         EnvioFunction function = new EnvioFunction();
         ResultSet rs = null;
@@ -257,8 +268,8 @@ public class Inv_ProductoLogica {
             sql += "from in_tdska\n";
             sql += "where dska_dska = " + id + "\n";
             rs = function.enviarSelect(sql);
-            if(rs.next()){
-                if(cont == 0){
+            if (rs.next()) {
+                if (cont == 0) {
                     producto = new Producto();
                     cont++;
                 }
@@ -270,75 +281,78 @@ public class Inv_ProductoLogica {
                 producto.setDescripcion(rs.getString("descripcion"));
                 producto.setPorcIva(rs.getString("ivaPorc"));
                 producto.setIva(rs.getString("iva"));
-                
+
             }
         } catch (Exception e) {
-            System.out.println("Error Inv_ProductoLogica.buscaProductoXId " + e );
-        }finally{
+            System.out.println("Error Inv_ProductoLogica.buscaProductoXId " + e);
+        } finally {
             function.cerrarConexion();
             function = null;
         }
         return producto;
-    }    
-    
-    public String actualizaProducto(Producto obj){
+    }
+
+    public String actualizaProducto(Producto obj) {
         String rta = null;
         EnvioFunction function = new EnvioFunction();
         try {
-            if(obj.getId() == null || obj.getId().trim().equalsIgnoreCase("")){
+            if (obj.getId() == null || obj.getId().trim().equalsIgnoreCase("")) {
                 return null;
-            }else{
+            } else {
                 String sql = this.armaUpdProducto(obj);
-                if(sql != null){
+                if (sql != null) {
                     function.enviarUpdate(sql);
                     rta = "Ok";
                 }
             }
         } catch (Exception e) {
             System.out.println("Error Inv_ProductoLogica.actualizaProducto " + e);
-        }finally{
+        } finally {
             function.cerrarConexion();
             function = null;
         }
         return rta;
     }
-    
-    
-    public String armaUpdProducto(Producto obj){
+
+    public String armaUpdProducto(Producto obj) {
         String update = "Update in_tdska\n";
         update += "set dska_cod = dska_cod\n";
         int cont = 0;
         ValidaCampos valida = new ValidaCampos();
-        if(valida.validaNulo(obj.getNombre())){
-            update += ", dska_nom_prod = '" + obj.getNombre()  +"'\n";
+        if (valida.validaNulo(obj.getNombre())) {
+            update += ", dska_nom_prod = '" + obj.getNombre() + "'\n";
             cont++;
         }
-        if(valida.validaNulo(obj.getReferencia())){
-            update += ", dska_refe = '" + obj.getReferencia() +"'\n";
+        if (valida.validaNulo(obj.getReferencia())) {
+            update += ", dska_refe = '" + obj.getReferencia() + "'\n";
             cont++;
-        }if(valida.validaNulo(obj.getDescripcion())){
-            update += ", dska_desc = '"+obj.getDescripcion()+"'\n";
+        }
+        if (valida.validaNulo(obj.getDescripcion())) {
+            update += ", dska_desc = '" + obj.getDescripcion() + "'\n";
             cont++;
-        }if(valida.validaNulo(obj.getPorcIva())){
-            update += ", dska_porc_iva = "+obj.getPorcIva()+ "\n";
+        }
+        if (valida.validaNulo(obj.getPorcIva())) {
+            update += ", dska_porc_iva = " + obj.getPorcIva() + "\n";
             cont++;
-        }if(valida.validaNulo(obj.getIva())){
+        }
+        if (valida.validaNulo(obj.getIva())) {
             update += ", dska_iva = '" + obj.getIva() + "'\n";
             cont++;
-        }if(valida.validaNulo(obj.getMarca())){
-            update += ", dska_marca = '"+ obj.getMarca() + "'\n";
+        }
+        if (valida.validaNulo(obj.getMarca())) {
+            update += ", dska_marca = '" + obj.getMarca() + "'\n";
             cont++;
         }
-        if(cont>0){
-            update += "WHERE dska_dska = "+obj.getId();
-        }else{
+        if (cont > 0) {
+            update += "WHERE dska_dska = " + obj.getId();
+        } else {
             return null;
         }
         return update;
     }
-    
-    public String adicionProductosFactura(String fact_fact, String dska_dska, String cant,String usuario){        
-        String rta ="";
+
+    public String adicionProductosFactura(String fact_fact, String dska_dska, String cant, String usuario) {
+        String rta = "";
         EnvioFunction function = new EnvioFunction();
         try {
             function.adicionarNombre("FA_REGISTRA_VENTA_PROD");
@@ -360,13 +374,13 @@ public class Inv_ProductoLogica {
             }
         } catch (Exception e) {
             System.out.println("Error Inv_ProductoLogica.adicionProductosFactura " + e);
-        }finally{
+        } finally {
             function.cerrarConexion();
         }
         return rta;
     }
-    
-    public List buscaHistorialPreciosProd(String dska_dska){
+
+    public List buscaHistorialPreciosProd(String dska_dska) {
         List<PrecioProducto> r = null;
         EnvioFunction function = new EnvioFunction();
         ResultSet rs = null;
@@ -375,11 +389,11 @@ public class Inv_ProductoLogica {
             String sql = "SELECT prpr_prpr, prpr_dska, to_char(prpr_precio,'LFM9,999,999.00') prpr_precio , prpr_tius_crea, prpr_tius_update, prpr_fecha,\n";
             sql += "(CASE WHEN prpr_estado = 'A' THEN 'Activo' WHEN prpr_estado = 'I' THEN 'Inactivo' END ) prpr_estado\n";
             sql += "FROM in_tprpr\n";
-            sql += "WHERE prpr_dska = "+ dska_dska;
+            sql += "WHERE prpr_dska = " + dska_dska;
             sql += " ORDER BY prpr_fecha desc,prpr_prpr desc";
             rs = function.enviarSelect(sql);
-            while(rs.next()){
-                if(cont==0){
+            while (rs.next()) {
+                if (cont == 0) {
                     r = new ArrayList<PrecioProducto>();
                     cont++;
                 }
@@ -393,13 +407,13 @@ public class Inv_ProductoLogica {
             }
         } catch (Exception e) {
             System.out.println("Error Inv_ProductoLogica.buscaHistorialPreciosProd " + e);
-        }finally{
+        } finally {
             function.cerrarConexion();
         }
-        return r;        
+        return r;
     }
-    
-    public String  parametrizaPrecioPr(String dska_dska, String tius_tius, String precio,String sede){
+
+    public String parametrizaPrecioPr(String dska_dska, String tius_tius, String precio, String sede) {
         String rta = "Ok";
         EnvioFunction function = new EnvioFunction();
         try {
@@ -408,13 +422,13 @@ public class Inv_ProductoLogica {
             sql += "values(";
             sql += dska_dska + "," + precio + "," + tius_tius + "," + tius_tius + "," + sede;
             sql += ")";
-            function.enviarUpdate(sql);            
+            function.enviarUpdate(sql);
         } catch (Exception e) {
             System.out.println("Error Inv_ProductoLogica.parametrizaPrecioPr " + e);
-        }finally{
+        } finally {
             function.cerrarConexion();
         }
         return rta;
     }
-    
+
 }

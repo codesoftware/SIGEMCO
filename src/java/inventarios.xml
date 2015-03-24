@@ -112,5 +112,9 @@
             <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_AddProductoExistente.jsp</result>
             <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_AddProductoExistente.jsp</result>            
         </action> 
+        <action name="inv_ejecutaAddProdEx" class="co.com.sigemco.alfa.inventario.action.ProductoAction" method="adicionaProductosInventario">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_AddProductoExistente.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_AddProductoExistente.jsp</result>            
+        </action>
     </package>
 </struts>
