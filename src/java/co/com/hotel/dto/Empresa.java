@@ -21,6 +21,7 @@ public class Empresa {
     private String comisionPrepago;
     private String comisionPostpago;
     private String comisionReposicion;
+    private String subcuentaBancos;
 
     public String getNombre() {
         return nombre;
@@ -102,4 +103,11 @@ public class Empresa {
         this.comisionReposicion = comisionReposicion;
     }
 
+    public String getSubcuentaBancos() {
+        return subcuentaBancos;
+    }
+
+    public void setSubcuentaBancos(String subcuentaBancos) {
+        this.subcuentaBancos = subcuentaBancos;
+    }
 }

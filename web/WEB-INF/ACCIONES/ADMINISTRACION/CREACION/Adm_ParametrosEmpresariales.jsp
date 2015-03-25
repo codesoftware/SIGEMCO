@@ -54,7 +54,7 @@
                 <s:form theme="simple" action="adm_updtParaEmp" id="adm_updtParaEmp" >
                     <table class="table table-bordered">
                         <thead>
-                            <tr width="100%">
+                            <tr>
                                 <th colspan="2" align="center" class="alert alert-info text-center"><h3>PARAMETROS GENERALES EMPRESARIALES</h3></th>
                         </tr>
                         </thead>
@@ -90,8 +90,7 @@
                                     <s:include value="/WEB-INF/TEMPLATE/botones/clean.jsp" />
                                 </td>
                             </tr>
-                        </tfoot>
-                        </tbody>                    
+                        </tfoot>                  
                     </table>
                 </s:form>
             </div>     

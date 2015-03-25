@@ -82,7 +82,11 @@ public class Emp_EmpresaLogica {
                 return inserts;
             }
             inserts = this.ingresaComisionReposicion(empresa.getComisionReposicion());
-            if (!inserts.equalsIgnoreCase("Ok")){
+            if (!inserts.equalsIgnoreCase("Ok")) {
+                return inserts;
+            }
+            inserts = this.ingresaSubcuentaTarjeta(empresa.getSubcuentaBancos());
+            if (!inserts.equalsIgnoreCase("Ok")) {
                 return inserts;
             }
             rta = "Ok";
@@ -398,7 +402,7 @@ public class Emp_EmpresaLogica {
      *
      * @return
      */
-    public Empresa obtieneDatosEmpresa(){
+    public Empresa obtieneDatosEmpresa() {
         Empresa obj = null;
         EnvioFunction function = new EnvioFunction();
         ResultSet rs = null;
@@ -414,8 +418,8 @@ public class Emp_EmpresaLogica {
             sql += "       (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'IVAPR') IVAPR        ,  ";
             sql += "       (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'COMISIONPRE') COMISIONPRE  ,";
             sql += "       (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'COMISIONREP') COMISIONREP  ,";
-            sql += "       (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'COMISIONPOST') COMISIONPOST ";
-
+            sql += "       (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'COMISIONPOST') COMISIONPOST , ";
+            sql += "       (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'SBCUTARJETA') SBCUTARJETA ";
             rs = function.enviarSelect(sql);
             while (rs.next()) {
                 if (contador == 0) {
@@ -430,8 +434,9 @@ public class Emp_EmpresaLogica {
                 obj.setDiasVen(rs.getString("diasven"));
                 obj.setIva(rs.getString("ivapr"));
                 obj.setComisionPrepago(rs.getString("COMISIONPRE"));
-                obj.setComisionPostpago(rs.getString("COMISIONPOST"));                
-                obj.setComisionReposicion(rs.getString("COMISIONREP"));                
+                obj.setComisionPostpago(rs.getString("COMISIONPOST"));
+                obj.setComisionReposicion(rs.getString("COMISIONREP"));
+                obj.setSubcuentaBancos(rs.getString("SBCUTARJETA"));
             }
         } catch (Exception e) {
             System.out.println("Error Emp_EmpresaLogica.obtieneDatosEmpresa " + e);
@@ -442,7 +447,7 @@ public class Emp_EmpresaLogica {
         }
         return obj;
     }
-    
+
     /**
      * Funcion encargada de insertar o modificar la comision que se cobrara por
      * los equipos postpago celulares
@@ -483,7 +488,7 @@ public class Emp_EmpresaLogica {
         }
         return "Ok";
     }
-    
+
     /**
      * Funcion encargada de insertar o modificar la comision que se cobrara por
      * los equipos en reposicon celulares
@@ -513,6 +518,47 @@ public class Emp_EmpresaLogica {
                 sql = "UPDATE em_tpara                     \n";
                 sql += "SET para_valor = '" + comision + "'  \n";
                 sql += "WHERE upper(para_clave) = 'COMISIONREP' \n";
+            }
+            function.enviarUpdate(sql);
+        } catch (Exception e) {
+            System.err.println("Error Emp_EmpresaLogica.ingresaNombreEmpresa");
+            e.printStackTrace();
+            return "Error al insertar el nombre de la empresa: " + e;
+        } finally {
+            function.cerrarConexion();
+        }
+        return "Ok";
+    }
+
+    /**
+     * Funcion encargada de insertar o modificar la SUBCUENTA a la cual ira el
+     * dinero pagado por los clientes con tarjeta
+     *
+     * @param comision
+     * @return
+     */
+    private String ingresaSubcuentaTarjeta(String subcuenta) {
+        EnvioFunction function = new EnvioFunction();
+        ResultSet rs = null;
+        String select = "";
+        String sql = "";
+        int cont = 0;
+        try {
+            select += "select COUNT(*)  contador            \n";
+            select += "from em_tpara                        \n";
+            select += "where upper(para_clave) = 'SBCUTARJETA' \n";
+            rs = function.enviarSelect(select);
+            while (rs.next()) {
+                cont = rs.getInt("contador");
+            }
+            if (cont == 0) {
+                sql = "insert into em_tpara(para_clave, para_valor) \n";
+                sql += "values('SBCUTARJETA', '" + subcuenta + "')   \n";
+
+            } else {
+                sql = "UPDATE em_tpara                     \n";
+                sql += "SET para_valor = '" + subcuenta + "'  \n";
+                sql += "WHERE upper(para_clave) = 'SBCUTARJETA' \n";
             }
             function.enviarUpdate(sql);
         } catch (Exception e) {
