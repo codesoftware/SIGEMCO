@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" columnCount="2" pageWidth="311" pageHeight="70" orientation="Landscape" columnWidth="150" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" uuid="6cc98a90-9df2-4252-b5bf-a57c1f1cc5a7">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="151"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="dska_dska" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select '1']]>
+	</queryString>
+	<field name="?column?" class="java.lang.String"/>
+	<field name="dska_cod" class="java.lang.String"/>
+	<field name="dska_nom_prod" class="java.lang.String"/>
+	<detail>
+		<band height="60" splitType="Stretch">
+			<componentElement>
+				<reportElement x="22" y="1" width="100" height="40" uuid="c12e258b-ef5c-4d0a-a25b-bd42473f1237"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="3of9" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA["1234"]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<componentElement>
+				<reportElement x="179" y="2" width="100" height="40" uuid="af611fac-0c09-4f05-b4d2-461dfd8453fd"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="3of9" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA["1234"]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<textField>
+				<reportElement x="179" y="40" width="100" height="10" uuid="f19119fa-95a5-43a9-91e2-86a19641e0bf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dska_cod}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="22" y="40" width="100" height="10" uuid="c378aed5-1466-43ab-9ee8-f4e6992092dc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dska_cod}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="179" y="50" width="100" height="10" uuid="da062bf2-1a48-4da5-a895-e95ce9e548ab"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dska_nom_prod}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="22" y="50" width="100" height="10" uuid="8bef96bc-0ea6-4584-a045-daf7b5047032"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dska_nom_prod}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

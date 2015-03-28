@@ -56,7 +56,7 @@
             </result>
         </action>
         <action name="inv_stickeProd" class="co.com.sigemco.alfa.inventario.reporte.ProductoSticker" method="generarStiker" >
-            <param name="nombreJasper">codigoBarras.jasper</param>
+            <param name="nombreJasper">codigo.jasper</param>
             <result name="success" type="stream">
                 <!-- nombre del atributo del action que contiene el InputStream a devolver, por defecto se considera inputStream -->
                 <param name="inputName">fileInputStream</param>
