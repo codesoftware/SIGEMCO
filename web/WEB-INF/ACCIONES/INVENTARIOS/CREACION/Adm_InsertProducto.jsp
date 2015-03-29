@@ -61,7 +61,9 @@
                                 </tr>
                                 <tr>
                                     <td>Referencia:</td>
-                                    <td><s:textfield name="producto.referencia" required="true" maxLength="10" cssClass="form-control" id="producto_referencia"/></td>
+                                    <td>
+                                        <s:select cssClass="form-control" list="referencias" name="producto.referencia" id="referencia" headerKey="-1" headerValue="Referencia" />
+                                    </td>
                                 </tr>
                                 <%--<tr>
                                     <td>Codigo</td>
@@ -289,5 +291,4 @@
                                     mostrarMsn();
         </script>
     </s:if>
-
 </html>

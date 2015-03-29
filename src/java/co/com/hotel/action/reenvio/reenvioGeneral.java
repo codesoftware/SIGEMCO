@@ -201,6 +201,8 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
                     producto = new Producto();
                     producto.setPorcIva(empresa.getIva());
                     empresa = null;
+                    refeLogica = new ReferenciaLogica();
+                    this.referencias = refeLogica.obtieneIdDescrReferenciaActivos();
                     break;
                 case INV_INS_PRODEXIS:
                     bandera = "S";
@@ -229,6 +231,8 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
                     break;
                 case INV_CON_PRODUCTO:
                     nextPage = "inv_con_producto";
+                    refeLogica = new ReferenciaLogica();
+                    this.referencias = refeLogica.obtieneIdDescrReferenciaActivos();
                     break;
                 case INV_UPD_PRODUCTO:
                     nextPage = "inv_upd_producto";

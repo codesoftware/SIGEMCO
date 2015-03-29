@@ -159,6 +159,12 @@ function validaDatosProducto() {
         $('#mensaje').modal('show');
         return false;
     }
+    var referencia = $('#referencia').val();
+    if (referencia == '-1') {
+        $('#textoMsn').html('Por Favor seleccione la referencia del equipo a la cual le servira el producto');
+        $('#mensaje').modal('show');
+        return false;
+    }
     return true;
 }
 

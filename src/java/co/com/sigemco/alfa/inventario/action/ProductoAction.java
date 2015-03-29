@@ -15,6 +15,7 @@ import co.com.sigemco.alfa.inventario.dto.MoviInventarioDto;
 import co.com.sigemco.alfa.inventario.dto.ProductoDto;
 import co.com.sigemco.alfa.inventario.logica.MoviInventarioLogica;
 import co.com.sigemco.alfa.inventario.logica.ProductoLogica;
+import co.com.sigemco.alfa.inventario.logica.ReferenciaLogica;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,7 @@ public class ProductoAction extends ActionSupport implements SessionAware, Usuar
     private MoviInventarioDto moviInventario;
     private ArrayList<String> ArrayAddSubCuentas;
     private String idTrans = null;
+    private Map<String, String> referencias;
 
     /**
      * Funcion encargada de realizar la accion de la consulta general por fitros
@@ -151,9 +153,11 @@ public class ProductoAction extends ActionSupport implements SessionAware, Usuar
      * Funcion encargada de validar los cmpos de cada uno de las acciones que
      * realice el usuario
      */
-    public void validate() {
+    public void validate(){
         ValidaCampos valida = new ValidaCampos();
         if (accion.equalsIgnoreCase("consultaGen")) {
+            ReferenciaLogica refeLogica = new ReferenciaLogica();
+            this.referencias = refeLogica.obtieneIdDescrReferenciaActivos();
         }
         //Validaciones para cuando se va ha realizar la busqueda para la adicion de productos existentes
         if ("consultaForAddEx".equalsIgnoreCase(accion)) {
@@ -276,4 +280,11 @@ public class ProductoAction extends ActionSupport implements SessionAware, Usuar
         this.idTrans = idTrans;
     }
 
+    public Map<String, String> getReferencias() {
+        return referencias;
+    }
+
+    public void setReferencias(Map<String, String> referencias) {
+        this.referencias = referencias;
+    }
 }

@@ -26,6 +26,7 @@ public class ProductoDto {
     private String cantExis; //Numero de cantidades existentes de cada producto
     private String promPonderado;
     private String transMvcon;
+    private String referenciaNombre;
 
     public String getDska_dska() {
         return dska_dska;
@@ -145,5 +146,13 @@ public class ProductoDto {
 
     public void setTransMvcon(String transMvcon) {
         this.transMvcon = transMvcon;
+    }
+
+    public String getReferenciaNombre() {
+        return referenciaNombre;
+    }
+
+    public void setReferenciaNombre(String referenciaNombre) {
+        this.referenciaNombre = referenciaNombre;
     }
 }

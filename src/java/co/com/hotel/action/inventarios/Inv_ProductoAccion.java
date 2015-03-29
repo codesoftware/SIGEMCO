@@ -16,6 +16,7 @@ import co.com.hotel.utilidades.UsuarioHabilitado;
 import co.com.hotel.validacion.ValidaCampos;
 import co.com.hotel.validacion.ValidaDuplicadodosProd;
 import co.com.sigemco.alfa.contabilidad.logica.MoviContablesLogica;
+import co.com.sigemco.alfa.inventario.logica.ReferenciaLogica;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,6 +39,7 @@ public class Inv_ProductoAccion extends ActionSupport implements SessionAware, U
     private Map<String, String> yesNo;
     private ArrayList<String> ArrayAddSubCuentas;
     private String mandaParamePrecio;
+    private Map<String, String> referencias;
 
     /**
      * Funcion encargada de realizar el llamado de la funcion que insertara
@@ -55,20 +57,20 @@ public class Inv_ProductoAccion extends ActionSupport implements SessionAware, U
                 producto.setIdTranMvCo(idTaransc);
                 ingreso = new IngresaProductoNuevo();
                 String rta = ingreso.IngresaProducto(producto, usuario.getUsuario());
-                String []aux = rta.split("&");
+                String[] aux = rta.split("&");
                 if (aux[0].equalsIgnoreCase("Ok")) {
                     mandaParamePrecio = "S";
                     limpiarProducto();
-                    String codProd  = aux[1];
+                    String codProd = aux[1];
                     producto.setCodigo(codProd);
                     producto.setIdTranMvCo(idTaransc);
                     addActionMessage("Producto ingresado correctamente");
                 } else {
                     addActionError("Lamentablemente el producto no pudo ser ingresado por el siguiente error" + rta);
                 }
-            }else{
+            } else {
                 addActionError(idTaransc);
-                
+
             }
         } catch (Exception e) {
             addActionError("Error al ingresar el producto");
@@ -81,6 +83,8 @@ public class Inv_ProductoAccion extends ActionSupport implements SessionAware, U
         this.sedes = sedeLogica.obtieneSedes();
         Inv_CategoriaLogica cateLogica = new Inv_CategoriaLogica();
         this.categorias = cateLogica.obtieneCategorias();
+        ReferenciaLogica refeLogica = new ReferenciaLogica();
+        this.referencias = refeLogica.obtieneIdDescrReferenciaActivos();
         ValidaCampos valida = new ValidaCampos();
         ValidaDuplicadodosProd duplicados = new ValidaDuplicadodosProd();
         Emp_EmpresaLogica logicaEmp = new Emp_EmpresaLogica();
@@ -207,5 +211,12 @@ public class Inv_ProductoAccion extends ActionSupport implements SessionAware, U
     public void setMandaParamePrecio(String mandaParamePrecio) {
         this.mandaParamePrecio = mandaParamePrecio;
     }
-    
+
+    public Map<String, String> getReferencias() {
+        return referencias;
+    }
+
+    public void setReferencias(Map<String, String> referencias) {
+        this.referencias = referencias;
+    }
 }

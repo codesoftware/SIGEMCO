@@ -57,8 +57,8 @@
                                 <s:textfield name="producto.dska_desc" placeholder="Filtro" cssClass="form-control"/>
                             </div>
                             <div class="form-group col-md-4 col-sm-4 col-xs-4">
-                                Referencia:<br>
-                                <s:textfield name="producto.dska_refe" placeholder="Filtro" cssClass="form-control" />
+                                Referencia:<br>                                
+                                <s:select cssClass="form-control" list="referencias" name="producto.dska_refe" id="referencia" headerKey="-1" headerValue="Referencia" />
                             </div>
                         </div>
                         <div class="row">
@@ -119,7 +119,7 @@
                                         <td><s:property value="dska_nom_prod"/></td>
                                     </s:else>
                                     <td><s:property value="dska_desc"/></td>
-                                    <td><s:property value="dska_refe"/></td>
+                                    <td><s:property value="referenciaNombre"/></td>
                                     <td><s:property value="dska_cod"/></td>
                                     <td><s:property value="cantExis"/></td>
                                     <td><s:property value="dska_marca"/></td>                                   

@@ -30,18 +30,17 @@ public class CategoriaAction extends ActionSupport implements SessionAware, Usua
     private CategoriaDto categoria;
 
     public void validate() {
-        
+
         this.runico = new HashMap<String, String>();
         this.runico.put("A", "Activo");
         this.runico.put("I", "Inactivo");
         this.estadoMap = new HashMap<String, String>();
         this.estadoMap.put("A", "Activo");
         this.estadoMap.put("I", "Inactivo");
-        
+
 //        if(accion.equalsIgnoreCase("insertar")){
 //            
 //        }
-
     }
 
     public String consultaCategorias() {
@@ -84,13 +83,16 @@ public class CategoriaAction extends ActionSupport implements SessionAware, Usua
         }
         return SUCCESS;
     }
-    
-        public String insertar() {
+
+    public String insertar() {
         CategoriaLogica res = null;
         try {
             res = new CategoriaLogica();
             String resultado = res.insertarCategoria(categoria);
             addActionMessage(resultado);
+            if("CATEGORIA INSERTADA CORRECTAMENTE".equalsIgnoreCase(resultado)){
+                categoria = null;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

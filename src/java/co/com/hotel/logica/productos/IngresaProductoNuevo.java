@@ -25,7 +25,7 @@ public class IngresaProductoNuevo {
             //String fechaNueva = manejo.convertirFormatoFechas(producto.getFechaVencimiento(), "mm/dd/yyyy", "/");
             //producto.setFechaVencimiento(fechaNueva);            
             function.adicionarNombre("US_FINSERT_NUEVO_PROD");
-            function.adicionarParametro(producto.getReferencia());
+            function.adicionarNumeric(producto.getReferencia());
             //function.adicionarParametro(producto.getCodigo());
             function.adicionarNull();
             function.adicionarParametro(producto.getNombre());

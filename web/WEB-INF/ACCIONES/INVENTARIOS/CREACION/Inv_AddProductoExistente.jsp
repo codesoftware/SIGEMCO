@@ -67,21 +67,25 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr onclick="ocultaDatosProd()">
-                                    <th class="alert alert-success text-center" colspan="4"><h4>Producto</h4></th>
+                                    <th class="alert alert-success text-center" colspan="6"><h4>Producto</h4></th>
                             </tr>
                             </thead>
                             <tbody class="datosProd">
                                 <tr>
                                     <td>Codigo:</td>
                                     <td><s:text name="producto.dska_cod" /></td>
-                                    <td>Nombre:</td>
-                                    <td><s:text name="producto.dska_nom_prod" /></td>
-                                </tr>
-                                <tr>
-                                    <td>Existencias:</td>
-                                    <td><s:text name="producto.cantExis" /></td>
                                     <td>Promedio Pond:</td>
                                     <td><s:text name="producto.promPonderado" /></td>
+                                    <td>Existencias:</td>
+                                    <td><s:text name="producto.cantExis" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Nombre:</td>
+                                    <td><s:text name="producto.dska_nom_prod" /></td>
+                                    <td>Marca:</td>
+                                    <td><s:text name="producto.dska_marca" /></td>
+                                    <td>Referencia:</td>
+                                    <td><s:text name="producto.referenciaNombre" /></td>
                                 </tr>
                             </tbody>
                         </table>

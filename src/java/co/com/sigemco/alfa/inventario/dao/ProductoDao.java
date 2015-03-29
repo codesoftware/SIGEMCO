@@ -129,10 +129,21 @@ public class ProductoDao {
     public String selectConFiltros() {
         String select = "";
         select += "SELECT dska_dska, dska_refe, dska_cod, dska_nom_prod, dska_desc, dska_iva, \n";
-        select += "       dska_porc_iva, dska_marca, dska_estado, dska_fec_ingreso, dska_cate \n";
-        select += "  FROM in_tdska                                                            \n";
-        select += " WHERE 1 = 1 \n";
+        select += "       dska_porc_iva, dska_marca, dska_estado, dska_fec_ingreso, dska_cate, refe_desc \n";
+        select += "  FROM in_tdska, in_trefe                                                  \n";
+        select += " WHERE refe_refe = dska_refe \n";
+        select += this.armaWhereXFiltros();
         return select;
+    }
+    
+    public String armaWhereXFiltros(){
+        String where = "";
+        if(!"-1".equalsIgnoreCase(dska_refe)){
+            where += " AND dska_refe = "+ this.getDska_refe();
+        }if(!"".equalsIgnoreCase(dska_cod)){
+            where += " AND dska_cod like '%"+ this.getDska_cod()+ "%'";
+        }
+        return where;
     }
 
     /**
@@ -208,10 +219,11 @@ public class ProductoDao {
     public String buscaProductoXCodigo() {
         String select = "";
         select += "SELECT dska_dska, dska_refe, dska_cod, dska_nom_prod, dska_desc, dska_iva, \n";
-        select += "       dska_porc_iva, dska_marca, dska_estado, dska_fec_ingreso, dska_cate, \n";
-        select += "       dska_sbcu                                                           \n";
-        select += "  FROM in_tdska                                                            \n";
+        select += "       dska_porc_iva, dska_marca, dska_estado, dska_fec_ingreso, dska_cate,\n";
+        select += "       dska_sbcu, refe_desc                                                \n";
+        select += "  FROM in_tdska, in_trefe                                                  \n";
         select += " WHERE dska_cod like '%" + this.getDska_cod() + "%' \n";
+        select += "   AND dska_refe = refe_refe \n";        
         return select;
     }
     
