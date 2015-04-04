@@ -27,6 +27,7 @@ public class ProductoDto {
     private String promPonderado;
     private String transMvcon;
     private String referenciaNombre;
+    private String cantidad;
 
     public String getDska_dska() {
         return dska_dska;
@@ -154,5 +155,13 @@ public class ProductoDto {
 
     public void setReferenciaNombre(String referenciaNombre) {
         this.referenciaNombre = referenciaNombre;
+    }
+
+    public String getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(String cantidad) {
+        this.cantidad = cantidad;
     }
 }

@@ -116,5 +116,9 @@
             <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_AddProductoExistente.jsp</result>
             <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_AddProductoExistente.jsp</result>            
         </action>
+        <action name="inv_ConsProdCambioSede" class="co.com.sigemco.alfa.inventario.action.ProductoAction" method="buscaProductoCambioSede">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_CambioSedeProd.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_CambioSedeProd.jsp</result>            
+        </action>
     </package>
 </struts>

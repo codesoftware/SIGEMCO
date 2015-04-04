@@ -212,6 +212,12 @@
                                                         <td>Consulta Equipos Celulares</td>
                                                         <td><input type="checkbox" value="InPr8" id="InPr8" /></td>
                                                     </tr>
+                                                    <tr>
+                                                        <td>Cambio de Sede</td>
+                                                        <td><input type="checkbox" value="InPr9" id="InPr9" /></td>
+                                                        <td>&nbsp;&nbsp;</td>
+                                                        <td>&nbsp;&nbsp;</td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>

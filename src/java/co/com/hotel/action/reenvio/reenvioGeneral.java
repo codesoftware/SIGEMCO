@@ -58,6 +58,8 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     public static final int INV_CON_PRODUCTO = 214;
     public static final int INV_ACI_PRODUCTO = 215; //Activa o inactiva productos 
     public static final int INV_PAR_PRECIOSPR = 216; //Parametrizacion de precios de productos
+    public static final int INV_CAM_SEDEPRODU = 218; //Cambio de una cantidad de productos
+    
 
     public static final int INV_INS_SERVICIO = 221;
     public static final int INV_CON_SERVICIO = 224;
@@ -207,6 +209,9 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
                 case INV_INS_PRODEXIS:
                     bandera = "S";
                     nextPage = "inv_ins_prodexis";
+                    break;
+                case INV_CAM_SEDEPRODU:
+                    nextPage = "inv_cam_sedeprodu";
                     break;
                 case FAC_INS_FACTURA:
                     nextPage = "fac_ins_factura";

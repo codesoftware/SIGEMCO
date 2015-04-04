@@ -43,6 +43,8 @@ public class ProductoAction extends ActionSupport implements SessionAware, Usuar
     private ArrayList<String> ArrayAddSubCuentas;
     private String idTrans = null;
     private Map<String, String> referencias;
+    private String sedeOrigen;
+    private String sedeDestino;
 
     /**
      * Funcion encargada de realizar la accion de la consulta general por fitros
@@ -150,10 +152,33 @@ public class ProductoAction extends ActionSupport implements SessionAware, Usuar
     }
 
     /**
+     * Funcion encargada de realizar la accion de buscar un producto por medio
+     * de su codigo para luego cambiar de sedes los productos
+     *
+     * @return
+     */
+    public String buscaProductoCambioSede() {
+        ProductoLogica logica = null;
+        try {
+            logica = new ProductoLogica();
+            producto = logica.buscaProductoXCodigo(producto.getDska_cod());
+            if(producto == null ){
+                addActionError("No existe ningun producto con este codigo");
+            }else{
+                Adm_SedeLogica sedeLogica = new Adm_SedeLogica();
+                this.sedes = sedeLogica.obtieneSedes();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return SUCCESS;
+    }
+
+    /**
      * Funcion encargada de validar los cmpos de cada uno de las acciones que
      * realice el usuario
      */
-    public void validate(){
+    public void validate() {
         ValidaCampos valida = new ValidaCampos();
         if (accion.equalsIgnoreCase("consultaGen")) {
             ReferenciaLogica refeLogica = new ReferenciaLogica();
@@ -172,6 +197,12 @@ public class ProductoAction extends ActionSupport implements SessionAware, Usuar
             Adm_SedeLogica sedeLogica = new Adm_SedeLogica();
             this.sedes = sedeLogica.obtieneSedes();
             sedeLogica = null;
+        }
+        //Validacion para la busqueda de producto cuando se va ha cambiar de sede
+        if("buscaProdCambioSede".equalsIgnoreCase(accion)){
+            if(!valida.validaNulo(producto.getDska_cod())){
+                addActionError("El campo codigo no puede ser nulo");
+            }
         }
         valida = null;
     }
@@ -287,4 +318,21 @@ public class ProductoAction extends ActionSupport implements SessionAware, Usuar
     public void setReferencias(Map<String, String> referencias) {
         this.referencias = referencias;
     }
+
+    public String getSedeOrigen() {
+        return sedeOrigen;
+    }
+
+    public void setSedeOrigen(String sedeOrigen) {
+        this.sedeOrigen = sedeOrigen;
+    }
+
+    public String getSedeDestino() {
+        return sedeDestino;
+    }
+
+    public void setSedeDestino(String sedeDestino) {
+        this.sedeDestino = sedeDestino;
+    }    
+    
 }

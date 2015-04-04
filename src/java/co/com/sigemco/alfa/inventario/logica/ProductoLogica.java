@@ -203,7 +203,7 @@ public class ProductoLogica {
         }
         return rta;
     }
-
+    
     public ProductoDto buscaProductoXCodigo(String codigo) {
         ProductoDto objDto = null;
         try (EnvioFunction function = new EnvioFunction()) {
