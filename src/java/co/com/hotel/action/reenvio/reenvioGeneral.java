@@ -59,6 +59,7 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     public static final int INV_ACI_PRODUCTO = 215; //Activa o inactiva productos 
     public static final int INV_PAR_PRECIOSPR = 216; //Parametrizacion de precios de productos
     public static final int INV_CAM_SEDEPRODU = 218; //Cambio de una cantidad de productos
+    public static final int INV_COR_INGPRODUC = 213; //Correccion de Ingresos por error humano
     
 
     public static final int INV_INS_SERVICIO = 221;
@@ -205,6 +206,9 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
                     empresa = null;
                     refeLogica = new ReferenciaLogica();
                     this.referencias = refeLogica.obtieneIdDescrReferenciaActivos();
+                    break;
+                case INV_COR_INGPRODUC:
+                    nextPage = "inv_cor_ingproduc";
                     break;
                 case INV_INS_PRODEXIS:
                     bandera = "S";

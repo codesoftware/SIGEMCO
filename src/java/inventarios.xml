@@ -124,5 +124,13 @@
             <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_CambioSedeProd.jsp</result>
             <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_CambioSedeProd.jsp</result>            
         </action>
+        <action name="inv_ConsProdCorrIngresos" class="co.com.sigemco.alfa.inventario.action.ProductoAction" method="buscaProductoCambioSede">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_CorrIngProductos.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_CorrIngProductos.jsp</result>            
+        </action>
+        <action name="Inv_CorrIngresoProd" class="co.com.sigemco.alfa.inventario.action.ProductoAction" method="corrigeIngresoProd">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_CorrIngProductos.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_CorrIngProductos.jsp</result>                        
+        </action>
     </package>
 </struts>

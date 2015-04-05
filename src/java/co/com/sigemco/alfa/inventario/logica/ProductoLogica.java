@@ -203,7 +203,7 @@ public class ProductoLogica {
         }
         return rta;
     }
-    
+
     public ProductoDto buscaProductoXCodigo(String codigo) {
         ProductoDto objDto = null;
         try (EnvioFunction function = new EnvioFunction()) {
@@ -266,9 +266,9 @@ public class ProductoLogica {
      *
      * @return
      */
-    public String adicionaProdInventario(ProductoDto producto, AddProdExistentes movimiento,String tius_tius) {
+    public String adicionaProdInventario(ProductoDto producto, AddProdExistentes movimiento, String tius_tius) {
         String rta = "";
-        try(EnvioFunction function = new EnvioFunction()) {
+        try (EnvioFunction function = new EnvioFunction()) {
             function.adicionarNombre("IN_ADICIONA_PROD_EXIS");
             function.adicionarNumeric(producto.getDska_dska());
             function.adicionarNumeric(movimiento.getNoProductos());
@@ -294,10 +294,10 @@ public class ProductoLogica {
         }
         return rta;
     }
-    
-    public String cambioSedeProd(String dska_dska, String sedeOrigen, String sedeDestino, String tius_tius, String cantidad){        
+
+    public String cambioSedeProd(String dska_dska, String sedeOrigen, String sedeDestino, String tius_tius, String cantidad) {
         String rta = "Error";
-        try(EnvioFunction function = new EnvioFunction()) {
+        try (EnvioFunction function = new EnvioFunction()) {
             function.adicionarNombre("IN_CAMBIOSEDE_PROD");
             function.adicionarNumeric(sedeDestino);
             function.adicionarNumeric(sedeOrigen);
@@ -320,6 +320,44 @@ public class ProductoLogica {
         } catch (Exception e) {
             e.printStackTrace();
             rta += " " + e;
+        }
+        return rta;
+    }
+
+    /**
+     * Funcion la cual esta encargada de realizar la logica para corregir el
+     * ingreso de productos al sistema
+     *
+     * @param dska_dska String Identificador unico de la tabla de productos
+     * @param sede_sede String Identificador unico de la tabla de Sedes
+     * @param cantidad String cantidad de productos a corregir
+     * @param tius_tius String Identificador del usuario autenticado para
+     * realizar el movimiento
+     * @return
+     */
+    public String corrigeIngrersoProd(String dska_dska, String sede_sede, String cantidad, String tius_tius) {
+        String rta = "Error";
+        try (EnvioFunction function = new EnvioFunction()) {
+            function.adicionarNombre("IN_CORRIGEING_PROD");
+            function.adicionarNumeric(sede_sede);
+            function.adicionarNumeric(dska_dska);
+            function.adicionarNumeric(cantidad);
+            function.adicionarNumeric(tius_tius);
+            rta = function.llamarFunction(function.getSql());
+            function.recuperarString();
+            String[] rtaVector = rta.split("-");
+            int tam = rtaVector.length;
+            if (tam == 2) {
+                // Este mensaje lo envia la funcion que envia la funcion de java que
+                // confirma que el llamado de a la funcion fue exitiso.
+                if (rtaVector[1].equalsIgnoreCase("Ok")) {
+                    // Aqui verifico si la consulta fue exitosa
+                    String rtaPg = function.getRespuesta();
+                    return rtaPg;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return rta;
     }

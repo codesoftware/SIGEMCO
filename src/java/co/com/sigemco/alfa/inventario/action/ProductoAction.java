@@ -162,9 +162,9 @@ public class ProductoAction extends ActionSupport implements SessionAware, Usuar
         try {
             logica = new ProductoLogica();
             producto = logica.buscaProductoXCodigo(producto.getDska_cod());
-            if(producto == null ){
+            if (producto == null) {
                 addActionError("No existe ningun producto con este codigo");
-            }else{
+            } else {
                 Adm_SedeLogica sedeLogica = new Adm_SedeLogica();
                 this.sedes = sedeLogica.obtieneSedes();
             }
@@ -173,28 +173,54 @@ public class ProductoAction extends ActionSupport implements SessionAware, Usuar
         }
         return SUCCESS;
     }
+
     /**
      * Funcion encargada de realizar el cambio de sede de productos
-     * @return 
+     *
+     * @return
      */
-    public String cambiaSedeProd(){
+    public String cambiaSedeProd() {
         ProductoLogica logica = null;
-        try{
+        try {
             logica = new ProductoLogica();
             String rta = logica.cambioSedeProd(producto.getDska_dska(), sedeOrigen, sedeDestino, usuario.getIdTius(), producto.getCantidad());
-            if("Ok".equalsIgnoreCase(rta)){
+            if ("Ok".equalsIgnoreCase(rta)) {
                 producto = null;
                 addActionMessage("Traslado de productos realizado correctamete");
-            }else{
+            } else {
                 addActionError("Error al insertar el producto " + rta);
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return SUCCESS; 
+        return SUCCESS;
     }
-            
+
+    /**
+     * Funcion encargada de realizar la correccion de ingreso de productos en un
+     * movimiento anterior
+     *
+     * @return
+     */
+    public String corrigeIngresoProd() {
+        ProductoLogica logica = null;
+        try {
+            logica = new ProductoLogica();
+            String valida = logica.corrigeIngrersoProd(producto.getDska_dska(), sedeOrigen, producto.getCantidad(), usuario.getIdTius());
+            String []auxRta = valida.split("-");
+            if("Ok".equalsIgnoreCase(auxRta[0])){
+                producto = null;
+                idTrans = auxRta[1];
+                addActionMessage("Correccion realizada correctamente");                                
+            }else{
+                addActionError("Error al realizar la correccion " + valida); 
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return SUCCESS;
+    }
 
     /**
      * Funcion encargada de validar los cmpos de cada uno de las acciones que
@@ -221,12 +247,17 @@ public class ProductoAction extends ActionSupport implements SessionAware, Usuar
             sedeLogica = null;
         }
         //Validacion para la busqueda de producto cuando se va ha cambiar de sede
-        if("buscaProdCambioSede".equalsIgnoreCase(accion)){
-            if(!valida.validaNulo(producto.getDska_cod())){
+        if ("buscaProdCambioSede".equalsIgnoreCase(accion)) {
+            if (!valida.validaNulo(producto.getDska_cod())) {
                 addActionError("El campo codigo no puede ser nulo");
             }
         }
-        if("cambiaSedeProd".equalsIgnoreCase(accion)){
+        if ("cambiaSedeProd".equalsIgnoreCase(accion)) {
+            Adm_SedeLogica sedeLogica = new Adm_SedeLogica();
+            this.sedes = sedeLogica.obtieneSedes();
+            sedeLogica = null;
+        }
+        if ("corrigeIngresoProd".equalsIgnoreCase(accion)) {
             Adm_SedeLogica sedeLogica = new Adm_SedeLogica();
             this.sedes = sedeLogica.obtieneSedes();
             sedeLogica = null;
@@ -360,6 +391,6 @@ public class ProductoAction extends ActionSupport implements SessionAware, Usuar
 
     public void setSedeDestino(String sedeDestino) {
         this.sedeDestino = sedeDestino;
-    }    
-    
+    }
+
 }

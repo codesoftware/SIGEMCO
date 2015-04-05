@@ -109,6 +109,9 @@
                                 <%}
                                     if (permisos.indexOf(".InPr9.") >= 0) {%>
                             <li><a href="reenvioGeneral.action?accion=218">Cambio de Sede</a></li>
+                                <%}
+                                    if (permisos.indexOf(".InPr10.") >= 0) {%>
+                            <li><a href="reenvioGeneral.action?accion=213">Correccion de Ingresos</a></li>
                                 <%}%>
                         </ul>    
                     </li>

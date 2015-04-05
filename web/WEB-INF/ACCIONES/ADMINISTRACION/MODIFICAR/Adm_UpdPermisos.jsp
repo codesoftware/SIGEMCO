@@ -21,35 +21,46 @@
             </s:include> 
         </s:div>
         <div class="row">
-            <div class="col-md-4 col-sm-0 col-xs-0"></div>
-            <div class="col-md-4 col-sm-12 col-xs-12 thumbnail">
-                <div class="row">
-                    <div class="form-group col-md-12 col-sm-12 col-xs-12 ">
-                        <div class="alert alert-success text-center"  role="alert" ><h3>MODIFICACI&Oacute;N DE PERMISOS POR PERFIL</h3></div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label for="nombre">Nombre:</label><br>
-                        <s:text name="objPerfil.nombre"/>
-                    </div>
-                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label for="estado">Estado:</label><br>
-                        <s:text name="objPerfil.estado" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-9 col-sm-9 col-xs-9">
-                        <label for="estado">Descripcion:</label><br>
-                        <s:text name="objPerfil.descripcion" />
-                    </div>
-                    <div class="form-group col-md-3 col-sm-3 col-xs-3">
-                        <a class="btnReporte" ></a>
-                        <button type="button" class="btn btn-primary" onclick="actualizar()">Actualizar</button>
-                    </div>
-                </div>
+            <div class="col-md-3 col-sm-0 col-xs-0"></div>
+            <div class="col-md-6 col-sm-12 col-xs-12 thumbnail">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="alert alert-success text-center" colspan="4">
+                    <h3>MODIFICACI&Oacute;N DE PERMISOS POR PERFIL</h3>
+                    </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <label for="nombre">Nombre:</label><br>                        
+                            </td>
+                            <td>
+                                <s:text name="objPerfil.nombre"/>
+                            </td>
+                            <td>
+                                <label for="estado">Estado:</label><br>
+                            </td>
+                            <td>
+                                <s:text name="objPerfil.estado" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="estado">Descripcion:</label>
+                            </td>
+                            <td>
+                                <s:text name="objPerfil.descripcion" />
+                            </td>
+                            <td colspan="2">
+                                <button type="button" class="btn btn-primary" onclick="actualizar()">Actualizar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>                
             </div>
-            <div class="col-md-4 col-sm-0 col-xs-0"></div>
+            <div class="col-md-3 col-sm-0 col-xs-0"></div>
         </div>
         <div class="row">
             <div class="col-md-3 col-sm-0 col-xs-0"></div>
@@ -215,8 +226,8 @@
                                                     <tr>
                                                         <td>Cambio de Sede</td>
                                                         <td><input type="checkbox" value="InPr9" id="InPr9" /></td>
-                                                        <td>&nbsp;&nbsp;</td>
-                                                        <td>&nbsp;&nbsp;</td>
+                                                        <td>Correcci&oacute;n de Ingresos</td>
+                                                        <td><input type="checkbox" value="InPr10" id="InPr10" /></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -399,7 +410,7 @@
                                                         <td style="width: 30%;">Creacion SubCuentas</td>
                                                         <td style="width: 20%;"><input type="checkbox" value="CoPu2" id="CoPu2"/></td>
                                                     </tr>
-                                                    
+
                                                 </tbody>
                                             </table>
                                         </div>
