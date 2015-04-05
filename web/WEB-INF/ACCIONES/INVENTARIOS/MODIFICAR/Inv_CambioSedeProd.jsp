@@ -116,7 +116,8 @@
             <div class="row">
                 <div class="col-md-1 col-sm-0 col-xs-0"></div>
                 <div class="col-md-10 col-sm-12 col-xs-12">
-                    <s:form theme="simple" method="post">
+                    <s:form theme="simple" method="post" id="inv_cambioSedeProd" action="inv_cambioSedeProd">
+                        <s:textfield name="accion" value="cambiaSedeProd" cssStyle="display:none;"/>
                         <s:textfield name="producto.dska_dska" id="dska_dska" cssStyle="display:none;"/>
                         <table class="table table-bordered">
                             <thead>

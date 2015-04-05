@@ -173,6 +173,28 @@ public class ProductoAction extends ActionSupport implements SessionAware, Usuar
         }
         return SUCCESS;
     }
+    /**
+     * Funcion encargada de realizar el cambio de sede de productos
+     * @return 
+     */
+    public String cambiaSedeProd(){
+        ProductoLogica logica = null;
+        try{
+            logica = new ProductoLogica();
+            String rta = logica.cambioSedeProd(producto.getDska_dska(), sedeOrigen, sedeDestino, usuario.getIdTius(), producto.getCantidad());
+            if("Ok".equalsIgnoreCase(rta)){
+                producto = null;
+                addActionMessage("Traslado de productos realizado correctamete");
+            }else{
+                addActionError("Error al insertar el producto " + rta);
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return SUCCESS; 
+    }
+            
 
     /**
      * Funcion encargada de validar los cmpos de cada uno de las acciones que
@@ -203,6 +225,11 @@ public class ProductoAction extends ActionSupport implements SessionAware, Usuar
             if(!valida.validaNulo(producto.getDska_cod())){
                 addActionError("El campo codigo no puede ser nulo");
             }
+        }
+        if("cambiaSedeProd".equalsIgnoreCase(accion)){
+            Adm_SedeLogica sedeLogica = new Adm_SedeLogica();
+            this.sedes = sedeLogica.obtieneSedes();
+            sedeLogica = null;
         }
         valida = null;
     }

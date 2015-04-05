@@ -68,7 +68,7 @@ public class Inv_ProductoLogica {
             sql += ", to_char(prpr_precio,'LFM9,999,999.99') prpr_precio\n ";
             sql += "from in_tdska, in_tprpr\n";
             sql += "where upper(dska_cod) like upper('%" + obj.getCodigo().trim() + "%')\n";
-            sql += "and upper(dska_refe) like upper('%" + obj.getReferencia().trim() + "%')\n";
+            //sql += "and upper(dska_refe) like upper('%" + obj.getReferencia().trim() + "%')\n";
             sql += "and upper(dska_nom_prod) like upper('%" + obj.getNombre().trim() + "%')\n";
             sql += "and upper(dska_desc) like upper('%" + obj.getDescripcion().trim() + "%')\n";
             //sql += "and upper(dska_iva) like upper('%" + obj.getIva().trim() + "%')\n";

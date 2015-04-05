@@ -294,5 +294,34 @@ public class ProductoLogica {
         }
         return rta;
     }
+    
+    public String cambioSedeProd(String dska_dska, String sedeOrigen, String sedeDestino, String tius_tius, String cantidad){        
+        String rta = "Error";
+        try(EnvioFunction function = new EnvioFunction()) {
+            function.adicionarNombre("IN_CAMBIOSEDE_PROD");
+            function.adicionarNumeric(sedeDestino);
+            function.adicionarNumeric(sedeOrigen);
+            function.adicionarNumeric(cantidad);
+            function.adicionarNumeric(dska_dska);
+            function.adicionarNumeric(tius_tius);
+            rta = function.llamarFunction(function.getSql());
+            function.recuperarString();
+            String[] rtaVector = rta.split("-");
+            int tam = rtaVector.length;
+            if (tam == 2) {
+                // Este mensaje lo envia la funcion que envia la funcion de java que
+                // confirma que el llamado de a la funcion fue exitiso.
+                if (rtaVector[1].equalsIgnoreCase("Ok")) {
+                    // Aqui verifico si la consulta fue exitosa
+                    String rtaPg = function.getRespuesta();
+                    return rtaPg;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            rta += " " + e;
+        }
+        return rta;
+    }
 
 }

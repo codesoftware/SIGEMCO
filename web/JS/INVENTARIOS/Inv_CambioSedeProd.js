@@ -8,7 +8,9 @@ function ocultaDatosProd() {
 
 function trasladar() {
     var datosOk = validaDatos();
-
+    if(datosOk){
+        document.getElementById('inv_cambioSedeProd').submit();
+    }
 }
 
 function validaDatos() {
