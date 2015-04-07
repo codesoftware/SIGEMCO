@@ -294,6 +294,26 @@
                                             </table>  
                                         </div>
                                     </div>
+                                    
+                                      <div class="row">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <table style="width: 100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="subTitulo" colspan="4"><a id="InMvCon">MOVIMIENTOS CONTABLES</a></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody style="display: none;" class="subPermisoInvMvCon">
+                                                    <tr>                                    
+                                                        <td style="width: 30%">Consulta General</td>
+                                                        <td style="width: 20%"><input type="checkbox" value="InMCo3" id="InMCo3"/></td>
+                                                        <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                                        <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                                    </tr>
+                                                </tbody>                                
+                                            </table>  
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <table style="width: 100%">

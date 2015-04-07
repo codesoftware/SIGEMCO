@@ -60,7 +60,6 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     public static final int INV_PAR_PRECIOSPR = 216; //Parametrizacion de precios de productos
     public static final int INV_CAM_SEDEPRODU = 218; //Cambio de una cantidad de productos
     public static final int INV_COR_INGPRODUC = 213; //Correccion de Ingresos por error humano
-    
 
     public static final int INV_INS_SERVICIO = 221;
     public static final int INV_CON_SERVICIO = 224;
@@ -86,6 +85,9 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     public static final int INV_INS_PROVEEDORES = 281;
     public static final int INV_UPD_PROVEEDORES = 282;
     public static final int INV_CON_PROVEEDORES = 284;
+
+    //Movimientos Contables
+    public static final int INV_CON_MOVCONTABLE = 294;
     //MODULO FACTURACION (Primer digito 3)
     public static final int FAC_INS_FACTURA = 311;
     public static final int FAC_UPD_FACTURA = 312;
@@ -122,6 +124,8 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     //Tipo plan
     private Map<String, String> tipoPlan;
     private Map<String, String> estadoEqCeluar; //Estado en el cual se encuentra el equipo celular
+    //Mapa necesario para consultar movimientos contables
+    private Map<String, String> clasePUC;
     private Producto producto;
     //Lista de Clases del puc
     private List<ClaseDto> clase;
@@ -415,6 +419,16 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
                     this.yesNo.put("N", "No");
                     this.modifica = "N";
                     break;
+                case INV_CON_MOVCONTABLE:
+                    ClaseLogica cl = new ClaseLogica();
+                    List<ClaseDto> rta = new ArrayList<ClaseDto>();
+                    rta = cl.consultaGeneralActivo();
+                    clasePUC = new HashMap<String, String>();
+                    for(int i=0;i<rta.size();i++){
+                        this.clasePUC.put(rta.get(i).getClas_clas(),rta.get(i).getClas_nombre());
+                    }
+                    nextPage = "inv_con_movcontable";
+                    break;
                 case ADM_CON_SEDE:
                     nextPage = "adm_con_sede";
 
@@ -634,6 +648,14 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
 
     public void setEstadoEqCeluar(Map<String, String> estadoEqCeluar) {
         this.estadoEqCeluar = estadoEqCeluar;
+    }
+
+    public Map<String, String> getClasePUC() {
+        return clasePUC;
+    }
+
+    public void setClasePUC(Map<String, String> clasePUC) {
+        this.clasePUC = clasePUC;
     }
 
     public Producto getProducto() {

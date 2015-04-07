@@ -53,6 +53,7 @@
             <result name="inv_ins_movinventario">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_AddMovInventario.jsp</result>
             <result name="inv_upd_movinventario">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_UpdMovInventario.jsp</result>
             <result name="inv_con_movinventario">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsGenMvInv.jsp</result>
+            <result name="inv_con_movcontable">/WEB-INF/ACCIONES/CONTABILIDAD/CONSULTA/Con_consMovContable.jsp</result>
             <result name="adm_con_sede">/WEB-INF/ACCIONES/ADMINISTRACION/CONSULTA/Adm_ConsGenSede.jsp</result>
             <result name="adm_ins_sede">/WEB-INF/ACCIONES/ADMINISTRACION/CREACION/Adm_InsertSede.jsp</result>
             <result name="inv_ins_celular">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertCelulares.jsp</result>

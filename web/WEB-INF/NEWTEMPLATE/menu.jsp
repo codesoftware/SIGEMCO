@@ -149,6 +149,16 @@
                         </ul>
                     </li>
                     <%}
+                        if (permisos.indexOf(".InMCo3.") >= 0) {%>
+                    <li><a href="#">Mov. Contable</a>
+                        <ul class="dropdown-menu">
+
+                            <%  if (permisos.indexOf(".InMCo3.") >= 0) {%>
+                            <li><a href="reenvioGeneral.action?accion=294">Consultar Movimientos Contables</a></li>
+                                <%}%>
+                        </ul>
+                    </li>
+                    <%}
                         if (permisos.indexOf(".InRef1.") >= 0 || permisos.indexOf(".InRef2.") >= 0 || permisos.indexOf(".InRef3.") >= 0) {%>
                     <li><a href="#">Referencias Celular</a>
                         <ul class="dropdown-menu">

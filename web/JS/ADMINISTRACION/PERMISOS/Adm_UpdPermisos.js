@@ -23,6 +23,9 @@ $(function() {
     $("#InMvInv").click(function() {
         $(".subPermisoInvMvInv").toggle("slow");
     });
+    $("#InMvCon").click(function() {
+        $(".subPermisoInvMvCon").toggle("slow");
+    });
     $("#admSedes").click(function() {
         $(".subPermisoAdmSedes").toggle("slow");
     });

@@ -30,4 +30,5 @@
     <include file="inventarios.xml" /> 
     <include file="report.xml" /> 
     <include file="contabilidad.xml" />
+    <include file="ajax.xml" />
 </struts>
