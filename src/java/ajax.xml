@@ -8,7 +8,7 @@
     <constant name="struts.action.extension" value="html"/>
         
     <package name="ajax" namespace="/" extends="struts-default">  
-        <action name="traeProducto" class="co.com.codesoftware.facturacion.ajax.controlador.AjaxControllerFacturacion" method="traeProducto">
+        <action name="consultaComboGrupo" class="co.com.sigemco.alfa.contabilidad.ajax.AjaxControllerCombos" method="consultaComboGrupo">
         </action>        
     </package>
 

@@ -5,6 +5,7 @@
  */
 package co.com.hotel.utilidades;
 
+import com.google.gson.Gson;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -90,6 +91,26 @@ public class ManejoString {
         }
         return resultado;
 
+    }
+    
+    public String convertirObjetoJSON(Object objeto) {
+        Map<String, Object> respuesta = new HashMap<String, Object>();
+        String stringJSON = "";
+        try {
+            Gson objJSON = new Gson();
+            if (objeto == null) {
+                respuesta.put("respuesta", "ERROR OBJETO NULO");
+            }else{
+                respuesta.put("respuesta", "OK");
+                respuesta.put("objeto", objeto);
+            }
+            stringJSON = objJSON.toJson(respuesta);
+            
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return stringJSON;
     }
 
 }

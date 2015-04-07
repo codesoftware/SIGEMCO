@@ -6,6 +6,10 @@
     <head>
         <s:include value="/WEB-INF/NEWTEMPLATE/cabecera.jsp"></s:include>
         <script type="text/javascript" src="<%=RutaSitio%>/JS/CONTABILIDAD/Con_MovContable.js"></script>
+        <script type="text/javascript" src="<%=RutaSitio%>/JS/CORE/JQUERY/jquery-2.1.0.js"></script>
+
+
+
     </head>
     <body>
         <s:div cssClass="header">
@@ -51,7 +55,7 @@
                         <div class="row">
                             <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                 Clase:<br>
-                                <s:select list="clasePUC"  name="movimiento.mvin_natu" required="true" headerKey="-1" headerValue="Seleccione una Clase.." cssClass="form-control"/>
+                                <s:select list="clasePUC"  name="movimiento.mvin_natu" id="listClase" required="true" headerKey="-1" headerValue="Seleccione una Clase.." cssClass="form-control" />
                             </div>
                             <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                 Grupo:<br>

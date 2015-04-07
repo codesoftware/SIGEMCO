@@ -6,6 +6,7 @@
 package co.com.sigemco.alfa.contabilidad.logica;
 
 import co.com.hotel.persistencia.general.EnvioFunction;
+import co.com.hotel.utilidades.ManejoString;
 import co.com.sigemco.alfa.contabilidad.dao.GrupoDao;
 import co.com.sigemco.alfa.contabilidad.dto.GrupoDto;
 import java.sql.ResultSet;
@@ -97,6 +98,35 @@ public class GrupoLogica {
             e.printStackTrace();
         }
         return aux;
+    }
+
+    /**
+     * Función que me consulta los grupos determinados de una clase para un
+     * combo dependiente
+     *
+     * @param grup_clas
+     * @return
+     */
+    public String consultaGrupoXClase(String grup_clas) {
+        GrupoDto objDTO = new GrupoDto();
+        GrupoDao objDao = new GrupoDao();
+        ArrayList<GrupoDto> lista = new ArrayList<GrupoDto>();
+        String objJson = "";
+        try (EnvioFunction function = new EnvioFunction()) {
+            objDao.setGrup_clas(grup_clas);
+            ResultSet rs = function.enviarSelect(objDao.obtenerGruposXClas_Clas(grup_clas));
+            while (rs.next()) {
+                objDTO.setGrup_grup(rs.getString("grup_grup"));
+                objDTO.setGrup_nombre(rs.getString("grup_nombre"));
+                lista.add(objDTO);
+            }
+            ManejoString convertirJson = new ManejoString();
+            objJson = convertirJson.convertirObjetoJSON(lista);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return objJson;
     }
 
 }
