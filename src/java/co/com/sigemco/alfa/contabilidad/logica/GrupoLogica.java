@@ -108,7 +108,6 @@ public class GrupoLogica {
      * @return
      */
     public String consultaGrupoXClase(String grup_clas) {
-        GrupoDto objDTO = new GrupoDto();
         GrupoDao objDao = new GrupoDao();
         ArrayList<GrupoDto> lista = new ArrayList<GrupoDto>();
         String objJson = "";
@@ -116,6 +115,7 @@ public class GrupoLogica {
             objDao.setGrup_clas(grup_clas);
             ResultSet rs = function.enviarSelect(objDao.obtenerGruposXClas_Clas(grup_clas));
             while (rs.next()) {
+                GrupoDto objDTO = new GrupoDto();
                 objDTO.setGrup_grup(rs.getString("grup_grup"));
                 objDTO.setGrup_nombre(rs.getString("grup_nombre"));
                 lista.add(objDTO);

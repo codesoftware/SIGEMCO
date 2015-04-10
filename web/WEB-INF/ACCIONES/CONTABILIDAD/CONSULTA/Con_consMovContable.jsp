@@ -6,7 +6,6 @@
     <head>
         <s:include value="/WEB-INF/NEWTEMPLATE/cabecera.jsp"></s:include>
         <script type="text/javascript" src="<%=RutaSitio%>/JS/CONTABILIDAD/Con_MovContable.js"></script>
-        <script type="text/javascript" src="<%=RutaSitio%>/JS/CORE/JQUERY/jquery-2.1.0.js"></script>
 
 
 
@@ -55,15 +54,15 @@
                         <div class="row">
                             <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                 Clase:<br>
-                                <s:select list="clasePUC"  name="movimiento.mvin_natu" id="listClase" required="true" headerKey="-1" headerValue="Seleccione una Clase.." cssClass="form-control" />
+                                <s:select list="clasePUC"  name="clas_clas" id="listClase" required="true" headerKey="-1" headerValue="Seleccione una Clase.." cssClass="form-control" />
                             </div>
                             <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                 Grupo:<br>
-                                <s:select list="clasePUC" name="movimiento.mvin_usim" required="true" headerKey="-1" headerValue="Seleccione Grupo.." cssClass="form-control"/> 
+                                <s:select list="grupoPUC" name="grup_grup" id="grup_grup" required="true" headerKey="-1" headerValue="Seleccione Grupo.." cssClass="form-control"/> 
                             </div>
                             <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                 Cuenta:<br>
-                                <s:select list="clasePUC" name="movimiento.mvin_usim" required="true" headerKey="-1" headerValue="Seleccione cuenta.." cssClass="form-control"/> 
+                                <s:select list="cuentaPUC" name="movimiento.mvin_usim" required="true" headerKey="-1" headerValue="Seleccione cuenta.." cssClass="form-control"/> 
                             </div>
                             <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                 <br>

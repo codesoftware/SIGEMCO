@@ -4,8 +4,8 @@
 
 <struts>
     
-    <!--<constant name="struts.devMode" value="true"/> --><!-- Etiqueta usada para que se recargue el struts.xml por cada accion realizada-->
-    <constant name="struts.action.extension" value="html"/>
+    <!--<constant name="struts.devMode" value="true"/>  Etiqueta usada para que se recargue el struts.xml por cada accion realizada-->
+    <!--<constant name="struts.action.extension" value="html"/>-->
         
     <package name="ajax" namespace="/" extends="struts-default">  
         <action name="consultaComboGrupo" class="co.com.sigemco.alfa.contabilidad.ajax.AjaxControllerCombos" method="consultaComboGrupo">

@@ -126,6 +126,8 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     private Map<String, String> estadoEqCeluar; //Estado en el cual se encuentra el equipo celular
     //Mapa necesario para consultar movimientos contables
     private Map<String, String> clasePUC;
+    private Map<String, String> grupoPUC;
+    private Map<String, String> cuentaPUC;
     private Producto producto;
     //Lista de Clases del puc
     private List<ClaseDto> clase;
@@ -424,6 +426,8 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
                     List<ClaseDto> rta = new ArrayList<ClaseDto>();
                     rta = cl.consultaGeneralActivo();
                     clasePUC = new HashMap<String, String>();
+                    grupoPUC = new HashMap<String, String>();
+                    cuentaPUC = new HashMap<String, String>();
                     for(int i=0;i<rta.size();i++){
                         this.clasePUC.put(rta.get(i).getClas_clas(),rta.get(i).getClas_nombre());
                     }
@@ -689,5 +693,23 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     public void setRunico(Map<String, String> runico) {
         this.runico = runico;
     }
+
+    public Map<String, String> getGrupoPUC() {
+        return grupoPUC;
+    }
+
+    public void setGrupoPUC(Map<String, String> grupoPUC) {
+        this.grupoPUC = grupoPUC;
+    }
+
+    public Map<String, String> getCuentaPUC() {
+        return cuentaPUC;
+    }
+
+    public void setCuentaPUC(Map<String, String> cuentaPUC) {
+        this.cuentaPUC = cuentaPUC;
+    }
+    
+    
 
 }
