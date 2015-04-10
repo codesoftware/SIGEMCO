@@ -62,7 +62,7 @@
                             </div>
                             <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                 Cuenta:<br>
-                                <s:select list="cuentaPUC" name="movimiento.mvin_usim" required="true" headerKey="-1" headerValue="Seleccione cuenta.." cssClass="form-control"/> 
+                                <s:select list="cuentaPUC" name="cuen_cuen" id="cuen_cuen" required="true" headerKey="-1" headerValue="Seleccione cuenta.." cssClass="form-control"/> 
                             </div>
                             <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                 <br>

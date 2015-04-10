@@ -6,9 +6,27 @@
     
     <!--<constant name="struts.devMode" value="true"/>  Etiqueta usada para que se recargue el struts.xml por cada accion realizada-->
     <!--<constant name="struts.action.extension" value="html"/>-->
-        
     <package name="ajax" namespace="/" extends="struts-default">  
+        <interceptors>
+            <interceptor name="iterceptorAtuenticacion" class="co.com.hotel.validadores.InterAutenticacion" />
+            <interceptor-stack name="secureStack">
+                <interceptor-ref name="iterceptorAtuenticacion" />
+                <interceptor-ref name="defaultStack" />
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="secureStack" />
+        <global-results>
+            <result name="login" type="redirect">/inicio.jsp</result>
+            <result name="exception">/exception.jsp</result>
+        </global-results>         
+        <global-exception-mappings>
+            <exception-mapping exception="java.sql.SQLException" result="exception"/>
+            <exception-mapping exception="java.lang.Exception" result="exception"/>
+            <exception-mapping exception="java.io.IOException" result="exception"/>
+        </global-exception-mappings> 
         <action name="consultaComboGrupo" class="co.com.sigemco.alfa.contabilidad.ajax.AjaxControllerCombos" method="consultaComboGrupo">
+        </action>        
+        <action name="consultaComboCuenta" class="co.com.sigemco.alfa.contabilidad.ajax.AjaxControllerCombos" method="consultaComboCuenta">
         </action>        
     </package>
 
