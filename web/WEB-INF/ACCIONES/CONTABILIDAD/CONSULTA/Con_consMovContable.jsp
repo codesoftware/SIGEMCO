@@ -54,15 +54,15 @@
                         <div class="row">
                             <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                 Clase:<br>
-                                <s:select list="clasePUC"  name="clas_clas" id="listClase" required="true" headerKey="-1" headerValue="Seleccione una Clase.." cssClass="form-control" />
+                                <s:select list="clasePUC"  name="moviContable.clas_clas" id="listClase" required="true" headerKey="-1" headerValue="Seleccione una Clase.." cssClass="form-control" />
                             </div>
                             <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                 Grupo:<br>
-                                <s:select list="grupoPUC" name="grup_grup" id="grup_grup" required="true" headerKey="-1" headerValue="Seleccione Grupo.." cssClass="form-control"/> 
+                                <s:select list="grupoPUC" name="moviContable.grup_grup" id="grup_grup" required="true" headerKey="-1" headerValue="Seleccione Grupo.." cssClass="form-control"/> 
                             </div>
                             <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                 Cuenta:<br>
-                                <s:select list="cuentaPUC" name="cuen_cuen" id="cuen_cuen" required="true" headerKey="-1" headerValue="Seleccione cuenta.." cssClass="form-control"/> 
+                                <s:select list="cuentaPUC" name="moviContable.cuen_cuen" id="cuen_cuen" required="true" headerKey="-1" headerValue="Seleccione cuenta.." cssClass="form-control"/> 
                             </div>
                             <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                 <br>
@@ -82,7 +82,7 @@
         <div class="row">
             <div class="col-md-1 col-xs-0 col-sm-0"></div>
             <div class="col-md-10 col-xs-12 col-sm-12">
-                <s:if test="%{listMov != null}">
+                <s:if test="%{resultMoviContable != null}">
                     <table class="table table-hover">
                         <thead>
                             <tr>
