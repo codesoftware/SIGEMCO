@@ -40,3 +40,7 @@ $(document).ready(function () {
         })
     });
 });
+
+function buscaGeneralMvCon(){
+    document.getElementById('inv_consMovContable').submit();
+}

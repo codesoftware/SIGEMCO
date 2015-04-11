@@ -27,12 +27,12 @@ public class MoviContableLogica {
      */
     public List<MoviContableDto> generaAsientoContable(String mvco_trans) {
         List<MoviContableDto> rta = null;
-        try (EnvioFunction function = new EnvioFunction()){
-            MoviContableDao objDao = new MoviContableDao();            
+        try (EnvioFunction function = new EnvioFunction()) {
+            MoviContableDao objDao = new MoviContableDao();
             objDao.setMvco_trans(mvco_trans);
-            ResultSet rs= function.enviarSelect(objDao.generaAsientoContable());
-            while(rs.next()){
-                if(rta==null){
+            ResultSet rs = function.enviarSelect(objDao.generaAsientoContable());
+            while (rs.next()) {
+                if (rta == null) {
                     rta = new ArrayList<MoviContableDto>();
                 }
                 MoviContableDto aux = new MoviContableDto();
@@ -48,4 +48,61 @@ public class MoviContableLogica {
         }
         return rta;
     }
+
+    public ArrayList<MoviContableDto> consultaMoviContable(MoviContableDto objDTO) {
+        ResultSet rs = null;
+        MoviContableDto aux = null;
+        ArrayList<MoviContableDto> result = null;
+        MoviContableDao objDAO = null;
+        try (EnvioFunction funcion = new EnvioFunction()) {
+            
+            objDAO = poblarDAO(objDTO);
+            String filtros = traeFiltros(objDTO);
+            rs = funcion.enviarSelect(objDAO.consultaFilros(filtros));
+            result = new ArrayList<>();
+            while (rs.next()) {
+                aux = new MoviContableDto();
+                aux.setMvco_id_llave(rs.getString("mvco_id_llave"));
+                aux.setMvco_lladetalle(rs.getString("mvco_lladetalle"));
+                aux.setMvco_mvco(rs.getString("mvco_mvco"));
+                aux.setMvco_naturaleza(rs.getString("mvco_naturaleza"));
+                aux.setMvco_tercero(rs.getString("mvco_tercero"));
+                aux.setMvco_trans(rs.getString("mvco_trans"));
+                result.add(aux);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+
+    }
+
+    public MoviContableDao poblarDAO(MoviContableDto objDTO) {
+        MoviContableDao objDAO = new MoviContableDao();
+//        objDAO.setMvco_id_llave(objDTO.getMvco_id_llave());
+//        objDAO.setMvco_lladetalle(objDTO.getMvco_lladetalle());
+//        objDAO.setMvco_mvco(objDTO.getMvco_mvco());
+//        objDAO.setMvco_naturaleza(objDTO.getMvco_naturaleza());
+//        objDAO.setMvco_sbcu(objDTO.getMvco_sbcu());
+//        objDAO.setMvco_tercero(objDTO.getMvco_tercero());
+//        objDAO.setMvco_tido(objDTO.getMvco_tido());
+//        objDAO.setMvco_tipo(objDTO.getMvco_tipo());
+//        objDAO.setMvco_trans(objDTO.getMvco_trans());
+//        objDAO.setMvco_valor(objDTO.getMvco_valor());
+//        objDAO.setClas_clas(objDTO.setClas_clas(null));
+
+        return objDAO;
+    }
+    public String traeFiltros(MoviContableDto objDTO) {
+        String rta="1 = 1";
+        try {
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rta;
+        
+    }
+    
 }

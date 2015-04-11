@@ -67,7 +67,7 @@
                             <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                 <br>
                                 <s:include value="/WEB-INF/TEMPLATE/botones/find.jsp">
-                                    <s:param name="function">buscaGeneralMvIn</s:param>
+                                    <s:param name="function">buscaGeneralMvCon</s:param>
                                     <s:param name="title">Busqueda de Movimientos de Inventario</s:param>
                                 </s:include>
                             </div>
@@ -99,7 +99,7 @@
                             <%
                                 int i = 0;
                             %>
-                            <s:iterator value="listMov">
+                            <s:iterator value="resultMoviContable">
                                 <%
                                     if (i % 2 == 0) {
                                 %>
@@ -112,20 +112,12 @@
                                         }
                                         i++;
                                     %>
-                                    <td><s:property value="mvin_descr"/></td>
-                                    <td><s:property value="mvin_natu"/></td>
-                                    <td><s:property value="mvin_usim"/></td>
-                                    <td><s:property value="mvin_venta"/></td>
-                                    <td><s:property value="mvin_revfact"/></td>
-                                    <td><s:property value="mvin_inicial"/></td>
-                                    <td>
-                                        <s:include value="/WEB-INF/TEMPLATE/botones/update.jsp" >
-                                            <s:param name="function">actulizarEspecifico</s:param>
-                                            <s:param name="title">Actualizar movimiento de inventario   </s:param>
-                                            <s:param name="paramFunction">'<s:property value="mvin_mvin"/>'</s:param>
-                                            <s:param name="clase">imagenIconoPeq</s:param>
-                                        </s:include>
-                                    </td>
+                                    <td><s:property value="mvco_id_llave"/></td>
+                                    <td><s:property value="mvco_lladetalle"/></td>
+                                    <td><s:property value="mvco_mvco"/></td>
+                                    <td><s:property value="mvco_naturaleza"/></td>
+                                    <td><s:property value="mvco_tercero"/></td>
+                                    <td><s:property value="mvco_trans"/></td>
                                 </tr>
                             </s:iterator>
                         </tbody>
@@ -134,9 +126,5 @@
             </div>
             <div class="col-md-1 col-xs-0 col-sm-0"></div>                        
         </div>
-        <s:form action="inv_conUpdInventario" id="inv_conUpdInventario" cssStyle="display:none;" >
-            <s:textfield name="accion" cssStyle="display:none" value="consultaUpd"/>
-            <s:textfield name="movimiento.mvin_mvin"/>            
-        </s:form>
     </body>
 </html>

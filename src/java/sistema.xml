@@ -144,6 +144,11 @@
         <action name="inv_InsCategoria" class="co.com.sigemco.alfa.inventario.action.CategoriaAction" method="insertar">
             <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertCategoria.jsp</result>
             <result name="input"  >/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertCategoria.jsp</result>
-        </action>               
+        </action>
+        
+        <action name="inv_consMovContable" class="co.com.sigemco.alfa.contabilidad.action.MovimientoContableAction" method="consultaMovContable">
+            <result name="success">/WEB-INF/ACCIONES/CONTABILIDAD/CONSULTA/Con_consMovContable.jsp</result>
+            <result name="input"  >/WEB-INF/ACCIONES/CONTABILIDAD/CONSULTA/Con_consMovContable.jsp</result>
+        </action>                                
     </package>
 </struts> 

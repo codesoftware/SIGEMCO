@@ -26,10 +26,39 @@ public class MoviContableDto {
     private String creditos;
     private String sbcu_nombre;
     private String sbcu_codigo;
+    private String clas_clas;
+    private String grup_grup;
+    private String cuen_cuen;
 
     public String getMvco_mvco() {
         return mvco_mvco;
     }
+
+    public String getClas_clas() {
+        return clas_clas;
+    }
+
+    public void setClas_clas(String clas_clas) {
+        this.clas_clas = clas_clas;
+    }
+
+    public String getGrup_grup() {
+        return grup_grup;
+    }
+
+    public void setGrup_grup(String grup_grup) {
+        this.grup_grup = grup_grup;
+    }
+
+    public String getCuen_cuen() {
+        return cuen_cuen;
+    }
+
+    public void setCuen_cuen(String cuen_cuen) {
+        this.cuen_cuen = cuen_cuen;
+    }
+    
+    
 
     public void setMvco_mvco(String mvco_mvco) {
         this.mvco_mvco = mvco_mvco;

@@ -18,6 +18,7 @@ public class ReferenciaDTO {
     private String refe_memori;
     private String refe_pantalla;
 
+
     public String getRefe_refe() {
         return refe_refe;
     }
