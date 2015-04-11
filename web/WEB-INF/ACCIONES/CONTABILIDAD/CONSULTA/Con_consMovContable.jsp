@@ -113,7 +113,10 @@
                                         i++;
                                     %>
                                     <td><s:property value="mvco_id_llave"/></td>
-                                    <td><s:property value="mvco_lladetalle"/></td>
+                                    <td><a href="#" onclick="obtenerAsientocontable('<s:property value="mvco_trans"/>');
+                                            $('#partidaDoble').modal('show');">
+                                            <s:property value="mvco_lladetalle"/></a>
+                                    </td>
                                     <td><s:property value="mvco_mvco"/></td>
                                     <td><s:property value="mvco_naturaleza"/></td>
                                     <td><s:property value="mvco_tercero"/></td>
@@ -125,6 +128,23 @@
                 </s:if>
             </div>
             <div class="col-md-1 col-xs-0 col-sm-0"></div>                        
+        </div>
+        <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="partidaDoble">
+            <div class="modal-dialog">                
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">ASIENTO CONTABLE</h4>
+                    </div>
+                    <div class="modal-body">
+                        <span id="tablaAsientocontable"></span>
+                    </div>
+                    <div class="modal-footer">                        
+                        <button type="button" class="btn btn-success" data-dismiss="modal" id="parametrizarPrecio">
+                            ACEPTAR
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>
