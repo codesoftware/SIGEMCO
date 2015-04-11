@@ -86,12 +86,17 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>Descripci&oacute;n</th>
+                                <th>Clase</th>
+                                <th>Grupo</th>
+                                <th>Cuenta</th>
+                                <th>Codigo SubCta.</th>
+                                <th>Nombre SubCta.</th>
+                                <th>id llave</th>
+                                <th>detalle</th>
+                                <th>Movimiento</th>
                                 <th>Naturaleza</th>
-                                <th>Usuario Implicado</th>
-                                <th>Implica Facturaci&oacute;n</th>
-                                <th>Implica Reverso Facturaci&oacute;n</th>
-                                <th>Implica Inventario Inicial</th>
+                                <th>Tercero</th>
+                                <th>Transferencias</th>
                                 <th>Accion</th>
                             </tr> 
                         </thead>
@@ -112,6 +117,11 @@
                                         }
                                         i++;
                                     %>
+                                    <td><s:property value="clas_nombre"/></td>
+                                    <td><s:property value="grup_nombre"/></td>
+                                    <td><s:property value="cuen_nombre"/></td>
+                                    <td><s:property value="sbcu_codigo"/></td>
+                                    <td><s:property value="sbcu_nombre"/></td>
                                     <td><s:property value="mvco_id_llave"/></td>
                                     <td><a href="#" onclick="obtenerAsientocontable('<s:property value="mvco_trans"/>');
                                             $('#partidaDoble').modal('show');">

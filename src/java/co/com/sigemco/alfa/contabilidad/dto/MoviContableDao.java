@@ -25,6 +25,15 @@ public class MoviContableDao {
     private String grup_grup;
     private String cuen_cuen;
 
+    //consulta
+    private String sbcu_nombre;
+    private String sbcu_codigo;
+
+    //Variables para la consulta
+    private String clas_nombre;
+    private String grup_nombre;
+    private String cuen_nombre;
+
     public String getMvco_mvco() {
         return mvco_mvco;
     }
@@ -124,11 +133,51 @@ public class MoviContableDao {
     public void setCuen_cuen(String cuen_cuen) {
         this.cuen_cuen = cuen_cuen;
     }
-    
 
     public void setMvco_tipo(String mvco_tipo) {
         this.mvco_tipo = mvco_tipo;
     }
+
+    public String getSbcu_nombre() {
+        return sbcu_nombre;
+    }
+
+    public void setSbcu_nombre(String sbcu_nombre) {
+        this.sbcu_nombre = sbcu_nombre;
+    }
+
+    public String getSbcu_codigo() {
+        return sbcu_codigo;
+    }
+
+    public void setSbcu_codigo(String sbcu_codigo) {
+        this.sbcu_codigo = sbcu_codigo;
+    }
+
+    public String getClas_nombre() {
+        return clas_nombre;
+    }
+
+    public void setClas_nombre(String clas_nombre) {
+        this.clas_nombre = clas_nombre;
+    }
+
+    public String getGrup_nombre() {
+        return grup_nombre;
+    }
+
+    public void setGrup_nombre(String grup_nombre) {
+        this.grup_nombre = grup_nombre;
+    }
+
+    public String getCuen_nombre() {
+        return cuen_nombre;
+    }
+
+    public void setCuen_nombre(String cuen_nombre) {
+        this.cuen_nombre = cuen_nombre;
+    }
+    
 
     /**
      * Funcion encargada de realizar el query para obtene el asiento contable de
@@ -153,10 +202,10 @@ public class MoviContableDao {
     }
 
     public String consultaFilros(String filtros) {
-        String select = "SELECT mvco_mvco, mvco_trans, mvco_sbcu, mvco_naturaleza, mvco_tido, \n"
-                + "mvco_valor, mvco_lladetalle, mvco_id_llave, mvco_tercero, mvco_tipo from co_tmvco,co_tsbcu   WHERE " + filtros;
+        String select = "SELECT mvco_mvco,sbcu_codigo,sbcu_nombre,grup_nombre,cuen_nombre,clas_nombre, mvco_trans, mvco_sbcu, mvco_naturaleza, mvco_tido, \n"
+                + "mvco_valor, mvco_lladetalle, mvco_id_llave, mvco_tercero, mvco_tipo from co_tmvco,co_tsbcu,co_tgrup, co_tcuen, co_tclas   WHERE " + filtros;
         System.out.println("Filtros" + select);
         return select;
     }
-    
+
 }

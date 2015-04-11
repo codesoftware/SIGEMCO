@@ -29,6 +29,10 @@ public class MoviContableDto {
     private String clas_clas;
     private String grup_grup;
     private String cuen_cuen;
+    //Variables para la consulta
+    private String clas_nombre;
+    private String grup_nombre;
+    private String cuen_nombre;
 
     public String getMvco_mvco() {
         return mvco_mvco;
@@ -167,4 +171,29 @@ public class MoviContableDto {
     public void setSbcu_codigo(String sbcu_codigo) {
         this.sbcu_codigo = sbcu_codigo;
     }
+
+    public String getClas_nombre() {
+        return clas_nombre;
+    }
+
+    public void setClas_nombre(String clas_nombre) {
+        this.clas_nombre = clas_nombre;
+    }
+
+    public String getGrup_nombre() {
+        return grup_nombre;
+    }
+
+    public void setGrup_nombre(String grup_nombre) {
+        this.grup_nombre = grup_nombre;
+    }
+
+    public String getCuen_nombre() {
+        return cuen_nombre;
+    }
+
+    public void setCuen_nombre(String cuen_nombre) {
+        this.cuen_nombre = cuen_nombre;
+    }
+    
 }

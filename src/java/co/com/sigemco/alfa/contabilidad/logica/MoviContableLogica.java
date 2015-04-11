@@ -62,6 +62,11 @@ public class MoviContableLogica {
             result = new ArrayList<>();
             while (rs.next()) {
                 aux = new MoviContableDto();
+                aux.setClas_nombre(rs.getString("clas_nombre"));
+                aux.setCuen_nombre(rs.getString("cuen_nombre"));
+                aux.setGrup_nombre(rs.getString("grup_nombre"));
+                aux.setSbcu_codigo(rs.getString("sbcu_codigo"));
+                aux.setSbcu_nombre(rs.getString("sbcu_nombre"));
                 aux.setMvco_id_llave(rs.getString("mvco_id_llave"));
                 aux.setMvco_lladetalle(rs.getString("mvco_lladetalle"));
                 aux.setMvco_mvco(rs.getString("mvco_mvco"));
@@ -98,7 +103,7 @@ public class MoviContableLogica {
         return objDAO;
     }
     public String traeFiltros(MoviContableDto objDTO) {
-        String rta="1 = 1 and sbcu_sbcu = mvco_sbcu ";
+        String rta="1 = 1 and sbcu_sbcu = mvco_sbcu and grup_grup = sbcu_grup and cuen_cuen = sbcu_cuen and clas_clas = sbcu_clas";
         try {
             if(!objDTO.getClas_clas().equalsIgnoreCase("-1")){
                rta+=" and sbcu_clas="+objDTO.getClas_clas();
