@@ -91,13 +91,21 @@ public class MoviContableLogica {
 //        objDAO.setMvco_trans(objDTO.getMvco_trans());
 //        objDAO.setMvco_valor(objDTO.getMvco_valor());
 //        objDAO.setClas_clas(objDTO.setClas_clas(null));
+        objDAO.setClas_clas(objDTO.getClas_clas());
+        objDAO.setCuen_cuen(objDTO.getCuen_cuen());
+        objDAO.setGrup_grup(objDTO.getGrup_grup());
 
         return objDAO;
     }
     public String traeFiltros(MoviContableDto objDTO) {
         String rta="1 = 1";
         try {
-            
+            if(!objDTO.getClas_clas().equalsIgnoreCase("-1")){
+               
+                if(!objDTO.getGrup_grup().equalsIgnoreCase("-1")){
+                    
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

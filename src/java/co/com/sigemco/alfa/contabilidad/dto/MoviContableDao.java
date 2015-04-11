@@ -154,7 +154,7 @@ public class MoviContableDao {
 
     public String consultaFilros(String filtros) {
         String select = "SELECT mvco_mvco, mvco_trans, mvco_sbcu, mvco_naturaleza, mvco_tido, \n"
-                + "mvco_valor, mvco_lladetalle, mvco_id_llave, mvco_tercero, mvco_tipo  WHERE " + filtros;
+                + "mvco_valor, mvco_lladetalle, mvco_id_llave, mvco_tercero, mvco_tipo from co_tmvco   WHERE " + filtros;
         System.out.println("Filtros" + select);
         return select;
     }
