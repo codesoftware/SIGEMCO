@@ -98,12 +98,15 @@ public class MoviContableLogica {
         return objDAO;
     }
     public String traeFiltros(MoviContableDto objDTO) {
-        String rta="1 = 1";
+        String rta="1 = 1 and sbcu_sbcu = mvco_sbcu ";
         try {
             if(!objDTO.getClas_clas().equalsIgnoreCase("-1")){
-               
+               rta+=" and sbcu_clas="+objDTO.getClas_clas();
                 if(!objDTO.getGrup_grup().equalsIgnoreCase("-1")){
-                    
+                    rta+=" and sbcu_grup="+objDTO.getGrup_grup();
+                    if(objDTO.getCuen_cuen().equalsIgnoreCase("")){
+                         rta+=" and sbcu_cuen="+objDTO.getCuen_cuen();
+                    }
                 }
             }
         } catch (Exception e) {
