@@ -203,8 +203,8 @@ public class MoviContableDao {
 
     public String consultaFilros(String filtros) {
         String select = "SELECT mvco_mvco,sbcu_codigo,sbcu_nombre,grup_nombre,cuen_nombre,clas_nombre, mvco_trans, mvco_sbcu, mvco_naturaleza, mvco_tido, \n"
-                + "mvco_valor, mvco_lladetalle, mvco_id_llave, mvco_tercero, mvco_tipo from co_tmvco,co_tsbcu,co_tgrup, co_tcuen, co_tclas   WHERE " + filtros;
-        System.out.println("Filtros" + select);
+                + " to_char(mvco_valor,'9,999,999,999.00') mvco_valor , mvco_lladetalle, mvco_id_llave, mvco_tercero, mvco_tipo, to_char(mvco_fecha, 'dd/mm/yyyy') mvco_fecha  from co_tmvco,co_tsbcu,co_tgrup, co_tcuen, co_tclas   WHERE " + filtros;
+        select += " order by mvco_trans desc ";
         return select;
     }
 

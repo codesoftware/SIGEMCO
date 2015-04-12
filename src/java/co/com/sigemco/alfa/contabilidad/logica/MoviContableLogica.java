@@ -73,6 +73,8 @@ public class MoviContableLogica {
                 aux.setMvco_naturaleza(rs.getString("mvco_naturaleza"));
                 aux.setMvco_tercero(rs.getString("mvco_tercero"));
                 aux.setMvco_trans(rs.getString("mvco_trans"));
+                aux.setMvco_valor(rs.getString("mvco_valor"));
+                aux.setMvco_fecha(rs.getString("mvco_fecha"));
                 result.add(aux);
             }
 

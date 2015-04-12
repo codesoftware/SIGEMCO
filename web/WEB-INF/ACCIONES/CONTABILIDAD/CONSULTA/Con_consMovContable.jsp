@@ -6,9 +6,9 @@
     <head>
         <s:include value="/WEB-INF/NEWTEMPLATE/cabecera.jsp"></s:include>
         <script type="text/javascript" src="<%=RutaSitio%>/JS/CONTABILIDAD/Con_MovContable.js"></script>
-
-
-
+        <style>
+            .ocultar{display: none;}
+        </style>
     </head>
     <body>
         <s:div cssClass="header">
@@ -83,54 +83,61 @@
             <div class="col-md-1 col-xs-0 col-sm-0"></div>
             <div class="col-md-10 col-xs-12 col-sm-12">
                 <s:if test="%{resultMoviContable != null}">
-                    <table class="table table-hover">
+                    <table class="table table-hover table-bordered">
                         <thead>
                             <tr>
-                                <th>Clase</th>
-                                <th>Grupo</th>
-                                <th>Cuenta</th>
-                                <th>Codigo SubCta.</th>
+                                <th class="ocultar">Clase</th>
+                                <th class="ocultar">Grupo</th>
+                                <th class="ocultar">Cuenta</th>
+                                <th class="mostrar">Codigo SubCta.</th>
                                 <th>Nombre SubCta.</th>
-                                <th>id llave</th>
-                                <th>detalle</th>
-                                <th>Movimiento</th>
+                                <th>Documento</th>
                                 <th>Naturaleza</th>
-                                <th>Tercero</th>
-                                <th>Transferencias</th>
-                                <th>Accion</th>
+                                <th>Fecha</th>
+                                <th>Valor</th>
                             </tr> 
                         </thead>
-                        <tbody>
-                            <%
-                                int i = 0;
-                            %>
-                            <s:iterator value="resultMoviContable">
-                                <%
-                                    if (i % 2 == 0) {
-                                %>
-                                <tr class="active">
-                                    <%
-                                    } else {
-                                    %>
-                                <tr>
-                                    <%
-                                        }
-                                        i++;
-                                    %>
-                                    <td><s:property value="clas_nombre"/></td>
-                                    <td><s:property value="grup_nombre"/></td>
-                                    <td><s:property value="cuen_nombre"/></td>
-                                    <td><s:property value="sbcu_codigo"/></td>
-                                    <td><s:property value="sbcu_nombre"/></td>
-                                    <td><s:property value="mvco_id_llave"/></td>
-                                    <td><a href="#" onclick="obtenerAsientocontable('<s:property value="mvco_trans"/>');
-                                            $('#partidaDoble').modal('show');">
-                                            <s:property value="mvco_lladetalle"/></a>
+                        <tbody>                            
+                            <s:iterator value="resultMoviContable">                                    
+                                <tr>                                    
+                                    <td class="ocultar"><s:property value="clas_nombre"/></td>
+                                    <td class="ocultar"><s:property value="grup_nombre"/></td>
+                                    <td class="ocultar"><s:property value="cuen_nombre"/></td>
+                                    <td>
+                                        <a href="#" onclick="obtenerAsientocontable('<s:property value="mvco_trans"/>');
+                                                $('#partidaDoble').modal('show');" >
+                                        <s:property value="sbcu_codigo"/></td>
+                                    </a>
+                                    <td>
+                                        <s:property value="sbcu_nombre"/>
                                     </td>
-                                    <td><s:property value="mvco_mvco"/></td>
-                                    <td><s:property value="mvco_naturaleza"/></td>
-                                    <td><s:property value="mvco_tercero"/></td>
-                                    <td><s:property value="mvco_trans"/></td>
+                                    <td>
+                                        <s:if test="%{mvco_lladetalle == 'mvin'}">
+                                            Compra/Adicion Prod.
+                                        </s:if>
+                                        <s:elseif test="%{mvco_lladetalle == 'fact'}">
+                                            Facturacion
+                                        </s:elseif>
+                                        <s:elseif test="%{mvco_lladetalle == 'corin'}">
+                                            Correccion Inventario
+                                        </s:elseif>
+                                        <%--<s:property value="mvco_lladetalle"/>--%>
+                                    </td>
+                                    <td>
+                                        <s:if test="%{mvco_naturaleza == 'D'}">
+                                            Debito
+                                        </s:if>
+                                        <s:else>
+                                            Credito
+                                        </s:else>
+                                        <%--<s:property value="mvco_naturaleza"/>--%>
+                                    </td>
+                                    <td>
+                                        <s:property value="mvco_fecha"/>
+                                    </td>
+                                    <td>
+                                        $ <s:property value="mvco_valor"/>                                        
+                                    </td>
                                 </tr>
                             </s:iterator>
                         </tbody>
@@ -156,5 +163,20 @@
                 </div>
             </div>
         </div>
+        <s:if test="%{moviContable.clas_clas != null }">
+            <script type="text/javascript">
+                var  clase = '<s:text name="moviContable.clas_clas"/>';
+                if(clase != '-1'){
+                    traeGrupoXClase(clase);                    
+                }
+                var grupo = '<s:text name="moviContable.grup_grup"/>';
+                document.getElementById('grup_grup').value = grupo;
+                if(grupo != '-1'){
+                    traeCuentaXGrupo(grupo);
+                }
+                var cuenta = '<s:text name="moviContable.cuen_cuen"/>';
+                document.getElementById('cuen_cuen').value = cuenta;
+            </script>
+        </s:if>
     </body>
 </html>

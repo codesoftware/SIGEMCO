@@ -21,6 +21,7 @@ public class MoviContableDto {
     private String mvco_id_llave;
     private String mvco_tercero;
     private String mvco_tipo;
+    private String mvco_fecha;    
     //Variables necesarias para crear los asientos contables
     private String debitos;
     private String creditos;
@@ -195,5 +196,12 @@ public class MoviContableDto {
     public void setCuen_nombre(String cuen_nombre) {
         this.cuen_nombre = cuen_nombre;
     }
-    
+
+    public String getMvco_fecha() {
+        return mvco_fecha;
+    }
+
+    public void setMvco_fecha(String mvco_fecha) {
+        this.mvco_fecha = mvco_fecha;
+    }
 }
