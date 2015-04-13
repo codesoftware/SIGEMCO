@@ -11,6 +11,7 @@ import co.com.hotel.utilidades.UsuarioHabilitado;
 import co.com.sigemco.alfa.inventario.dto.ConteoProdDto;
 import co.com.sigemco.alfa.inventario.logica.ConteoProdLogica;
 import com.opensymphony.xwork2.ActionSupport;
+import java.util.List;
 import java.util.Map;
 import org.apache.struts2.interceptor.SessionAware;
 
@@ -25,17 +26,24 @@ public class ConteoAction extends ActionSupport implements SessionAware, Usuario
     private String accion;
     private Map<String, String> sedes;
     private ConteoProdDto conteo;
-    
-    public String insrtaNuevoConteo(){
+    private List listConteo;
+
+    /**
+     * Funcion encargada de realizar la accion par insertar un registro para un
+     * conteo
+     *
+     * @return
+     */
+    public String insrtaNuevoConteo() {
         ConteoProdLogica logica = null;
         try {
             logica = new ConteoProdLogica();
             conteo.setCopr_tius(usuario.getIdTius());
             String rta = logica.insertaCreacionConteo(conteo);
-            if("Ok".equalsIgnoreCase(rta)){
+            if ("Ok".equalsIgnoreCase(rta)) {
                 addActionMessage("El inventario se registro correctamente");
                 conteo = null;
-            }else{
+            } else {
                 addActionError("Error al ingresar el Conteo");
             }
         } catch (Exception e) {
@@ -43,11 +51,31 @@ public class ConteoAction extends ActionSupport implements SessionAware, Usuario
         }
         return SUCCESS;
     }
+
+    public String consultaGeneralConteos() {
+        ConteoProdLogica logica = null;
+        try {
+            logica = new ConteoProdLogica();
+            listConteo = logica.consultaGeneralConteos(conteo);
+            if(listConteo == null){
+                addActionError("La consulta no arrojo ningun Resultado");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return SUCCESS;
+    }
+
     /**
-     * Funcion encargada de realizar las validaciones mas basicas antes de llegar a la funcion accionador pertinente
+     * Funcion encargada de realizar las validaciones mas basicas antes de
+     * llegar a la funcion accionador pertinente
      */
     public void validate() {
         if ("insConteo".equalsIgnoreCase(accion)) {
+            Adm_SedeLogica sedeLogica = new Adm_SedeLogica();
+            this.sedes = sedeLogica.obtieneSedes();
+        }
+        if ("consGenCont".equalsIgnoreCase(accion)) {
             Adm_SedeLogica sedeLogica = new Adm_SedeLogica();
             this.sedes = sedeLogica.obtieneSedes();
         }
@@ -92,4 +120,13 @@ public class ConteoAction extends ActionSupport implements SessionAware, Usuario
     public void setConteo(ConteoProdDto conteo) {
         this.conteo = conteo;
     }
+
+    public List getListConteo() {
+        return listConteo;
+    }
+
+    public void setListConteo(List listConteo) {
+        this.listConteo = listConteo;
+    }
+
 }

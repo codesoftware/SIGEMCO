@@ -232,8 +232,8 @@
                                                     <tr>
                                                         <td>Creaci&oacute;n de Conteos</td>
                                                         <td><input type="checkbox" value="InPr11" id="InPr11" /></td>
-                                                        <td>&nbsp;&nbsp;&nbsp;</td>
-                                                        <td>&nbsp;&nbsp;&nbsp;</td>
+                                                        <td>Consulta Conteos</td>
+                                                        <td><input type="checkbox" value="InPr12" id="InPr12" /></td>
                                                     </tr>
                                                 </tbody>
                                             </table>

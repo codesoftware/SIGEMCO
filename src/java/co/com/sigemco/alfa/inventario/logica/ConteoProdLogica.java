@@ -8,6 +8,9 @@ package co.com.sigemco.alfa.inventario.logica;
 import co.com.hotel.persistencia.general.EnvioFunction;
 import co.com.sigemco.alfa.inventario.dao.ConteoProdDao;
 import co.com.sigemco.alfa.inventario.dto.ConteoProdDto;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -25,18 +28,45 @@ public class ConteoProdLogica {
     public String insertaCreacionConteo(ConteoProdDto objDto) {
         String rta = "";
         ConteoProdDao objDao = null;
-        try(EnvioFunction function = new EnvioFunction()) {
+        try (EnvioFunction function = new EnvioFunction()) {
             objDao = poblarDao(objDto);
-            boolean valida = function.enviarUpdate(objDao.insertaConteo());            
-            if(valida){
+            boolean valida = function.enviarUpdate(objDao.insertaConteo());
+            if (valida) {
                 rta = "Ok";
-            }else{
-                rta = "Error";                
+            } else {
+                rta = "Error";
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             rta = "Error";
+        }
+        return rta;
+    }
+
+    public List consultaGeneralConteos(ConteoProdDto objDto) {
+        ConteoProdDao objDao = null;
+        List<ConteoProdDto> rta = null;
+        try (EnvioFunction function = new EnvioFunction()) {
+            objDao = poblarDao(objDto);
+            ResultSet rs = function.enviarSelect(objDao.consultaGeneral());
+            while (rs.next()) {
+                if (rta == null) {
+                    rta = new ArrayList<ConteoProdDto>();
+                }
+                ConteoProdDto aux = new ConteoProdDto();
+                aux.setCopr_copr(rs.getString("copr_copr"));
+                aux.setCopr_estado(rs.getString("copr_estado"));
+                aux.setCopr_tius(rs.getString("copr_tius"));
+                aux.setCopr_fecha(rs.getString("copr_fecha"));
+                aux.setCopr_sede(rs.getString("copr_sede"));
+                aux.setCopr_fec_ini(rs.getString("copr_fec_ini"));
+                aux.setCopr_fec_fin(rs.getString("copr_fec_fin"));
+                aux.setCopr_desc(rs.getString("copr_desc"));
+                rta.add(aux);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return rta;
     }

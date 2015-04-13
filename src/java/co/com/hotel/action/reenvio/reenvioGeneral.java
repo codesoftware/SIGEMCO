@@ -90,6 +90,7 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     public static final int INV_CON_MOVCONTABLE = 294;
     //Submodulo de Conteos
     public static final int INV_INS_CREACONTEO = 232;
+    public static final int INV_CON_CONTEOPROD = 233;
     //MODULO FACTURACION (Primer digito 3)
     public static final int FAC_INS_FACTURA = 311;
     public static final int FAC_UPD_FACTURA = 312;
@@ -329,6 +330,11 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
                     sedeLogica = new Adm_SedeLogica();
                     this.sedes = sedeLogica.obtieneSedes();
                     break;
+                case INV_CON_CONTEOPROD:
+                    nextPage = "inv_con_conteoprod";
+                    sedeLogica = new Adm_SedeLogica();
+                    this.sedes = sedeLogica.obtieneSedes();
+                    break;
                 case INV_INS_MOVINVENTARIO:
                     nextPage = "inv_ins_movinventario";
                     naturalezaMvIn = new HashMap<String, String>();
@@ -435,8 +441,8 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
                     clasePUC = new HashMap<String, String>();
                     grupoPUC = new HashMap<String, String>();
                     cuentaPUC = new HashMap<String, String>();
-                    for(int i=0;i<rta.size();i++){
-                        this.clasePUC.put(rta.get(i).getClas_clas(),rta.get(i).getClas_nombre());
+                    for (int i = 0; i < rta.size(); i++) {
+                        this.clasePUC.put(rta.get(i).getClas_clas(), rta.get(i).getClas_nombre());
                     }
                     nextPage = "inv_con_movcontable";
                     break;
@@ -716,7 +722,5 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     public void setCuentaPUC(Map<String, String> cuentaPUC) {
         this.cuentaPUC = cuentaPUC;
     }
-    
-    
 
 }

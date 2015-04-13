@@ -141,6 +141,9 @@
                             <%if (permisos.indexOf(".InPr11.") >= 0) {%>
                             <li><a href="reenvioGeneral.action?accion=232">Creaci&oacute;n Conteo</a></li>
                             <%}%>
+                            <%if (permisos.indexOf(".InPr11.") >= 0) {%>
+                            <li><a href="reenvioGeneral.action?accion=233">Consulta Conteos</a></li>
+                            <%}%>
                         </ul>
                     </li>
 
@@ -177,7 +180,7 @@
                             <li><a href="reenvioGeneral.action?accion=261">Adicionar Referencia</a></li>
                                 <%}
                                     if (permisos.indexOf(".InRef2.") >= 0) {%>
-                            <li><a href="reenvioGeneral.action?accion=262">Actualizar Referencia </a></li>
+                            <li><a href="reenvioGeneral.action?accion=262">Actualizar Referencia</a></li>
                                 <%}
                                     if (permisos.indexOf(".InRef3.") >= 0) {%>
                             <li><a href="reenvioGeneral.action?accion=264">Consultar Referencia</a></li>

@@ -94,7 +94,21 @@ public class ConteoProdDao {
         StringBuilder sql = new StringBuilder();
         sql.append("INSERT INTO in_tcopr(                                   ");
         sql.append("            copr_copr, copr_tius, copr_sede, copr_desc) ");
-        sql.append("    VALUES ((SELECT coalesce(max(copr_copr), 0) + 1  FROM in_tcopr)," + this.getCopr_tius() + ", " + this.getCopr_sede() + ", " + this.getCopr_desc() + ")");
+        sql.append("    VALUES ((SELECT coalesce(max(copr_copr), 0) + 1  FROM in_tcopr)," + this.getCopr_tius() + ", " + this.getCopr_sede() + ", '" + this.getCopr_desc() + "')");
+        return sql.toString();
+    }
+
+    /**
+     * Funcion encargada de realizar el Query para la consulta general de
+     * conteos
+     *
+     * @return
+     */
+    public String consultaGeneral() {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT copr_copr, copr_estado, copr_tius, copr_fecha, copr_sede, copr_fec_ini, ");
+        sql.append("       copr_fec_fin, copr_desc ");
+        sql.append(" FROM in_tcopr");
         return sql.toString();
     }
 
