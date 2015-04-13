@@ -132,5 +132,10 @@
             <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_CorrIngProductos.jsp</result>
             <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_CorrIngProductos.jsp</result>                        
         </action>
+        <action name="Inv_Creaconteo" class="co.com.sigemco.alfa.inventario.action.ConteoAction" method="insrtaNuevoConteo">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_CreaConteo.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_CreaConteo.jsp</result>                        
+        </action>
+        
     </package>
 </struts>

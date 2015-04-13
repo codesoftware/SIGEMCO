@@ -229,6 +229,12 @@
                                                         <td>Correcci&oacute;n de Ingresos</td>
                                                         <td><input type="checkbox" value="InPr10" id="InPr10" /></td>
                                                     </tr>
+                                                    <tr>
+                                                        <td>Creaci&oacute;n de Conteos</td>
+                                                        <td><input type="checkbox" value="InPr11" id="InPr11" /></td>
+                                                        <td>&nbsp;&nbsp;&nbsp;</td>
+                                                        <td>&nbsp;&nbsp;&nbsp;</td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>

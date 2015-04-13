@@ -88,6 +88,8 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
 
     //Movimientos Contables
     public static final int INV_CON_MOVCONTABLE = 294;
+    //Submodulo de Conteos
+    public static final int INV_INS_CREACONTEO = 232;
     //MODULO FACTURACION (Primer digito 3)
     public static final int FAC_INS_FACTURA = 311;
     public static final int FAC_UPD_FACTURA = 312;
@@ -321,6 +323,11 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
                     this.estadoMap.put("A", "Activo");
                     this.estadoMap.put("I", "Inactivo");
                     nextPage = "rep_inv_usuarios";
+                    break;
+                case INV_INS_CREACONTEO:
+                    nextPage = "inv_ins_creaconteo";
+                    sedeLogica = new Adm_SedeLogica();
+                    this.sedes = sedeLogica.obtieneSedes();
                     break;
                 case INV_INS_MOVINVENTARIO:
                     nextPage = "inv_ins_movinventario";

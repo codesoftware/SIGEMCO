@@ -115,6 +115,10 @@ function mostrarPermisos(valor) {
     if (repUsua > 0) {
         $(".subPermisoRepUsua").show("slow");
     }
+    var movCont = valor.indexOf('InMCo');
+    if (movCont > 0) {
+        $(".subPermisoInvMvCon").show("slow");
+    }
     cargarPermisos(vector);
 }
 

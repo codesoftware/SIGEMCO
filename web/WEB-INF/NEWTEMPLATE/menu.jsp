@@ -134,6 +134,17 @@
                         </ul>
                     </li>
                     <%}
+                        if (permisos.indexOf(".InPr11.") >= 0) {
+                    %>                    
+                    <li><a href="#">Conteos</a>
+                        <ul class="dropdown-menu">
+                            <%if (permisos.indexOf(".InPr11.") >= 0) {%>
+                            <li><a href="reenvioGeneral.action?accion=232">Creaci&oacute;n Conteo</a></li>
+                            <%}%>
+                        </ul>
+                    </li>
+
+                    <%}
                         if (permisos.indexOf(".InMi1.") >= 0 || permisos.indexOf(".InMi2.") >= 0 || permisos.indexOf(".InMi3.") >= 0) {%>
                     <li><a href="#">Mov. Inventario</a>
                         <ul class="dropdown-menu">
