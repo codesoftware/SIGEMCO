@@ -300,8 +300,8 @@
                                             </table>  
                                         </div>
                                     </div>
-                                    
-                                      <div class="row">
+
+                                    <div class="row">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <table style="width: 100%">
                                                 <thead>
@@ -466,6 +466,14 @@
                                                     <tr>
                                                         <td style="width: 30%;">Promedio Ponderado</td>
                                                         <td style="width: 20%;"><input type="checkbox" value="RpIn1" id="RpIn1"/></td>
+                                                        <td style="width: 30%;">&nbsp;</td>
+                                                        <td style="width: 20%;">&nbsp;</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody  class="subPermisoCierreD">
+                                                    <tr>
+                                                        <td style="width: 30%;">Cierre Diario</td>
+                                                        <td style="width: 20%;"><input type="checkbox" value="cieDi1" id="cieDi1"/></td>
                                                         <td style="width: 30%;">&nbsp;</td>
                                                         <td style="width: 20%;">&nbsp;</td>
                                                     </tr>

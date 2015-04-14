@@ -82,6 +82,15 @@
                         </ul>
                     </li>
                     <%}%>
+                    <%  if (permisos.indexOf(".cieDi1.") >= 0 || permisos.indexOf(".cieDi2.") >= 0) {%>
+                    <li><a href="#">Cierres</a>
+                        <ul class="dropdown-menu">
+                            <%if (permisos.indexOf(".cieDi1.") >= 0) {%>
+                            <li><a href="reenvioGeneral.action?accion=151">Cierre Diario</a></li>
+                                <%}%>
+                        </ul>
+                    </li>
+                    <%}%>
                 </ul>
             </li>
             <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Inventarios</a>
@@ -140,10 +149,10 @@
                         <ul class="dropdown-menu">
                             <%if (permisos.indexOf(".InPr11.") >= 0) {%>
                             <li><a href="reenvioGeneral.action?accion=232">Creaci&oacute;n Conteo</a></li>
-                            <%}%>
-                            <%if (permisos.indexOf(".InPr11.") >= 0) {%>
+                                <%}%>
+                                <%if (permisos.indexOf(".InPr11.") >= 0) {%>
                             <li><a href="reenvioGeneral.action?accion=233">Consulta Conteos</a></li>
-                            <%}%>
+                                <%}%>
                         </ul>
                     </li>
 

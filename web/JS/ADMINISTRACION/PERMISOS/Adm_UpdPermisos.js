@@ -17,6 +17,9 @@ $(function() {
     $("#RepInv").click(function() {
         $(".subPermisoRepInv").toggle("slow");
     });
+    $("#RepInv").click(function() {
+        $(".subPermisoCierreD").toggle("slow");
+    });
     $("#admEmp").click(function() {
         $(".subPermisoAdmEmp").toggle("slow");
     });
@@ -98,6 +101,10 @@ function mostrarPermisos(valor) {
     var reportes = valor.indexOf('RpIn');
     if (reportes > 0) {
         $(".subPermisoRepInv").show("slow");
+    }
+    var reportes = valor.indexOf('cieDi1');
+    if (reportes > 0) {
+        $(".subPermisoCierreD").show("slow");
     }
     var empresa = valor.indexOf('AdEm');
     if (empresa > 0) {

@@ -8,6 +8,7 @@ package co.com.hotel.action.reenvio;
 import co.com.hotel.datos.session.Usuario;
 import co.com.hotel.dto.Empresa;
 import co.com.hotel.dto.Producto;
+import co.com.hotel.dto.Sede;
 import co.com.hotel.logica.categoria.Inv_CategoriaLogica;
 import co.com.hotel.logica.empresa.Emp_EmpresaLogica;
 import co.com.hotel.logica.perfil.Adm_PerfilLogica;
@@ -34,6 +35,7 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     private int accion;
     private Usuario usuario;
     private Map session;
+    private ArrayList<Sede> resultSede = null;
     //El primer numero el modulo, el segundo submodulo, el tercero accion(insert'1', update'2', inactivar'3', consulta'4', operativo'5'): 
     //ejemplo
     // 121  (1)Modulo de administracion (2)perfiles (1)Insert
@@ -50,7 +52,8 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     public static final int ADM_INS_SEDE = 141;   //
     public static final int ADM_UPD_SEDE = 142;   //
     public static final int ADM_CON_SEDE = 144;   //
-
+    //CIERRES
+    public static final int ADM_CIERRE_DIARIO = 151;
     //MODULO INVENTARIOS (Primer digito 2)
     public static final int INV_INS_PRODUCTO = 211;
     public static final int INV_INS_PRODEXIS = 219; //El ultimo digito es nueve ya que  ya existe la insercion de productos
@@ -446,6 +449,14 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
                     }
                     nextPage = "inv_con_movcontable";
                     break;
+
+                case ADM_CIERRE_DIARIO:
+
+                    Adm_SedeLogica sede = new Adm_SedeLogica();
+                    this.sedes = sede.obtieneSedes();
+                    nextPage = "adm_cierre_diario";
+                    break;
+
                 case ADM_CON_SEDE:
                     nextPage = "adm_con_sede";
 
@@ -721,6 +732,14 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
 
     public void setCuentaPUC(Map<String, String> cuentaPUC) {
         this.cuentaPUC = cuentaPUC;
+    }
+
+    public ArrayList<Sede> getResultSede() {
+        return resultSede;
+    }
+
+    public void setResultSede(ArrayList<Sede> resultSede) {
+        this.resultSede = resultSede;
     }
 
 }
