@@ -188,9 +188,6 @@
                             <%if (permisos.indexOf(".InRef1.") >= 0) {%>
                             <li><a href="reenvioGeneral.action?accion=261">Adicionar Referencia</a></li>
                                 <%}
-                                    if (permisos.indexOf(".InRef2.") >= 0) {%>
-                            <li><a href="reenvioGeneral.action?accion=262">Actualizar Referencia</a></li>
-                                <%}
                                     if (permisos.indexOf(".InRef3.") >= 0) {%>
                             <li><a href="reenvioGeneral.action?accion=264">Consultar Referencia</a></li>
                                 <%}%>

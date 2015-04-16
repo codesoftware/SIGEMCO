@@ -364,7 +364,12 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
                     this.camara.put("8", "MENOS DE 8");
                     this.camara.put("13", "ENTRE 8 Y 13");
                     this.camara.put("14", "MAS DE 13 ");
-
+                    this.estadoMap = new HashMap<String, String>();
+                    this.estadoMap.put("A", "Activo");
+                    this.estadoMap.put("I", "Inactivo");
+                    this.memoria = new HashMap<String, String>();
+                    this.pantalla = new HashMap<String, String>();
+                    break;
                 case INV_INS_CATEGORIA:
                     nextPage = "inv_ins_categoria";
                     this.runico = new HashMap<String, String>();

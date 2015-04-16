@@ -5,9 +5,10 @@
 	<property name="ireport.y" value="0"/>
 	<parameter name="dska_dska" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select dska_cod,dska_desc
-from in_tdska
-where dska_dska = cast( $P{dska_dska} as int)]]>
+		<![CDATA[select dska_cod,dska_desc || ' ' || refe_desc as dska_desc
+from in_tdska,in_trefe 
+where dska_dska = cast( $P{dska_dska} as int)
+and dska_refe = refe_refe]]>
 	</queryString>
 	<field name="dska_cod" class="java.lang.String"/>
 	<field name="dska_desc" class="java.lang.String"/>
