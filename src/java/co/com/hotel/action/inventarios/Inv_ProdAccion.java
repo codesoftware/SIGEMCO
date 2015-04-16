@@ -14,6 +14,7 @@ import co.com.hotel.logica.productos.Inv_ProductoLogica;
 import co.com.hotel.logica.sede.Adm_SedeLogica;
 import co.com.hotel.utilidades.UsuarioHabilitado;
 import co.com.hotel.validacion.ValidaCampos;
+import co.com.sigemco.alfa.inventario.logica.ReferenciaLogica;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,6 +42,7 @@ public class Inv_ProdAccion extends ActionSupport implements SessionAware, Usuar
     private Map<String, String> gravamen;
     private Map<String, String> yesNo;
     private Map<String, String> sedes;
+    private Map<String, String> referencias;
 
     /**
      * Consulta de producto la cual se realiza con el codigo unico del producto
@@ -228,6 +230,8 @@ public class Inv_ProdAccion extends ActionSupport implements SessionAware, Usuar
             this.yesNo = new HashMap<String, String>();
             this.yesNo.put("S", "Si");
             this.yesNo.put("N", "No");
+            ReferenciaLogica refeLogica = new ReferenciaLogica();
+            this.referencias = refeLogica.obtieneIdDescrReferenciaActivos();
             if (subAccion.equalsIgnoreCase("update")) {
                 if (!validaCampos.validaNulo(producto.getNombre().trim())) {
                     addFieldError("producto.nombre", "El campo no puede ser nulo");
@@ -365,5 +369,13 @@ public class Inv_ProdAccion extends ActionSupport implements SessionAware, Usuar
 
     public void setSedes(Map<String, String> sedes) {
         this.sedes = sedes;
+    }
+
+    public Map<String, String> getReferencias() {
+        return referencias;
+    }
+
+    public void setReferencias(Map<String, String> referencias) {
+        this.referencias = referencias;
     }
 }

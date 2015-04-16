@@ -43,6 +43,7 @@
                 <br/>
                 <s:form action="inv_UpdProducto" method="post" id="inv_UpdProducto" theme="simple"> 
                     <s:textfield name="producto.id" cssStyle="display:none;" cssClass="idProductoUpdate"/>
+                    <s:textfield name="producto.codigo" cssStyle="display:none;" cssClass="idProductoUpdate"/>
                     <s:textfield name="accion" cssStyle="display:none" value="updProductoIndv"/>
                     <s:textfield name="subAccion" cssStyle="display:none" value="" cssClass="subAccionForm" />
                     <table class="table table-bordered" >
@@ -62,11 +63,13 @@
                             </tr>
                             <tr>
                                 <td>Referencia:</td>
-                                <td><s:textfield name="producto.referencia" required="true" maxLength="10" cssClass="form-control"/></td>
+                                <td>
+                                    <s:select cssClass="form-control" list="referencias" name="producto.referencia" id="referencia" headerKey="-1" headerValue="Referencia" />
+                                </td>
                             </tr>
                             <tr>
                                 <td>Codigo:</td>
-                                <td><s:textfield name="producto.codigo" required="true" maxLength="9" cssClass="form-control"/></td>
+                                <td><s:text name="producto.codigo" /></td>
                             </tr>
                             <tr>
                                 <td>Gravamen:</td>
@@ -74,7 +77,7 @@
                             </tr>
                             <tr>
                                 <td>Porcentaje iva:</td>
-                                <td><s:textfield name="producto.porcIva" required="true" cssStyle="max-lenght: 10;" cssClass="form-control" /></td>
+                                <td><s:textfield name="producto.porcIva" required="true" cssStyle="max-lenght: 10;" cssClass="form-control" readonly="true"/></td>
                             </tr>
                             <tr>
                                 <td>Marca:</td>
