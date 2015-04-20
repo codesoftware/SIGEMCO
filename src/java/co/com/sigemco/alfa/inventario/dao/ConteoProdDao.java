@@ -120,6 +120,7 @@ public class ConteoProdDao {
     public void setEcop_diferencia(String ecop_diferencia) {
         this.ecop_diferencia = ecop_diferencia;
     }
+
     /**
      * Funcion encargada de realizar el query para realizar una insercion de un
      * conteo nuevo de inventario
@@ -168,8 +169,38 @@ public class ConteoProdDao {
         StringBuilder sql = new StringBuilder();
         return sql.toString();
     }
-    
-    public String verificaExis(){
+
+    /**
+     * Funcion encargada de realizar el Query para verificar la existencia de un
+     * producto dentro de un conteo
+     *
+     * @return
+     */
+    public String verificaExisProdConteo() {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT count(*) conteo ");
+        sql.append("  FROM in_tecop        ");
+        sql.append(" WHERE ecop_copr = " + this.getEcop_dska() + " ");
+        sql.append("   AND ecop_dska = " + this.getEcop_dska() + " ");
+        return sql.toString();
+    }
+
+    /**
+     * Funcion encargada de insertar un producto el cual no ha sido registrado
+     * en el conteo
+     *
+     * @return
+     */
+    public String insertaProdConteo() {
+        StringBuilder sql = new StringBuilder();
+        sql.append("INSERT INTO in_tecop(                                                       ");
+        sql.append("            ecop_ecop, ecop_copr, ecop_dska, ecop_valor                    ");
+        sql.append("            )                                                               ");
+        sql.append("    VALUES ((select coalesce(max(ecop_ecop),0) +1 from in_tecop),           ");
+        sql.append("             " + this.getCopr_copr() + ",");
+        sql.append("             " + this.getEcop_dska() + ",");
+        sql.append("             " + this.getEcop_valor() + ")");
+        return sql.toString();
     }
 
 }

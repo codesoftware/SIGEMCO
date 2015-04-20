@@ -63,16 +63,14 @@ public class ajaxControllerProducto extends ActionSupport implements SessionAwar
      * productos
      */
     public void actualizaConteoProducto() {
-        Map<String, Object> mapa = new HashMap<String, Object>();
         ConteoProdLogica conteo = null;
         try {
             conteo = new ConteoProdLogica();
             HttpServletResponse response = ServletActionContext.getResponse();
             response.setContentType("text/plain;charset=utf-8");
             PrintWriter out = response.getWriter();
-            mapa.put("respuesta", "Ok");
-            Gson gson = new Gson();
-            String objJson = gson.toJson(mapa);
+            String objJson = "";
+            objJson = conteo.actualizaValorProdConteoJson(copr_copr, dska_dska, cantidad);
             out.print(objJson);
         } catch (Exception e) {
             e.printStackTrace();

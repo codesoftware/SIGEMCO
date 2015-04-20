@@ -8,9 +8,12 @@ package co.com.sigemco.alfa.inventario.logica;
 import co.com.hotel.persistencia.general.EnvioFunction;
 import co.com.sigemco.alfa.inventario.dao.ConteoProdDao;
 import co.com.sigemco.alfa.inventario.dto.ConteoProdDto;
+import com.google.gson.Gson;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -71,10 +74,12 @@ public class ConteoProdLogica {
         }
         return rta;
     }
+
     /**
      * Funcion encargada de realizar la logica para buscar un conteo por su Id
+     *
      * @param objDto
-     * @return 
+     * @return
      */
     public ConteoProdDto consultaConteosId(ConteoProdDto objDto) {
         ConteoProdDao objDao = null;
@@ -124,16 +129,91 @@ public class ConteoProdLogica {
         }
         return objDao;
     }
-    
-    public String insetaConteo(String copr_copr, String dska_dska, String cantidad){
+
+    /**
+     * Funcion encargada de insertar un producto en un conteo
+     *
+     * @param copr_copr
+     * @param dska_dska
+     * @param cantidad
+     * @return
+     */
+    public String insetarProdConteo(String copr_copr, String dska_dska, String cantidad) {
         String rta = "";
         ConteoProdDao objDao = new ConteoProdDao();
-        try(EnvioFunction function = new EnvioFunction()) {
-            
+        try (EnvioFunction function = new EnvioFunction()) {
+            objDao.setCopr_copr(copr_copr);
+            objDao.setEcop_dska(dska_dska);
+            objDao.setEcop_valor(cantidad);
+            boolean valida = function.enviarUpdate(objDao.insertaProdConteo());
+            if (valida) {
+                return "Ok";
+            } else {
+                return "Error";
+            }
         } catch (Exception e) {
             e.printStackTrace();
+            rta = "Error " + e;
         }
         return rta;
     }
+
+    public String validaExisConteo(String copr_copr, String dska_dska) {
+        String rta = "";
+        ConteoProdDao objDao = null;
+        try (EnvioFunction function = new EnvioFunction()) {
+            objDao = new ConteoProdDao();
+            ResultSet rs = function.enviarSelect(objDao.verificaExisProdConteo());
+            while (rs.next()) {
+                int con = rs.getInt("conteo");
+                if (con == 0){
+                    return "Insert";
+                } else {
+                    return "Update";
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            rta = "Error " + e;
+        }
+        return rta;
+    }
+
+    /**
+     * Funcion encargada de hacer toda lo logica para actulizar un producto en
+     * el conteo y retornar el objeto con la informacion actualizada
+     *
+     * @param copr_copr
+     * @param dska_dska
+     * @param cantidad
+     * @return
+     */
+    public String actualizaValorProdConteoJson(String copr_copr, String dska_dska, String cantidad) {
+        Map<String, String> mapa = null;
+        Gson gson = null;
+        String objJson = "";
+        String valida = "";
+        try {
+            mapa = new HashMap<String, String>();
+            gson = new Gson();
+            String accion = validaExisConteo(copr_copr, dska_dska);
+            if ("Insert".equalsIgnoreCase(accion)) {
+                valida = insetarProdConteo(copr_copr, dska_dska, cantidad);                
+            } else if ("Update".equalsIgnoreCase(accion)) {
+
+            } else {
+                mapa.put("respuesta", accion);
+            }
+            
+            if("Ok".equalsIgnoreCase(valida)){
+                mapa.put("respuesta", "Ok");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        objJson = gson.toJson(mapa);
+        return objJson;
+    }
+    
 
 }
