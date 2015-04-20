@@ -78,7 +78,7 @@ public class DetalleConteoDao {
         sql.append("SELECT ecop_ecop, ecop_copr, ecop_dska, ecop_valor, ecop_existencias, ");
         sql.append("       ecop_diferencia                                                ");
         sql.append("  FROM in_tecop                                                       ");
-        sql.append(" WHERE ecop_copr = " + this.getEcop_copr() );
+        sql.append(" WHERE ecop_copr = " + this.getEcop_copr());
         sql.append("   AND ecop_dska = " + this.getEcop_dska());
         return sql.toString();
     }

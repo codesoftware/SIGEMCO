@@ -214,6 +214,5 @@ public class ConteoProdLogica {
         objJson = gson.toJson(mapa);
         return objJson;
     }
-    
 
 }
