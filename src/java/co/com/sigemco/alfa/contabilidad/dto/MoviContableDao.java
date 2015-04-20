@@ -187,13 +187,13 @@ public class MoviContableDao {
      */
     public String generaAsientoContable() {
         String sql = "";
-        sql += "SELECT sbcu_nombre,sbcu_codigo,to_char(mvco_valor,'LFM9,999,999,999.0') debitos, 'N/A' creditos   \n";
+        sql += "SELECT sbcu_nombre,sbcu_codigo,to_char(mvco_valor,'9999999999.0') debitos, 'N/A' creditos   \n";
         sql += "  FROM co_tmvco,co_tsbcu                                                                       \n";
         sql += " WHERE mvco_trans = " + this.getMvco_trans() + "                                                   \n";
         sql += "   AND mvco_naturaleza = 'D'                                                                   \n";
         sql += "   AND mvco_sbcu = sbcu_sbcu                                                                   \n";
         sql += " UNION all                                                                                     \n";
-        sql += "SELECT sbcu_nombre,sbcu_codigo, 'N/A' debitos,  to_char(mvco_valor,'LFM9,999,999,999.0') creditos\n";
+        sql += "SELECT sbcu_nombre,sbcu_codigo, 'N/A' debitos,  to_char(mvco_valor,'9999999999.0') creditos\n";
         sql += "  FROM co_tmvco,co_tsbcu                                                                       \n";
         sql += " WHERE mvco_trans = " + this.getMvco_trans() + "                                                   \n";
         sql += "   AND mvco_naturaleza = 'C'                                                                   \n";

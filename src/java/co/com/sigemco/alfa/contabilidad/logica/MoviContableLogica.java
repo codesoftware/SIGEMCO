@@ -6,6 +6,7 @@
 package co.com.sigemco.alfa.contabilidad.logica;
 
 import co.com.hotel.persistencia.general.EnvioFunction;
+import co.com.hotel.utilidades.ManejoLocateCO;
 import co.com.sigemco.alfa.contabilidad.dto.MoviContableDao;
 import co.com.sigemco.alfa.contabilidad.dto.MoviContableDto;
 import java.sql.ResultSet;
@@ -26,6 +27,7 @@ public class MoviContableLogica {
      * @return
      */
     public List<MoviContableDto> generaAsientoContable(String mvco_trans) {
+        ManejoLocateCO loc = new ManejoLocateCO();
         List<MoviContableDto> rta = null;
         try (EnvioFunction function = new EnvioFunction()) {
             MoviContableDao objDao = new MoviContableDao();
@@ -38,8 +40,8 @@ public class MoviContableLogica {
                 MoviContableDto aux = new MoviContableDto();
                 aux.setSbcu_nombre(rs.getString("sbcu_nombre"));
                 aux.setSbcu_codigo(rs.getString("sbcu_codigo"));
-                aux.setDebitos(rs.getString("debitos"));
-                aux.setCreditos(rs.getString("creditos"));
+                aux.setDebitos(loc.doubleTOMoney(rs.getString("debitos")));
+                aux.setCreditos(loc.doubleTOMoney(rs.getString("creditos")));
                 rta.add(aux);
             }
         } catch (Exception e) {
