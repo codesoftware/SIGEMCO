@@ -140,5 +140,9 @@
             <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsGenConteos.jsp</result>
             <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsGenConteos.jsp</result>                        
         </action>
+        <action name="Inv_IniciaConteo" class="co.com.sigemco.alfa.inventario.action.ConteoAction" method="iniciaConteo">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_EjecutaConteo.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_EjecutaConteo.jsp</result>
+        </action>
     </package>
 </struts>

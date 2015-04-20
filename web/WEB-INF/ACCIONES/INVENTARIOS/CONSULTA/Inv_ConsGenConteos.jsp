@@ -5,9 +5,9 @@
 <html>
     <head>
         <s:include value="/WEB-INF/NEWTEMPLATE/cabecera.jsp"></s:include>
-        <script type="text/javascript" src="<%=RutaSitio %>/JS/INVENTARIOS/Inv_ConsGenConteos.js"></script>
-        </head>
-        <body>
+        <script type="text/javascript" src="<%=RutaSitio%>/JS/INVENTARIOS/Inv_ConsGenConteos.js"></script>
+    </head>
+    <body>
         <s:div cssClass="header">
             <s:include value="/WEB-INF/NEWTEMPLATE/FrameTop.jsp" > 
                 <s:param name="nombre"><s:text name="usuario.apellido"/> <s:text name="usuario.nombre"/></s:param>
@@ -45,8 +45,8 @@
         <div class="row">
             <div class="col-md-3 col-sm-0 col-xs-0"></div>
             <div class="col-md-6 col-sm-12 col-xs-12">
-            <s:form method="post" theme="simple" action="Inv_ConsGenConteos" id="Inv_ConsGenConteos">
-                <s:textfield name="accion" value="consGenCont" cssStyle="display:none;"/>
+                <s:form method="post" theme="simple" action="Inv_ConsGenConteos" id="Inv_ConsGenConteos">
+                    <s:textfield name="accion" value="consGenCont" cssStyle="display:none;"/>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -85,6 +85,48 @@
             </div>
             <div class="col-md-3 col-sm-0 col-xs-0"></div>                
         </div>
+        <div class="row">
+            <div class="col-md-2 col-sm-0 col-xs-0"></div>
+            <div class="col-md-8 col-sm-12 col-xs-12">
+                <s:if test="%{listConteo != null}">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Sede</th>
+                                <th>Comentario</th>
+                                <th>Fec. Creacion</th>
+                                <th>Fec. Inicio</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <s:iterator value="listConteo">
+                                <tr>
+                                    <td><s:property value="copr_copr" /></td>
+                                    <td><s:property value="sede_nombre" /></td>
+                                    <td><s:property value="copr_desc" /></td>
+                                    <td><s:property value="copr_fecha" /></td>
+                                    <td><s:property value="copr_fec_ini" /></td>
+                                    <td>
+                                        <s:if test="%{ copr_estado.equalsIgnoreCase('C') }">
+                                            <a href="#" onclick="iniciarConteo('<s:property value="copr_copr" />')">Creado</a>
+                                        </s:if>
+                                        <s:elseif test="%{ copr_estadoequalsIgnoreCase('A') }">
+                                            Abierto
+                                        </s:elseif>
+                                        <s:elseif test="%{ copr_estado.equalsIgnoreCase('X') }">
+                                            Cerrado
+                                        </s:elseif>
+                                    </td>
+                                </tr>                                
+                            </s:iterator>
+                        </tbody>
+                    </table>                                        
+                </s:if>                
+            </div>
+            <div class="col-md-2 col-sm-0 col-xs-0"></div>
+        </div>
         <script type="text/javascript">
             $(function () {
                 $('.input-group.date').datepicker({
@@ -92,5 +134,10 @@
                 });
             });
         </script>
+        <s:form action="Inv_IniciaConteo" id="Inv_IniciaConteo" theme="simple" cssStyle="display:none;">
+            <s:textfield name="accion" value="iniciaConteo" />
+            <s:textfield name="conteo.copr_copr" id="copr_coprInicio" />
+                                                
+        </s:form>
     </body>
 </html>

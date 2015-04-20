@@ -28,6 +28,10 @@
         </action>        
         <action name="consultaComboCuenta" class="co.com.sigemco.alfa.contabilidad.ajax.AjaxControllerCombos" method="consultaComboCuenta">
         </action>        
+        <action name="consultaProdIXcod" class="co.com.sigemco.alfa.inventario.ajax.ajaxControllerProducto" method="consultaProductoPorCodigo">
+        </action>
+        <action name="actualizaConteoProd" class="co.com.sigemco.alfa.inventario.ajax.ajaxControllerProducto" method="actualizaConteoProducto">
+        </action>
     </package>
 
 </struts>

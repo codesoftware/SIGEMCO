@@ -63,7 +63,38 @@ public class ConteoProdLogica {
                 aux.setCopr_fec_ini(rs.getString("copr_fec_ini"));
                 aux.setCopr_fec_fin(rs.getString("copr_fec_fin"));
                 aux.setCopr_desc(rs.getString("copr_desc"));
+                aux.setSede_nombre(rs.getString("sede_nombre"));
                 rta.add(aux);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rta;
+    }
+    /**
+     * Funcion encargada de realizar la logica para buscar un conteo por su Id
+     * @param objDto
+     * @return 
+     */
+    public ConteoProdDto consultaConteosId(ConteoProdDto objDto) {
+        ConteoProdDao objDao = null;
+        ConteoProdDto rta = null;
+        try (EnvioFunction function = new EnvioFunction()) {
+            objDao = poblarDao(objDto);
+            ResultSet rs = function.enviarSelect(objDao.consultaConteoXId());
+            while (rs.next()) {
+                if (rta == null) {
+                    rta = new ConteoProdDto();
+                }
+                rta.setCopr_copr(rs.getString("copr_copr"));
+                rta.setCopr_estado(rs.getString("copr_estado"));
+                rta.setCopr_tius(rs.getString("copr_tius"));
+                rta.setCopr_fecha(rs.getString("copr_fecha"));
+                rta.setCopr_sede(rs.getString("copr_sede"));
+                rta.setCopr_fec_ini(rs.getString("copr_fec_ini"));
+                rta.setCopr_fec_fin(rs.getString("copr_fec_fin"));
+                rta.setCopr_desc(rs.getString("copr_desc"));
+                rta.setSede_nombre(rs.getString("sede_nombre"));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -92,6 +123,17 @@ public class ConteoProdLogica {
             e.printStackTrace();
         }
         return objDao;
+    }
+    
+    public String insetaConteo(String copr_copr, String dska_dska, String cantidad){
+        String rta = "";
+        ConteoProdDao objDao = new ConteoProdDao();
+        try(EnvioFunction function = new EnvioFunction()) {
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rta;
     }
 
 }

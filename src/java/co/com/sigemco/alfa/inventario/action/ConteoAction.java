@@ -57,9 +57,30 @@ public class ConteoAction extends ActionSupport implements SessionAware, Usuario
         try {
             logica = new ConteoProdLogica();
             listConteo = logica.consultaGeneralConteos(conteo);
-            if(listConteo == null){
+            if (listConteo == null) {
                 addActionError("La consulta no arrojo ningun Resultado");
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return SUCCESS;
+    }
+
+    /**
+     * Funcion encargada de realizar la accion de iniciar o continuar con un
+     * coneteo
+     *
+     * @return
+     */
+    public String iniciaConteo() {
+        ConteoProdLogica logica = null;
+        try {
+            logica = new ConteoProdLogica();
+            conteo = logica.consultaConteosId(conteo);
+            if(conteo == null){
+                addActionError("La consulta no arrojo ningun resultado");
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

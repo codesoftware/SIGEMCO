@@ -19,6 +19,11 @@ public class ConteoProdDao {
     private String copr_fec_ini;
     private String copr_fec_fin;
     private String copr_desc;
+    //Datos de la tabla in_tecop
+    private String ecop_dska;
+    private String ecop_valor;
+    private String ecop_existencias;
+    private String ecop_diferencia;
 
     public String getCopr_copr() {
         return copr_copr;
@@ -84,6 +89,37 @@ public class ConteoProdDao {
         this.copr_desc = copr_desc;
     }
 
+    public String getEcop_dska() {
+        return ecop_dska;
+    }
+
+    public void setEcop_dska(String ecop_dska) {
+        this.ecop_dska = ecop_dska;
+    }
+
+    public String getEcop_valor() {
+        return ecop_valor;
+    }
+
+    public void setEcop_valor(String ecop_valor) {
+        this.ecop_valor = ecop_valor;
+    }
+
+    public String getEcop_existencias() {
+        return ecop_existencias;
+    }
+
+    public void setEcop_existencias(String ecop_existencias) {
+        this.ecop_existencias = ecop_existencias;
+    }
+
+    public String getEcop_diferencia() {
+        return ecop_diferencia;
+    }
+
+    public void setEcop_diferencia(String ecop_diferencia) {
+        this.ecop_diferencia = ecop_diferencia;
+    }
     /**
      * Funcion encargada de realizar el query para realizar una insercion de un
      * conteo nuevo de inventario
@@ -106,10 +142,34 @@ public class ConteoProdDao {
      */
     public String consultaGeneral() {
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT copr_copr, copr_estado, copr_tius, copr_fecha, copr_sede, copr_fec_ini, ");
-        sql.append("       copr_fec_fin, copr_desc ");
-        sql.append(" FROM in_tcopr");
+        sql.append("SELECT copr_copr, copr_estado, copr_tius, to_char(copr_fecha, 'dd/mm/yyyy') copr_fecha, copr_sede, copr_fec_ini, ");
+        sql.append("       copr_fec_fin, copr_desc, sede_nombre ");
+        sql.append("  FROM in_tcopr, em_tsede");
+        sql.append(" WHERE copr_sede = sede_sede ");
         return sql.toString();
+    }
+
+    /**
+     * Funcion encargada de realizar el query para buscar un conteo por su Id
+     *
+     * @return String Query
+     */
+    public String consultaConteoXId() {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT copr_copr, copr_estado, copr_tius, to_char(copr_fecha, 'dd/mm/yyyy') copr_fecha, copr_sede, copr_fec_ini, ");
+        sql.append("       copr_fec_fin, copr_desc, sede_nombre ");
+        sql.append("  FROM in_tcopr, em_tsede");
+        sql.append(" WHERE copr_sede = sede_sede ");
+        sql.append("   AND copr_copr = " + this.getCopr_copr());
+        return sql.toString();
+    }
+
+    public String actulizaConteo() {
+        StringBuilder sql = new StringBuilder();
+        return sql.toString();
+    }
+    
+    public String verificaExis(){
     }
 
 }

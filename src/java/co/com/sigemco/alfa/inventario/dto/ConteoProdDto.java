@@ -19,6 +19,7 @@ public class ConteoProdDto {
     private String copr_fec_ini;
     private String copr_fec_fin;
     private String copr_desc;
+    private String sede_nombre;
 
     public String getCopr_copr() {
         return copr_copr;
@@ -82,6 +83,14 @@ public class ConteoProdDto {
 
     public void setCopr_desc(String copr_desc) {
         this.copr_desc = copr_desc;
+    }
+
+    public String getSede_nombre() {
+        return sede_nombre;
+    }
+
+    public void setSede_nombre(String sede_nombre) {
+        this.sede_nombre = sede_nombre;
     }
 
 }
