@@ -1,5 +1,8 @@
 $(function () {
-
+    $('#cierraConteo').on('click',function (){
+        $('#closeInv').modal('hide');
+        $('#cargando').modal('show');        
+    });
 });
 var producto = new Object();
 

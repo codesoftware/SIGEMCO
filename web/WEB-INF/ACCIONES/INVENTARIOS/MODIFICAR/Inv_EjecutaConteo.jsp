@@ -73,6 +73,7 @@
             <div class="col-md-1 col-sm-0 col-xs-0"></div>
             <div class="col-md-10 col-sm-0 col-xs-0">
                 <s:form theme="simple">
+                    <s:textfield name="accion" value="cierraConteo" cssStyle="display:none" />
                     <s:textfield name="conteo.copr_copr" id="copr_coprId" cssStyle="display:none;"/>
                     <table class="table table-bordered">
                         <thead>
@@ -141,6 +142,20 @@
                 </div>
             </div>
         </div>
+        <!-- Div utilizado para mostrar el cargando -->
+        <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="cargando">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Cerrando Conteo</h4>
+                    </div>
+                    <div class="modal-body text-center">
+                        Por favor esperar a que termine con la acción<br>
+                        <img src="<%=RutaSitio%>/IMAGENES/GIFS/cargando.gif" />
+                    </div>
+                </div>
+            </div>
+        </div>
         <!--Div utilizado para mostrar la advertencia al cerrar el inventario -->
         <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="closeInv">
             <div class="modal-dialog">                
@@ -153,7 +168,7 @@
                         Si solo desea continuar mas tarde recuerde que la informacion ya se encuentra registrada en a base de datos
                     </div>
                     <div class="modal-footer">                        
-                        <button type="button" class="btn btn-primary" >
+                        <button type="button" class="btn btn-primary" id="cierraConteo">
                             CONTINUAR
                         </button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">

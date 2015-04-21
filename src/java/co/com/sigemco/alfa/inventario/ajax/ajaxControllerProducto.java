@@ -76,6 +76,20 @@ public class ajaxControllerProducto extends ActionSupport implements SessionAwar
             e.printStackTrace();
         }
     }
+    /**
+     * Funcion encargada de realizar 
+     */
+    public void cierraConteo(){
+        try {
+            HttpServletResponse response = ServletActionContext.getResponse();
+            response.setContentType("text/plain;charset=utf-8");
+            PrintWriter out = response.getWriter();
+            String objJson = "";
+            out.print(objJson);            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public Usuario getUsuario() {
         return usuario;

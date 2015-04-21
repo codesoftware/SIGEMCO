@@ -19,19 +19,20 @@ public class ManejoLocateCO {
     Locale currentLocale = coLocale;
 
     /**
-     * Metodo que me convierte un valor double (en este caso String por que asi esta en la BD) y retorna
-     * un string con el formato de moneda colombiana.
+     * Metodo que me convierte un valor double (en este caso String por que asi
+     * esta en la BD) y retorna un string con el formato de moneda colombiana.
+     *
      * @param valor
-     * @return 
+     * @return
      */
     public String doubleTOMoney(String valor) {
         try {
-            if(valor.equalsIgnoreCase("N/A")){
-               return valor; 
-            }else{
-              Double d = Double.parseDouble(valor);
-            currency = NumberFormat.getCurrencyInstance(currentLocale);
-            return currency.format(d);
+            if (valor.equalsIgnoreCase("N/A")) {
+                return valor;
+            } else {
+                Double d = Double.parseDouble(valor);
+                currency = NumberFormat.getCurrencyInstance(currentLocale);
+                return currency.format(d);
             }
         } catch (Exception e) {
             e.printStackTrace();
