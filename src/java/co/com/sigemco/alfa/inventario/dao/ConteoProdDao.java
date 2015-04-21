@@ -180,7 +180,7 @@ public class ConteoProdDao {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT count(*) conteo ");
         sql.append("  FROM in_tecop        ");
-        sql.append(" WHERE ecop_copr = " + this.getEcop_dska() + " ");
+        sql.append(" WHERE ecop_copr = " + this.getCopr_copr() + " ");
         sql.append("   AND ecop_dska = " + this.getEcop_dska() + " ");
         return sql.toString();
     }

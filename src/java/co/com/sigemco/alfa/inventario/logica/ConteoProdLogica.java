@@ -7,7 +7,9 @@ package co.com.sigemco.alfa.inventario.logica;
 
 import co.com.hotel.persistencia.general.EnvioFunction;
 import co.com.sigemco.alfa.inventario.dao.ConteoProdDao;
+import co.com.sigemco.alfa.inventario.dao.DetalleConteoDao;
 import co.com.sigemco.alfa.inventario.dto.ConteoProdDto;
+import co.com.sigemco.alfa.inventario.dto.DetalleConteoDto;
 import com.google.gson.Gson;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -158,15 +160,25 @@ public class ConteoProdLogica {
         return rta;
     }
 
+    /**
+     * Funcion encargada para realizar la validar si existe el registro del
+     * producto por cada conteo
+     *
+     * @param copr_copr
+     * @param dska_dska
+     * @return
+     */
     public String validaExisConteo(String copr_copr, String dska_dska) {
         String rta = "";
         ConteoProdDao objDao = null;
         try (EnvioFunction function = new EnvioFunction()) {
             objDao = new ConteoProdDao();
+            objDao.setEcop_dska(dska_dska);
+            objDao.setCopr_copr(copr_copr);
             ResultSet rs = function.enviarSelect(objDao.verificaExisProdConteo());
             while (rs.next()) {
                 int con = rs.getInt("conteo");
-                if (con == 0){
+                if (con == 0) {
                     return "Insert";
                 } else {
                     return "Update";
@@ -189,30 +201,52 @@ public class ConteoProdLogica {
      * @return
      */
     public String actualizaValorProdConteoJson(String copr_copr, String dska_dska, String cantidad) {
-        Map<String, String> mapa = null;
+        Map<String, Object> mapa = null;
         Gson gson = null;
         String objJson = "";
         String valida = "";
         try {
-            mapa = new HashMap<String, String>();
+            mapa = new HashMap<String, Object>();
             gson = new Gson();
             String accion = validaExisConteo(copr_copr, dska_dska);
             if ("Insert".equalsIgnoreCase(accion)) {
-                valida = insetarProdConteo(copr_copr, dska_dska, cantidad);                
+                valida = insetarProdConteo(copr_copr, dska_dska, cantidad);
             } else if ("Update".equalsIgnoreCase(accion)) {
-
+                valida = actualizaConteoProdXConteo(copr_copr, dska_dska, cantidad);
             } else {
                 mapa.put("respuesta", accion);
             }
-            
-            if("Ok".equalsIgnoreCase(valida)){
+            if ("Ok".equalsIgnoreCase(valida)) {
                 mapa.put("respuesta", "Ok");
+                DetalleConteoLogica detConteoLog = new DetalleConteoLogica();
+                DetalleConteoDto objConteo = detConteoLog.consultaDetalleConteo(copr_copr, dska_dska);
+                mapa.put("Objeto", objConteo);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         objJson = gson.toJson(mapa);
         return objJson;
+    }
+    
+    public String actualizaConteoProdXConteo(String copr_copr, String dska_dska, String cantidad){
+        String rta = "";
+        try(EnvioFunction function = new EnvioFunction()) {
+            DetalleConteoDao objDao = new DetalleConteoDao();
+            objDao.setEcop_copr(copr_copr);
+            objDao.setEcop_dska(dska_dska);
+            objDao.setEcop_valor(cantidad);
+            boolean valida = function.enviarUpdate(objDao.actulizaProdXConteo());
+            if(valida){
+                return "Ok";
+            }else{
+                return "Error";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            rta = "Error "+ e;
+        }
+        return rta;
     }
 
 }

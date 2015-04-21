@@ -83,4 +83,18 @@ public class DetalleConteoDao {
         return sql.toString();
     }
 
+    /**
+     * Funcion encargada de realizar la actualizacion de productos por conteo
+     *
+     * @return
+     */
+    public String actulizaProdXConteo() {
+        StringBuilder sql = new StringBuilder();
+        sql.append("update in_tecop                    ");
+        sql.append("set ecop_valor = ecop_valor + ("+this.getEcop_valor()+") ");
+        sql.append("where ecop_copr = " + this.getEcop_copr() + " ");
+        sql.append("and ecop_dska = " + this.getEcop_dska() + " ");
+        return sql.toString();
+    }
+
 }

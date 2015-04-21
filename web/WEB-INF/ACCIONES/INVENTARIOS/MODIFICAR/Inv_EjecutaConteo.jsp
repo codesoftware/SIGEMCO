@@ -69,11 +69,11 @@
             </div>
             <div class="col-md-10 col-sm-0 col-xs-0"></div>
         </div>
-        <div id="row">
+        <div class="row">
             <div class="col-md-1 col-sm-0 col-xs-0"></div>
             <div class="col-md-10 col-sm-0 col-xs-0">
                 <s:form theme="simple">
-                    <s:textfield name="conteo.copr_copr" id="copr_coprId"/>
+                    <s:textfield name="conteo.copr_copr" id="copr_coprId" cssStyle="display:none;"/>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -106,8 +106,20 @@
             <div class="col-md-1 col-sm-0 col-xs-0"></div>                            
             <div class="col-md-10 col-sm-12 col-xs-12">
                 <table class="table table-bordered">
-
+                    <thead>
+                        <tr class="alert alert-success">
+                            <td>Codigo</td>
+                            <td>Nombre</td>
+                            <td>Descripcion</td>
+                            <td>Cantidad</td>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpoProductos" >                        
+                    </tbody>
                 </table>
+                <button type="button" class="btn btn-danger" onclick="cerrarInventario()">
+                    Cerrar Inventario
+                </button>
             </div>                            
             <div class="col-md-1 col-sm-0 col-xs-0"></div>                            
         </div>
@@ -124,6 +136,28 @@
                     <div class="modal-footer">                        
                         <button type="button" class="btn btn-default" data-dismiss="modal">
                             ACEPTAR
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Div utilizado para mostrar la advertencia al cerrar el inventario -->
+        <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="closeInv">
+            <div class="modal-dialog">                
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Cerrar Inventario</h4>
+                    </div>
+                    <div class="modal-body">
+                        Recuerde que esta accion se debe realizar al inventariar todos lo productos ya que no tiene reversa.
+                        Si solo desea continuar mas tarde recuerde que la informacion ya se encuentra registrada en a base de datos
+                    </div>
+                    <div class="modal-footer">                        
+                        <button type="button" class="btn btn-primary" >
+                            CONTINUAR
+                        </button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            CANCELAR
                         </button>
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 $(function () {
 
 });
+var producto = new Object();
 
 function agregaProductoConteo() {
     var datosOk = validaDatos();
@@ -14,9 +15,10 @@ function agregaProductoConteo() {
             dataType: 'json',
             success: function (data, textStatus, jqXHR) {
                 if (data.respuesta == 'Ok') {
-                    actualizaInventario(data.objeto.dska_dska);                    
+                    producto = data.objeto;
+                    actualizaInventario(data.objeto.dska_dska);
                 } else {
-                    $('#textoMsn').html('Producto inexistente por favor intente de nuevo');                    
+                    $('#textoMsn').html('Producto inexistente por favor intente de nuevo');
                     $('#mensaje').modal('show');
                 }
             }
@@ -48,21 +50,21 @@ function validaDatos() {
         $('#mensaje').modal('show');
         return false;
     }
-    if(cantidad <= 0 ){
-        $('#textoMsn').html('La cantidad no puede ser menor a uno');
+    if (cantidad < 0) {
+        $('#textoMsn').html('La cantidad no puede ser menor a cero');
         $('#mensaje').modal('show');
         return false;
     }
-    if(isNaN(cantidad)){
+    if (isNaN(cantidad)) {
         $('#textoMsn').html('La cantidad debe ser un dato numerico');
         $('#mensaje').modal('show');
         return false;
-        
+
     }
     return true;
 }
 
-function actualizaInventario(dska_dska){
+function actualizaInventario(dska_dska) {
     var datos = new Object();
     datos.dska_dska = dska_dska;
     datos.dska_codigo = $('#codigo').val();
@@ -73,7 +75,24 @@ function actualizaInventario(dska_dska){
         dataType: 'json',
         data: datos,
         success: function (data, textStatus, jqXHR) {
-            alert('Hola'+data);
+            if (data.respuesta == 'Ok') {
+                var tabla = $('#cuerpoProductos');
+                var id = 'fila'+producto.dska_dska;
+                $('#'+id).remove();
+                var fila = '<tr id=\"fila'+producto.dska_dska+'\">'+
+                                '<td>'+producto.dska_cod+'</td>'+
+                                '<td>'+producto.dska_nom_prod+'</td>'+
+                                '<td>'+producto.dska_desc + ' '+ producto.dska_marca+'</td>'+
+                                '<td>'+data.Objeto.ecop_valor+'</td>';
+               tabla.append(fila);
+            } else {
+                $('#textoMsn').html(data.respuesta);
+                $('#mensaje').modal('show');
+            }
         }
-    })
+    });
+}
+
+function cerrarInventario(){
+    $('#closeInv').modal('show');
 }
