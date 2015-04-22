@@ -1,7 +1,26 @@
 $(function () {
-    $('#cierraConteo').on('click',function (){
+    $('#cierraConteo').on('click', function () {
         $('#closeInv').modal('hide');
-        $('#cargando').modal('show');        
+        var datos = new Object();
+        datos.copr_copr = $('#copr_coprId').val();
+        $('#cargando').modal('show');
+        $.ajax({
+            data: datos,
+            dataType: 'json',
+            url: RutaSitio + "/cierraConteo.action",
+            success: function (data, textStatus, jqXHR) {
+                if (data.respuesta == 'Ok') {
+                    $('#cargando').modal('hide');
+                    $('#textoMsn').html("El conteo fue Realizado correctamente por favor consulte de nuevo el conteo para ver los reportes del conteo");
+                    $('#mensaje').modal('show');
+                    setInterval(function(){ location.href = "reenvioGeneral.action?accion=233"; }, 5000);
+                } else {
+                    $('#textoMsn').html(data.respuesta);
+                    $('#mensaje').modal('show');
+                }
+            }
+        });
+
     });
 });
 var producto = new Object();
@@ -80,14 +99,14 @@ function actualizaInventario(dska_dska) {
         success: function (data, textStatus, jqXHR) {
             if (data.respuesta == 'Ok') {
                 var tabla = $('#cuerpoProductos');
-                var id = 'fila'+producto.dska_dska;
-                $('#'+id).remove();
-                var fila = '<tr id=\"fila'+producto.dska_dska+'\">'+
-                                '<td>'+producto.dska_cod+'</td>'+
-                                '<td>'+producto.dska_nom_prod+'</td>'+
-                                '<td>'+producto.dska_desc + ' '+ producto.dska_marca+'</td>'+
-                                '<td>'+data.Objeto.ecop_valor+'</td>';
-               tabla.append(fila);
+                var id = 'fila' + producto.dska_dska;
+                $('#' + id).remove();
+                var fila = '<tr id=\"fila' + producto.dska_dska + '\">' +
+                        '<td>' + producto.dska_cod + '</td>' +
+                        '<td>' + producto.dska_nom_prod + '</td>' +
+                        '<td>' + producto.dska_desc + ' ' + producto.dska_marca + '</td>' +
+                        '<td>' + data.Objeto.ecop_valor + '</td>';
+                tabla.append(fila);
             } else {
                 $('#textoMsn').html(data.respuesta);
                 $('#mensaje').modal('show');
@@ -96,6 +115,6 @@ function actualizaInventario(dska_dska) {
     });
 }
 
-function cerrarInventario(){
+function cerrarInventario() {
     $('#closeInv').modal('show');
 }

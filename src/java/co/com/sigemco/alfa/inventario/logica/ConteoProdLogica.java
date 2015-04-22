@@ -228,25 +228,63 @@ public class ConteoProdLogica {
         objJson = gson.toJson(mapa);
         return objJson;
     }
-    
-    public String actualizaConteoProdXConteo(String copr_copr, String dska_dska, String cantidad){
+
+    public String actualizaConteoProdXConteo(String copr_copr, String dska_dska, String cantidad) {
         String rta = "";
-        try(EnvioFunction function = new EnvioFunction()) {
+        try (EnvioFunction function = new EnvioFunction()) {
             DetalleConteoDao objDao = new DetalleConteoDao();
             objDao.setEcop_copr(copr_copr);
             objDao.setEcop_dska(dska_dska);
             objDao.setEcop_valor(cantidad);
             boolean valida = function.enviarUpdate(objDao.actulizaProdXConteo());
-            if(valida){
+            if (valida) {
                 return "Ok";
-            }else{
+            } else {
                 return "Error";
             }
         } catch (Exception e) {
             e.printStackTrace();
-            rta = "Error "+ e;
+            rta = "Error " + e;
         }
         return rta;
+    }
+
+    /**
+     * Funcion encargada de realizar la logica para el llamado de la funcion que
+     * cierra los conteos de inventario
+     *
+     * @param copr_copr
+     * @return
+     */
+    public String cierraConteo(String copr_copr) {
+        Map<String, String> mapa = new HashMap<String, String>();;
+        Gson gson = new Gson();
+        String rta = "";
+        try (EnvioFunction function = new EnvioFunction()) {            
+            function.adicionarNombre("in_cierra_conteo");
+            function.adicionarNumeric(copr_copr);
+            rta = function.llamarFunction(function.getSql());
+            function.recuperarString();
+            String[] rtaVector = rta.split("-");
+            int tam = rtaVector.length;
+            if (tam == 2) {
+                // Este mensaje lo envia la funcion que envia la funcion de java que
+                // confirma que el llamado de a la funcion fue exitiso.
+                if (rtaVector[1].equalsIgnoreCase("Ok")) {
+                    // Aqui verifico si la consulta fue exitosa
+                    rta = function.getRespuesta();
+                } else {
+                    rta = "Error al llamar la funcion de cierre de conteo";
+                }
+            } else {
+                rta = "Error al llamar la funcion de cierre de conteo";
+            }
+        } catch (Exception e) {
+            rta = "Error " + e;
+            e.printStackTrace();
+        }
+        mapa.put("respuesta", rta);
+        return gson.toJson(mapa);
     }
 
 }

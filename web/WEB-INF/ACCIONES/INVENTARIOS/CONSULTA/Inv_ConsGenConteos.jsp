@@ -112,8 +112,8 @@
                                         <s:if test="%{ copr_estado.equalsIgnoreCase('C') }">
                                             <a href="#" onclick="iniciarConteo('<s:property value="copr_copr" />')">Creado</a>
                                         </s:if>
-                                        <s:elseif test="%{ copr_estadoequalsIgnoreCase('A') }">
-                                            Abierto
+                                        <s:elseif test="%{ copr_estado.equalsIgnoreCase('A') }">
+                                            <a href="#" onclick="iniciarConteo('<s:property value="copr_copr" />')">Abierto</a>
                                         </s:elseif>
                                         <s:elseif test="%{ copr_estado.equalsIgnoreCase('X') }">
                                             Cerrado

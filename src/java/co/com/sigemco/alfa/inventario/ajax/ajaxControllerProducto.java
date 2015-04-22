@@ -80,11 +80,14 @@ public class ajaxControllerProducto extends ActionSupport implements SessionAwar
      * Funcion encargada de realizar 
      */
     public void cierraConteo(){
+        ConteoProdLogica logica = null;
         try {
+            logica = new ConteoProdLogica();
             HttpServletResponse response = ServletActionContext.getResponse();
             response.setContentType("text/plain;charset=utf-8");
             PrintWriter out = response.getWriter();
             String objJson = "";
+            objJson = logica.cierraConteo(copr_copr);
             out.print(objJson);            
         } catch (Exception e) {
             e.printStackTrace();
