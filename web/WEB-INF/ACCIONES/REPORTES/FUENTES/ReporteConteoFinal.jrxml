@@ -31,7 +31,7 @@
 			<![CDATA[select dska_cod,dska_nom_prod, ecop_existencias, ecop_diferencia, ecop_valor
 from in_tecop, in_tdska
 where dska_dska = ecop_dska
-and ecop_ecop = cast($P{copr_copr_t} as int)]]>
+and ecop_copr = cast($P{copr_copr_t} as int)]]>
 		</queryString>
 		<field name="dska_cod" class="java.lang.String"/>
 		<field name="dska_nom_prod" class="java.lang.String">
@@ -173,7 +173,7 @@ AND COPR_COPR = CAST($P{copr_copr} AS int)]]>
 			<componentElement>
 				<reportElement key="table" style="table" x="0" y="0" width="512" height="50" uuid="7e8a834f-726c-4b12-bb07-588272b52b7d"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="TablaConteo" uuid="64271413-193c-4c37-a36a-3881831c51c5">
+					<datasetRun subDataset="TablaConteo" uuid="4da24eca-fdc2-42d0-a016-a3a02a51e873">
 						<datasetParameter name="copr_copr_t">
 							<datasetParameterExpression><![CDATA[$P{copr_copr}]]></datasetParameterExpression>
 						</datasetParameter>

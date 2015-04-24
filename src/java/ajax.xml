@@ -34,6 +34,7 @@
         </action>
         <action name="cierraConteo" class="co.com.sigemco.alfa.inventario.ajax.ajaxControllerProducto" method="cierraConteo">
         </action>
+        <action name="actualizaInicioConteo" class="co.com.sigemco.alfa.inventario.ajax.ajaxControllerProducto" method="actualizaInicioConteo">
+        </action>
     </package>
-
 </struts>

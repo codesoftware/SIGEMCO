@@ -110,13 +110,13 @@
                                     <td><s:property value="copr_fec_ini" /></td>
                                     <td>
                                         <s:if test="%{ copr_estado.equalsIgnoreCase('C') }">
-                                            <a href="#" onclick="iniciarConteo('<s:property value="copr_copr" />')">Creado</a>
+                                            <a href="#" onclick="actualizaConteo('<s:property value="copr_copr" />')">Creado</a>
                                         </s:if>
                                         <s:elseif test="%{ copr_estado.equalsIgnoreCase('A') }">
                                             <a href="#" onclick="iniciarConteo('<s:property value="copr_copr" />')">Abierto</a>
                                         </s:elseif>
                                         <s:elseif test="%{ copr_estado.equalsIgnoreCase('X') }">
-                                            Cerrado
+                                            <a href="#" onclick="generarReporte('<s:property value="copr_copr" />')">Cerrado</a>
                                         </s:elseif>
                                     </td>
                                 </tr>                                

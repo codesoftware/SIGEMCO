@@ -202,5 +202,14 @@ public class ConteoProdDao {
         sql.append("             " + this.getEcop_valor() + ")");
         return sql.toString();
     }
+    
+    public String actulazaInicioConteo(){
+        StringBuilder sql = new StringBuilder();
+        sql.append("update in_tcopr ");
+        sql.append("set copr_fec_ini = now(), ");
+        sql.append("copr_estado = 'A'");
+        sql.append("where copr_copr = " + this.getCopr_copr());
+        return sql.toString();
+    }
 
 }

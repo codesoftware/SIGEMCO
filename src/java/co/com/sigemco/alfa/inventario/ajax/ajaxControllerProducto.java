@@ -76,10 +76,11 @@ public class ajaxControllerProducto extends ActionSupport implements SessionAwar
             e.printStackTrace();
         }
     }
+
     /**
-     * Funcion encargada de realizar 
+     * Funcion encargada de realizar
      */
-    public void cierraConteo(){
+    public void cierraConteo() {
         ConteoProdLogica logica = null;
         try {
             logica = new ConteoProdLogica();
@@ -88,7 +89,25 @@ public class ajaxControllerProducto extends ActionSupport implements SessionAwar
             PrintWriter out = response.getWriter();
             String objJson = "";
             objJson = logica.cierraConteo(copr_copr);
-            out.print(objJson);            
+            out.print(objJson);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Funcion encargada de realizar la acion de iniciar el conteo de
+     * inventarios actualizando la fecha de inicio y el estado del conteo
+     */
+    public void actualizaInicioConteo() {
+        ConteoProdLogica logica = null;
+        try {
+            logica = new ConteoProdLogica();
+            HttpServletResponse response = ServletActionContext.getResponse();
+            response.setContentType("text/plain;charset=utf-8");
+            PrintWriter out = response.getWriter();
+            String objJson = logica.actualizaInicioConteo(copr_copr);
+            out.print(objJson);
         } catch (Exception e) {
             e.printStackTrace();
         }

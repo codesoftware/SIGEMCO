@@ -257,10 +257,10 @@ public class ConteoProdLogica {
      * @return
      */
     public String cierraConteo(String copr_copr) {
-        Map<String, String> mapa = new HashMap<String, String>();;
+        Map<String, String> mapa = new HashMap<String, String>();
         Gson gson = new Gson();
         String rta = "";
-        try (EnvioFunction function = new EnvioFunction()) {            
+        try (EnvioFunction function = new EnvioFunction()) {
             function.adicionarNombre("in_cierra_conteo");
             function.adicionarNumeric(copr_copr);
             rta = function.llamarFunction(function.getSql());
@@ -285,6 +285,33 @@ public class ConteoProdLogica {
         }
         mapa.put("respuesta", rta);
         return gson.toJson(mapa);
+    }
+
+    /**
+     * Funcion encargada de realizar la actualizacion para cambiar el estado al
+     * conteo y actualizar la fecha de inicio del conteo
+     *
+     * @param copr_copr
+     * @return
+     */
+    public String actualizaInicioConteo(String copr_copr) {
+        Map<String, String> mapa = new HashMap<String, String>();
+        Gson gson = new Gson();
+        String rta = "";
+        try (EnvioFunction function = new EnvioFunction()) {
+            ConteoProdDao objDao = new ConteoProdDao();
+            objDao.setCopr_copr(copr_copr);
+            boolean valida = function.enviarUpdate(objDao.actulazaInicioConteo());
+            if (valida) {
+                mapa.put("respuesta", "Ok");
+            } else {
+                mapa.put("respuesta", "Error al actualizar el conteo");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        rta = gson.toJson(mapa);
+        return rta;
     }
 
 }
