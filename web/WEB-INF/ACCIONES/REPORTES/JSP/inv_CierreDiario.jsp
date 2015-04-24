@@ -54,7 +54,7 @@
                         <div class="row">
                             <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                 Sede:<br>
-                                <s:select list="sedes"  id="listSedes" required="true" headerKey="-1" headerValue="Seleccione una Sede.." cssClass="form-control" />
+                                <s:select list="sedes"  id="sede" required="true" headerKey="-1" headerValue="Seleccione una Sede.." cssClass="form-control" />
                             </div>
                             <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                 Fecha:<br>
@@ -66,6 +66,11 @@
                         </div>
                         <div class="form-group col-md-4 col-sm-4 col-xs-4">
                             <br>
+
+                            <s:include value="/WEB-INF/TEMPLATE/botones/add.jsp">
+                                <s:param name="function">buscaGeneralMvCon</s:param>
+                                <s:param name="title">Busqueda de Movimientos de Inventario</s:param>
+                            </s:include>
                             <s:include value="/WEB-INF/TEMPLATE/botones/find.jsp">
                                 <s:param name="function">buscaGeneralMvCon</s:param>
                                 <s:param name="title">Busqueda de Movimientos de Inventario</s:param>
