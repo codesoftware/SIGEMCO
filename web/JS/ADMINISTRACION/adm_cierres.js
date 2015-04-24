@@ -3,3 +3,10 @@ $(function () {
         format: 'mm/dd/yyyy'
     });
 });
+
+function consultaCierre() {
+    document.getElementById('inv_consMovContable').submit();
+}
+function insertaCierre() {
+    document.getElementById('inv_consCierre').submit();
+}

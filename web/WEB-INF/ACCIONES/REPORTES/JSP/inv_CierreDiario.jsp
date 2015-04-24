@@ -43,8 +43,8 @@
                     </s:if>
                 </div>
                 <br/>
-                <s:form name="inv_consMovContable" action="inv_consMovContable" theme="simple">
-                    <s:textfield name="accion" cssStyle="display:none" value="consultaGeneral"/>
+                <s:form name="inv_consCierre" action="inv_consCierre" theme="simple">
+                    <s:textfield name="accion" cssStyle="display:none" value="cierreDiario"/>
                     <div class="form-group col-md-12 col-sm-12 col-xs-12 thumbnail">
                         <div class="row">
                             <div class="form-group col-md-12 col-sm-12 col-xs-12 ">
@@ -54,12 +54,12 @@
                         <div class="row">
                             <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                 Sede:<br>
-                                <s:select list="sedes"  id="sede" required="true" headerKey="-1" headerValue="Seleccione una Sede.." cssClass="form-control" />
+                                <s:select list="sedes"  id="sede" name="sede" required="true" headerKey="-1" headerValue="Seleccione una Sede.." cssClass="form-control" />
                             </div>
                             <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                 Fecha:<br>
                                 <div class="input-group date" >
-                                    <s:textfield  cssClass="form-control" readonly="true"/>
+                                    <s:textfield  cssClass="form-control" name="fecha" readonly="true"/>
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                 </div>
                             </div>
@@ -68,12 +68,12 @@
                             <br>
 
                             <s:include value="/WEB-INF/TEMPLATE/botones/add.jsp">
-                                <s:param name="function">buscaGeneralMvCon</s:param>
-                                <s:param name="title">Busqueda de Movimientos de Inventario</s:param>
+                                <s:param name="function">insertaCierre</s:param>
+                                <s:param name="title">Consulta de cierre</s:param>
                             </s:include>
                             <s:include value="/WEB-INF/TEMPLATE/botones/find.jsp">
-                                <s:param name="function">buscaGeneralMvCon</s:param>
-                                <s:param name="title">Busqueda de Movimientos de Inventario</s:param>
+                                <s:param name="function">consultaCierre</s:param>
+                                <s:param name="title">Consulta de cierre</s:param>
                             </s:include>
                         </div>
 

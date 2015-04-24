@@ -25,10 +25,10 @@ public class CierreDiarioLogica {
     public String insertaCierreDiario(String usuario, String sede, String fecha) {
         String rta = "";
         try (EnvioFunction function = new EnvioFunction()) {
-            function.adicionarNombre("US_FINSERT_CIERRE_DIARIO");
+            function.adicionarNombre("IN_FINSERT_CIERRE_DIARIO");
             function.addicionarParametroDate(fecha);
             function.adicionarNumeric(sede);
-            function.adicionarParametro(usuario);
+            function.adicionarNumeric(usuario);
             rta = function.llamarFunction(function.getSql());
             function.recuperarString();
             String[] rtaVector = rta.split("-");
@@ -50,5 +50,6 @@ public class CierreDiarioLogica {
         return rta;
 
     }
+    
 
 }

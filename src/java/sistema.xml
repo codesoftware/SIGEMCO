@@ -153,5 +153,9 @@
             <result name="success">/WEB-INF/ACCIONES/CONTABILIDAD/CONSULTA/Con_consMovContable.jsp</result>
             <result name="input"  >/WEB-INF/ACCIONES/CONTABILIDAD/CONSULTA/Con_consMovContable.jsp</result>
         </action>                                
+        <action name="inv_consCierre" class="co.com.sigemco.alfa.contabilidad.action.CierreDiarioAction" method="insertaCierre">
+            <result name="success">/WEB-INF/ACCIONES/REPORTES/JSP/inv_CierreDiario.jsp</result>
+            <result name="input"  >/WEB-INF/ACCIONES/REPORTES/JSP/inv_CierreDiario.jsp</result>
+        </action>                                
     </package>
 </struts> 

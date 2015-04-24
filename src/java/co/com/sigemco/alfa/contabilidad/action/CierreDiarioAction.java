@@ -6,6 +6,7 @@
 package co.com.sigemco.alfa.contabilidad.action;
 
 import co.com.hotel.datos.session.Usuario;
+import co.com.hotel.logica.sede.Adm_SedeLogica;
 import co.com.hotel.utilidades.UsuarioHabilitado;
 import co.com.sigemco.alfa.contabilidad.logica.CierreDiarioLogica;
 import static com.opensymphony.xwork2.Action.SUCCESS;
@@ -25,16 +26,18 @@ public class CierreDiarioAction extends ActionSupport implements UsuarioHabilita
     private String sede;
     private String fecha;
     private String CierreDiarioDao;
+    private String accion;
+    private Map<String, String> sedes;
 
     @SkipValidation
     public String execute() {
         return SUCCESS;
     }
 
-    public String insertaProducto() {
+    public String insertaCierre() {
         CierreDiarioLogica logica = new CierreDiarioLogica();
         try {
-            String rta = logica.insertaCierreDiario(usuario.getUsuario(), sede, fecha);
+            String rta = logica.insertaCierreDiario(usuario.getIdTius(), sede, fecha);
             if (rta.equalsIgnoreCase("OK")) {
                 addActionMessage("Cierre realizado correctamente");
             } else {
@@ -45,6 +48,15 @@ public class CierreDiarioAction extends ActionSupport implements UsuarioHabilita
             addActionError("Error al ingresar el producto");
         }
         return SUCCESS;
+    }
+    
+    public void validate(){
+        if("cierreDiario".equalsIgnoreCase(accion)){
+            Adm_SedeLogica sedeLogica = null;
+            sedeLogica = new Adm_SedeLogica();
+            this.sedes = sedeLogica.obtieneSedes();
+            
+        }
     }
 
     public Usuario getUsuario() {
@@ -87,4 +99,21 @@ public class CierreDiarioAction extends ActionSupport implements UsuarioHabilita
         this.CierreDiarioDao = CierreDiarioDao;
     }
 
+    public String getAccion() {
+        return accion;
+    }
+
+    public void setAccion(String accion) {
+        this.accion = accion;
+    }
+
+    public Map<String, String> getSedes() {
+        return sedes;
+    }
+
+    public void setSedes(Map<String, String> sedes) {
+        this.sedes = sedes;
+    }
+    
+    
 }
