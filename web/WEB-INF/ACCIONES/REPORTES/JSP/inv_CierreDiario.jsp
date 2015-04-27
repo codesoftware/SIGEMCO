@@ -1,6 +1,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="/struts-tags" prefix="s" %>
 <%@include file="/WEB-INF/NEWTEMPLATE/Parametros.jsp" %>
+<%@ page language="java" import="java.sql.*"%> 
+<%@ page import="java.util.*"%> 
+<%@ page import="java.sql.DriverManager" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -11,6 +14,17 @@
         </style>
     </head>
     <body>
+        <%
+            String IP;
+            String host;
+            String req="";
+            req=request.getRemoteAddr();
+            IP = java.net.InetAddress.getLocalHost().getHostAddress();
+            host = java.net.InetAddress.getLocalHost().getHostName();
+            System.out.println("host ip"+IP+request.getRemoteHost());
+            System.out.println("host "+host+request.getRemoteAddr());
+            
+        %>
         <s:div cssClass="header">
             <s:include value="/WEB-INF/NEWTEMPLATE/FrameTop.jsp" > 
                 <s:param name="nombre"><s:text name="usuario.apellido"/> <s:text name="usuario.nombre"/></s:param>
@@ -83,6 +97,7 @@
             <div class="col-md-2 col-xs-0 col-sm-0"></div>
         </div>
         <br/>
+        <input type="hidden" value="<%=req%>" id="ip" name="ip">
         <div class="row">
             <div class="col-md-1 col-xs-0 col-sm-0"></div>
             <div class="col-md-10 col-xs-12 col-sm-12">
@@ -111,7 +126,7 @@
                                         <a href="#" onclick="obtenerAsientocontable('<s:property value="mvco_trans"/>');
                                                 $('#partidaDoble').modal('show');" >
                                         <s:property value="sbcu_codigo"/></td>
-                                    </a>
+
                                     <td>
                                         <s:property value="sbcu_nombre"/>
                                     </td>

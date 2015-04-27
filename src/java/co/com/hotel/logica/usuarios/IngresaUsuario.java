@@ -9,6 +9,7 @@ import co.com.hotel.datos.session.Usuario;
 import co.com.hotel.email.EnviarCorreoIns;
 import co.com.hotel.logica.general.RandomPassword;
 import co.com.hotel.persistencia.general.EnvioFunction;
+import co.com.sigemco.alfa.email.SendMail;
 
 /**
  *
@@ -23,17 +24,20 @@ public class IngresaUsuario {
         boolean rtaBd = nuevoUsuarioDB(usuario, stringContra, fechaNac);
 
         if (rtaBd == true) {
-//            enviar.logginCorreo();
-//            enviar.setAsunto("Nuevo usuario Shaoloom");
-//            enviar.setMensaje("Bienvenido a la familia Shaoloom "
-//                    + "con estos datos podra ingresar a la aplicación:"
-//                    + "\n\n USUARIO: " + usuario.getUsuario()
-//                    + "\n\n CONTRASEÑA: " + stringContra
-//                    + "\n\n Si esta solicitud no fue realizada por usted por favor omita este mensaje"
-//            );
-//            enviar.envioCorreoIns(usuario.getCorreo());
-            //enviar = null;
-            return stringContra;
+            enviar.logginCorreo();
+            String asunto = "Nuevo usuario";
+            String msg = "Bienvenido al Sistema de Contabilidad "
+                    + "con estos datos podra ingresar a la aplicación:"
+                    + "\n\n USUARIO: " + usuario.getUsuario()
+                    + "\n\n CONTRASEÑA: " + stringContra
+                    + "\n\n Si esta solicitud no fue realizada por usted por favor omita este mensaje";
+            SendMail sm = new SendMail("johnmorenoing@gmail.com", "645211012325270", usuario.getCorreo(), asunto, msg);
+            if (sm.send()) {
+                return "Correo enviado";
+            } else {
+                return stringContra;
+            }
+
         } else {
             return "Error";
         }

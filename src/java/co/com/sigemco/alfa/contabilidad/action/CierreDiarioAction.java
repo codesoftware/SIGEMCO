@@ -12,6 +12,8 @@ import co.com.sigemco.alfa.contabilidad.logica.CierreDiarioLogica;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.SessionAware;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
@@ -19,7 +21,7 @@ import org.apache.struts2.interceptor.validation.SkipValidation;
  *
  * @author Personal
  */
-public class CierreDiarioAction extends ActionSupport implements UsuarioHabilitado, SessionAware {
+public class CierreDiarioAction extends ActionSupport implements UsuarioHabilitado, SessionAware, ServletRequestAware {
 
     private Usuario usuario;
     private Map session;
@@ -28,6 +30,7 @@ public class CierreDiarioAction extends ActionSupport implements UsuarioHabilita
     private String CierreDiarioDao;
     private String accion;
     private Map<String, String> sedes;
+    private HttpServletRequest request;
 
     @SkipValidation
     public String execute() {
@@ -36,6 +39,10 @@ public class CierreDiarioAction extends ActionSupport implements UsuarioHabilita
 
     public String insertaCierre() {
         CierreDiarioLogica logica = new CierreDiarioLogica();
+        String ip = request.getRemoteAddr();
+        String host = request.getRemoteHost();
+        System.out.println("ip" + ip);
+        System.out.println("host" +host);
         try {
             String rta = logica.insertaCierreDiario(usuario.getIdTius(), sede, fecha);
             if (rta.equalsIgnoreCase("OK")) {
@@ -49,13 +56,13 @@ public class CierreDiarioAction extends ActionSupport implements UsuarioHabilita
         }
         return SUCCESS;
     }
-    
-    public void validate(){
-        if("cierreDiario".equalsIgnoreCase(accion)){
+
+    public void validate() {
+        if ("cierreDiario".equalsIgnoreCase(accion)) {
             Adm_SedeLogica sedeLogica = null;
             sedeLogica = new Adm_SedeLogica();
             this.sedes = sedeLogica.obtieneSedes();
-            
+
         }
     }
 
@@ -114,6 +121,10 @@ public class CierreDiarioAction extends ActionSupport implements UsuarioHabilita
     public void setSedes(Map<String, String> sedes) {
         this.sedes = sedes;
     }
-    
-    
+
+    @Override
+    public void setServletRequest(HttpServletRequest hsr) {
+        this.request = hsr;
+    }
+
 }

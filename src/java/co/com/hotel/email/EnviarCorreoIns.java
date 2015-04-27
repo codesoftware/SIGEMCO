@@ -33,7 +33,7 @@ public class EnviarCorreoIns {
     public EnviarCorreoIns() {
         this.config = new Properties();
         this.config.put("mail.smtp.host", "smtp.gmail.com");
-        this.config.put("mail.smtp.socketFactory.port", "465");
+        this.config.put("mail.smtp.socketFactory.port", "587");
         this.config.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         this.config.put("mail.smtp.auth", "true");
         this.config.put("mail.smtp.port", "465");
@@ -49,7 +49,7 @@ public class EnviarCorreoIns {
         this.session = Session.getDefaultInstance(this.config,
                 new javax.mail.Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication("jnsierrac@gmail.com", "flaco1030585312");
+                        return new PasswordAuthentication("johnmorenoing@gmail.com", "645211012325270");
                     }
                 });
     }
