@@ -5,7 +5,10 @@
  */
 package co.com.sigemco.alfa.email;
 
+import co.com.hotel.dto.Empresa;
+import co.com.hotel.logica.empresa.Emp_EmpresaLogica;
 import java.util.Properties;
+import java.util.ResourceBundle;
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
 import javax.mail.BodyPart;
@@ -19,28 +22,38 @@ import javax.mail.internet.MimeMultipart;
 
 public class SendMail {
 
-    String destinatario;
-    String asunto;
-    String mensaje;
-    String usuarioCorreo;
-    String password;
+    private String mensaje;
+    private String destinatario;
+    private String asunto;
 
-    public SendMail(String usuarioCorreo, String password, String destinatario, String asunto, String mensaje) {
-        this.usuarioCorreo = usuarioCorreo;
-        this.password = password;
+    public SendMail(String mensaje, String destinatario, String asunto) {
+        this.mensaje = mensaje;
         this.destinatario = destinatario;
         this.asunto = asunto;
-        this.mensaje = mensaje;
     }
 
+    /**
+     * Función que envia correos desde una cuenta GMAIL
+     * @return true si envia bien el correo
+     */
     public boolean send() {
+        //obtiene los datos de la empresa para el envío del correo
+         Emp_EmpresaLogica logicaEmp = new Emp_EmpresaLogica();
+        Empresa empresa = logicaEmp.obtieneDatosEmpresa();
+        ResourceBundle rb = ResourceBundle.getBundle("co.com.sigemco.alfa.archivos.MAIL");
         try {
+            String host = rb.getString("HOST").trim();
+            String starttls = rb.getString("STARTLS").trim();
+            String port = rb.getString("PORT").trim();
+            String usuarioCorreo = rb.getString("USER").trim();
+            String auth = rb.getString("AUTH").trim();
+            String password = rb.getString("PASSWORD").trim();
             Properties props = new Properties();
-            props.put("mail.smtp.host", "smtp.gmail.com");
-            props.setProperty("mail.smtp.starttls.enable", "true");
-            props.setProperty("mail.smtp.port", "587");
+            props.put("mail.smtp.host", host);
+            props.setProperty("mail.smtp.starttls.enable", starttls);
+            props.setProperty("mail.smtp.port", port);
             props.setProperty("mail.smtp.user", usuarioCorreo);
-            props.setProperty("mail.smtp.auth", "true");
+            props.setProperty("mail.smtp.auth", auth);
 
             Session session = Session.getInstance(props, null);
             BodyPart texto = new MimeBodyPart();
@@ -52,7 +65,7 @@ public class SendMail {
             message.addRecipient(
                     Message.RecipientType.TO,
                     new InternetAddress(destinatario));
-            message.setSubject(asunto);
+            message.setSubject(empresa.getNombre()+"---"+asunto);
             message.setContent(multiParte);
 
             Transport t = session.getTransport("smtp");
@@ -64,6 +77,30 @@ public class SendMail {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+
+    public String getDestinatario() {
+        return destinatario;
+    }
+
+    public void setDestinatario(String destinatario) {
+        this.destinatario = destinatario;
+    }
+
+    public String getAsunto() {
+        return asunto;
+    }
+
+    public void setAsunto(String asunto) {
+        this.asunto = asunto;
     }
 
 }

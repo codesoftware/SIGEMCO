@@ -31,7 +31,7 @@ public class IngresaUsuario {
                     + "\n\n USUARIO: " + usuario.getUsuario()
                     + "\n\n CONTRASEÑA: " + stringContra
                     + "\n\n Si esta solicitud no fue realizada por usted por favor omita este mensaje";
-            SendMail sm = new SendMail("johnmorenoing@gmail.com", "645211012325270", usuario.getCorreo(), asunto, msg);
+            SendMail sm = new SendMail(msg, usuario.getCorreo(), asunto);
             if (sm.send()) {
                 return "Correo enviado";
             } else {
