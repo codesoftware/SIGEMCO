@@ -5,7 +5,7 @@ $(function () {
 });
 
 function consultaCierre() {
-    document.getElementById('inv_consMovContable').submit();
+    document.getElementById('inv_ReporteCierre').submit();
 }
 function insertaCierre() {
     document.getElementById('inv_consCierre').submit();

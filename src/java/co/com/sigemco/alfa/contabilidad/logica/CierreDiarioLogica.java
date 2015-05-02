@@ -6,7 +6,19 @@
 package co.com.sigemco.alfa.contabilidad.logica;
 
 import co.com.hotel.persistencia.general.EnvioFunction;
+import co.com.sigemco.alfa.contabilidad.dao.CierreDiarioDao;
 import co.com.sigemco.alfa.contabilidad.dto.CierreDiarioDto;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ResourceBundle;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
  *
@@ -48,8 +60,56 @@ public class CierreDiarioLogica {
             e.printStackTrace();
         }
         return rta;
-
     }
-    
+    /**
+     * metodo que genera el pdf para el cierre
+     * @param cierr
+     * @param ruta
+     * @param rutaDestino
+     * @return 
+     */
+
+    public String generarReporteCierre(CierreDiarioDao cierr, String ruta, String rutaDestino) {
+        String rta = "Ok";
+        Connection conn = null;
+        try {
+            conn = this.generarConexion();
+            String ubicacionReporte = ruta;
+            Map<String, Object> properties = new HashMap<String, Object>();
+            //properties.put("fact_fact", Integer.parseInt(fact_fact));
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(ubicacionReporte);
+            JasperPrint print = JasperFillManager.fillReport(jasperReport, properties, conn);
+            JasperExportManager.exportReportToPdfFile(print, rutaDestino);
+        } catch (Exception e) {
+            e.printStackTrace();
+            rta = "Error " + e;
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return rta;
+    }
+
+    public Connection generarConexion() {
+        Connection con = null;
+        try {
+            ResourceBundle rb = ResourceBundle.getBundle("co.com.sigemco.alfa.archivos.BASECONFIG");
+            String host = rb.getString("HOST").trim();
+            String user = rb.getString("USER").trim();
+            String pass = rb.getString("PASSWORD").trim();
+            String db = rb.getString("DATABASE").trim();
+            String port = rb.getString("PUERTO").trim();
+            Class.forName("org.postgresql.Driver");
+            String url = "jdbc:postgresql://" + host + ":" + port + "/" + db;
+            con = DriverManager.getConnection(url, user, pass);
+        } catch (Exception e) {
+            System.out.println("Error al realizar la conexion...");
+            e.printStackTrace();
+        }
+        return con;
+    }
 
 }

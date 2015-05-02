@@ -197,5 +197,8 @@
                 document.getElementById('cuen_cuen').value = cuenta;
             </script>
         </s:if>
+        <s:form action="inv_ReporteCierre" id="inv_ReporteCierre" cssStyle="display:none;"  theme="simple" >
+          
+        </s:form>
     </body>
 </html>

@@ -138,7 +138,7 @@
             </div>
             <div class="col-md-3 col-xs-0 col-sm-0"></div>                        
         </div>
-        <s:form action="inv_conUpdCategoria" id="inv_conUpdCategoria" cssStyle="display:none;"  theme="simple" >
+        <s:form action="inv_ReporteCierre" id="inv_ReporteCierre" cssStyle="display:none;"  theme="simple" >
             <s:textfield name="accion" id="accion" cssStyle="display:none" value="consultaUpd"/>
             <s:textfield name="categoria.cate_cate" id="cate_cate"/>            
         </s:form>

@@ -8,11 +8,16 @@ package co.com.sigemco.alfa.contabilidad.action;
 import co.com.hotel.datos.session.Usuario;
 import co.com.hotel.logica.sede.Adm_SedeLogica;
 import co.com.hotel.utilidades.UsuarioHabilitado;
+import co.com.sigemco.alfa.contabilidad.dao.CierreDiarioDao;
 import co.com.sigemco.alfa.contabilidad.logica.CierreDiarioLogica;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionSupport;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.SessionAware;
 import org.apache.struts2.interceptor.validation.SkipValidation;
@@ -31,6 +36,11 @@ public class CierreDiarioAction extends ActionSupport implements UsuarioHabilita
     private String accion;
     private Map<String, String> sedes;
     private HttpServletRequest request;
+    private String nombreJasper;
+    private CierreDiarioDao cierreDiario;
+    private InputStream fileInputStream;
+    private long contentLength;
+    private String contentName;
 
     @SkipValidation
     public String execute() {
@@ -42,7 +52,7 @@ public class CierreDiarioAction extends ActionSupport implements UsuarioHabilita
         String ip = request.getRemoteAddr();
         String host = request.getRemoteHost();
         System.out.println("ip" + ip);
-        System.out.println("host" +host);
+        System.out.println("host" + host);
         try {
             String rta = logica.insertaCierreDiario(usuario.getIdTius(), sede, fecha);
             if (rta.equalsIgnoreCase("OK")) {
@@ -64,6 +74,34 @@ public class CierreDiarioAction extends ActionSupport implements UsuarioHabilita
             this.sedes = sedeLogica.obtieneSedes();
 
         }
+    }
+
+    /**
+     * Función que permite generar el reporte del cierre diario
+     *
+     * @return
+     */
+    public String generarReporte() {
+        HttpServletRequest request = ServletActionContext.getRequest();
+        File reporte = new File(request.getSession().getServletContext().getRealPath("/WEB-INF/ACCIONES/REPORTES/FUENTES/" + nombreJasper));
+        File reporteDestino = new File(request.getSession().getServletContext().getRealPath("/IMAGENES/REPORTES/reporteCierreDiario.pdf"));
+        try {
+            String path = reporte.getPath();
+            CierreDiarioLogica logica = new CierreDiarioLogica();
+            String rta = logica.generarReporteCierre(cierreDiario, path,reporteDestino.getPath());
+            if (rta.equalsIgnoreCase("Ok")) {
+                fileInputStream = new FileInputStream(reporteDestino);
+                this.contentLength = reporteDestino.length();
+                this.contentName = "reporteCierreDiario.pdf";
+            } else {
+                addActionError("Error al generar el reporte \n" + rta);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return SUCCESS;
+
     }
 
     public Usuario getUsuario() {
@@ -126,5 +164,46 @@ public class CierreDiarioAction extends ActionSupport implements UsuarioHabilita
     public void setServletRequest(HttpServletRequest hsr) {
         this.request = hsr;
     }
+
+    public String getNombreJasper() {
+        return nombreJasper;
+    }
+
+    public void setNombreJasper(String nombreJasper) {
+        this.nombreJasper = nombreJasper;
+    }
+
+    public CierreDiarioDao getCierreDiario() {
+        return cierreDiario;
+    }
+
+    public void setCierreDiario(CierreDiarioDao cierreDiario) {
+        this.cierreDiario = cierreDiario;
+    }
+
+    public InputStream getFileInputStream() {
+        return fileInputStream;
+    }
+
+    public void setFileInputStream(InputStream fileInputStream) {
+        this.fileInputStream = fileInputStream;
+    }
+
+    public long getContentLength() {
+        return contentLength;
+    }
+
+    public void setContentLength(long contentLength) {
+        this.contentLength = contentLength;
+    }
+
+    public String getContentName() {
+        return contentName;
+    }
+
+    public void setContentName(String contentName) {
+        this.contentName = contentName;
+    }
+    
 
 }
