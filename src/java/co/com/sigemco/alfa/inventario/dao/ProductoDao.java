@@ -259,11 +259,11 @@ public class ProductoDao {
      */
     public String calculosFactura() {
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT dska_dska,cantidad, codigo,nombre, to_char(precio,'LFM9,999,999,999,999.00') precio,         \n");
-        sql.append("       to_char(ivauni,'LFM9,999,999,999,999.00') ivaUni,                                            \n");
-        sql.append("       to_char(vlrTotal,'LFM9,999,999,999,999.00') vlrTotal,                                        \n");
-        sql.append("       to_char(ivaTotal,'LFM9,999,999,999,999.00') ivaTotal,                                        \n");
-        sql.append("       to_char((vlrTotal+ivaTotal),'LFM9,999,999,999,999.00') totalPagar,                           \n");
+        sql.append("SELECT dska_dska,cantidad, codigo,nombre, to_char(precio,'9,999,999,999,999.00') precio,         \n");
+        sql.append("       to_char(ivauni,'9,999,999,999,999.00') ivaUni,                                            \n");
+        sql.append("       to_char(vlrTotal,'9,999,999,999,999.00') vlrTotal,                                        \n");
+        sql.append("       to_char(ivaTotal,'9,999,999,999,999.00') ivaTotal,                                        \n");
+        sql.append("       to_char((vlrTotal+ivaTotal),'9,999,999,999,999.00') totalPagar,                           \n");
         sql.append("       cast((vlrTotal+ivaTotal) as int) totalPagarSinFil,                                           \n");
         sql.append("       cast( ivaTotal as int ) totalIvaSinFil,                                                      \n");
         sql.append("       cast( vlrTotal as int) vlrPagarSinFil                                                        \n");

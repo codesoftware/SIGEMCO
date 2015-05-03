@@ -3,6 +3,10 @@ $(function () {
         adicionaProductosListaCompras();
         $('#consultaBusquedaProd').modal('hide');
     });
+    $(document).on('click','.elimnarFila',function(){
+        $(this).closest('.filaAddProd').remove();
+        sumasProductos();
+    });
 });
 
 function filtrosProductos() {
@@ -134,27 +138,65 @@ function dibujaTablaProductos(lstProductos){
             success: function (data, textStatus, jqXHR) {
                 if(data.respuesta == 'Ok'){
                     var fila = '';
-                    fila = '<tr>'+
+                    var valorIva = replaceAll(String(data.objeto.valorIvaTotal),',','');
+                    valorIva = parseFloat(valorIva);
+                    var valorTotal = replaceAll(String(data.objeto.valorProdTotal),',','');
+                    valorTotal =  parseFloat(valorTotal);
+                    var valorTotalVenta = replaceAll(String(data.objeto.valorTotalVenta),',','');
+                    valorTotalVenta =  parseFloat(valorTotalVenta);
+                    fila = '<tr class=\"filaAddProd\">'+
                                 '<td>'+data.objeto.dska_cod +
                                 '</td>'+
                                 '<td>'+data.objeto.dska_nom_prod +
                                 '</td>'+
                                 '<td>'+data.objeto.cantidad + 
                                 '</td>'+
-                                '<td>'+data.objeto.valorProdUni +
+                                '<td>$'+data.objeto.valorProdUni +
                                 '</td>'+
-                                '<td>'+data.objeto.valorProdTotal + 
+                                '<td>$'+data.objeto.valorProdTotal + 
                                 '</td>'+
-                                '<td>'+data.objeto.valorIvaUni + 
+                                '<td>$'+data.objeto.valorIvaUni + 
                                 '</td>'+                                
-                                '<td>'+data.objeto.valorIvaTotal +
+                                '<td>$'+data.objeto.valorIvaTotal +
                                 '</td>'+                                
-                                '<td>'+ data.objeto.valorTotalVenta +
+                                '<td>$'+ data.objeto.valorTotalVenta +
                                 '</td>'+                                
+                                '<td><button type=\"button\" class=\"btn btn-danger elimnarFila\" >'+
+                                '<span class=\"glyphicon glyphicon-remove\" ></span> </button></td>'+
+                                '<td style=\"display:none;\" >'+
+                                    '<input type=\"text\" class=\"vlrIvatotal\" value=\"'+valorIva+'\" />'+
+                                    '<input type=\"text\" class=\"vlrProdtotal\" value=\"'+valorTotal+'\" />'+
+                                    '<input type=\"text\" class=\"vlrTotalPagar\" value=\"'+valorTotalVenta+'\" />'+
+                                '</td>'+
                            '</tr>';
                    $('.productosEnLista').append(fila);
+                   sumasProductos();
                 }
             }
         });
     }
+}
+
+function sumasProductos(){
+    var iva = $('.vlrIvatotal');
+    var sumaIva = 0;
+    $.each(iva,function(index, value){
+        var aux = parseFloat(value.value);
+        sumaIva += aux;    
+    });
+    $('#sumivaTotalFactura').html(sumaIva);
+    var prodTot = $('.vlrProdtotal');
+    var sumaTotal = 0;
+    $.each(prodTot,function(index, value){
+        var aux = parseFloat(value.value);
+        sumaTotal += aux;    
+    });
+    $('#sumprodTotalFactura').html(sumaTotal);
+    var total = $('.vlrTotalPagar');
+    var sumaTotalAPagar = 0;
+    $.each(total,function(index, value){
+        var aux = parseFloat(value.value);
+        sumaTotalAPagar += aux;    
+    });
+    $('#sumtotalAPagar').html(sumaTotalAPagar);
 }

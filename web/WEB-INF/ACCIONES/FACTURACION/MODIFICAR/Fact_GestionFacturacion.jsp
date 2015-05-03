@@ -48,8 +48,8 @@
             <div class="col-md-2 col-xs-0 col-sm-0"></div>
         </div>
         <div class="row">
-            <div class="col-md-2 col-xs-0 col-sm-0"></div>
-            <div class="col-md-8 col-xs-12 col-sm-12">
+            <div class="col-md-1 col-xs-0 col-sm-0"></div>
+            <div class="col-md-10 col-xs-12 col-sm-12">
                 <div class="Mensajes" style="display: none;">
                     <s:if test="hasActionErrors()">
                         <div class="alert alert-danger" id="info" role="alert" ><h4><s:actionerror /></h4></div>
@@ -75,11 +75,11 @@
                         </s:if>
                         <s:else>
                             <td style="width: 15%;"><b>Valor Iva:</b></td>
-                            <td style="width: 18%;">0</td>
+                            <td style="width: 18%;"><label id="sumivaTotalFactura">0</label></td>
                             <td style="width: 15%;"><b>Valores Totales:</b></td>
-                            <td style="width: 18%;">0</td>
+                            <td style="width: 18%;"><label id="sumprodTotalFactura">0</label></td>
                             <td style="width: 15%;"><b>Total a Pagar:</b> </td>
-                            <td style="width: 17%;">0</td>
+                            <td style="width: 17%;"><label id="sumtotalAPagar">0</label></td>
                         </s:else>
                     </tr>
                     <tr>
@@ -90,7 +90,7 @@
                     </tr>
                 </table>
             </div>
-            <div class="col-md-2 col-xs-0 col-sm-0"></div>
+            <div class="col-md-1 col-xs-0 col-sm-0"></div>
         </div>
         <div class="row">
             <div class="col-md-1 col-xs-0 col-sm-0"></div>
@@ -106,6 +106,7 @@
                             <td><h5>IVA UNI</h5></td>
                             <td><h5>IVA TOTAL</h5></td>
                             <td><h5>TOTAL A PAGAR</h5></td>
+                            <td><h5>ACCION</h5></td>
                         </tr>
                     </thead>
                     <tbody class="productosEnLista">
