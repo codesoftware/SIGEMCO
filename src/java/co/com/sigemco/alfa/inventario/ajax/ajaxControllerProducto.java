@@ -7,6 +7,7 @@ package co.com.sigemco.alfa.inventario.ajax;
 
 import co.com.hotel.datos.session.Usuario;
 import co.com.hotel.utilidades.UsuarioHabilitado;
+import co.com.sigemco.alfa.inventario.dto.ProductoDto;
 import co.com.sigemco.alfa.inventario.logica.ConteoProdLogica;
 import co.com.sigemco.alfa.inventario.logica.ProductoLogica;
 import com.google.gson.Gson;
@@ -111,6 +112,36 @@ public class ajaxControllerProducto extends ActionSupport implements SessionAwar
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Funcion encargada
+     */
+    public void adicionaProductoFactura() {
+        ProductoLogica objLogica = null;
+        try {
+            objLogica = new ProductoLogica();
+            HttpServletResponse response = ServletActionContext.getResponse();
+            response.setContentType("text/plain;charset=utf-8");
+            PrintWriter out = response.getWriter();
+            ProductoDto objDto = new ProductoDto();
+            objDto.setCantidad(cantidad);
+            objDto.setDska_dska(dska_dska);
+            objDto = objLogica.obtieneCalculosProductoFactura(objDto);
+            Map<String, Object> rta = new HashMap<String, Object>();
+            if(objDto == null){
+                rta.put("respuesta", "Error");
+            }else{                
+                rta.put("respuesta", "Ok");
+                rta.put("objeto", objDto);
+            }
+            Gson gson = new Gson();
+            String objJson = gson.toJson(objDto);
+            out.print(rta);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public Usuario getUsuario() {

@@ -92,6 +92,24 @@
             </div>
             <div class="col-md-2 col-xs-0 col-sm-0"></div>
         </div>
+        <div class="row">
+            <div class="col-md-1 col-xs-0 col-sm-0"></div>
+            <div class="col-md-10 col-xs-12 col-sm-12">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <td>
+                                
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody class="productosEnLista">
+                        
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-1 col-xs-0 col-sm-0"></div>
+        </div>
         <!-- Inicio popups de la pagina-->
         <!-- Dialogo en el cual se elige si se va ha adicionar un servicio o un producto-->
         <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="dialogoAddServProd">
@@ -245,6 +263,9 @@
                         <h4 class="modal-title">Resultado busqueda de Productos</h4>
                     </div>
                     <div class="modal-body">
+                        <div class="alert alert-danger" id="msnDangerAddProd" style="display: none;">
+                                                        
+                        </div>
                         <table id="tablaAddProd" class="table table-hover table-striped">
 
                         </table>
@@ -260,7 +281,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Fin popups de la pagina-->
     </body>
 </html>

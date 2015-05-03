@@ -28,6 +28,11 @@ public class ProductoDto {
     private String transMvcon;
     private String referenciaNombre;
     private String cantidad;
+    private String valorIvaUni;
+    private String valorIvaTotal;
+    private String valorProdUni;
+    private String valorProdTotal;
+    private String valorTotalVenta;
 
     public String getDska_dska() {
         return dska_dska;
@@ -164,4 +169,44 @@ public class ProductoDto {
     public void setCantidad(String cantidad) {
         this.cantidad = cantidad;
     }
+
+    public String getValorIvaUni() {
+        return valorIvaUni;
+    }
+
+    public void setValorIvaUni(String valorIvaUni) {
+        this.valorIvaUni = valorIvaUni;
+    }
+
+    public String getValorIvaTotal() {
+        return valorIvaTotal;
+    }
+
+    public void setValorIvaTotal(String valorIvaTotal) {
+        this.valorIvaTotal = valorIvaTotal;
+    }
+
+    public String getValorProdUni() {
+        return valorProdUni;
+    }
+
+    public void setValorProdUni(String valorProdUni) {
+        this.valorProdUni = valorProdUni;
+    }
+
+    public String getValorProdTotal() {
+        return valorProdTotal;
+    }
+
+    public void setValorProdTotal(String valorProdTotal) {
+        this.valorProdTotal = valorProdTotal;
+    }
+
+    public String getValorTotalVenta() {
+        return valorTotalVenta;
+    }
+
+    public void setValorTotalVenta(String valorTotalVenta) {
+        this.valorTotalVenta = valorTotalVenta;
+    }    
 }

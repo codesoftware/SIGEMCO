@@ -74,6 +74,8 @@ public class Inv_ProductoLogica {
             //sql += "and upper(dska_iva) like upper('%" + obj.getIva().trim() + "%')\n";
             sql += "and prpr_dska = dska_dska\n";
             sql += "and prpr_estado = 'A'\n";
+            //Se quema la sede uno ya que es para el proyecto de grado
+            sql += "and prpr_sede = '1'";
             if (obj.getPorcIva() != null && !obj.getPorcIva().equalsIgnoreCase("")) {
                 sql += "and dska_porc_iva =" + obj.getPorcIva().trim() + "\n";
             }

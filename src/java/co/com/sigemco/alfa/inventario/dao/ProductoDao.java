@@ -23,6 +23,7 @@ public class ProductoDao {
     private String dska_fec_ingreso;
     private String dska_cate;
     private String cantExis;
+    private String cantidad;
 
     public String getDska_dska() {
         return dska_dska;
@@ -120,6 +121,14 @@ public class ProductoDao {
         this.cantExis = cantExis;
     }
 
+    public String getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(String cantidad) {
+        this.cantidad = cantidad;
+    }
+
     /**
      * Funcion encargada de retornar el select con los filtros solicitados por
      * el usuario
@@ -135,13 +144,14 @@ public class ProductoDao {
         select += this.armaWhereXFiltros();
         return select;
     }
-    
-    public String armaWhereXFiltros(){
+
+    public String armaWhereXFiltros() {
         String where = "";
-        if(!"-1".equalsIgnoreCase(dska_refe)){
-            where += " AND dska_refe = "+ this.getDska_refe();
-        }if(!"".equalsIgnoreCase(dska_cod)){
-            where += " AND dska_cod like '%"+ this.getDska_cod()+ "%'";
+        if (!"-1".equalsIgnoreCase(dska_refe)) {
+            where += " AND dska_refe = " + this.getDska_refe();
+        }
+        if (!"".equalsIgnoreCase(dska_cod)) {
+            where += " AND dska_cod like '%" + this.getDska_cod() + "%'";
         }
         return where;
     }
@@ -223,13 +233,13 @@ public class ProductoDao {
         select += "       dska_sbcu, refe_desc                                                \n";
         select += "  FROM in_tdska, in_trefe                                                  \n";
         select += " WHERE dska_cod like '%" + this.getDska_cod() + "%' \n";
-        select += "   AND dska_refe = refe_refe \n";        
+        select += "   AND dska_refe = refe_refe \n";
         return select;
     }
-    
+
     /**
      * Funcion encargada de realizar el query para obtener el valor promedio de
-     * cada producto  pero con la mascara de moneda
+     * cada producto pero con la mascara de moneda
      *
      * @return String Query
      */
@@ -239,6 +249,41 @@ public class ProductoDao {
                 .concat(" WHERE k1.kapr_dska = ").concat(this.getDska_dska())
                 .concat("   AND k1.kapr_kapr = (SELECT max(k2.kapr_kapr) FROM in_tkapr k2 WHERE k2.kapr_dska = k1.kapr_dska ) ");
         return select;
+    }
+
+    /**
+     * Funcion encargda de realizar el Query de los calculos necesarios para
+     * facturar un producto
+     *
+     * @return
+     */
+    public String calculosFactura() {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT dska_dska,cantidad, codigo,nombre, to_char(precio,'LFM9,999,999,999,999.00') precio,         \n");
+        sql.append("       to_char(ivauni,'LFM9,999,999,999,999.00') ivaUni,                                            \n");
+        sql.append("       to_char(vlrTotal,'LFM9,999,999,999,999.00') vlrTotal,                                        \n");
+        sql.append("       to_char(ivaTotal,'LFM9,999,999,999,999.00') ivaTotal,                                        \n");
+        sql.append("       to_char((vlrTotal+ivaTotal),'LFM9,999,999,999,999.00') totalPagar,                           \n");
+        sql.append("       cast((vlrTotal+ivaTotal) as int) totalPagarSinFil,                                           \n");
+        sql.append("       cast( ivaTotal as int ) totalIvaSinFil,                                                      \n");
+        sql.append("       cast( vlrTotal as int) vlrPagarSinFil                                                        \n");
+        sql.append("  FROM (SELECT  dska_dska,cantidad, codigo, nombre,                                                 \n");
+        sql.append("                precio, ((precio*iva)/100) ivaUni,                                                  \n");
+        sql.append("                (precio *cantidad) vlrTotal, (((precio*iva)/100)*cantidad) ivaTotal                 \n");
+        sql.append("        FROM (SELECT dska_dska,dska_cod codigo, dska_nom_prod nombre,                               \n");
+        sql.append("                     prpr_precio precio, ");
+        sql.append(this.getCantidad());
+        sql.append("cantidad,");
+        sql.append("                     cast((select para_valor from em_tpara where para_clave = 'IVAPR')as int) iva   \n");
+        sql.append("                FROM in_tdska, in_tprpr                                                             \n");
+        sql.append("               WHERE dska_dska = ");
+        sql.append(this.getDska_dska());
+        sql.append("                 AND prpr_dska = dska_dska                                                          \n");
+        sql.append("                 AND prpr_estado = 'A'                                                              \n");
+        sql.append("                 AND prpr_sede = 1                                                                  \n");
+        sql.append("              ) param                                                                               \n");
+        sql.append("       ) tablaFinal                                                                                 \n");
+        return sql.toString();
     }
 
 }

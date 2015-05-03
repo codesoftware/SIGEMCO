@@ -77,6 +77,7 @@ public class ProductoLogica {
             objDao.setDska_estado(objDto.getDska_estado());
             objDao.setDska_fec_ingreso(objDto.getDska_fec_ingreso());
             objDao.setDska_cate(objDto.getDska_cate());
+            objDao.setCantidad(objDto.getCantidad());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -355,6 +356,32 @@ public class ProductoLogica {
                     String rtaPg = function.getRespuesta();
                     return rtaPg;
                 }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rta;
+    }
+    
+    public ProductoDto obtieneCalculosProductoFactura(ProductoDto objDto){
+        ProductoDao objDao = null;
+        ProductoDto rta  = null;
+        try(EnvioFunction function = new EnvioFunction()) {
+            objDao = poblarDao(objDto);
+            System.out.println("Este es el sql \n" + objDao.calculosFactura() );
+            ResultSet rs = function.enviarSelect(objDao.calculosFactura());
+            while(rs.next()){
+                if(rta == null){
+                    rta = new ProductoDto();
+                }
+                rta.setDska_dska(rs.getString("dska_dska"));
+                rta.setCantidad(rs.getString("cantidad"));
+                rta.setDska_cod(rs.getString("codigo"));
+                rta.setDska_nom_prod(rs.getString("nombre"));
+                rta.setValorProdUni(rs.getString("precio"));
+                rta.setValorIvaUni(rs.getString("ivauni"));
+                rta.setValorProdTotal(rs.getString("vlrtotal"));
+                rta.setValorTotalVenta(rs.getString("totalpagar"));
             }
         } catch (Exception e) {
             e.printStackTrace();

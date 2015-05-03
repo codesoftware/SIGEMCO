@@ -36,5 +36,7 @@
         </action>
         <action name="actualizaInicioConteo" class="co.com.sigemco.alfa.inventario.ajax.ajaxControllerProducto" method="actualizaInicioConteo">
         </action>
+        <action name="adicionaProductoFactura" class="co.com.sigemco.alfa.inventario.ajax.ajaxControllerProducto" method="adicionaProductoFactura">
+        </action>
     </package>
 </struts>
