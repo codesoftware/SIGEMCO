@@ -382,6 +382,7 @@ public class ProductoLogica {
                 rta.setValorIvaUni(rs.getString("ivauni"));
                 rta.setValorProdTotal(rs.getString("vlrtotal"));
                 rta.setValorTotalVenta(rs.getString("totalpagar"));
+                rta.setValorIvaTotal(rs.getString("ivaTotal"));
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,6 +1,7 @@
 $(function () {
     $('#adicionaProd').click(function () {
         adicionaProductosListaCompras();
+        $('#consultaBusquedaProd').modal('hide');
     });
 });
 
@@ -131,8 +132,28 @@ function dibujaTablaProductos(lstProductos){
             dataType: 'json',
             async: false,
             success: function (data, textStatus, jqXHR) {
-                alert('Acabo');
-                alert(data);
+                if(data.respuesta == 'Ok'){
+                    var fila = '';
+                    fila = '<tr>'+
+                                '<td>'+data.objeto.dska_cod +
+                                '</td>'+
+                                '<td>'+data.objeto.dska_nom_prod +
+                                '</td>'+
+                                '<td>'+data.objeto.cantidad + 
+                                '</td>'+
+                                '<td>'+data.objeto.valorProdUni +
+                                '</td>'+
+                                '<td>'+data.objeto.valorProdTotal + 
+                                '</td>'+
+                                '<td>'+data.objeto.valorIvaUni + 
+                                '</td>'+                                
+                                '<td>'+data.objeto.valorIvaTotal +
+                                '</td>'+                                
+                                '<td>'+ data.objeto.valorTotalVenta +
+                                '</td>'+                                
+                           '</tr>';
+                   $('.productosEnLista').append(fila);
+                }
             }
         });
     }

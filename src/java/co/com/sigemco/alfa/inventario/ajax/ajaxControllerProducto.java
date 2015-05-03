@@ -136,8 +136,8 @@ public class ajaxControllerProducto extends ActionSupport implements SessionAwar
                 rta.put("objeto", objDto);
             }
             Gson gson = new Gson();
-            String objJson = gson.toJson(objDto);
-            out.print(rta);
+            String objJson = gson.toJson(rta);
+            out.print(objJson);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -97,10 +97,15 @@
             <div class="col-md-10 col-xs-12 col-sm-12">
                 <table class="table table-bordered">
                     <thead>
-                        <tr>
-                            <td>
-                                
-                            </td>
+                        <tr class="alert alert-info text-center">
+                            <td><h5>CODIGO</h5></td>
+                            <td><h5>NOMBRE PROD.</h5></td>
+                            <td><h5>CANTIDAD</h5></td>
+                            <td><h5>PRECIO UNI.</h5></td>
+                            <td><h5>PRECIO TOTAL</h5></td>
+                            <td><h5>IVA UNI</h5></td>
+                            <td><h5>IVA TOTAL</h5></td>
+                            <td><h5>TOTAL A PAGAR</h5></td>
                         </tr>
                     </thead>
                     <tbody class="productosEnLista">
