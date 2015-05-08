@@ -244,7 +244,7 @@ public class ProductoDao {
      * @return String Query
      */
     public String encontrarValorPromedioXProdMascaraMon() {
-        String select = "SELECT to_char(kapr_cost_saldo_uni,'LFM9,999,999,999.00') costo "
+        String select = "SELECT to_char(kapr_cost_saldo_uni,'9999999999.0') costo "
                 .concat("  FROM in_tkapr k1 ")
                 .concat(" WHERE k1.kapr_dska = ").concat(this.getDska_dska())
                 .concat("   AND k1.kapr_kapr = (SELECT max(k2.kapr_kapr) FROM in_tkapr k2 WHERE k2.kapr_dska = k1.kapr_dska ) ");

@@ -5,17 +5,14 @@
  */
 package co.com.sigemco.alfa.inventario.logica;
 
-import co.com.hotel.dto.Sede;
 import co.com.hotel.logica.sede.Adm_SedeLogica;
 import co.com.hotel.persistencia.general.EnvioFunction;
+import co.com.hotel.utilidades.ManejoLocateCO;
 import co.com.sigemco.alfa.inventario.dao.PrecioSedeDao;
 import co.com.sigemco.alfa.inventario.dto.PrecioProductoDto;
 import co.com.sigemco.alfa.inventario.dto.PrecioSedeDto;
-import groovy.util.MapEntry;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -64,6 +61,7 @@ public class PreciosLogica {
     public List<PrecioProductoDto> buscaPrecioSede(String sede_sede, String dska_dska) {
         List<PrecioProductoDto> rta = null;
         PrecioSedeDao objDao = null;
+        ManejoLocateCO loc = new ManejoLocateCO();
         try (EnvioFunction function = new EnvioFunction()) {
             objDao = new PrecioSedeDao();
             objDao.setSede_sede(sede_sede);
@@ -76,7 +74,7 @@ public class PreciosLogica {
                 PrecioProductoDto aux = new PrecioProductoDto();
                 aux.setPrpr_prpr(rs.getString("prpr_prpr"));
                 aux.setPrpr_dska(rs.getString("prpr_dska"));
-                aux.setPrpr_precio(rs.getString("prpr_precio"));
+                aux.setPrpr_precio(loc.doubleTOMoney(rs.getString("prpr_precio")));
                 aux.setPrpr_tius_crea(rs.getString("prpr_tius_crea"));
                 aux.setPrpr_tius_update(rs.getString("prpr_tius_update"));
                 aux.setPrpr_estado(rs.getString("prpr_estado"));

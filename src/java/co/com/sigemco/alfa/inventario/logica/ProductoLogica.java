@@ -7,6 +7,7 @@ package co.com.sigemco.alfa.inventario.logica;
 
 import co.com.hotel.dto.AddProdExistentes;
 import co.com.hotel.persistencia.general.EnvioFunction;
+import co.com.hotel.utilidades.ManejoLocateCO;
 import co.com.sigemco.alfa.inventario.dao.ProductoDao;
 import co.com.sigemco.alfa.inventario.dto.ProductoDto;
 import java.sql.ResultSet;
@@ -246,6 +247,7 @@ public class ProductoLogica {
      * @return
      */
     public String obtieneValorPonderadoProductoMascara(String dska_dska) {
+        ManejoLocateCO loc = new ManejoLocateCO();
         String valor = null;
         ProductoDao objDao = null;
         try (EnvioFunction function = new EnvioFunction()) {
@@ -253,7 +255,7 @@ public class ProductoLogica {
             objDao.setDska_dska(dska_dska);
             ResultSet rs = function.enviarSelect(objDao.encontrarValorPromedioXProdMascaraMon());
             while (rs.next()) {
-                valor = rs.getString("costo");
+                valor = loc.doubleTOMoney(rs.getString("costo"));
             }
         } catch (Exception e) {
             e.printStackTrace();
