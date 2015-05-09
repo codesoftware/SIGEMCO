@@ -36,6 +36,7 @@ public class Inv_ProductoAccion extends ActionSupport implements SessionAware, U
     private List<String> gravamen;
     private Map<String, String> sedes;
     private Map<String, String> categorias;
+    private Map<String, String> marcas;    
     private Map<String, String> yesNo;
     private ArrayList<String> ArrayAddSubCuentas;
     private String mandaParamePrecio;
@@ -219,4 +220,13 @@ public class Inv_ProductoAccion extends ActionSupport implements SessionAware, U
     public void setReferencias(Map<String, String> referencias) {
         this.referencias = referencias;
     }
+
+    public Map<String, String> getMarcas() {
+        return marcas;
+    }
+
+    public void setMarcas(Map<String, String> marcas) {
+        this.marcas = marcas;
+    }
+    
 }

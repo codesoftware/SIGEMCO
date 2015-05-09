@@ -18,6 +18,7 @@ import co.com.hotel.utilidades.UsuarioHabilitado;
 import co.com.sigemco.alfa.contabilidad.dto.ClaseDto;
 import co.com.sigemco.alfa.contabilidad.logica.ClaseLogica;
 import co.com.sigemco.alfa.inventario.dto.RemisionDto;
+import co.com.sigemco.alfa.inventario.logica.MarcaLogica;
 import co.com.sigemco.alfa.inventario.logica.ReferenciaLogica;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.ArrayList;
@@ -137,7 +138,8 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     private Producto producto;
     //Lista de Clases del puc
     private List<ClaseDto> clase;
-
+    //Mapa para visualizar las marcas
+    private Map<String, String> marcas;
     private String modifica;
     private String bandera;
     private String estado;
@@ -157,6 +159,7 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
         ReferenciaLogica refeLogica = null;
         Emp_EmpresaLogica logicaEmp = null;
         ClaseLogica logicaClase = null;
+        MarcaLogica logicaMarca = null;
         try {
             switch (this.accion) {
                 case ADM_CON_USUARIO:
@@ -211,6 +214,8 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
                     this.sedes = sedeLogica.obtieneSedes();
                     cateLogica = new Inv_CategoriaLogica();
                     this.categorias = cateLogica.obtieneCategorias();
+                    logicaMarca = new MarcaLogica();
+                    this.marcas = logicaMarca.obtieneMarcas();
                     logicaEmp = new Emp_EmpresaLogica();
                     empresa = logicaEmp.obtieneDatosEmpresa();
                     producto = new Producto();
@@ -746,5 +751,15 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     public void setResultSede(ArrayList<Sede> resultSede) {
         this.resultSede = resultSede;
     }
+
+    public Map<String, String> getMarcas() {
+        return marcas;
+    }
+
+    public void setMarcas(Map<String, String> marcas) {
+        this.marcas = marcas;
+    }
+    
+    
 
 }

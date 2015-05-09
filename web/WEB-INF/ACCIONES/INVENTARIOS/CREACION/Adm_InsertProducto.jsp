@@ -83,7 +83,7 @@
                                     </tr>
                                     <tr>
                                         <td>Marca:</td>
-                                        <td><s:textfield name="producto.marca" required="true" cssClass="form-control" id="producto_marca"/></td>
+                                        <td><s:select  list="marcas"  name="producto.marca" required="true" headerKey="-1" headerValue="Marca" cssClass="form-control" id="producto_marca" /></td>
                                     </tr>
                                     <tr>
                                         <td>Cantidad:</td>
