@@ -25,7 +25,7 @@
         </s:div>
         <div class="row">
             <div class="col-md-2 col-xs-0 col-sm-0"></div>
-            <div class="col-md-8 col-xs-12 col-sm-12">
+            <div class="col-md-10 col-xs-12 col-sm-12">
                 <div class="Mensajes" style="display: none;">
                     <s:if test="hasActionErrors()">
                         <div class="alert alert-danger" id="info" role="alert" ><h4><s:actionerror /></h4></div>
@@ -42,7 +42,51 @@
                         </script>
                     </s:if>
                 </div>
-                <br/>
+
+            </div>
+            <div class="col-md-2 col-xs-0 col-sm-0"></div>
+        </div>
+        <div class="row" style="display:none">
+            <div class="col-md-2 col-xs-0 col-sm-0"></div>
+            <div class="col-md-8 col-xs-12 col-sm-12">                
+                <%--<s:form name="inv_consMovContable" action="inv_consMovContable" theme="simple">--%>
+                <s:textfield name="accion" cssStyle="display:none" value="consultaGeneral"/>
+                <div class="form-group col-md-12 col-sm-12 col-xs-12 thumbnail">
+                    <div class="row">
+                        <div class="form-group col-md-12 col-sm-12 col-xs-12 ">
+                            <div class="alert alert-success text-center"  role="alert" ><h3>Consulta General de Movimientos Contables</h3></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                            Clase:<br>
+                            <s:select list="clasePUC"  name="moviContable.clas_clas" id="listClase" required="true" headerKey="-1" headerValue="Seleccione una Clase.." cssClass="form-control" />
+                        </div>
+                        <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                            Grupo:<br>
+                            <s:select list="grupoPUC" name="moviContable.grup_grup" id="grup_grup" required="true" headerKey="-1" headerValue="Seleccione Grupo.." cssClass="form-control"/> 
+                        </div>
+                        <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                            Cuenta:<br>
+                            <s:select list="cuentaPUC" name="moviContable.cuen_cuen" id="cuen_cuen" required="true" headerKey="-1" headerValue="Seleccione cuenta.." cssClass="form-control"/> 
+                        </div>
+                        <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                            <br>
+                            <s:include value="/WEB-INF/TEMPLATE/botones/find.jsp">
+                                <s:param name="function">buscaGeneralMvCon</s:param>
+                                <s:param name="title">Busqueda de Movimientos de Inventario</s:param>
+                            </s:include>
+                        </div>
+                    </div>
+
+                </div>                    
+                <%--</s:form>--%>
+            </div>
+            <div class="col-md-2 col-xs-0 col-sm-0"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-xs-0 col-sm-0"></div>
+            <div class="col-md-8 col-xs-12 col-sm-12">                
                 <s:form name="inv_consMovContable" action="inv_consMovContable" theme="simple">
                     <s:textfield name="accion" cssStyle="display:none" value="consultaGeneral"/>
                     <div class="form-group col-md-12 col-sm-12 col-xs-12 thumbnail">
@@ -53,17 +97,20 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-md-4 col-sm-4 col-xs-4">
-                                Clase:<br>
-                                <s:select list="clasePUC"  name="moviContable.clas_clas" id="listClase" required="true" headerKey="-1" headerValue="Seleccione una Clase.." cssClass="form-control" />
+                                Fecha Inicial:<br>
+                                <div class="input-group date" >
+                                    <s:textfield name="moviContable.fechaIni" cssClass="form-control" readonly="true"/>
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                </div>
                             </div>
                             <div class="form-group col-md-4 col-sm-4 col-xs-4">
-                                Grupo:<br>
-                                <s:select list="grupoPUC" name="moviContable.grup_grup" id="grup_grup" required="true" headerKey="-1" headerValue="Seleccione Grupo.." cssClass="form-control"/> 
-                            </div>
-                            <div class="form-group col-md-4 col-sm-4 col-xs-4">
-                                Cuenta:<br>
-                                <s:select list="cuentaPUC" name="moviContable.cuen_cuen" id="cuen_cuen" required="true" headerKey="-1" headerValue="Seleccione cuenta.." cssClass="form-control"/> 
-                            </div>
+                                Fecha Final:<br>
+                                <div class="input-group date" >
+                                    <s:textfield name="moviContable.fechaFin" cssClass="form-control" readonly="true"/>
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                </div>
+
+                            </div>                            
                             <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                 <br>
                                 <s:include value="/WEB-INF/TEMPLATE/botones/find.jsp">
@@ -77,6 +124,7 @@
                 </s:form>
             </div>
             <div class="col-md-2 col-xs-0 col-sm-0"></div>
+
         </div>
         <br/>
         <div class="row">
@@ -86,6 +134,7 @@
                     <table class="table table-hover table-bordered">
                         <thead>
                             <tr>
+                                <th>Id Trans.</th>
                                 <th class="ocultar">Clase</th>
                                 <th class="ocultar">Grupo</th>
                                 <th class="ocultar">Cuenta</th>
@@ -100,6 +149,7 @@
                         <tbody>                            
                             <s:iterator value="resultMoviContable">                                    
                                 <tr>                                    
+                                    <td><s:property value="mvco_trans"/></td>
                                     <td class="ocultar"><s:property value="clas_nombre"/></td>
                                     <td class="ocultar"><s:property value="grup_nombre"/></td>
                                     <td class="ocultar"><s:property value="cuen_nombre"/></td>
@@ -124,8 +174,8 @@
                                         <%--<s:property value="mvco_lladetalle"/>--%>
                                     </td>
                                     <td>
-                                        <s:text name="mvco_naturaleza" />   ...
-                                        <s:if test="%{mvco_naturaleza == 'D'}">
+                                        <%--<s:text name="mvco_naturaleza" />   ...--%>
+                                        <s:if test="%{mvco_naturaleza.equalsIgnoreCase('D')}">
                                             Debito
                                         </s:if>
                                         <s:else>
@@ -166,13 +216,13 @@
         </div>
         <s:if test="%{moviContable.clas_clas != null }">
             <script type="text/javascript">
-                var  clase = '<s:text name="moviContable.clas_clas"/>';
-                if(clase != '-1'){
-                    traeGrupoXClase(clase);                    
+                var clase = '<s:text name="moviContable.clas_clas"/>';
+                if (clase != '-1') {
+                    traeGrupoXClase(clase);
                 }
                 var grupo = '<s:text name="moviContable.grup_grup"/>';
                 document.getElementById('grup_grup').value = grupo;
-                if(grupo != '-1'){
+                if (grupo != '-1') {
                     traeCuentaXGrupo(grupo);
                 }
                 var cuenta = '<s:text name="moviContable.cuen_cuen"/>';

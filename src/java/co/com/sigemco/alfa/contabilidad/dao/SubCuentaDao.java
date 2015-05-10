@@ -174,4 +174,14 @@ public class SubCuentaDao {
         sql += "  AND sbft_visible = 'S'                      \n";
         return sql;
     }
+    
+    public String buscaSubcuentaXFiltroCodigo(){
+        StringBuilder sql = new StringBuilder();
+        sql.append("select (sbcu_codigo || ' - ' || upper(sbcu_nombre)) AS sbcu_codigo ");
+        sql.append("from co_tsbcu ");
+        sql.append("where sbcu_codigo like '%");
+        sql.append(this.getSbcu_codigo());
+        sql.append("%'");
+        return sql.toString();
+    }
 }

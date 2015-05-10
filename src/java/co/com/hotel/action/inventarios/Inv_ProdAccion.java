@@ -154,7 +154,6 @@ public class Inv_ProdAccion extends ActionSupport implements SessionAware, Usuar
     }
 
     public String actualizaProducto() {
-
         this.yesNo = new HashMap<String, String>();
         this.yesNo.put("S", "Si");
         this.yesNo.put("N", "No");
@@ -194,6 +193,8 @@ public class Inv_ProdAccion extends ActionSupport implements SessionAware, Usuar
     }
 
     public void validate() {
+        ReferenciaLogica refeLogica = new ReferenciaLogica();
+        this.referencias = refeLogica.obtieneIdDescrReferenciaActivos();
         if (accion.equalsIgnoreCase("consIndividual")) {
 
         }
@@ -233,16 +234,15 @@ public class Inv_ProdAccion extends ActionSupport implements SessionAware, Usuar
             this.yesNo = new HashMap<String, String>();
             this.yesNo.put("S", "Si");
             this.yesNo.put("N", "No");
-            ReferenciaLogica refeLogica = new ReferenciaLogica();
             this.referencias = refeLogica.obtieneIdDescrReferenciaActivos();
             MarcaLogica logicaMarca = new MarcaLogica();
             this.marcas = logicaMarca.obtieneMarcas();
             if (subAccion.equalsIgnoreCase("update")) {
                 if (!validaCampos.validaNulo(producto.getDescripcion().trim())) {
                     addActionError("El campo Referencia no puede ser nulo");
-                }else if ("-1".equalsIgnoreCase(producto.getReferencia().trim())) {
+                } else if ("-1".equalsIgnoreCase(producto.getReferencia().trim())) {
                     addActionError("Por favor seleccione un modelo asociado al producto");
-                }else if ("-1".equalsIgnoreCase(producto.getMarca())) {
+                } else if ("-1".equalsIgnoreCase(producto.getMarca())) {
                     addActionError("Por favor seleccione una Marca para el producto ");
                 }
             }

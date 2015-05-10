@@ -12,7 +12,8 @@
 });*/
 $(function(){
     $('.input-group.date').datepicker({
-        format: 'mm/dd/yyyy'
+        format: 'dd/mm/yyyy',
+        todayHighlight: true
     });
 });
 function buscaProducto(){

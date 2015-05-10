@@ -34,6 +34,9 @@ public class MoviContableDao {
     private String grup_nombre;
     private String cuen_nombre;
 
+    private String fechaIni;
+    private String fechaFin;
+
     public String getMvco_mvco() {
         return mvco_mvco;
     }
@@ -177,7 +180,22 @@ public class MoviContableDao {
     public void setCuen_nombre(String cuen_nombre) {
         this.cuen_nombre = cuen_nombre;
     }
-    
+
+    public String getFechaIni() {
+        return fechaIni;
+    }
+
+    public void setFechaIni(String fechaIni) {
+        this.fechaIni = fechaIni;
+    }
+
+    public String getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(String fechaFin) {
+        this.fechaFin = fechaFin;
+    }
 
     /**
      * Funcion encargada de realizar el query para obtene el asiento contable de
@@ -204,7 +222,7 @@ public class MoviContableDao {
     public String consultaFilros(String filtros) {
         String select = "SELECT mvco_mvco,sbcu_codigo,sbcu_nombre,grup_nombre,cuen_nombre,clas_nombre, mvco_trans, mvco_sbcu, mvco_naturaleza, mvco_tido, \n"
                 + " to_char(mvco_valor,'9,999,999,999.00') mvco_valor , mvco_lladetalle, mvco_id_llave, mvco_tercero, mvco_tipo, to_char(mvco_fecha, 'dd/mm/yyyy') mvco_fecha  from co_tmvco,co_tsbcu,co_tgrup, co_tcuen, co_tclas   WHERE " + filtros;
-        select += " order by mvco_trans desc ";
+        select += " order by mvco_trans desc, mvco_naturaleza desc ";
         return select;
     }
 

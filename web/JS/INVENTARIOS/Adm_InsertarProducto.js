@@ -3,6 +3,24 @@ $(function () {
         format: 'mm/dd/yyyy'
     });
 
+    $('#codigo_subcuenta').keyup(function (event) {
+        var datos = new Object();
+        datos.sbcu_codigo = $(this).val();
+        if (datos.sbcu_codigo.length == 1) {
+            $.ajax({
+                url: RutaSitio + "/consultaSubCuentaXCodigo.action",
+                data: datos,
+                dataType: 'json',
+                success: function (data, textStatus, jqXHR) {
+                    $('#codigo_subcuenta').autocomplete({
+                        source: data,
+                        select: function (event, ui) {
+                        }
+                    });
+                }
+            });
+        }
+    });
     $(document).on('click', '.elimnarFila', function () {
         var suma = sumaValoresSubcuenta();
         var valor = $(this).data('valor');
@@ -269,6 +287,7 @@ function datosProducto() {
 
 function despuesEnter(valor) {
     if (valor == '1') {
+        validaGuionesSubcuenta();
         var datos = new Object();
         datos.sbcu_codigo = $('#codigo_subcuenta').val();
         $.ajax({
@@ -474,5 +493,12 @@ function validaSubcuentasRepetidas(subcuenta) {
 }
 
 function calculaIva() {
+
+}
+
+function validaGuionesSubcuenta() {
+    var valor = $('#codigo_subcuenta').val();
+    var vector = valor.split('-');
+    $('#codigo_subcuenta').val(vector[0].trim());
 
 }

@@ -195,4 +195,22 @@ public class SubCuentaLogica {
         }
         return objDao;
     }
+    
+    public ArrayList<String> buscaSubCuentasXFiltro(String sbcu_codigo){
+        SubCuentaDao objDao  = new SubCuentaDao();
+        ArrayList lista = null;
+        try(EnvioFunction function = new EnvioFunction()) {
+            objDao.setSbcu_codigo(sbcu_codigo);
+            ResultSet rs = function.enviarSelect(objDao.buscaSubcuentaXFiltroCodigo());
+            while(rs.next()){
+                if(lista == null){
+                    lista = new ArrayList();
+                }
+                lista.add(rs.getString("sbcu_codigo"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lista;        
+    }
 }

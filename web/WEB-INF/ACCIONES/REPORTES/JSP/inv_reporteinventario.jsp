@@ -68,8 +68,11 @@
                                     <td><s:textfield cssClass="form-control" name="producto.nombre"/></td>
                                 </div>
                                 <div class="form-group col-md-4 col-xs-4 col-sm-4">
-                                    <td>Referencias:</td>
-                                    <td><s:textfield cssClass="form-control" name="producto.referencia" /></td>
+                                    <td>Modelo Asociado:</td>
+                                    <td>
+                                        <s:select cssClass="form-control" list="referencias" name="producto.referencia" id="referencia" headerKey="-1" headerValue="Modelo Asociado" />
+                                        <%--<s:textfield cssClass="form-control" name="producto.referencia" />--%>
+                                    </td>
                                 </div>   
                                 <div class="form-group col-md-12 col-xs-12 col-sm-12">
                                     <a onclick="buscaProducto()" style="cursor:pointer;float: right" >

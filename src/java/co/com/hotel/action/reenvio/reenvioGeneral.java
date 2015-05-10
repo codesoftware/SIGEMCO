@@ -267,6 +267,8 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
                     this.yesNo.put("N", "No");
                     break;
                 case REP_INV_PONDERADO:
+                    refeLogica = new ReferenciaLogica();
+                    this.referencias = refeLogica.obtieneIdDescrReferenciaActivos();
                     nextPage = "rep_inv_ponderado";
                     break;
                 case INV_ACI_PRODUCTO:

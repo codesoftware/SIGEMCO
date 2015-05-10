@@ -103,20 +103,30 @@ public class MoviContableLogica {
         objDAO.setClas_clas(objDTO.getClas_clas());
         objDAO.setCuen_cuen(objDTO.getCuen_cuen());
         objDAO.setGrup_grup(objDTO.getGrup_grup());
-
+        objDAO.setFechaFin(objDTO.getFechaFin());
+        objDAO.setFechaIni(objDTO.getFechaIni());
         return objDAO;
     }
     public String traeFiltros(MoviContableDto objDTO) {
         String rta="1 = 1 and sbcu_sbcu = mvco_sbcu and grup_grup = sbcu_grup and cuen_cuen = sbcu_cuen and clas_clas = sbcu_clas";
         try {
-            if(!objDTO.getClas_clas().equalsIgnoreCase("-1")){
+            if(objDTO.getClas_clas() != null & !"-1".equalsIgnoreCase(objDTO.getClas_clas())){
                rta+=" and sbcu_clas="+objDTO.getClas_clas();
-                if(!objDTO.getGrup_grup().equalsIgnoreCase("-1")){
+                if(objDTO.getGrup_grup() != null & !objDTO.getGrup_grup().equalsIgnoreCase("-1") ){
                     rta+=" and sbcu_grup="+objDTO.getGrup_grup();
                     if(objDTO.getCuen_cuen().equalsIgnoreCase("")){
                          rta+=" and sbcu_cuen="+objDTO.getCuen_cuen();
                     }
                 }
+            }
+            if(!"".equalsIgnoreCase(objDTO.getFechaIni().trim())){
+                if(!"".equalsIgnoreCase(objDTO.getFechaFin().trim())){                    
+                    rta += " and mvco_fecha between to_timestamp('" + objDTO.getFechaIni().trim() + "', 'dd/mm/yyyy') and  to_timestamp('"+ objDTO.getFechaFin().trim() +"', 'dd/mm/yyyy')";
+                }else{
+                    rta += " and mvco_fecha >  to_timestamp('" + objDTO.getFechaIni().trim() + "', 'dd/mm/yyyy') ";
+                }
+            }else if(!"".equalsIgnoreCase(objDTO.getFechaFin().trim())){
+                rta += " and mvco_fecha <  to_timestamp('" + objDTO.getFechaFin().trim() + "', 'dd/mm/yyyy') ";                
             }
         } catch (Exception e) {
             e.printStackTrace();

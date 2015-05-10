@@ -45,6 +45,10 @@ $(document).ready(function () {
     $('.mostrar').click(function () {
         $('.ocultar').toggle();
     });
+    $('.input-group.date').datepicker({
+        format: 'dd/mm/yyyy',
+        todayHighlight: true
+    });
 });
 
 function buscaGeneralMvCon() {

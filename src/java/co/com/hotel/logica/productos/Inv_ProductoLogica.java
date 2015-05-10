@@ -67,21 +67,16 @@ public class Inv_ProductoLogica {
                     + "dska_iva iva, dska_porc_iva porcIva\n";
             sql += ", to_char(prpr_precio,'LFM9,999,999.99') prpr_precio\n ";
             sql += "from in_tdska, in_tprpr\n";
-            sql += "where upper(dska_cod) like upper('%" + obj.getCodigo().trim() + "%')\n";
-            //sql += "and upper(dska_refe) like upper('%" + obj.getReferencia().trim() + "%')\n";
-            sql += "and upper(dska_nom_prod) like upper('%" + obj.getNombre().trim() + "%')\n";
-            sql += "and upper(dska_desc) like upper('%" + obj.getDescripcion().trim() + "%')\n";
-            //sql += "and upper(dska_iva) like upper('%" + obj.getIva().trim() + "%')\n";
-            sql += "and prpr_dska = dska_dska\n";
-            sql += "and prpr_estado = 'A'\n";
-            //Se quema la sede uno ya que es para el proyecto de grado
-            sql += "and prpr_sede = '1'\n";
-            if (obj.getPorcIva() != null && !obj.getPorcIva().equalsIgnoreCase("")) {
-                sql += "and dska_porc_iva =" + obj.getPorcIva().trim() + "\n";
+            sql += " WHERE 1 = 1 ";
+            if (obj.getCodigo() != null & !"".equalsIgnoreCase(obj.getCodigo())) {
+                sql += " and dska_cod = '" + obj.getCodigo().trim() + "'\n";
             }
-            sql += " and upper(dska_marca) like upper('%" + obj.getMarca().trim() + "%')\n";
-            if (!"".equalsIgnoreCase(obj.getReferencia().trim()) & obj.getReferencia() != null) {
-                sql += " and dska_refe = " + obj.getReferencia().trim() + "\n";
+            if (obj.getNombre() != null & !"".equalsIgnoreCase(obj.getNombre())) {
+                sql += " AND dska_cod = '" + obj.getNombre().trim() + "'\n";
+            }
+
+            if (obj.getReferencia() != null && !"".equalsIgnoreCase(obj.getReferencia()) && !"-1".equalsIgnoreCase(obj.getReferencia())) {
+                sql += " AND dska_refe = " + obj.getReferencia().trim() + " \n";
             }
 
             rs = function.enviarSelect(sql);
@@ -324,16 +319,16 @@ public class Inv_ProductoLogica {
         String update = "Update in_tdska\n";
         update += "set dska_cod = dska_cod\n";
         int cont = 0;
-        ValidaCampos valida = new ValidaCampos();        
+        ValidaCampos valida = new ValidaCampos();
         if (valida.validaNulo(obj.getReferencia())) {
             update += ", dska_refe = " + obj.getReferencia() + "\n";
             cont++;
         }
         if (valida.validaNulo(obj.getDescripcion())) {
             update += ", dska_desc = '" + obj.getDescripcion() + "'\n";
-            update += ", dska_nom_prod = '" + obj.getDescripcion()  + "'\n";
+            update += ", dska_nom_prod = '" + obj.getDescripcion() + "'\n";
             cont++;
-        }        
+        }
         if (valida.validaNulo(obj.getMarca())) {
             update += ", dska_marca = " + obj.getMarca() + "\n";
             cont++;

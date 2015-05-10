@@ -5,7 +5,10 @@
 <html>
     <head>
         <s:include value="/WEB-INF/NEWTEMPLATE/cabecera.jsp"></s:include>
+        <script type="text/javascript" src="<%=RutaSitio%>/JS/CORE/AUTOCOMPLETAR/jquery-ui.min.js"></script>        
         <script type="text/javascript" src="<%=RutaSitio%>/JS/INVENTARIOS/Adm_InsertarProducto.js"></script>   
+        <link rel="stylesheet" type="text/css" href="<%=RutaSitio%>/CSS/CORE/AUTOCOMPLETAR/jquery-ui.structure.min.css" />
+        <link rel="stylesheet" type="text/css" href="<%=RutaSitio%>/CSS/CORE/AUTOCOMPLETAR/jquery-ui.theme.min.css" />
     </head>
     <body>
         <s:div cssClass="header">
@@ -36,8 +39,8 @@
                 <div class="IngProducto">
                     <s:if test="%{marcas == null}">                        
                         <script>
-                            $('.IngProducto').hide('slow');
-                            $('.errorMarcas').show('slow');
+            $('.IngProducto').hide('slow');
+            $('.errorMarcas').show('slow');
                         </script>
                     </s:if>
                     <div class="row datosProd">
@@ -262,7 +265,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="mensajeProdSim">
                 <div class="modal-dialog">                
                     <div class="modal-content">
