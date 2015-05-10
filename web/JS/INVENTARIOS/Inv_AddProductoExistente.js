@@ -1,11 +1,30 @@
-$(function() {
-    $(document).on('click', '.elimnarFila', function() {
+$(function () {
+    $(document).on('click', '.elimnarFila', function () {
         var suma = sumaValoresSubcuenta();
         var valor = $(this).data('valor');
         var resta = parseInt(suma) - parseInt(valor);
         $('#vlrSumCuentasText').val(resta);
         $('#vlrSumCuentas').html(resta);
         $(this).closest('.filaAdicionada').remove();
+    });
+
+    $('#codigo_subcuenta').keyup(function (event) {
+        var datos = new Object();
+        datos.sbcu_codigo = $(this).val();
+        if (datos.sbcu_codigo.length == 1) {
+            $.ajax({
+                url: RutaSitio + "/consultaSubCuentaXCodigo.action",
+                data: datos,
+                dataType: 'json',
+                success: function (data, textStatus, jqXHR) {
+                    $('#codigo_subcuenta').autocomplete({
+                        source: data,
+                        select: function (event, ui) {
+                        }
+                    });
+                }
+            });
+        }
     });
 });
 
@@ -48,10 +67,10 @@ function validaDatosProducto() {
         return false;
     }
     var sede = $('#sedes').val();
-    if (sede == '-1'){
+    if (sede == '-1') {
         $('#textoMsn').html('Por Favor seleccione la sede a la cual ingresan los productos');
         $('#mensaje').modal('show');
-        return false;        
+        return false;
     }
     return true;
 }
@@ -79,6 +98,7 @@ function cambioVlr(valor) {
 
 function despuesEnter(valor) {
     if (valor == '1') {
+        validaGuionesSubcuenta();
         var datos = new Object();
         datos.sbcu_codigo = $('#codigo_subcuenta').val();
         $.ajax({
@@ -86,7 +106,7 @@ function despuesEnter(valor) {
             data: datos,
             dataType: 'json',
             async: false,
-            success: function(data, textStatus, jqXHR) {
+            success: function (data, textStatus, jqXHR) {
                 if (data.respuesta == 'inexistente') {
                     $('#textoMsn').html('La subcuenta ingresada es inexistente porfavor parametricela o verifique el codigo');
                     $('#mensaje').modal('show');
@@ -131,7 +151,7 @@ function agrearCuenta() {
                 dataType: 'json',
                 async: false,
                 url: RutaSitio + "/AJAX/JSP/ajaxValidaSubCuenta.jsp",
-                success: function(data, textStatus, jqXHR) {
+                success: function (data, textStatus, jqXHR) {
                     if (data.respuesta == 'inexistente') {
                         $('#textoMsn').html('La subcuenta ingresada es inexistente porfavor parametricela o verifique el codigo');
                         $('#mensaje').modal('show');
@@ -183,7 +203,7 @@ function adicionaDetalleSubucentasAgregadas(codigo, valor, naturaleza, elimina, 
             data: datos,
             dataType: 'json',
             async: false,
-            success: function(data, textStatus, jqXHR) {
+            success: function (data, textStatus, jqXHR) {
                 if (data.respuesta == 'inexistente') {
                     $('#textoMsn').html('La subcuenta ' + comentario + ' no existe o no esta parametrizada en el sistema por favor revise e intente de nuevo');
                     $('#mensaje').modal('show');
@@ -234,7 +254,7 @@ function validaSubcuentasRepetidas(subcuenta) {
     if (subCuentas.length == 0) {
         return true;
     } else {
-        $.each(subCuentas, function(key, value) {
+        $.each(subCuentas, function (key, value) {
             if (value.value == subcuenta && rta == true) {
                 $('#textoMsn').html('Subcuenta agregada previamente operacion no permitida');
                 $('#mensaje').modal('show');
@@ -255,7 +275,7 @@ function sumaValoresSubcuenta() {
         return 0;
     } else {
         var sumatoria = 0;
-        $.each(valores, function(key, value) {
+        $.each(valores, function (key, value) {
             var aux = parseInt(value.value);
             sumatoria = sumatoria + aux;
         });
@@ -284,5 +304,11 @@ function insertar() {
             $('#mensaje').modal('show');
         }
     }
+}
+
+function validaGuionesSubcuenta() {
+    var valor = $('#codigo_subcuenta').val();
+    var vector = valor.split('-');
+    $('#codigo_subcuenta').val(vector[0].trim());
 
 }

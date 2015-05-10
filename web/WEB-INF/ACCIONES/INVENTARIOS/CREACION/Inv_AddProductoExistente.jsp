@@ -5,7 +5,10 @@
 <html>
     <head>
         <s:include value="/WEB-INF/NEWTEMPLATE/cabecera.jsp"></s:include>        
+        <script type="text/javascript" src="<%=RutaSitio%>/JS/CORE/AUTOCOMPLETAR/jquery-ui.min.js"></script>
         <script type="text/javascript" src="<%=RutaSitio%>/JS/INVENTARIOS/Inv_AddProductoExistente.js" ></script>
+        <link rel="stylesheet" type="text/css" href="<%=RutaSitio%>/CSS/CORE/AUTOCOMPLETAR/jquery-ui.structure.min.css" />
+        <link rel="stylesheet" type="text/css" href="<%=RutaSitio%>/CSS/CORE/AUTOCOMPLETAR/jquery-ui.theme.min.css" />
     </head>
     <body>
         <s:div cssClass="header">
