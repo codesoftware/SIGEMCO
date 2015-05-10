@@ -19,6 +19,7 @@ public class DetFactServicoDto {
     private String ivaTotal;
     private String numPersonas;
     private String numDias;
+    private String totalPagar;
 
     public String getNum_hab() {
         return num_hab;
@@ -84,4 +85,11 @@ public class DetFactServicoDto {
         this.numDias = numDias;
     }
 
+    public String getTotalPagar() {
+        return totalPagar;
+    }
+
+    public void setTotalPagar(String totalPagar) {
+        this.totalPagar = totalPagar;
+    }
 }

@@ -7,6 +7,8 @@ package co.com.sigemco.alfa.inventario.ajax;
 
 import co.com.hotel.datos.session.Usuario;
 import co.com.hotel.utilidades.UsuarioHabilitado;
+import co.com.sigemco.alfa.facturacion.dto.DetFactServicoDto;
+import co.com.sigemco.alfa.facturacion.logica.DetFactServicioLogica;
 import co.com.sigemco.alfa.inventario.dto.ProductoDto;
 import co.com.sigemco.alfa.inventario.logica.ConteoProdLogica;
 import co.com.sigemco.alfa.inventario.logica.ProductoLogica;
@@ -31,6 +33,7 @@ public class ajaxControllerProducto extends ActionSupport implements SessionAwar
     private String cantidad;
     private String dska_dska;
     private String copr_copr;
+    private String dsha_dsha;
 
     /**
      * Funcion encargada de realizar la accion de consulta de productos por
@@ -129,9 +132,9 @@ public class ajaxControllerProducto extends ActionSupport implements SessionAwar
             objDto.setDska_dska(dska_dska);
             objDto = objLogica.obtieneCalculosProductoFactura(objDto);
             Map<String, Object> rta = new HashMap<String, Object>();
-            if(objDto == null){
+            if (objDto == null) {
                 rta.put("respuesta", "Error");
-            }else{                
+            } else {
                 rta.put("respuesta", "Ok");
                 rta.put("objeto", objDto);
             }
@@ -142,6 +145,30 @@ public class ajaxControllerProducto extends ActionSupport implements SessionAwar
             e.printStackTrace();
         }
 
+    }
+
+    public void simulaDetalleServicioFactura() {
+        DetFactServicioLogica objLogica = null;
+        try {
+            objLogica = new DetFactServicioLogica();
+            DetFactServicoDto obj = objLogica.simulaFacturacionServicio(cantidad, dsha_dsha);
+            Map rta = new HashMap<String, Object>();
+            if (obj == null) {
+                rta.put("respuesta", "Error al simular el pago por la reserva");
+            } else {
+                rta.put("respuesta", "Ok");
+                rta.put("Objeto", obj);
+            }
+            Gson gson = new Gson();
+            String objJson = "";
+            objJson = gson.toJson(rta);
+            HttpServletResponse response = ServletActionContext.getResponse();
+            response.setContentType("text/plain;charset=utf-8");
+            PrintWriter out = response.getWriter();
+            out.print(objJson);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public Usuario getUsuario() {
@@ -191,4 +218,13 @@ public class ajaxControllerProducto extends ActionSupport implements SessionAwar
     public void setCopr_copr(String copr_copr) {
         this.copr_copr = copr_copr;
     }
+
+    public String getDsha_dsha() {
+        return dsha_dsha;
+    }
+
+    public void setDsha_dsha(String dsha_dsha) {
+        this.dsha_dsha = dsha_dsha;
+    }
+
 }

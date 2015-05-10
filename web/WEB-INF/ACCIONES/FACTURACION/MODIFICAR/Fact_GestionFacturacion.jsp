@@ -110,7 +110,30 @@
                         </tr>
                     </thead>
                     <tbody class="productosEnLista">
-                        
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-1 col-xs-0 col-sm-0"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1 col-xs-0 col-sm-0"></div>
+            <div class="col-md-10 col-xs-12 col-sm-12">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr class="alert alert-info text-center">
+                            <td><h5>HABITACION</h5></td>
+                            <td><h5>NUM DIAS</h5></td>
+                            <td><h5>PRECIO UNI.</h5></td>
+                            <td><h5>PRECIO TOTAL</h5></td>
+                            <td><h5>IVA UNI</h5></td>
+                            <td><h5>IVA TOTAL</h5></td>
+                            <td><h5>TOTAL A PAGAR</h5></td>
+                            <td><h5>ACCION</h5></td>
+                        </tr>
+                    </thead>
+                    <tbody class="serviciosEnLista">
+
                     </tbody>
                 </table>
             </div>
@@ -270,7 +293,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="alert alert-danger" id="msnDangerAddProd" style="display: none;">
-                                                        
+
                         </div>
                         <table id="tablaAddProd" class="table table-hover table-striped">
 

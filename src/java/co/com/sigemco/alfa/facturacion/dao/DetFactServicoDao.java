@@ -11,6 +11,7 @@ package co.com.sigemco.alfa.facturacion.dao;
  */
 public class DetFactServicoDao {
 
+    private String dsha_dsha;
     private String num_hab;
     private String num_max_pers;
     private String precioUnidad;
@@ -84,6 +85,14 @@ public class DetFactServicoDao {
         this.numDias = numDias;
     }
 
+    public String getDsha_dsha() {
+        return dsha_dsha;
+    }
+
+    public void setDsha_dsha(String dsha_dsha) {
+        this.dsha_dsha = dsha_dsha;
+    }
+
     /**
      * Funcion encargada de realizar un query calculando los datos que pagaria
      * una persona par una habitacion en determinada cantidad de dias
@@ -94,14 +103,15 @@ public class DetFactServicoDao {
         String sql = "";
         sql += "SELECT dsha_num_hab";
         sql += " , dsha_num_max_pers";
-        sql += " , prha_precio";
-        sql += " , prha_precio* " + this.getNumDias() + " vlrTotal";
-        sql += " , ((dsha_iva*prha_precio)/100) vlr_Iva";
-        sql += " , ((dsha_iva*prha_precio)/100) * " + this.getNumDias() + " ivaTotal";
-        sql += " , (((dsha_iva*prha_precio)/100)*" + this.getNumDias() + ") + (prha_precio* " + this.getNumDias() + ")  totalPagar\n";
+        sql += " , to_char(prha_precio,'9,999,999,999.00') prha_precio";
+        sql += " , to_char(prha_precio* " + this.getNumDias() + ",'9,999,999,999.00') vlrTotal";
+        sql += " , to_char(((dsha_iva*prha_precio)/100),'9,999,999,999.00') vlr_Iva";
+        sql += " , to_char(((dsha_iva*prha_precio)/100) * " + this.getNumDias() + ",'9,999,999,999.00') ivaTotal";
+        sql += " , to_char((((dsha_iva*prha_precio)/100)*" + this.getNumDias() + ") + (prha_precio* " + this.getNumDias() + "),'9,999,999,999.00')  totalPagar\n";
         sql += " FROM in_tdsha, in_tprha\n";
         sql += "WHERE prha_dsha = dsha_dsha\n";
         sql += " AND prha_estado = 'A'\n";
+        sql += " AND prha_dsha = " + this.getDsha_dsha() +"\n";
         return sql;
     }
 

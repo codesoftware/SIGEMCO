@@ -124,6 +124,7 @@
                                         <%--<s:property value="mvco_lladetalle"/>--%>
                                     </td>
                                     <td>
+                                        <s:text name="mvco_naturaleza" />   ...
                                         <s:if test="%{mvco_naturaleza == 'D'}">
                                             Debito
                                         </s:if>
