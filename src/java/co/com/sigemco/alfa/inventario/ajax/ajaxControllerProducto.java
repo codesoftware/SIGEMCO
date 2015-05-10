@@ -9,6 +9,7 @@ import co.com.hotel.datos.session.Usuario;
 import co.com.hotel.utilidades.UsuarioHabilitado;
 import co.com.sigemco.alfa.facturacion.dto.DetFactServicoDto;
 import co.com.sigemco.alfa.facturacion.logica.DetFactServicioLogica;
+import co.com.sigemco.alfa.inventario.dao.ProductoDao;
 import co.com.sigemco.alfa.inventario.dto.ProductoDto;
 import co.com.sigemco.alfa.inventario.logica.ConteoProdLogica;
 import co.com.sigemco.alfa.inventario.logica.ProductoLogica;
@@ -16,6 +17,7 @@ import com.google.gson.Gson;
 import com.opensymphony.xwork2.ActionSupport;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.ServletActionContext;
@@ -34,6 +36,9 @@ public class ajaxControllerProducto extends ActionSupport implements SessionAwar
     private String dska_dska;
     private String copr_copr;
     private String dsha_dsha;
+    private String dska_refe;
+    private String dska_marca;
+    private String dska_cate;
 
     /**
      * Funcion encargada de realizar la accion de consulta de productos por
@@ -171,6 +176,38 @@ public class ajaxControllerProducto extends ActionSupport implements SessionAwar
         }
     }
 
+    /**
+     * Funcion la cual por medio de filtros productos similares para listarlos
+     */
+    public void buscaProductossimilares() {
+        String objJson = "";
+        Gson gson = new Gson();
+        Map<String, Object> rta = null;
+        try {
+            HttpServletResponse response = ServletActionContext.getResponse();
+            response.setContentType("text/plain;charset=utf-8");
+            PrintWriter out = response.getWriter();
+            rta = new HashMap<String, Object>();
+            ProductoLogica logica = new ProductoLogica();
+            ProductoDto objDto = new ProductoDto();
+            objDto.setDska_cate(dska_cate);
+            objDto.setDska_refe(dska_refe);
+            objDto.setDska_marca(dska_marca);
+            List rtaList = logica.buscaProductosSimilares(objDto);
+            rta.put("respuesta", "Ok");
+            if(rtaList == null ){
+                rta.put("coincidencias", "No");
+            }else{
+                rta.put("coincidencias", "Si");
+                rta.put("objeto", rtaList);                
+            }            
+            objJson = gson.toJson(rta);
+            out.print(objJson);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public Usuario getUsuario() {
         return usuario;
     }
@@ -225,6 +262,30 @@ public class ajaxControllerProducto extends ActionSupport implements SessionAwar
 
     public void setDsha_dsha(String dsha_dsha) {
         this.dsha_dsha = dsha_dsha;
+    }
+
+    public String getDska_refe() {
+        return dska_refe;
+    }
+
+    public void setDska_refe(String dska_refe) {
+        this.dska_refe = dska_refe;
+    }
+
+    public String getDska_marca() {
+        return dska_marca;
+    }
+
+    public void setDska_marca(String dska_marca) {
+        this.dska_marca = dska_marca;
+    }
+
+    public String getDska_cate() {
+        return dska_cate;
+    }
+
+    public void setDska_cate(String dska_cate) {
+        this.dska_cate = dska_cate;
     }
 
 }

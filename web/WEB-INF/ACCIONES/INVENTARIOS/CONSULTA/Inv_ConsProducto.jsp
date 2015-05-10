@@ -93,12 +93,13 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>Nombre</th>
-                                <th>Descripción</th>
                                 <th>Referencia</th>
+                                <%--<th>Descripción</th>--%>
+                                <th>Modelo Asociado</th>
                                 <th>Codigo</th>
                                 <th>Cant.<br/>Exis.</th>
                                 <th>Marca</th>                                    
+                                <th>Categoria</th>                                    
                             </tr>
                         </thead>
                         <tbody>
@@ -118,11 +119,12 @@
                                     <s:else>
                                         <td><s:property value="dska_nom_prod"/></td>
                                     </s:else>
-                                    <td><s:property value="dska_desc"/></td>
+                                    <%--<td><s:property value="dska_desc"/></td>--%>
                                     <td><s:property value="referenciaNombre"/></td>
                                     <td><s:property value="dska_cod"/></td>
                                     <td><s:property value="cantExis"/></td>
                                     <td><s:property value="dska_marca"/></td>                                   
+                                    <td><s:property value="dska_cate"/></td>                                   
                                 </tr>
                             </s:iterator>
                         <tbody>

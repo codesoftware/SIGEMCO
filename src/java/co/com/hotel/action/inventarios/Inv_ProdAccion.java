@@ -14,6 +14,7 @@ import co.com.hotel.logica.productos.Inv_ProductoLogica;
 import co.com.hotel.logica.sede.Adm_SedeLogica;
 import co.com.hotel.utilidades.UsuarioHabilitado;
 import co.com.hotel.validacion.ValidaCampos;
+import co.com.sigemco.alfa.inventario.logica.MarcaLogica;
 import co.com.sigemco.alfa.inventario.logica.ReferenciaLogica;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ public class Inv_ProdAccion extends ActionSupport implements SessionAware, Usuar
     private Map<String, String> yesNo;
     private Map<String, String> sedes;
     private Map<String, String> referencias;
+    private Map<String, String> marcas;
 
     /**
      * Consulta de producto la cual se realiza con el codigo unico del producto
@@ -152,6 +154,7 @@ public class Inv_ProdAccion extends ActionSupport implements SessionAware, Usuar
     }
 
     public String actualizaProducto() {
+
         this.yesNo = new HashMap<String, String>();
         this.yesNo.put("S", "Si");
         this.yesNo.put("N", "No");
@@ -232,24 +235,15 @@ public class Inv_ProdAccion extends ActionSupport implements SessionAware, Usuar
             this.yesNo.put("N", "No");
             ReferenciaLogica refeLogica = new ReferenciaLogica();
             this.referencias = refeLogica.obtieneIdDescrReferenciaActivos();
+            MarcaLogica logicaMarca = new MarcaLogica();
+            this.marcas = logicaMarca.obtieneMarcas();
             if (subAccion.equalsIgnoreCase("update")) {
-                if (!validaCampos.validaNulo(producto.getNombre().trim())) {
-                    addFieldError("producto.nombre", "El campo no puede ser nulo");
-                }
                 if (!validaCampos.validaNulo(producto.getDescripcion().trim())) {
-                    addFieldError("producto.descripcion", "El campo no puede ser nulo");
-                }
-                if (!validaCampos.validaNulo(producto.getReferencia().trim())) {
-                    addFieldError("producto.referencia", "El campo no puede ser nulo");
-                }
-                if (!validaCampos.validaNulo(producto.getMarca())) {
-                    addFieldError("producto.marca", "El campo no puede ser nulo");
-                }
-                if (!validaCampos.validaNumerico(producto.getPorcIva())) {
-                    addFieldError("producto.porcIva", "El campo debe ser numerico");
-                }
-                if (producto.getIva() == "-1") {
-                    addFieldError("producto.iva", "Por favor seleccione una de las opciones");
+                    addActionError("El campo Referencia no puede ser nulo");
+                }else if ("-1".equalsIgnoreCase(producto.getReferencia().trim())) {
+                    addActionError("Por favor seleccione un modelo asociado al producto");
+                }else if ("-1".equalsIgnoreCase(producto.getMarca())) {
+                    addActionError("Por favor seleccione una Marca para el producto ");
                 }
             }
             validaCampos = null;
@@ -377,5 +371,13 @@ public class Inv_ProdAccion extends ActionSupport implements SessionAware, Usuar
 
     public void setReferencias(Map<String, String> referencias) {
         this.referencias = referencias;
+    }
+
+    public Map<String, String> getMarcas() {
+        return marcas;
+    }
+
+    public void setMarcas(Map<String, String> marcas) {
+        this.marcas = marcas;
     }
 }

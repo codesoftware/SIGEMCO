@@ -53,35 +53,27 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr style="display: none;">
                                 <td>Nombres Producto:</td>
                                 <td><s:textfield name="producto.nombre" required="true" cssClass="form-control" /></td>
                             </tr>
                             <tr>
-                                <td>Descripción Prod:</td>
+                                <td>Referencia:</td>
                                 <td><s:textfield name="producto.descripcion" required="true" cssClass="form-control"/></td>
                             </tr>
                             <tr>
-                                <td>Referencia:</td>
+                                <td>Modelo Asociado:</td>
                                 <td>
-                                    <s:select cssClass="form-control" list="referencias" name="producto.referencia" id="referencia" headerKey="-1" headerValue="Referencia" />
+                                    <s:select cssClass="form-control" list="referencias" name="producto.referencia" id="referencia" headerKey="-1" headerValue="Modelo Asociado" />
                                 </td>
                             </tr>
                             <tr>
                                 <td>Codigo:</td>
                                 <td><s:text name="producto.codigo" /></td>
-                            </tr>
-                            <tr>
-                                <td>Gravamen:</td>
-                                <td><s:select list="yesNo"  name="producto.iva" required="true" headerKey="-1" headerValue="Cobro Iva" onchange="cambioIva(this.value)" cssClass="form-control"/></td>
-                            </tr>
-                            <tr>
-                                <td>Porcentaje iva:</td>
-                                <td><s:textfield name="producto.porcIva" required="true" cssStyle="max-lenght: 10;" cssClass="form-control" readonly="true"/></td>
-                            </tr>
+                            </tr>                            
                             <tr>
                                 <td>Marca:</td>
-                                <td><s:textfield name="producto.marca" required="true" cssClass="form-control" /></td>
+                                <td><s:select  list="marcas"  name="producto.marca" required="true" headerKey="-1" headerValue="Marca" cssClass="form-control" id="producto_marca" /></td>
                             </tr>
                         </tbody>
                         <tfoot>

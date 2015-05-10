@@ -20,10 +20,26 @@
                 <s:param name="title"><s:property value="usuario.usuario" /></s:param>
             </s:include> 
         </s:div>        
-        <br>
+        <br>  
+        <div class="row errorMarcas" style="display:none">
+            <div class="col-md-3 col-xs-0 col-sm-0"></div>
+            <div class="col-md-6 col-xs-12 col-sm-12">
+                <div class="alert alert-danger" id="info" role="alert">
+                    No existe ninguna Marca parametrizada las cuales son 
+                    necesarias para el ingreso de productos, por favor parametrizar al menos una.
+                </div>
+            </div>
+            <div class="col-md-3 col-xs-0 col-sm-0"></div>
+        </div>
         <s:if test="%{referencias != null}">
             <s:form  action="inv_insertProducto" id="inv_insertProducto" theme="simple" method="post" autocomplete="off" >
                 <div class="IngProducto">
+                    <s:if test="%{marcas == null}">                        
+                        <script>
+                            $('.IngProducto').hide('slow');
+                            $('.errorMarcas').show('slow');
+                        </script>
+                    </s:if>
                     <div class="row datosProd">
                         <div class="col-md-3 col-xs-0 col-sm-0"></div>
                         <div class="col-md-6 col-xs-12 col-sm-12">
@@ -52,18 +68,18 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td style="width: 40%">Nombre: </td>
+                                    <tr style="display: none">
+                                        <td>Nombre: </td>
                                         <td><s:textfield name="producto.nombre" required="true" cssClass="form-control" id="producto_nombre"/></td>
                                     </tr>
                                     <tr>
-                                        <td>Descripci&oacute;n:</td>
+                                        <td  style="width: 40%;">Referencia</td>
                                         <td><s:textfield label="Descripción Prod" name="producto.descripcion" required="true" cssClass="form-control" id="producto_descripcion"/></td>
                                     </tr>
                                     <tr>
-                                        <td>Referencia:</td>
+                                        <td>Modelo Asociado</td>
                                         <td>
-                                            <s:select cssClass="form-control" list="referencias" name="producto.referencia" id="referencia" headerKey="-1" headerValue="Referencia" />
+                                            <s:select cssClass="form-control" list="referencias" name="producto.referencia" id="referencia" headerKey="-1" headerValue="Modelo Asociado" />
                                         </td>
                                     </tr>
                                     <%--<tr>
@@ -219,7 +235,7 @@
                         <div class="col-md-2 col-xs-0 col-sm-0"></div>
                     </div>
                 </div>            
-            </s:form> 
+            </s:form>             
             <div id="msnErrorParametrizacion" style="display: none; width: 100%">
                 <div class="col-md-3 col-xs-0 col-sm-0"></div>
                 <div class="col-md-6 col-xs-12 col-sm-12">
@@ -241,6 +257,27 @@
                         <div class="modal-footer">                        
                             <button type="button" class="btn btn-default" data-dismiss="modal">
                                 ACEPTAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="mensajeProdSim">
+                <div class="modal-dialog">                
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">PRODUCTOS SIMILARES</h4>
+                        </div>
+                        <div class="modal-body">
+                            <span id="textoMsnSimilares"></span>
+                        </div>
+                        <div class="modal-footer">                        
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                CANCELAR
+                            </button>
+                            <button type="button" class="btn btn-success" data-dismiss="modal" id="continuaContabilizar">
+                                CONTINUAR
                             </button>
                         </div>
                     </div>

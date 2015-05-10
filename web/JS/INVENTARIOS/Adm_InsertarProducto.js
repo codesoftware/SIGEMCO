@@ -1,9 +1,9 @@
-$(function() {
+$(function () {
     $('.input-group.date').datepicker({
         format: 'mm/dd/yyyy'
     });
 
-    $(document).on('click', '.elimnarFila', function() {
+    $(document).on('click', '.elimnarFila', function () {
         var suma = sumaValoresSubcuenta();
         var valor = $(this).data('valor');
         var resta = parseInt(suma) - parseInt(valor);
@@ -12,8 +12,13 @@ $(function() {
         $(this).closest('.filaAdicionada').remove();
     });
 
-    $('#parametrizarPrecio').click(function() {
+    $('#parametrizarPrecio').click(function () {
         document.getElementById('inv_BuscaProducto').submit();
+    });
+
+    $('#continuaContabilizar').click(function () {
+        $('#mensajeProdSim').modal('hide');
+        contabilizarConAdvertencia();
     });
 });
 
@@ -67,7 +72,7 @@ function cambioCategoria(valor) {
             type: 'POST',
             data: obj,
             dataType: 'json',
-            success: function(data, textStatus, jqXHR) {
+            success: function (data, textStatus, jqXHR) {
                 determinaAccionDeCategoria(data)
             }
         });
@@ -100,26 +105,27 @@ function cambioVlr(valor) {
         $('#vlrProd').html('0');
         $('#vlrIvaText').val('0');
         $('#vlrIva').html('0');
-    } else {        
-        $('#vlrProd').html(valor);        
-        var vlrIva = (vlrInt *16)/100;
+    } else {
+        $('#vlrProd').html(valor);
+        var vlrIva = (vlrInt * 16) / 100;
         var vlrIvaMas = mascaraMonedaConValor(vlrIva.toString())
         $('#vlrIvaText').val(vlrIva);
         $('#vlrIva').html(vlrIvaMas);
-        
+
     }
 }
 
 function validaDatosProducto() {
-    var nombre = $('#producto_nombre').val();
-    if (nombre == '') {
-        $('#textoMsn').html('El nombre del producto no puede ser nulo');
-        $('#mensaje').modal('show');
-        return false;
-    }
+//Se elimina ya que para este cliente no es necesario el nombre del producto
+//    var nombre = $('#producto_nombre').val();
+//    if (nombre == '') {
+//        $('#textoMsn').html('El nombre del producto no puede ser nulo');
+//        $('#mensaje').modal('show');
+//        return false;
+//    }
     var desc = $('#producto_descripcion').val();
     if (desc == '') {
-        $('#textoMsn').html('La descripcion del producto no puede ser nulo');
+        $('#textoMsn').html('La referncia del producto no puede ser nulo');
         $('#mensaje').modal('show');
         return false;
     }
@@ -147,6 +153,12 @@ function validaDatosProducto() {
         $('#mensaje').modal('show');
         return false;
     }
+    var marca = $('#producto_marca').val();
+    if (marca == '-1') {
+        $('#textoMsn').html('Por Favor seleccione una Marca para el producto');
+        $('#mensaje').modal('show');
+        return false;
+    }
     var cat = $('#producto_categoria').val();
     if (cat == '-1') {
         $('#textoMsn').html('Por Favor seleccione una categoria para el producto');
@@ -165,7 +177,54 @@ function validaDatosProducto() {
         $('#mensaje').modal('show');
         return false;
     }
+    var validaSim = validaProductosSimilares();
+    if (!validaSim) {
+        $('#mensajeProdSim').modal('show');
+        return false;
+    }
     return true;
+}
+
+function validaProductosSimilares() {
+    var validacion = false;
+    var datos = new Object();
+    datos.dska_refe = $('#referencia').val();
+    datos.dska_marca = $('#producto_marca').val();
+    datos.dska_cate = $('#producto_categoria').val();
+    $.ajax({
+        url: RutaSitio + "/buscaSimilaresProd.action",
+        data: datos,
+        dataType: 'json',
+        async: false,
+        success: function (data, textStatus, jqXHR) {
+            if (data.respuesta == 'Ok' && data.coincidencias == 'Si') {
+                var vector = data.objeto;
+                var tabla = '<table class=\"table table-border\" >';
+                tabla += '<thead class=\"alert alert-info\">';
+                tabla += '<tr class="">';
+                tabla += '<td>Codigo</td>';
+                tabla += '<td>Referencia</td>';
+                tabla += '</tr>';
+                tabla += '</thead>';
+                for (var j = 0; j < vector.length; j++) {
+                    var linea = '<tr>' +
+                            '<td>' +
+                            vector[0].dska_cod +
+                            '</td>' +
+                            '<td>' +
+                            vector[0].dska_desc +
+                            '</td>' +
+                            '</tr>';
+                    tabla += linea;
+                }
+                tabla += '</table>'
+                $('#textoMsnSimilares').html('Existen Productos similares el cual podria ser el cual esta ingresando por favor verifiquelos<br><br>' + tabla);
+            } else {
+                validacion = true;
+            }
+        }
+    });
+    return validacion;
 }
 
 function contabilizar() {
@@ -186,6 +245,22 @@ function contabilizar() {
     }
 }
 
+
+function contabilizarConAdvertencia() {
+    $('#subcuentasAdicionadas').children('tr').remove();
+    buscaSubCuentasFijas();
+    var vlrProd = $('#producto_costo').val();
+    vlrProd = eliminarPuntos(vlrProd);
+    var vlrIva = $('#vlrIvaText').val();
+    var vlrTotal = parseInt(vlrProd) + parseInt(vlrIva);
+    $('#vlrTotalText').val(vlrTotal);
+    vlrTotal = mascaraMonedaConValor(vlrTotal.toString());
+    $('#vlrTotal').html(vlrTotal);
+    $('.datosProd').hide('slow');
+    $('.contabilidad').show('slow');
+    $('#codigo_subcuenta').focus();
+
+}
 function datosProducto() {
     $('.datosProd').show('slow');
     $('.contabilidad').hide('slow');
@@ -201,7 +276,7 @@ function despuesEnter(valor) {
             data: datos,
             dataType: 'json',
             async: false,
-            success: function(data, textStatus, jqXHR) {
+            success: function (data, textStatus, jqXHR) {
                 if (data.respuesta == 'inexistente') {
                     $('#textoMsn').html('La subcuenta ingresada es inexistente porfavor parametricela o verifique el codigo');
                     $('#mensaje').modal('show');
@@ -239,9 +314,9 @@ function buscaSubCuentasFijas() {
         data: datos,
         dataType: 'json',
         async: false,
-        success: function(data, textStatus, jqXHR) {
+        success: function (data, textStatus, jqXHR) {
             if (data.respuesta == 'Ok') {
-                $.each(data.obj, function(key, value) {
+                $.each(data.obj, function (key, value) {
                     if (value.sbft_porcentaje == null) {
                         value.sbft_porcentaje = '0';
                     }
@@ -281,7 +356,7 @@ function adicionaDetalleSubucentasAgregadas(codigo, valor, naturaleza, elimina, 
             data: datos,
             dataType: 'json',
             async: false,
-            success: function(data, textStatus, jqXHR) {
+            success: function (data, textStatus, jqXHR) {
                 if (data.respuesta == 'inexistente') {
                     $('#textoMsn').html('La subcuenta ' + comentario + ' no existe o no esta parametrizada en el sistema por favor revise e intente de nuevo');
                     $('#mensaje').modal('show');
@@ -337,7 +412,7 @@ function agrearCuenta() {
                 dataType: 'json',
                 async: false,
                 url: RutaSitio + "/AJAX/JSP/ajaxValidaSubCuenta.jsp",
-                success: function(data, textStatus, jqXHR) {
+                success: function (data, textStatus, jqXHR) {
                     if (data.respuesta == 'inexistente') {
                         $('#textoMsn').html('La subcuenta ingresada es inexistente porfavor parametricela o verifique el codigo');
                         $('#mensaje').modal('show');
@@ -373,7 +448,7 @@ function sumaValoresSubcuenta() {
         return 0;
     } else {
         var sumatoria = 0;
-        $.each(valores, function(key, value) {
+        $.each(valores, function (key, value) {
             var aux = parseInt(value.value);
             sumatoria = sumatoria + aux;
         });
@@ -387,7 +462,7 @@ function validaSubcuentasRepetidas(subcuenta) {
     if (subCuentas.length == 0) {
         return true;
     } else {
-        $.each(subCuentas, function(key, value) {
+        $.each(subCuentas, function (key, value) {
             if (value.value == subcuenta && rta == true) {
                 $('#textoMsn').html('Subcuenta agregada previamente operacion no permitida');
                 $('#mensaje').modal('show');
@@ -398,6 +473,6 @@ function validaSubcuentasRepetidas(subcuenta) {
     return rta;
 }
 
-function calculaIva(){
-        
+function calculaIva() {
+
 }

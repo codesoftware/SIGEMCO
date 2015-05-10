@@ -324,29 +324,18 @@ public class Inv_ProductoLogica {
         String update = "Update in_tdska\n";
         update += "set dska_cod = dska_cod\n";
         int cont = 0;
-        ValidaCampos valida = new ValidaCampos();
-        if (valida.validaNulo(obj.getNombre())) {
-            update += ", dska_nom_prod = '" + obj.getNombre() + "'\n";
-            cont++;
-        }
+        ValidaCampos valida = new ValidaCampos();        
         if (valida.validaNulo(obj.getReferencia())) {
-            update += ", dska_refe = '" + obj.getReferencia() + "'\n";
+            update += ", dska_refe = " + obj.getReferencia() + "\n";
             cont++;
         }
         if (valida.validaNulo(obj.getDescripcion())) {
             update += ", dska_desc = '" + obj.getDescripcion() + "'\n";
+            update += ", dska_nom_prod = '" + obj.getDescripcion()  + "'\n";
             cont++;
-        }
-        if (valida.validaNulo(obj.getPorcIva())) {
-            update += ", dska_porc_iva = " + obj.getPorcIva() + "\n";
-            cont++;
-        }
-        if (valida.validaNulo(obj.getIva())) {
-            update += ", dska_iva = '" + obj.getIva() + "'\n";
-            cont++;
-        }
+        }        
         if (valida.validaNulo(obj.getMarca())) {
-            update += ", dska_marca = '" + obj.getMarca() + "'\n";
+            update += ", dska_marca = " + obj.getMarca() + "\n";
             cont++;
         }
         if (cont > 0) {

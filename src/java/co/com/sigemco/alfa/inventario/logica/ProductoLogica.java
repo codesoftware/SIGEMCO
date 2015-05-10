@@ -364,16 +364,16 @@ public class ProductoLogica {
         }
         return rta;
     }
-    
-    public ProductoDto obtieneCalculosProductoFactura(ProductoDto objDto){
+
+    public ProductoDto obtieneCalculosProductoFactura(ProductoDto objDto) {
         ProductoDao objDao = null;
-        ProductoDto rta  = null;
-        try(EnvioFunction function = new EnvioFunction()) {
+        ProductoDto rta = null;
+        try (EnvioFunction function = new EnvioFunction()) {
             objDao = poblarDao(objDto);
-            System.out.println("Este es el sql \n" + objDao.calculosFactura() );
+            System.out.println("Este es el sql \n" + objDao.calculosFactura());
             ResultSet rs = function.enviarSelect(objDao.calculosFactura());
-            while(rs.next()){
-                if(rta == null){
+            while (rs.next()) {
+                if (rta == null) {
                     rta = new ProductoDto();
                 }
                 rta.setDska_dska(rs.getString("dska_dska"));
@@ -390,6 +390,36 @@ public class ProductoLogica {
             e.printStackTrace();
         }
         return rta;
+    }
+
+    /**
+     * Funcion encargade de realizar la logica para buscar los productos
+     * similares
+     *
+     * @param objDto
+     * @return
+     */
+    public List buscaProductosSimilares(ProductoDto objDto) {
+        List<ProductoDto> lista = null;
+        try (EnvioFunction function = new EnvioFunction()) {
+            ProductoDao objDao = new ProductoDao();
+            objDao.setDska_cate(objDto.getDska_cate());
+            objDao.setDska_marca(objDto.getDska_marca());
+            objDao.setDska_refe(objDto.getDska_refe());
+            ResultSet rs = function.enviarSelect(objDao.buscaProductosSimilares());
+            while (rs.next()) {
+                if (lista == null) {
+                    lista = new ArrayList<ProductoDto>();
+                }
+                ProductoDto aux = new ProductoDto();
+                aux.setDska_cod(rs.getString("dska_cod"));
+                aux.setDska_desc(rs.getString("dska_desc"));
+                lista.add(aux);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lista;
     }
 
 }

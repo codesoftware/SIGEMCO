@@ -40,5 +40,7 @@
         </action>
         <action name="simulaDetalleServicioFactura" class="co.com.sigemco.alfa.inventario.ajax.ajaxControllerProducto" method="simulaDetalleServicioFactura">
         </action>
+        <action name="buscaSimilaresProd" class="co.com.sigemco.alfa.inventario.ajax.ajaxControllerProducto" method="buscaProductossimilares">
+        </action>
     </package>
 </struts>

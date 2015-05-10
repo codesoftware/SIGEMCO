@@ -138,10 +138,14 @@ public class ProductoDao {
     public String selectConFiltros() {
         String select = "";
         select += "SELECT dska_dska, dska_refe, dska_cod, dska_nom_prod, dska_desc, dska_iva, \n";
-        select += "       dska_porc_iva, dska_marca, dska_estado, dska_fec_ingreso, dska_cate, refe_desc \n";
-        select += "  FROM in_tdska, in_trefe                                                  \n";
+        select += "       dska_porc_iva, dska_estado, dska_fec_ingreso, refe_desc, \n";
+        select += "       coalesce((select marca_nombre from in_tmarca where marca_marca = dska_marca), 'SIN MARCA') dska_marca,  \n";
+        select += "        cate_desc as dska_cate ";
+        select += "  FROM in_tdska, in_trefe, in_tcate                                                  \n";
         select += " WHERE refe_refe = dska_refe \n";
+        select += "   AND cate_cate = dska_cate \n";
         select += this.armaWhereXFiltros();
+        System.out.println("Este es el sql: \n" + select);        
         return select;
     }
 
@@ -283,6 +287,25 @@ public class ProductoDao {
         sql.append("                 AND prpr_sede = 1                                                                  \n");
         sql.append("              ) param                                                                               \n");
         sql.append("       ) tablaFinal                                                                                 \n");
+        return sql.toString();
+    }
+
+    /**
+     * Funcion encargada de realizar el query para buscar productos que tengan
+     * la misma referencia, marca y categoria
+     *
+     * @return String SQL requerido
+     */
+    public String buscaProductosSimilares() {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT dska_cod, dska_desc ");
+        sql.append("FROM in_tdska ");
+        sql.append("WHERE dska_refe = ");
+        sql.append(this.getDska_refe());
+        sql.append(" AND dska_marca = ");
+        sql.append(this.getDska_marca());
+        sql.append(" AND dska_cate = ");
+        sql.append(this.getDska_cate());
         return sql.toString();
     }
 

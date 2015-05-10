@@ -32,7 +32,7 @@ public class IngresaProductoNuevo {
             function.adicionarParametro(producto.getDescripcion());
             function.adicionarParametro(producto.getIva());
             function.adicionarNumeric(producto.getPorcIva());
-            function.adicionarParametro(producto.getMarca());
+            function.adicionarNumeric(producto.getMarca());
             function.adicionarNumeric(producto.getCantidad());
             function.adicionarNumeric(producto.getCosto());
             function.adicionarParametro(usuario); 
