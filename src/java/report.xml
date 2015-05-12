@@ -134,7 +134,8 @@
                 <!-- nombre del atributo con el tamaño del fichero -->
                 <param name="contentLength">${contentLength}</param>
                 <!-- mime type del fichero, también se podría usar un atributo. Por defecto es text/plain -->
-                <param name="contentType">application/pdf</param>
+                <param name="contentType">application/vnd.ms-excel</param>
+                <param name="format">XLS</param>
                 <!-- el content disposition del header del response. En este ejemplo vamos a usar un valor fijo pero tomando como nombre
                 de archivo un atributo del action -->
                 <param name="contentDisposition">inline;filename="${contentName}"</param>

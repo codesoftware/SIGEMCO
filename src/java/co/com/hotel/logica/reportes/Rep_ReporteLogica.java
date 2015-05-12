@@ -16,10 +16,12 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
@@ -174,12 +176,22 @@ public class Rep_ReporteLogica {
         try {
             conn = this.generarConexion();
             String ubicacionReporte = ruta;
+            String print = null;
             Map<String, Object> properties = new HashMap<String, Object>();
             properties.put("fechaIni", fechaIni);
             properties.put("fechaFin", fechaFin);
             JasperReport jasperReport = (JasperReport) JRLoader.loadObject(ubicacionReporte);
-            JasperPrint print = JasperFillManager.fillReport(jasperReport, properties, conn);
-            JasperExportManager.exportReportToPdfFile(print, rutaDestino);
+             print = JasperFillManager.fillReportToFile(ubicacionReporte,
+            properties, conn);
+            //JasperPrint print = JasperFillManager.fillReport(jasperReport, properties, conn);
+            //JasperExportManager.exportReportToPdfFile(print, rutaDestino);
+               JRXlsExporter exporter = new JRXlsExporter();
+
+            exporter.setParameter(JRExporterParameter.INPUT_FILE_NAME,
+                  print);
+            exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME,
+                  rutaDestino);
+            exporter.exportReport();
         } catch (Exception e) {
             e.printStackTrace();
             rta = "Error " + e;

@@ -39,14 +39,14 @@ public class MovimientoContable extends ActionSupport implements SessionAware, U
             HttpServletRequest request = ServletActionContext.getRequest();
             File reporte = new File(request.getSession().getServletContext().getRealPath("/WEB-INF/ACCIONES/REPORTES/FUENTES/" + nombreJasper));
             //File reporteDestino = new File(request.getSession().getServletContext().getRealPath("/IMAGENES/REPORTES/mvco_" + fechaIni + "-" + fechaFin + ".pdf"));
-            File reporteDestino = new File(request.getSession().getServletContext().getRealPath("/IMAGENES/REPORTES/"+nombreAux+".pdf"));
+            File reporteDestino = new File(request.getSession().getServletContext().getRealPath("/IMAGENES/REPORTES/"+nombreAux+".xls"));
             String path = reporte.getPath();
             Rep_ReporteLogica logica = new Rep_ReporteLogica();
             String rta = logica.generarReporteMovimientosContables(fechaIni, fechaFin, path, reporteDestino.getPath());
             if (rta.equalsIgnoreCase("Ok")) {
                 fileInputStream = new FileInputStream(reporteDestino);
                 this.contentLength = reporteDestino.length();
-                this.contentName = nombreAux+".pdf";
+                this.contentName = nombreAux+".xls";
             } else {
                 addActionError("Error al generar el reporte \n" + rta);
             }
