@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="20e1d9e5-092c-48e2-b04f-b6be2adaebc7">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="mvco" uuid="0bbfa6a1-e47b-456e-a3a3-fe4afc57b048">
+		<parameter name="fechaIniDS" class="java.lang.String"/>
+		<parameter name="fechaFinDS" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[select mvco_trans, sbcu_codigo, sbcu_nombre,
+case when mvco_naturaleza= 'D' then 'DEBITO'
+     when mvco_naturaleza= 'C' then 'CREDITO'
+     END naturaleza,
+     to_char(mvco_valor,'9,999,999,999.00') || '  ' mvco_valor ,
+case when mvco_lladetalle= 'mvin' then 'COMPRA/ADICION PRODUCTOS'
+     when mvco_lladetalle= 'fact' then 'FACTURACION'
+     when mvco_lladetalle= 'corin' then 'CORRECCION DE INVENTARIO'
+     else 'SIN DEFINIR'
+     END tipo_movimiento,
+     to_char(mvco_fecha,'dd/mm/yyyy HH:MM AM')mvco_fecha
+from co_tmvco, co_tsbcu
+where sbcu_sbcu = mvco_sbcu
+and mvco_fecha between to_timestamp($P{fechaIniDS},'dd/mm/yyyy') and to_timestamp($P{fechaFinDS},'dd/mm/yyyy')
+order by mvco_trans desc, mvco_naturaleza]]>
+		</queryString>
+		<field name="mvco_trans" class="java.lang.Integer">
+			<fieldDescription><![CDATA[Codigo de transaccion nos indica cuales fueron todos los movimientos realizados en una transaccion(Los otros movimientos deben tener el mismo codigo para realizar el asiento contable)]]></fieldDescription>
+		</field>
+		<field name="sbcu_codigo" class="java.lang.String"/>
+		<field name="sbcu_nombre" class="java.lang.String"/>
+		<field name="naturaleza" class="java.lang.String"/>
+		<field name="mvco_valor" class="java.lang.String">
+			<fieldDescription><![CDATA[Valor por el cual se realizo el movimiento]]></fieldDescription>
+		</field>
+		<field name="tipo_movimiento" class="java.lang.String"/>
+		<field name="mvco_fecha" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="fechaIni" class="java.lang.String"/>
+	<parameter name="fechaFin" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'NIT') NIT,  
+       (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'NOMBREEMPRESA') NOMBRE,
+       (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'TELEFONOS') TELEFONOS,
+       (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'DIRECCION') DIRECCION,
+       (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'CIUDAD') CIUDAD]]>
+	</queryString>
+	<field name="nit" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="telefonos" class="java.lang.String"/>
+	<field name="direccion" class="java.lang.String"/>
+	<field name="ciudad" class="java.lang.String"/>
+	<pageHeader>
+		<band height="65" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="800" height="60" uuid="c1b70418-4d98-4d4f-8d47-96f795743696"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textField>
+					<reportElement x="0" y="0" width="800" height="20" uuid="a3a97742-c896-4c68-89b7-667d0e634ed3"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="128" y="20" width="217" height="20" uuid="3b017f24-0420-4e70-9f86-6f179b440f10"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nit}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="20" width="128" height="20" uuid="210aa40d-ef95-45fe-bc52-e7d02327ef51"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="13" isBold="true"/>
+					</textElement>
+					<text><![CDATA[NIT:  ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="345" y="20" width="112" height="20" uuid="fe8389de-3c34-4855-8c9c-3401297461a4"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="13" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TELEFONOS:  ]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="457" y="20" width="343" height="20" uuid="c5095ecc-f567-480c-af7b-845385a7f9aa"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{telefonos}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="128" y="40" width="217" height="20" uuid="691a81ba-ca1a-4bf2-80f9-c72fe1b78391"/>
+					<textElement verticalAlignment="Middle">
+						<font size="13"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{direccion}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="457" y="40" width="343" height="20" uuid="d08c5abb-da3a-45d3-b1fe-0364149aaee1"/>
+					<textElement verticalAlignment="Middle">
+						<font size="13"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ciudad}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="40" width="128" height="20" uuid="6bafb365-0822-4c8b-b366-ae5b6addc08d"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="13" isBold="true"/>
+					</textElement>
+					<text><![CDATA[DIRECCION:  ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="345" y="40" width="112" height="20" uuid="cb02363b-8e93-4031-820a-364f43ae589e"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="13" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CIUDAD:  ]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="50" splitType="Stretch">
+			<componentElement>
+				<reportElement key="table 1" style="table 1" x="0" y="0" width="800" height="50" uuid="a127a547-94ef-4935-9da7-c06c50d0e94c"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="mvco" uuid="81784c6a-8f65-4997-b41e-b6ea0b7ad2eb">
+						<datasetParameter name="fechaIniDS">
+							<datasetParameterExpression><![CDATA[$P{fechaIni}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="fechaFinDS">
+							<datasetParameterExpression><![CDATA[$P{fechaFin}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="50" uuid="1977bffb-5ea8-4bf2-a215-7113b6bf7459">
+						<jr:columnHeader style="table" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="50" height="30" uuid="faf09f30-428f-4801-adfb-b6c399c2b086"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Id. Trans]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="50" height="20" uuid="fc6002d4-b626-414a-a384-c99580113c14"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{mvco_trans}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="110" uuid="232ced30-bc90-4411-ab6c-578d33ba6085">
+						<jr:columnHeader style="table" height="30" rowSpan="1">
+							<staticText>
+								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="110" height="30" uuid="1986b8bd-5d38-460c-8b66-42b162c9858f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Subcuenta Codigo]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="110" height="20" uuid="f35a8e94-af0c-4834-bded-2ba0b65f6bec"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{sbcu_codigo}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="150" uuid="b09ddf28-b2d7-4b80-9e48-2a5f665d4046">
+						<jr:columnHeader style="table" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="150" height="30" uuid="b69bd170-1b05-4787-8d1a-8d618d55f696"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Subcuenta nombre]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="150" height="20" uuid="3e140665-2bed-476c-97f3-cbca24c4da81"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{sbcu_nombre}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="b62aa8ec-436b-4939-ae80-002ad8981bac">
+						<jr:columnHeader style="table" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="de77ff9a-af54-4dbf-837c-661e13165900"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Naturaleza]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="02c6d079-bbc2-4991-b7fc-201e46d7c49b"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{naturaleza}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="160" uuid="114ac783-8336-4f1f-89f7-f66a28a78f5c">
+						<jr:columnHeader style="table" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="160" height="30" uuid="a30d1b55-6d4a-4f70-84ac-c034a94efd2a"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Valor]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="160" height="20" uuid="4113cff8-a50e-4f68-a957-0a32e7eb2501"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{mvco_valor}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="120" uuid="c0cb9039-20e7-4cd2-92d9-08f99b9f07ba">
+						<jr:columnHeader style="table" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="120" height="30" uuid="83b17ddc-2252-417c-b5af-ff38e2593724"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Tipo]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="120" height="20" uuid="7a9c0ab9-9269-43ff-b85a-059a35c871b4"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{tipo_movimiento}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="120" uuid="38e311c3-5655-4999-82c3-1c118dff8402">
+						<jr:columnHeader style="table" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="120" height="30" uuid="4e300ba2-0ee6-47b8-9080-0d858f11175c"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Fecha]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="120" height="20" uuid="56ce2508-6e05-445d-8a53-f44c781a6e8b"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{mvco_fecha}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+</jasperReport>

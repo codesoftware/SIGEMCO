@@ -8,6 +8,9 @@
         <script type="text/javascript" src="<%=RutaSitio%>/JS/CONTABILIDAD/Con_MovContable.js"></script>
         <style>
             .ocultar{display: none;}
+            #imagenXls:hover{
+                width: 65px;
+            }
         </style>
     </head>
     <body>
@@ -99,24 +102,27 @@
                             <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                 Fecha Inicial:<br>
                                 <div class="input-group date" >
-                                    <s:textfield name="moviContable.fechaIni" cssClass="form-control" readonly="true"/>
+                                    <s:textfield name="moviContable.fechaIni" cssClass="form-control" readonly="true" id="fechaIni"/>
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                 </div>
                             </div>
                             <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                 Fecha Final:<br>
                                 <div class="input-group date" >
-                                    <s:textfield name="moviContable.fechaFin" cssClass="form-control" readonly="true"/>
+                                    <s:textfield name="moviContable.fechaFin" cssClass="form-control" readonly="true" id="fechaFin"/>
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                 </div>
 
                             </div>                            
-                            <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group col-md-2 col-sm-2 col-xs-2">
                                 <br>
                                 <s:include value="/WEB-INF/TEMPLATE/botones/find.jsp">
                                     <s:param name="function">buscaGeneralMvCon</s:param>
                                     <s:param name="title">Busqueda de Movimientos de Inventario</s:param>
                                 </s:include>
+                            </div>
+                            <div class="form-group col-md-2 col-sm-2 col-xs-2">                                
+                                <img src="<%=RutaSitio%>/IMAGENES/GIFS/xlsx.png" width="60px" id="imagenXls" onclick="ejecutaReporte()"/>
                             </div>
                         </div>
 

@@ -143,7 +143,7 @@ public class Rep_ReporteLogica {
         }
         return rta;
     }
-    
+
     public String generarReporteConteo(String copr_copr, String ruta, String rutaDestino) {
         String rta = "Ok";
         Connection conn = null;
@@ -152,6 +152,31 @@ public class Rep_ReporteLogica {
             String ubicacionReporte = ruta;
             Map<String, Object> properties = new HashMap<String, Object>();
             properties.put("copr_copr", copr_copr.trim());
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(ubicacionReporte);
+            JasperPrint print = JasperFillManager.fillReport(jasperReport, properties, conn);
+            JasperExportManager.exportReportToPdfFile(print, rutaDestino);
+        } catch (Exception e) {
+            e.printStackTrace();
+            rta = "Error " + e;
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Rep_ReporteLogica.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return rta;
+    }
+
+    public String generarReporteMovimientosContables(String fechaIni, String fechaFin, String ruta,String rutaDestino) {
+        String rta = "Ok";
+        Connection conn = null;
+        try {
+            conn = this.generarConexion();
+            String ubicacionReporte = ruta;
+            Map<String, Object> properties = new HashMap<String, Object>();
+            properties.put("fechaIni", fechaIni);
+            properties.put("fechaFin", fechaFin);
             JasperReport jasperReport = (JasperReport) JRLoader.loadObject(ubicacionReporte);
             JasperPrint print = JasperFillManager.fillReport(jasperReport, properties, conn);
             JasperExportManager.exportReportToPdfFile(print, rutaDestino);
