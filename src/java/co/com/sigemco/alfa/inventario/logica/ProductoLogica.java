@@ -414,6 +414,9 @@ public class ProductoLogica {
                 ProductoDto aux = new ProductoDto();
                 aux.setDska_cod(rs.getString("dska_cod"));
                 aux.setDska_desc(rs.getString("dska_desc"));
+                aux.setDska_marca(rs.getString("marca_nombre"));
+                aux.setDska_refe(rs.getString("refe_desc"));
+                aux.setDska_cate(rs.getString("cate_desc"));
                 lista.add(aux);
             }
         } catch (Exception e) {

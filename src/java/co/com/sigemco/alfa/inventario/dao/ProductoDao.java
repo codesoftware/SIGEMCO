@@ -298,14 +298,18 @@ public class ProductoDao {
      */
     public String buscaProductosSimilares() {
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT dska_cod, dska_desc ");
-        sql.append("FROM in_tdska ");
+        sql.append("SELECT dska_cod, dska_desc, marca_nombre,refe_desc,cate_desc ");
+        sql.append("FROM in_tdska, in_tmarca, in_trefe, in_tcate ");
         sql.append("WHERE dska_refe = ");
         sql.append(this.getDska_refe());
         sql.append(" AND dska_marca = ");
         sql.append(this.getDska_marca());
         sql.append(" AND dska_cate = ");
         sql.append(this.getDska_cate());
+        sql.append(" AND dska_marca = marca_marca ");
+        sql.append(" AND dska_refe = refe_refe ");
+        sql.append(" AND cate_cate = dska_cate ");
+        
         return sql.toString();
     }
 

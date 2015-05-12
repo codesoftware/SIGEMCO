@@ -88,21 +88,18 @@
                                     <%--<tr>
                                         <td>Codigo</td>
                                         <td><s:textfield name="producto.codigo" required="true" maxLength="9" cssClass="form-control" id="producto_codigo"/></td>
-                                    </tr>--%>
-                                    <tr>
-                                        <td>Gravamen:</td>
-                                        <td>
-                                            <s:textfield name="producto.iva" required="true" cssStyle="max-lenght: 10;" cssClass="form-control" id="iva" value="S" readonly="true"/>
-                                            <%--<s:select  list="yesNo"  name="producto.iva" required="true" headerKey="-1" headerValue="Cobro Iva" onchange="cambioIva(this.value)" cssClass="form-control" id="gravamen"/>--%>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Porcentaje iva:</td>
-                                        <td><s:textfield name="producto.porcIva" cssClass="form-control" readonly="true"/></td>
-                                    </tr>
+                                    </tr>--%>                                    
                                     <tr>
                                         <td>Marca:</td>
                                         <td><s:select  list="marcas"  name="producto.marca" required="true" headerKey="-1" headerValue="Marca" cssClass="form-control" id="producto_marca" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Categoria:</td>
+                                        <td><s:select  list="categorias"  name="producto.categoria" required="true" headerKey="-1" headerValue="Categoria" cssClass="form-control" id="producto_categoria" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sede de Ingreso:</td>
+                                        <td><s:select  list="sedes"  name="producto.sede" required="true" headerKey="-1" headerValue="Sede"  cssClass="form-control" id="sedes"/></td>
                                     </tr>
                                     <tr>
                                         <td>Cantidad:</td>
@@ -113,12 +110,15 @@
                                         <td><s:textfield name="producto.costo" requiered="true" title="Este es el costo unitario de cada producto que va ha ingresar" cssClass="form-control" id="producto_costo" onblur="cambioVlr(this.value)" onkeypress="return validaNumeros(event)" onkeyup="mascaraMoneda(this)"/></td>
                                     </tr>
                                     <tr>
-                                        <td>Categoria:</td>
-                                        <td><s:select  list="categorias"  name="producto.categoria" required="true" headerKey="-1" headerValue="Categoria" cssClass="form-control" id="producto_categoria" /></td>
+                                        <td>Gravamen:</td>
+                                        <td>
+                                            <s:textfield name="producto.iva" required="true" cssStyle="max-lenght: 10;" cssClass="form-control" id="iva" value="S" readonly="true"/>
+                                            <%--<s:select  list="yesNo"  name="producto.iva" required="true" headerKey="-1" headerValue="Cobro Iva" onchange="cambioIva(this.value)" cssClass="form-control" id="gravamen"/>--%>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td>Sede de Ingreso:</td>
-                                        <td><s:select  list="sedes"  name="producto.sede" required="true" headerKey="-1" headerValue="Sede"  cssClass="form-control" id="sedes"/></td>
+                                        <td>Porcentaje iva:</td>
+                                        <td><s:textfield name="producto.porcIva" cssClass="form-control" readonly="true"/></td>
                                     </tr>
                                     <tr class="vencimiento" style="display: none">
                                         <td>Fecha de Vencimiento:</td>

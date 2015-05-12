@@ -222,6 +222,9 @@ function validaProductosSimilares() {
                 tabla += '<tr class="">';
                 tabla += '<td>Codigo</td>';
                 tabla += '<td>Referencia</td>';
+                tabla += '<td>Modelo Asociado</td>';
+                tabla += '<td>Marca</td>';
+                tabla += '<td>Categoria</td>';
                 tabla += '</tr>';
                 tabla += '</thead>';
                 for (var j = 0; j < vector.length; j++) {
@@ -232,11 +235,20 @@ function validaProductosSimilares() {
                             '<td>' +
                             vector[0].dska_desc +
                             '</td>' +
+                            '<td>' +
+                            vector[0].dska_refe +
+                            '</td>' +
+                            '<td>' +
+                            vector[0].dska_marca +
+                            '</td>' +
+                            '<td>' +
+                            vector[0].dska_cate +
+                            '</td>' +
                             '</tr>';
                     tabla += linea;
                 }
                 tabla += '</table>'
-                $('#textoMsnSimilares').html('Existen Productos similares el cual podria ser el cual esta ingresando por favor verifiquelos<br><br>' + tabla);
+                $('#textoMsnSimilares').html('Existen Productos similares los cuales podrian ser los que esta intentando ingresar por favor verifiquelos para no tener duplicidad en sus productos.<br><br>' + tabla);
             } else {
                 validacion = true;
             }

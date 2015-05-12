@@ -103,6 +103,6 @@ function ejecutaReporte(){
     var fechaIni = $('#fechaIni').val();
     var fechaFin = $('#fechaFin').val();
     var url = "con_MoviContables?fechaIni=" + fechaIni + "&fechaFin=" + fechaFin ;
-    window.open(url, "_blank", "directories=no, status=no,width=900, height=600,top=0,left=0");
+    window.open(url, "_parent");
 }
 
