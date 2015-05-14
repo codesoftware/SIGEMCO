@@ -478,6 +478,14 @@
                                                         <td style="width: 20%;">&nbsp;</td>
                                                     </tr>
                                                 </tbody>
+                                                <tbody  class="subPermisoReportesGenerales">
+                                                    <tr>
+                                                        <td style="width: 30%;">Reporte General</td>
+                                                        <td style="width: 20%;"><input type="checkbox" value="reGen1" id="reGen1"/></td>
+                                                        <td style="width: 30%;">&nbsp;</td>
+                                                        <td style="width: 20%;">&nbsp;</td>
+                                                    </tr>
+                                                </tbody>
                                             </table>
                                         </div>
                                     </div>

@@ -91,6 +91,15 @@
                         </ul>
                     </li>
                     <%}%>
+                    <%  if (permisos.indexOf(".reGen1.") >= 0 || permisos.indexOf(".reGen2.") >= 0) {%>
+                    <li><a href="#">Reportes</a>
+                        <ul class="dropdown-menu">
+                            <%if (permisos.indexOf(".reGen1.") >= 0) {%>
+                            <li><a href="reenvioGeneral.action?accion=152">REPORTES GENERALES</a></li>
+                                <%}%>
+                        </ul>
+                    </li>
+                    <%}%>
                 </ul>
             </li>
             <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Inventarios</a>

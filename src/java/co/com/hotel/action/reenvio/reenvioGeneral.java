@@ -55,6 +55,8 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     public static final int ADM_CON_SEDE = 144;   //
     //CIERRES
     public static final int ADM_CIERRE_DIARIO = 151;
+    //REPORTES
+    public static final int ADM_REPORTE_GRAL = 152;
     //MODULO INVENTARIOS (Primer digito 2)
     public static final int INV_INS_PRODUCTO = 211;
     public static final int INV_INS_PRODEXIS = 219; //El ultimo digito es nueve ya que  ya existe la insercion de productos
@@ -140,6 +142,8 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     private List<ClaseDto> clase;
     //Mapa para visualizar las marcas
     private Map<String, String> marcas;
+    //Mapa por si se requiere parametrizar los reportes
+    private Map<String,String> reportes;
     private String modifica;
     private String bandera;
     private String estado;
@@ -468,6 +472,12 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
                     this.sedes = sede.obtieneSedes();
                     nextPage = "adm_cierre_diario";
                     break;
+                    
+                case ADM_REPORTE_GRAL:
+                    reportes = new HashMap<String, String>();
+                    this.reportes.put("1","Reporte Promedio ponderado todo los productos");
+                    nextPage = "adm_reporte_gral";
+                    break;
 
                 case ADM_CON_SEDE:
                     nextPage = "adm_con_sede";
@@ -761,6 +771,16 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     public void setMarcas(Map<String, String> marcas) {
         this.marcas = marcas;
     }
+
+    public Map<String, String> getReportes() {
+        return reportes;
+    }
+
+    public void setReportes(Map<String, String> reportes) {
+        this.reportes = reportes;
+    }
+    
+    
     
     
 

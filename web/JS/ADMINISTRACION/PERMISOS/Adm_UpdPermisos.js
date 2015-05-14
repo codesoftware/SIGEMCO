@@ -20,6 +20,9 @@ $(function() {
     $("#RepInv").click(function() {
         $(".subPermisoCierreD").toggle("slow");
     });
+    $("#RepInv").click(function() {
+        $(".subPermisoReportesGenerales").toggle("slow");
+    });
     $("#admEmp").click(function() {
         $(".subPermisoAdmEmp").toggle("slow");
     });
@@ -106,6 +109,11 @@ function mostrarPermisos(valor) {
     if (reportes > 0) {
         $(".subPermisoCierreD").show("slow");
     }
+    var reportesg = valor.indexOf('reGen1');
+    if (reportesg > 0) {
+        $(".subPermisoReportesGenerales").show("slow");
+    }
+    
     var empresa = valor.indexOf('AdEm');
     if (empresa > 0) {
         $(".subPermisoAdmEmp").show("slow");

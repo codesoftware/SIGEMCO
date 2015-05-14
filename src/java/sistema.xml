@@ -69,6 +69,9 @@
             <result name="inv_ins_creaconteo">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_CreaConteo.jsp</result>
             <result name="inv_con_conteoprod">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsGenConteos.jsp</result>
             <result name="adm_cierre_diario">/WEB-INF/ACCIONES/REPORTES/JSP/inv_CierreDiario.jsp</result>
+            <result name="adm_reporte_gral">/WEB-INF/ACCIONES/REPORTES/JSP/inv_reportes.jsp</result>
+            
+            
             <result name="error">/inicio.jsp</result>
         </action>
         <!-- Acciones que sirven para redireccionar -->    
