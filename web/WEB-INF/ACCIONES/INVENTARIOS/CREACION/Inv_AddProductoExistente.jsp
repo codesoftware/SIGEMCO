@@ -83,11 +83,11 @@
                                     <td><s:text name="producto.cantExis" /></td>
                                 </tr>
                                 <tr>
-                                    <td>Nombre:</td>
+                                    <td>Referencia :</td>
                                     <td><s:text name="producto.dska_nom_prod" /></td>
                                     <td>Marca:</td>
                                     <td><s:text name="producto.dska_marca" /></td>
-                                    <td>Referencia:</td>
+                                    <td>Modelo Asociado:</td>
                                     <td><s:text name="producto.referenciaNombre" /></td>
                                 </tr>
                             </tbody>

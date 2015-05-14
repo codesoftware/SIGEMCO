@@ -114,7 +114,7 @@
                             <li><a href="reenvioGeneral.action?accion=215">Inactivar Prod. Existente</a></li>
                                 <%}
                                     if (permisos.indexOf(".InPr5.") >= 0) {%>
-                            <li><a href="reenvioGeneral.action?accion=212">Actualizar Producto</a></li>
+                            <!--<li><a href="reenvioGeneral.action?accion=212">Actualizar Producto</a></li>-->
                                 <%}
                                     if (permisos.indexOf(".InPr9.") >= 0) {%>
                             <li><a href="reenvioGeneral.action?accion=218">Cambio de Sede</a></li>

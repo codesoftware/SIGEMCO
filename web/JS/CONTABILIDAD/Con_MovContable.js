@@ -1,4 +1,8 @@
 $(document).ready(function () {
+    
+    primerDiaMes();
+    ultimoDiaMes();
+    
     $('#listClase').change(function () {
         var datos = new Object();
         datos.grup_clas = $('#listClase').val();
@@ -99,10 +103,24 @@ function traeCuentaXGrupo(grupo) {
     });
 }
 
-function ejecutaReporte(){
+function ejecutaReporte() {
     var fechaIni = $('#fechaIni').val();
     var fechaFin = $('#fechaFin').val();
-    var url = "con_MoviContables?fechaIni=" + fechaIni + "&fechaFin=" + fechaFin ;
+    var url = "con_MoviContables?fechaIni=" + fechaIni + "&fechaFin=" + fechaFin;
     window.open(url, "_parent");
+}
+
+function primerDiaMes() {
+    var date = new Date();
+    var primerDia = new Date(date.getFullYear(), date.getMonth(), 1);
+    var fecha = '0' + primerDia.getDate() +'/'+ primerDia.getMonth() + "/"  + (primerDia.getYear()+1900);
+    $('#fechaIni').val(fecha);
+}
+
+function ultimoDiaMes(){
+    var date = new Date();
+    var ultimoDia = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    var fecha = ultimoDia.getDate() +'/'+ ultimoDia.getMonth() + "/"  + (ultimoDia.getYear()+1900);
+    $('#fechaFin').val(fecha);
 }
 

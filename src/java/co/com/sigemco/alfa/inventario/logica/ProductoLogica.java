@@ -223,7 +223,7 @@ public class ProductoLogica {
                 objDto.setDska_desc(rs.getString("dska_desc"));
                 objDto.setDska_iva(rs.getString("dska_iva"));
                 objDto.setDska_porc_iva(rs.getString("dska_porc_iva"));
-                objDto.setDska_marca(rs.getString("dska_marca"));
+                objDto.setDska_marca(rs.getString("marca_nombre"));
                 objDto.setDska_estado(rs.getString("dska_estado"));
                 objDto.setDska_fec_ingreso(rs.getString("dska_fec_ingreso"));
                 objDto.setDska_cate(rs.getString("dska_cate"));

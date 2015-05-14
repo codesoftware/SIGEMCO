@@ -93,13 +93,13 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>Referencia</th>
-                                <%--<th>Descripción</th>--%>
-                                <th>Modelo Asociado</th>
                                 <th>Codigo</th>
-                                <th>Cant.<br/>Exis.</th>
-                                <th>Marca</th>                                    
+                                <th>Referencia</th>
+                                    <%--<th>Descripción</th>--%>
+                                <th>Modelo Asociado</th>
+                                <th>Marca</th>
                                 <th>Categoria</th>                                    
+                                <th>Cant. Exis.</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -111,6 +111,7 @@
                                 <tr>
                                     <%}
                                         i++;%>
+                                    <td><s:property value="dska_cod"/></td>
                                     <s:if test="%{#permisoActualizar.equalsIgnoreCase('S') || #permisoParPrecio.equalsIgnoreCase('S')}">
                                         <td>
                                             <a href="#" onclick="ejecutaAcciones('<s:text name="permisoActualizar" />', '<s:text name="permisoParPrecio" />', '<s:text name="dska_cod" />', '<s:text name="dska_dska" />')"><s:property value="dska_nom_prod"/></a>
@@ -121,10 +122,9 @@
                                     </s:else>
                                     <%--<td><s:property value="dska_desc"/></td>--%>
                                     <td><s:property value="referenciaNombre"/></td>
-                                    <td><s:property value="dska_cod"/></td>
+                                    <td><s:property value="dska_marca"/></td>      
+                                    <td><s:property value="dska_cate"/></td>       
                                     <td><s:property value="cantExis"/></td>
-                                    <td><s:property value="dska_marca"/></td>                                   
-                                    <td><s:property value="dska_cate"/></td>                                   
                                 </tr>
                             </s:iterator>
                         <tbody>
