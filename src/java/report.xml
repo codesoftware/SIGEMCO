@@ -144,8 +144,8 @@
                 <param name="allowCaching">false</param><!-- default true -->
             </result>
         </action>
-        <action name="con_Reportes" class="co.com.sigemco.alfa.contabilidad.reporte.Reportes" method="generarReporteMovCont" >
-            <param name="nombreJasper">MovimientosContables.jasper</param>
+        <action name="con_Reportes" class="co.com.sigemco.alfa.inventario.reporte.ProductoSticker" method="generarRepGenProd" >
+            <param name="nombreJasper">ProductosInventario.jasper</param>
             <result name="success" type="stream">
                 <!-- nombre del atributo del action que contiene el InputStream a devolver, por defecto se considera inputStream -->
                 <param name="inputName">fileInputStream</param>

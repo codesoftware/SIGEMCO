@@ -46,7 +46,7 @@
                     </s:if>
                 </div>
                 <br/>
-                <s:form name="inv_reporteGeneral" action="inv_reporteGeneral" theme="simple">
+                <s:form name="con_Reportes" action="con_Reportes" theme="simple">
                     <s:textfield name="accion" cssStyle="display:none" value="reporteGeneral"/>
                     <div class="form-group col-md-12 col-sm-12 col-xs-12 thumbnail">
                         <div class="row">
@@ -55,32 +55,17 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                 Tipo:<br>
                                 <s:select list="reportes"  id="reportes" name="reportes" required="true" headerKey="-1" headerValue="Favor seleccione un reporte......" cssClass="form-control" />
                             </div>
-                            <div class="form-group col-md-4 col-sm-4 col-xs-4">
-                                Fecha Inicial:<br>
-                                <div class="input-group date" >
-                                    <s:textfield  cssClass="form-control" name="fechaIni" readonly="true"/>
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                <div class="form-group col-md-2 col-sm-2 col-xs-2">                                
+                                    <img src="<%=RutaSitio%>/IMAGENES/GIFS/xlsx.png" width="60px" id="imagenXls" onclick="ejecutaReporte()"/>
                                 </div>
-                            </div>
-                            <div class="form-group col-md-4 col-sm-4 col-xs-4">
-                                Fecha Final:<br>
-                                <div class="input-group date" >
-                                    <s:textfield  cssClass="form-control" name="fechaFin" readonly="true"/>
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-4 col-sm-4 col-xs-4">
-                            <br>
-                            <div class="form-group col-md-2 col-sm-2 col-xs-2">                                
-                                <img src="<%=RutaSitio%>/IMAGENES/GIFS/xlsx.png" width="60px" id="imagenXls" onclick="ejecutaReporte()"/>
-                            </div>
-                        </div>
 
+                            </div>
+                        </div>
                     </div>                    
                 </s:form>
             </div>

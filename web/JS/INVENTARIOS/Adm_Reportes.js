@@ -1,6 +1,4 @@
 function ejecutaReporte(){
-    var fechaIni = $('#fechaIni').val();
-    var fechaFin = $('#fechaFin').val();
-    var url = "con_Reportes?fechaIni=" + fechaIni + "&fechaFin=" + fechaFin+ "&reportes=" + reportes ;
+    var url = "con_Reportes";
     window.open(url, "_parent");
 }
