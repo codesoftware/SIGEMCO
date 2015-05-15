@@ -85,10 +85,11 @@
                                 <s:param name="function">insertaCierre</s:param>
                                 <s:param name="title">Consulta de cierre</s:param>
                             </s:include>
-                            <s:include value="/WEB-INF/TEMPLATE/botones/find.jsp">
+                                <a onclick="consultaCierre()" >Consultar</a>
+                            <%--<s:include value="/WEB-INF/TEMPLATE/botones/find.jsp">
                                 <s:param name="function">consultaCierre</s:param>
                                 <s:param name="title">Consulta de cierre</s:param>
-                            </s:include>
+                            </s:include>--%>
                         </div>
 
                     </div>                    
@@ -96,109 +97,6 @@
             </div>
             <div class="col-md-2 col-xs-0 col-sm-0"></div>
         </div>
-        <br/>
-        <input type="hidden" value="<%=req%>" id="ip" name="ip">
-        <div class="row">
-            <div class="col-md-1 col-xs-0 col-sm-0"></div>
-            <div class="col-md-10 col-xs-12 col-sm-12">
-                <s:if test="%{resultMoviContable != null}">
-                    <table class="table table-hover table-bordered">
-                        <thead>
-                            <tr>
-                                <th class="ocultar">Clase</th>
-                                <th class="ocultar">Grupo</th>
-                                <th class="ocultar">Cuenta</th>
-                                <th class="mostrar">Codigo SubCta.</th>
-                                <th>Nombre SubCta.</th>
-                                <th>Documento</th>
-                                <th>Naturaleza</th>
-                                <th>Fecha</th>
-                                <th>Valor</th>
-                            </tr> 
-                        </thead>
-                        <tbody>                            
-                            <s:iterator value="resultMoviContable">                                    
-                                <tr>                                    
-                                    <td class="ocultar"><s:property value="clas_nombre"/></td>
-                                    <td class="ocultar"><s:property value="grup_nombre"/></td>
-                                    <td class="ocultar"><s:property value="cuen_nombre"/></td>
-                                    <td>
-                                        <a href="#" onclick="obtenerAsientocontable('<s:property value="mvco_trans"/>');
-                                                $('#partidaDoble').modal('show');" >
-                                        <s:property value="sbcu_codigo"/></td>
-
-                                    <td>
-                                        <s:property value="sbcu_nombre"/>
-                                    </td>
-                                    <td>
-                                        <s:if test="%{mvco_lladetalle == 'mvin'}">
-                                            Compra/Adicion Prod.
-                                        </s:if>
-                                        <s:elseif test="%{mvco_lladetalle == 'fact'}">
-                                            Facturacion
-                                        </s:elseif>
-                                        <s:elseif test="%{mvco_lladetalle == 'corin'}">
-                                            Correccion Inventario
-                                        </s:elseif>
-                                        <%--<s:property value="mvco_lladetalle"/>--%>
-                                    </td>
-                                    <td>
-                                        <s:if test="%{mvco_naturaleza == 'D'}">
-                                            Debito
-                                        </s:if>
-                                        <s:else>
-                                            Credito
-                                        </s:else>
-                                        <%--<s:property value="mvco_naturaleza"/>--%>
-                                    </td>
-                                    <td>
-                                        <s:property value="mvco_fecha"/>
-                                    </td>
-                                    <td>
-                                        $ <s:property value="mvco_valor"/>                                        
-                                    </td>
-                                </tr>
-                            </s:iterator>
-                        </tbody>
-                    </table>
-                </s:if>
-            </div>
-            <div class="col-md-1 col-xs-0 col-sm-0"></div>                        
-        </div>
-        <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="partidaDoble">
-            <div class="modal-dialog">                
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">ASIENTO CONTABLE</h4>
-                    </div>
-                    <div class="modal-body">
-                        <span id="tablaAsientocontable"></span>
-                    </div>
-                    <div class="modal-footer">                        
-                        <button type="button" class="btn btn-success" data-dismiss="modal" id="parametrizarPrecio">
-                            ACEPTAR
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <s:if test="%{moviContable.clas_clas != null }">
-            <script type="text/javascript">
-                var clase = '<s:text name="moviContable.clas_clas"/>';
-                if (clase != '-1') {
-                    traeGrupoXClase(clase);
-                }
-                var grupo = '<s:text name="moviContable.grup_grup"/>';
-                document.getElementById('grup_grup').value = grupo;
-                if (grupo != '-1') {
-                    traeCuentaXGrupo(grupo);
-                }
-                var cuenta = '<s:text name="moviContable.cuen_cuen"/>';
-                document.getElementById('cuen_cuen').value = cuenta;
-            </script>
-        </s:if>
-        <s:form action="inv_ReporteCierre" id="inv_ReporteCierre" cssStyle="display:none;"  theme="simple" >
-          
-        </s:form>
+        <br/>        
     </body>
 </html>

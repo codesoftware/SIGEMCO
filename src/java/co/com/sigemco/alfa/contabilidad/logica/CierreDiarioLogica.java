@@ -76,7 +76,8 @@ public class CierreDiarioLogica {
             conn = this.generarConexion();
             String ubicacionReporte = ruta;
             Map<String, Object> properties = new HashMap<String, Object>();
-            //properties.put("fact_fact", Integer.parseInt(fact_fact));
+            properties.put("FECHA", cierr.getCier_fech());
+            properties.put("SEDE", cierr.getCier_sede());
             JasperReport jasperReport = (JasperReport) JRLoader.loadObject(ubicacionReporte);
             JasperPrint print = JasperFillManager.fillReport(jasperReport, properties, conn);
             JasperExportManager.exportReportToPdfFile(print, rutaDestino);
