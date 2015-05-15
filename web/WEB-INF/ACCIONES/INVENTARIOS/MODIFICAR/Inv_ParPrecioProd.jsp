@@ -93,8 +93,8 @@
                                         <td colspan="4" style="text-align: center"><b>Datos Basicos del Producto</b></td>
                                     </tr>
                                     <tr>
-                                        <td>Nombre:</td>
-                                        <td colspan="2">
+                                        <td>Referencia:</td>
+                                        <td colspan="3">
                                             <s:text name="producto.nombre" />
                                             
                                         </td>
@@ -112,14 +112,7 @@
                                         <td style="width: 25%">
                                             <s:text name="producto.id" />
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Descripci&oacute;n del producto: 
-                                        </td>
-                                        <td colspan="3">
-                                            <s:text name="producto.descripcion" />
-                                        </td>
+                                    </tr>                                    
                                     <tr>
                                         <td>
                                             Prom. Pond:
