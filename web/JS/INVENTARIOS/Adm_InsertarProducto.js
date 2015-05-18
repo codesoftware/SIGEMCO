@@ -141,12 +141,12 @@ function validaDatosProducto() {
 //        $('#mensaje').modal('show');
 //        return false;
 //    }
-    var desc = $('#producto_descripcion').val();
-    if (desc == '') {
-        $('#textoMsn').html('La referncia del producto no puede ser nulo');
-        $('#mensaje').modal('show');
-        return false;
-    }
+//    var desc = $('#producto_descripcion').val();
+//    if (desc == '') {
+//        $('#textoMsn').html('La referncia del producto no puede ser nulo');
+//        $('#mensaje').modal('show');
+//        return false;
+//    }
     var ref = $('#producto_referencia').val();
     if (ref == '') {
         $('#textoMsn').html('La referencia del producto no puede ser nula');

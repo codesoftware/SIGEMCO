@@ -100,10 +100,10 @@ public class Inv_ProductoAccion extends ActionSupport implements SessionAware, U
         //if (rtaValida == false) {
             //addActionError("El campo nombre no puede ser nulo");
         //}
-        rtaValida = valida.validaNulo(producto.getDescripcion());
-        if (rtaValida == false) {
-            addActionError("El campo descripcion no puede ser nulo");
-        }
+//        rtaValida = valida.validaNulo(producto.getDescripcion());
+//        if (rtaValida == false) {
+//            addActionError("El campo descripcion no puede ser nulo");
+//        }
         rtaValida = valida.validaFloat("" + producto.getPorcIva());
         if (rtaValida == false) {
             addActionError("El campo Porcentaje Iva debe ser numerico o los decimales deben ser con .");

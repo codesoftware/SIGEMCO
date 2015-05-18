@@ -71,11 +71,11 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr style="display: none">
+                                    <tr style="display: none;">
                                         <td>Nombre: </td>
                                         <td><s:textfield name="producto.nombre" required="true" cssClass="form-control" id="producto_nombre"/></td>
                                     </tr>
-                                    <tr>
+                                    <tr style="display: none;">
                                         <td  style="width: 40%;">Referencia</td>
                                         <td><s:textfield label="Descripción Prod" name="producto.descripcion" required="true" cssClass="form-control" id="producto_descripcion"/></td>
                                     </tr>
