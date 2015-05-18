@@ -44,5 +44,7 @@
         </action>
         <action name="buscaSimilaresProd" class="co.com.sigemco.alfa.inventario.ajax.ajaxControllerProducto" method="buscaProductossimilares">
         </action>
+        <action name="buscaProdConteo" class="co.com.sigemco.alfa.inventario.ajax.ajaxControllerProducto" method="buscaProductoConteo">
+        </action>
     </package>
 </struts>

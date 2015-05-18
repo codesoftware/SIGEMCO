@@ -9,7 +9,9 @@ import co.com.hotel.dto.AddProdExistentes;
 import co.com.hotel.persistencia.general.EnvioFunction;
 import co.com.hotel.utilidades.ManejoLocateCO;
 import co.com.sigemco.alfa.inventario.dao.ProductoDao;
+import co.com.sigemco.alfa.inventario.dto.DetalleConteoDto;
 import co.com.sigemco.alfa.inventario.dto.ProductoDto;
+import com.google.gson.Gson;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -206,6 +208,13 @@ public class ProductoLogica {
         return rta;
     }
 
+    /**
+     * Funcion encargada de realizar la busqueda de un producto por medio de su
+     * codigo
+     *
+     * @param codigo
+     * @return
+     */
     public ProductoDto buscaProductoXCodigo(String codigo) {
         ProductoDto objDto = null;
         try (EnvioFunction function = new EnvioFunction()) {
@@ -423,6 +432,33 @@ public class ProductoLogica {
             e.printStackTrace();
         }
         return lista;
+    }
+
+    /**
+     * Funcion encargada de realizar la busqueda de un producto dentro de un
+     * conteo por medio de su codigo
+     *
+     * @param dska_cod
+     * @param copr_copr
+     * @return
+     */
+    public DetalleConteoDto buscaProductoConteoXCodigo(String dska_cod, String copr_copr) {
+        DetalleConteoDto objDto = null;
+        try (EnvioFunction function = new EnvioFunction()) {
+            ProductoDao objDao = new ProductoDao();
+            ResultSet rs = function.enviarSelect(objDao.buscaProductoConteo(copr_copr, dska_cod));
+            if (rs.next()) {
+                if (objDto == null) {
+                    objDto = new DetalleConteoDto();
+                }
+                objDto.setNombreProducto(rs.getString("dska_nom_prod"));
+                objDto.setEcop_valor(rs.getString("ecop_valor"));
+                objDto.setCodigoProducto(rs.getString("dska_cod"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return objDto;
     }
 
 }

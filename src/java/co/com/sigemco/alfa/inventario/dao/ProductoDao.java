@@ -145,7 +145,7 @@ public class ProductoDao {
         select += " WHERE refe_refe = dska_refe \n";
         select += "   AND cate_cate = dska_cate \n";
         select += this.armaWhereXFiltros();
-        System.out.println("Este es el sql: \n" + select);        
+        System.out.println("Este es el sql: \n" + select);
         return select;
     }
 
@@ -234,8 +234,8 @@ public class ProductoDao {
         String select = "";
         select += "SELECT dska_dska, dska_refe, dska_cod, dska_nom_prod, dska_desc, dska_iva, \n";
         select += "       dska_porc_iva, dska_marca, dska_estado, dska_fec_ingreso, dska_cate,\n";
-        select += "       dska_sbcu, refe_desc, marca_nombre                                                \n";
-        select += "  FROM in_tdska, in_trefe, in_tmarca                                                  \n";
+        select += "       dska_sbcu, refe_desc, marca_nombre                                  \n";
+        select += "  FROM in_tdska, in_trefe, in_tmarca                                       \n";
         select += " WHERE dska_cod = '" + this.getDska_cod() + "' \n";
         select += "   AND dska_refe = refe_refe \n";
         select += "   AND marca_marca = dska_marca \n";
@@ -310,7 +310,28 @@ public class ProductoDao {
         sql.append(" AND dska_marca = marca_marca ");
         sql.append(" AND dska_refe = refe_refe ");
         sql.append(" AND cate_cate = dska_cate ");
-        
+
+        return sql.toString();
+    }
+
+    /**
+     * Funcion encargada buscar el numero de productos registrados en un conteo
+     * especifico
+     *
+     * @param copr_copr
+     * @param dska_cod
+     * @return
+     */
+    public String buscaProductoConteo(String copr_copr, String dska_cod) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT dska_cod, ecop_valor, dska_nom_prod ");
+        sql.append("FROM in_tecop, in_tdska ");
+        sql.append("where dska_cod = '");
+        sql.append(dska_cod.trim());
+        sql.append("' ");
+        sql.append("and ecop_dska = dska_dska ");
+        sql.append("and ecop_copr = ");
+        sql.append(copr_copr);
         return sql.toString();
     }
 

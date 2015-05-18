@@ -72,11 +72,11 @@ function validaDatos() {
         $('#mensaje').modal('show');
         return false;
     }
-    if (cantidad < 0) {
-        $('#textoMsn').html('La cantidad no puede ser menor a cero');
-        $('#mensaje').modal('show');
-        return false;
-    }
+//    if (cantidad < 0) {
+//        $('#textoMsn').html('La cantidad no puede ser menor a cero');
+//        $('#mensaje').modal('show');
+//        return false;
+//    }
     if (isNaN(cantidad)) {
         $('#textoMsn').html('La cantidad debe ser un dato numerico');
         $('#mensaje').modal('show');
@@ -106,7 +106,7 @@ function actualizaInventario(dska_dska) {
                         '<td>' + producto.dska_nom_prod + '</td>' +
                         '<td>' + producto.dska_desc + ' ' + producto.dska_marca + '</td>' +
                         '<td>' + data.Objeto.ecop_valor + '</td>';
-                tabla.append(fila);
+                tabla.prepend(fila);
             } else {
                 $('#textoMsn').html(data.respuesta);
                 $('#mensaje').modal('show');
@@ -117,4 +117,59 @@ function actualizaInventario(dska_dska) {
 
 function cerrarInventario() {
     $('#closeInv').modal('show');
+}
+
+function buscarProdConteo(){
+    var codigo = $('#codigo').val();
+    if(codigo.trim() == ''){
+        $('#textoMsn').html('El codigo no puede ser nulo al realizar la busqueda en el inventario');
+        $('#mensaje').modal('show');                
+    }else{
+        var datos = new Object();
+        datos.copr_copr = $('#copr_coprId').val();
+        datos.dska_codigo = $('#codigo').val();
+        $.ajax({
+            url: RutaSitio + "/buscaProdConteo.action",
+            async: false,
+            dataType: 'json',
+            data: datos,
+            success: function (data, textStatus, jqXHR) {
+                if(data.respuesta == 'Ok'){
+                    var table = '<table class=\"table table-border\">'+ 
+                            '<thead>'+
+                                '<tr>'+
+                                    '<th>'+  
+                                    'CODIGO' + 
+                                    '</th>'+ 
+                                    '<th>'+  
+                                    'REFERENCIA'+
+                                    '</th>'+ 
+                                    '<th>'+      
+                                    'VALOR'+
+                                    '</th>'+ 
+                                '</tr>'+
+                            '</thead>' + 
+                            '<tbody>'+ 
+                                '<tr>'+
+                                    '<td>' +
+                                    data.objeto.codigoProducto + 
+                                    '</td>'+
+                                    '<td>' + 
+                                    data.objeto.nombreProducto + 
+                                    '</td>'+
+                                    '<td>' + 
+                                    data.objeto.ecop_valor + 
+                                    '</td>'+
+                                '</tr>'+
+                            '</tbody>';
+                    table += '</table>';
+                    $('#textoMsn').html('Resultados de la busqueda</br> ' + table);
+                    $('#mensaje').modal('show');                                        
+                }else{
+                    $('#textoMsn').html(data.respuesta);
+                    $('#mensaje').modal('show');
+                }
+            }
+        })
+    }
 }

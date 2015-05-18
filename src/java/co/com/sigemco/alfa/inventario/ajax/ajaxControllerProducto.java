@@ -10,6 +10,7 @@ import co.com.hotel.utilidades.UsuarioHabilitado;
 import co.com.sigemco.alfa.facturacion.dto.DetFactServicoDto;
 import co.com.sigemco.alfa.facturacion.logica.DetFactServicioLogica;
 import co.com.sigemco.alfa.inventario.dao.ProductoDao;
+import co.com.sigemco.alfa.inventario.dto.DetalleConteoDto;
 import co.com.sigemco.alfa.inventario.dto.ProductoDto;
 import co.com.sigemco.alfa.inventario.logica.ConteoProdLogica;
 import co.com.sigemco.alfa.inventario.logica.ProductoLogica;
@@ -195,17 +196,42 @@ public class ajaxControllerProducto extends ActionSupport implements SessionAwar
             objDto.setDska_marca(dska_marca);
             List rtaList = logica.buscaProductosSimilares(objDto);
             rta.put("respuesta", "Ok");
-            if(rtaList == null ){
+            if (rtaList == null) {
                 rta.put("coincidencias", "No");
-            }else{
+            } else {
                 rta.put("coincidencias", "Si");
-                rta.put("objeto", rtaList);                
-            }            
+                rta.put("objeto", rtaList);
+            }
             objJson = gson.toJson(rta);
             out.print(objJson);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void buscaProductoConteo() {
+        String objJson = "";
+        Gson gson = new Gson();
+        Map<String, Object> rta = null;
+        try {
+            HttpServletResponse response = ServletActionContext.getResponse();
+            response.setContentType("text/plain;charset=utf-8");
+            PrintWriter out = response.getWriter();
+            ProductoLogica logica = new ProductoLogica();
+            DetalleConteoDto objAux = logica.buscaProductoConteoXCodigo(dska_codigo, copr_copr);
+            rta = new HashMap<String,Object>();
+            if(objAux == null){
+                rta.put("respuesta", "Error al buscar el producto en el conteo o no existe registro del producto en este conteo");
+            }else{
+                rta.put("respuesta", "Ok");
+                rta.put("objeto", objAux);
+            }
+            objJson = gson.toJson(rta);
+            out.print(objJson);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public Usuario getUsuario() {

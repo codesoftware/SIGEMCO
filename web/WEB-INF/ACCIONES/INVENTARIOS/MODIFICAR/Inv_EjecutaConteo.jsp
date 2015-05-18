@@ -89,8 +89,14 @@
                                 <td><s:textfield name="dska_cantidad" cssClass="form-control" id="cantidad" /></td>
                             </tr>
                             <tr>
-                                <td colspan="3"></td>
+                                <td colspan="3">
+                                </td>
                                 <td class="text-right">
+                                    <s:include value="/WEB-INF/TEMPLATE/botones/find.jsp" > 
+                                        <s:param name="function">buscarProdConteo</s:param>
+                                        <s:param name="title">Busca el estado del Producto en el Conteo</s:param>
+                                    </s:include> 
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <s:include value="/WEB-INF/TEMPLATE/botones/add.jsp" > 
                                         <s:param name="function">agregaProductoConteo</s:param>
                                         <s:param name="title">Registro de Productos a Inventario</s:param>

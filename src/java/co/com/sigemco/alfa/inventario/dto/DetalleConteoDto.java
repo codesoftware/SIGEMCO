@@ -17,6 +17,8 @@ public class DetalleConteoDto {
     private String ecop_valor;
     private String ecop_existencias;
     private String ecop_diferencia;
+    private String nombreProducto;
+    private String codigoProducto;
 
     public String getEcop_ecop() {
         return ecop_ecop;
@@ -65,4 +67,21 @@ public class DetalleConteoDto {
     public void setEcop_diferencia(String ecop_diferencia) {
         this.ecop_diferencia = ecop_diferencia;
     }
+
+    public String getNombreProducto() {
+        return nombreProducto;
+    }
+
+    public void setNombreProducto(String nombreProducto) {
+        this.nombreProducto = nombreProducto;
+    }
+
+    public String getCodigoProducto() {
+        return codigoProducto;
+    }
+
+    public void setCodigoProducto(String codigoProducto) {
+        this.codigoProducto = codigoProducto;
+    }
+
 }
