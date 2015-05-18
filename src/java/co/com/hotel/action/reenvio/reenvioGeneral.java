@@ -83,6 +83,10 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     public static final int INV_INS_REFERENCIA = 261;
     public static final int INV_UPD_REFERENCIA = 262;
     public static final int INV_CON_REFERENCIA = 264;
+    //paginas de marcas
+    public static final int INV_INS_MARCA = 601;
+    public static final int INV_UPD_MARCA = 602;
+    public static final int INV_CON_MARCA = 604;
     // paginas de categorias
     public static final int INV_INS_CATEGORIA = 271;
     public static final int INV_UPD_CATEGORIA = 272;
@@ -143,7 +147,7 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     //Mapa para visualizar las marcas
     private Map<String, String> marcas;
     //Mapa por si se requiere parametrizar los reportes
-    private Map<String,String> reportes;
+    private Map<String, String> reportes;
     private String modifica;
     private String bandera;
     private String estado;
@@ -381,6 +385,18 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
                     this.memoria = new HashMap<String, String>();
                     this.pantalla = new HashMap<String, String>();
                     break;
+                case INV_INS_MARCA:
+                    nextPage = "inv_ins_marca";
+                    break;
+                case INV_UPD_MARCA:
+                    nextPage = "inv_upd_marca";
+                    break;
+                case INV_CON_MARCA:
+                    nextPage = "Inv_Conmarca";
+                    this.estadoMap = new HashMap<String, String>();
+                    this.estadoMap.put("A", "Activo");
+                    this.estadoMap.put("I", "Inactivo");
+                    break;
                 case INV_INS_CATEGORIA:
                     nextPage = "inv_ins_categoria";
                     this.runico = new HashMap<String, String>();
@@ -472,10 +488,10 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
                     this.sedes = sede.obtieneSedes();
                     nextPage = "adm_cierre_diario";
                     break;
-                    
+
                 case ADM_REPORTE_GRAL:
                     reportes = new HashMap<String, String>();
-                    this.reportes.put("1","Reporte Promedio ponderado todo los productos");
+                    this.reportes.put("1", "Reporte Promedio ponderado todo los productos");
                     nextPage = "adm_reporte_gral";
                     break;
 
@@ -779,9 +795,5 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     public void setReportes(Map<String, String> reportes) {
         this.reportes = reportes;
     }
-    
-    
-    
-    
 
 }

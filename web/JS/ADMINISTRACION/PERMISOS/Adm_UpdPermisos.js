@@ -38,6 +38,9 @@ $(function() {
     $("#InRefe").click(function() {
         $(".subPermisoInRefe").toggle("slow");
     });
+    $("#InMarca").click(function() {
+        $(".subPermisoInMarca").toggle("slow");
+    });
     $("#RepUsua").click(function() {
         $(".subPermisoRepUsua").toggle("slow");
     });
@@ -125,6 +128,10 @@ function mostrarPermisos(valor) {
     var referencias = valor.indexOf('InRef');
     if (referencias > 0) {
         $(".subPermisoInRefe").show("slow");
+    }
+    var marcas = valor.indexOf('InMarca');
+    if(marcas > 0){
+         $(".subPermisoInMarca").show("slow");
     }
     var repUsua = valor.indexOf('RpUs');
     if (repUsua > 0) {

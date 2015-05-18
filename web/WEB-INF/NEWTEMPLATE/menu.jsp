@@ -124,7 +124,7 @@
                                 <%}
                                     if (permisos.indexOf(".InPr5.") >= 0) {%>
                             <!--<li><a href="reenvioGeneral.action?accion=212">Actualizar Producto</a></li>-->
-                                <%}
+                            <%}
                                     if (permisos.indexOf(".InPr9.") >= 0) {%>
                             <li><a href="reenvioGeneral.action?accion=218">Cambio de Sede</a></li>
                                 <%}
@@ -199,6 +199,19 @@
                                 <%}
                                     if (permisos.indexOf(".InRef3.") >= 0) {%>
                             <li><a href="reenvioGeneral.action?accion=264">Consultar Referencia</a></li>
+                                <%}%>
+                        </ul>
+                    </li>
+
+                    <%}
+                        if (permisos.indexOf(".InMarca1.") >= 0 || permisos.indexOf(".InMarca2.") >= 0 || permisos.indexOf(".InMarca3.") >= 0) {%>
+                    <li><a href="#">Marcas</a>
+                        <ul class="dropdown-menu">
+                            <%if (permisos.indexOf(".InMarca1.") >= 0) {%>
+                            <li><a href="reenvioGeneral.action?accion=601">Adicionar Marca</a></li>
+                                <%}
+                                    if (permisos.indexOf(".InMarca3.") >= 0) {%>
+                            <li><a href="reenvioGeneral.action?accion=604">Consultar Marca</a></li>
                                 <%}%>
                         </ul>
                     </li>

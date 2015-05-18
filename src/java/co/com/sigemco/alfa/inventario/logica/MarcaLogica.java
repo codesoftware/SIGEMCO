@@ -6,6 +6,8 @@
 package co.com.sigemco.alfa.inventario.logica;
 
 import co.com.hotel.persistencia.general.EnvioFunction;
+import co.com.sigemco.alfa.inventario.dao.MarcaDao;
+import co.com.sigemco.alfa.inventario.dto.MarcaDto;
 import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +17,22 @@ import java.util.Map;
  * @author Personal
  */
 public class MarcaLogica {
+    
+    public String insertaMarca(MarcaDto objDto){
+        MarcaDao objDao = null;
+        try (EnvioFunction funcion = new EnvioFunction()){
+            objDao = poblarDAO(objDto);
+            if(funcion.enviarUpdate(objDao.insertaMarca())){
+                return "MARCA INSERTADA CORRECTAMENTE";
+            }else{
+                return "NO SE PUDO INSERTAR LA MARCA";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "ERROR INSERTANDO MARCA";
+        }
+        
+    }
 
     public Map<String, String> obtieneMarcas() {
         Map<String, String> rta = null;
@@ -39,5 +57,15 @@ public class MarcaLogica {
         }
         return rta;
     }
+    
+     public MarcaDao poblarDAO(MarcaDto objDTO) {
+         MarcaDao objDao = new MarcaDao();
+         objDao.setMarca_descr(objDTO.getMarca_descr());
+         objDao.setMarca_marca(objDTO.getMarca_marca());
+         objDao.setMarca_estado(objDTO.getMarca_estado());
+         objDao.setMarca_nombre(objDTO.getMarca_nombre());
+         return objDao;
+         
+     }
 
 }
