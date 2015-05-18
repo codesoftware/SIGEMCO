@@ -35,7 +35,7 @@ public class ProductoSticker extends ActionSupport implements SessionAware, Usua
     public String generarStiker() {
         try {
             HttpServletRequest request = ServletActionContext.getRequest();
-            File reporte = new File(request.getSession().getServletContext().getRealPath("/WEB-INF/ACCIONES/REPORTES/FUENTES/" + nombreJasper));
+                File reporte = new File(request.getSession().getServletContext().getRealPath("/WEB-INF/ACCIONES/REPORTES/FUENTES/" + nombreJasper));
             File reporteDestino = new File(request.getSession().getServletContext().getRealPath("/IMAGENES/REPORTES/codigo_"+producto.getDska_dska()+".pdf"));
             String path = reporte.getPath();
             Rep_ReporteLogica logica = new Rep_ReporteLogica();

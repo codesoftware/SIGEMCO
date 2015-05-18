@@ -236,7 +236,7 @@ public class ProductoDao {
         select += "       dska_porc_iva, dska_marca, dska_estado, dska_fec_ingreso, dska_cate,\n";
         select += "       dska_sbcu, refe_desc, marca_nombre                                                \n";
         select += "  FROM in_tdska, in_trefe, in_tmarca                                                  \n";
-        select += " WHERE dska_cod like '%" + this.getDska_cod() + "%' \n";
+        select += " WHERE dska_cod = '" + this.getDska_cod() + "' \n";
         select += "   AND dska_refe = refe_refe \n";
         select += "   AND marca_marca = dska_marca \n";
         return select;
