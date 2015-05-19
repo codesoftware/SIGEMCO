@@ -11,6 +11,7 @@ import co.com.sigemco.alfa.inventario.dto.MarcaDto;
 import co.com.sigemco.alfa.inventario.logica.MarcaLogica;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import org.apache.struts2.interceptor.SessionAware;
 
@@ -27,7 +28,13 @@ public class MarcaAction extends ActionSupport implements SessionAware, UsuarioH
     private ArrayList<MarcaDto> resultMarca = null;
     private Map<String, String> estadoMap;
 
-    public String insertar(){
+    public void validate() {
+        estadoMap = new HashMap<String, String>();
+        this.estadoMap.put("A", "Activo");
+        this.estadoMap.put("I", "Inactivo");
+    }
+
+    public String insertar() {
         MarcaLogica res = null;
         try {
             res = new MarcaLogica();
@@ -38,7 +45,50 @@ public class MarcaAction extends ActionSupport implements SessionAware, UsuarioH
         }
         return SUCCESS;
     }
+
+    public String consultaMarcas() {
+        MarcaLogica res = null;
+        try {
+            res = new MarcaLogica();
+            resultMarca = res.consultaMarcas(marca);
+            if (resultMarca.size() <= 0) {
+                addActionMessage("LA CONSULTA NO ARROJO NINGUN RESULTADO.");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return SUCCESS;
+
+    }
     
+    public String consultaMarcaEspecifica(){
+        MarcaLogica res= null;
+        try {
+            res= new MarcaLogica();
+            marca =res.traeMarcaEspecifica(marca);
+           
+        } catch (Exception e) {
+             addActionMessage("ERROR EN LA CONSULTA.");
+            e.printStackTrace();
+        }
+        return SUCCESS;
+    }
+    public String actualizaMarca(){
+        String resultado="";
+        MarcaLogica res= null;
+        try {
+            res= new MarcaLogica();
+             resultado=res.actualizaMarcaEspecifica(marca);
+             addActionMessage(resultado);
+        } catch (Exception e) {
+             addActionMessage("ERROR EN LA ACTUALIZACIÓN.");
+            e.printStackTrace();
+        }
+        return SUCCESS;
+    }
+
     public Usuario getUsuario() {
         return usuario;
     }
@@ -86,5 +136,5 @@ public class MarcaAction extends ActionSupport implements SessionAware, UsuarioH
     public void setEstadoMap(Map<String, String> estadoMap) {
         this.estadoMap = estadoMap;
     }
-    
+
 }

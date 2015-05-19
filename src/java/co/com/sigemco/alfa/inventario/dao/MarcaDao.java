@@ -20,7 +20,27 @@ public class MarcaDao {
         String select = "";
         select = "INSERT into in_tmarca (marca_nombre,  marca_descr)"
                 .concat("values ('" + this.marca_nombre + "','" + this.marca_descr + "')");
-        System.out.println("prueba"+select);
+        System.out.println("prueba" + select);
+        return select;
+    }
+
+    public String consultaFilros(String filtros) {
+        String select = "SELECT marca_marca, marca_nombre, marca_descr, marca_estado from in_tmarca  WHERE " + filtros;
+        System.out.println("Filtros" + select);
+        return select;
+    }
+
+    public String actualizaMarca() {
+        String select = "UPDATE in_tmarca set marca_descr = '" + this.marca_descr + "',marca_estado = '" + this.marca_estado + "',marca_nombre = '" + this.marca_nombre + "' WHERE marca_marca = " + this.marca_marca + "";
+        System.out.println("Update " + select);
+        return select;
+    }
+
+    public String consultaEspecificaXId() {
+        String select = "";
+        select += "SELECT marca_marca, marca_descr, marca_estado, marca_nombre \n";
+        select += "  FROM in_tmarca                                                 \n";
+        select += " WHERE marca_marca = " + this.marca_marca + " \n";
         return select;
     }
 

@@ -59,7 +59,8 @@
             <result name="inv_ins_celular">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertCelulares.jsp</result>
             <result name="inv_ins_referencia">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertReferencia.jsp</result>
             <result name="inv_ins_marca">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertMarca.jsp</result>
-                       
+            <result name="Inv_Conmarca">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsMarca.jsp</result>
+                      
             <result name="Inv_ConReferencia">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsReferencia.jsp</result>
             <result name="Inv_ConCategoria">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsCategoria.jsp</result>
             <result name="inv_ins_categoria">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertCategoria.jsp</result>
@@ -127,16 +128,32 @@
         <action name="inv_ConReferencia" class="co.com.sigemco.alfa.inventario.action.ReferenciaAction" method="consultaReferencias">
             <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsReferencia.jsp</result>
             <result name="input"  >/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsReferencia.jsp</result>
-        </action>              
+        </action> 
+        
+        <action name="inv_ConMarca" class="co.com.sigemco.alfa.inventario.action.MarcaAction" method="consultaMarcas">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsMarca.jsp</result>
+            <result name="input"  >/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsMarca.jsp</result>
+        </action>                  
         <action name="inv_conUpdReferencia" class="co.com.sigemco.alfa.inventario.action.ReferenciaAction" method="consultaReferenciaEspecifica">
             <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/inv_conUpdReferencia.jsp</result>
             <result name="input"  >/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/inv_conUpdReferencia.jsp</result>
-        </action>              
+        </action>
+        
+        <action name="inv_conUpdMarca" class="co.com.sigemco.alfa.inventario.action.MarcaAction" method="consultaMarcaEspecifica">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/inv_conUpdMarca.jsp</result>
+            <result name="input"  >/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/inv_conUpdMarca.jsp</result>
+        </action>
+                                    
         <action name="inv_UpdReferencia" class="co.com.sigemco.alfa.inventario.action.ReferenciaAction" method="actualizaReferencia">
             <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/inv_conUpdReferencia.jsp</result>
             <result name="input"  >/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/inv_conUpdReferencia.jsp</result>
         </action>
-          <action name="inv_InsMarca" class="co.com.sigemco.alfa.inventario.action.MarcaAction" method="insertar">
+        
+        <action name="inv_UpdMarca" class="co.com.sigemco.alfa.inventario.action.MarcaAction" method="actualizaMarca">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/inv_conUpdMarca.jsp</result>
+            <result name="input"  >/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/inv_conUpdMarca.jsp</result>
+        </action>
+        <action name="inv_InsMarca" class="co.com.sigemco.alfa.inventario.action.MarcaAction" method="insertar">
             <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertMarca.jsp</result>
             <result name="input"  >/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertMarca.jsp</result>
         </action>  
