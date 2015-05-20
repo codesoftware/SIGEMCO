@@ -4,6 +4,7 @@
 
 <struts>
     <!-- Configuration for the default package. -->
+    <constant name="struts.custom.i18n.resources" value="mensajes" />
     <package name="default" extends="struts-default">
         <action name="recuperarContra">
             <result>/RECUPERACONTRA/recuperarContra.jsp</result>            

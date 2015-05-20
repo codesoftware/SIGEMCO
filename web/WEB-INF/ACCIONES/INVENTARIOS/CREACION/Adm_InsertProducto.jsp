@@ -80,7 +80,7 @@
                                         <td><s:textfield label="Descripción Prod" name="producto.descripcion" required="true" cssClass="form-control" id="producto_descripcion"/></td>
                                     </tr>
                                     <tr>
-                                        <td>Modelo Asociado</td>
+                                        <td><s:text name="modeloAsociado.descripcion"/></td>
                                         <td>
                                             <s:select cssClass="form-control" list="referencias" name="producto.referencia" id="referencia" headerKey="-1" headerValue="Modelo Asociado" />
                                         </td>
