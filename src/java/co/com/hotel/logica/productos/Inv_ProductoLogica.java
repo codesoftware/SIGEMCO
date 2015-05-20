@@ -303,6 +303,7 @@ public class Inv_ProductoLogica {
                 String sql = this.armaUpdProducto(obj);
                 if (sql != null) {
                     function.enviarUpdate(sql);
+                    function.enviarSelect("select cambio_nombre_prod() ");
                     rta = "Ok";
                 }
             }
