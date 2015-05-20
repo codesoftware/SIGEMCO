@@ -267,6 +267,10 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
                     nextPage = "inv_con_producto";
                     refeLogica = new ReferenciaLogica();
                     this.referencias = refeLogica.obtieneIdDescrReferenciaActivos();
+                    logicaMarca = new MarcaLogica();
+                    this.marcas = logicaMarca.obtieneMarcas();
+                    cateLogica = new Inv_CategoriaLogica();
+                    this.categorias = cateLogica.obtieneCategorias();
                     break;
                 case INV_UPD_PRODUCTO:
                     nextPage = "inv_upd_producto";

@@ -145,7 +145,7 @@ public class ProductoDao {
         select += " WHERE refe_refe = dska_refe \n";
         select += "   AND cate_cate = dska_cate \n";
         select += this.armaWhereXFiltros();
-        System.out.println("Este es el sql: \n" + select);
+        //System.out.println("Este es el sql: \n" + select);
         return select;
     }
 
@@ -153,6 +153,12 @@ public class ProductoDao {
         String where = "";
         if (!"-1".equalsIgnoreCase(dska_refe)) {
             where += " AND dska_refe = " + this.getDska_refe();
+        }
+        if (!"-1".equalsIgnoreCase(dska_cate)) {
+            where += " AND dska_cate = " + this.getDska_cate();
+        }
+        if (!"-1".equalsIgnoreCase(dska_marca)) {
+            where += " AND dska_marca = " + this.getDska_marca();
         }
         if (!"".equalsIgnoreCase(dska_cod)) {
             where += " AND dska_cod like '%" + this.getDska_cod() + "%'";

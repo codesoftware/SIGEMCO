@@ -7,12 +7,14 @@ package co.com.sigemco.alfa.inventario.action;
 
 import co.com.hotel.datos.session.Usuario;
 import co.com.hotel.dto.AddProdExistentes;
+import co.com.hotel.logica.categoria.Inv_CategoriaLogica;
 import co.com.hotel.logica.sede.Adm_SedeLogica;
 import co.com.hotel.utilidades.UsuarioHabilitado;
 import co.com.hotel.validacion.ValidaCampos;
 import co.com.sigemco.alfa.contabilidad.logica.MoviContablesLogica;
 import co.com.sigemco.alfa.inventario.dto.MoviInventarioDto;
 import co.com.sigemco.alfa.inventario.dto.ProductoDto;
+import co.com.sigemco.alfa.inventario.logica.MarcaLogica;
 import co.com.sigemco.alfa.inventario.logica.MoviInventarioLogica;
 import co.com.sigemco.alfa.inventario.logica.ProductoLogica;
 import co.com.sigemco.alfa.inventario.logica.ReferenciaLogica;
@@ -43,6 +45,8 @@ public class ProductoAction extends ActionSupport implements SessionAware, Usuar
     private ArrayList<String> ArrayAddSubCuentas;
     private String idTrans = null;
     private Map<String, String> referencias;
+    private Map<String, String> marcas;
+    private Map<String, String> categorias;
     private String sedeOrigen;
     private String sedeDestino;
 
@@ -208,13 +212,13 @@ public class ProductoAction extends ActionSupport implements SessionAware, Usuar
         try {
             logica = new ProductoLogica();
             String valida = logica.corrigeIngrersoProd(producto.getDska_dska(), sedeOrigen, producto.getCantidad(), usuario.getIdTius());
-            String []auxRta = valida.split("-");
-            if("Ok".equalsIgnoreCase(auxRta[0])){
+            String[] auxRta = valida.split("-");
+            if ("Ok".equalsIgnoreCase(auxRta[0])) {
                 producto = null;
                 idTrans = auxRta[1];
-                addActionMessage("Correccion realizada correctamente");                                
-            }else{
-                addActionError("Error al realizar la correccion " + valida); 
+                addActionMessage("Correccion realizada correctamente");
+            } else {
+                addActionError("Error al realizar la correccion " + valida);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -231,6 +235,10 @@ public class ProductoAction extends ActionSupport implements SessionAware, Usuar
         if (accion.equalsIgnoreCase("consultaGen")) {
             ReferenciaLogica refeLogica = new ReferenciaLogica();
             this.referencias = refeLogica.obtieneIdDescrReferenciaActivos();
+            MarcaLogica logicaMarca = new MarcaLogica();
+            this.marcas = logicaMarca.obtieneMarcas();
+            Inv_CategoriaLogica cateLogica = new Inv_CategoriaLogica();
+            this.categorias = cateLogica.obtieneCategorias();
         }
         //Validaciones para cuando se va ha realizar la busqueda para la adicion de productos existentes
         if ("consultaForAddEx".equalsIgnoreCase(accion)) {
@@ -391,6 +399,22 @@ public class ProductoAction extends ActionSupport implements SessionAware, Usuar
 
     public void setSedeDestino(String sedeDestino) {
         this.sedeDestino = sedeDestino;
+    }
+
+    public Map<String, String> getMarcas() {
+        return marcas;
+    }
+
+    public void setMarcas(Map<String, String> marcas) {
+        this.marcas = marcas;
+    }
+
+    public Map<String, String> getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(Map<String, String> categorias) {
+        this.categorias = categorias;
     }
 
 }

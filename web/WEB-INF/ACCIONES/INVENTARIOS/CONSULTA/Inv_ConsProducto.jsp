@@ -49,26 +49,22 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-md-4 col-sm-4 col-xs-4">
-                                Nombre Producto:<br>
-                                <s:textfield name="producto.dska_nom_prod" placeholder="Filtro" cssClass="form-control" />
+                                Marca:<br>
+                                <s:select  list="marcas"  name="producto.dska_marca" required="true" headerKey="-1" headerValue="Marca" cssClass="form-control" id="producto_marca" />
                             </div>
                             <div class="form-group col-md-4 col-sm-4 col-xs-4">
-                                Descripción Producto:<br>
-                                <s:textfield name="producto.dska_desc" placeholder="Filtro" cssClass="form-control"/>
+                                Categoria:<br>
+                                <s:select  list="categorias"  name="producto.dska_cate" required="true" headerKey="-1" headerValue="Categoria" cssClass="form-control" id="producto_categoria" />
                             </div>
                             <div class="form-group col-md-4 col-sm-4 col-xs-4">
-                                Referencia:<br>                                
+                                Modelo Asociado:<br>                                
                                 <s:select cssClass="form-control" list="referencias" name="producto.dska_refe" id="referencia" headerKey="-1" headerValue="Referencia" />
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group col-md-8 col-sm-8 col-xs-4">
                                 Codigo:<br>
                                 <s:textfield name="producto.dska_cod" placeholder="Filtro" cssClass="form-control" />
-                            </div>
-                            <div class="form-group col-md-4 col-sm-4 col-xs-4">
-                                Marca:<br>
-                                <s:textfield name="producto.dska_marca" placeholder="Filtro" cssClass="form-control"/>
                             </div>
                             <div class="form-group col-md-4 col-sm-4 col-xs-4 ">
                                 <br>

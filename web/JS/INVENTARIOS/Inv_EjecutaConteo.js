@@ -145,7 +145,7 @@ function buscarProdConteo(){
                                     'REFERENCIA'+
                                     '</th>'+ 
                                     '<th>'+      
-                                    'VALOR'+
+                                    'CANTIDAD'+
                                     '</th>'+ 
                                 '</tr>'+
                             '</thead>' + 
