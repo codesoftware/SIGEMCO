@@ -38,6 +38,14 @@ function ocultaDatosProd() {
 function contabilizar() {
     var validaDatos = validaDatosProducto();
     if (validaDatos) {
+        //Multiplicacion de Productos
+        var cantidad = eliminarPuntos($('#numProductos').val());
+        cantidad = parseInt(cantidad);
+        var precioProducto = eliminarPuntos($('#costo').val()); 
+        precioProducto = parseInt(precioProducto);
+        var totalProducto = cantidad * precioProducto;
+        $('#costo').val(totalProducto);
+        //Logica para contabilizar
         var vlr = $('#costo').val();
         cambioVlr(vlr);
         $('.datosProdDiv').hide();
@@ -76,6 +84,8 @@ function validaDatosProducto() {
 }
 
 function datosProducto() {
+    $('#costo').val('');
+    
     $('.datosProdDiv').show('fast');
     $('.datosContabiliza').hide();
 }
