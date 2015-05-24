@@ -68,7 +68,7 @@
                                     <td><s:textfield cssClass="form-control" name="producto.nombre"/></td>
                                 </div>
                                 <div class="form-group col-md-4 col-xs-4 col-sm-4">
-                                    <td>Modelo Asociado:</td>
+                                    <td><s:text name="modeloAsociado.descripcion"/></td>
                                     <td>
                                         <s:select cssClass="form-control" list="referencias" name="producto.referencia" id="referencia" headerKey="-1" headerValue="Modelo Asociado" />
                                         <%--<s:textfield cssClass="form-control" name="producto.referencia" />--%>
@@ -120,25 +120,27 @@
                                         <td style="width: 50%;">
                                             <table>
                                                 <tr>
-                                                    <td style="width: 40%; text-align: right"><b>Referencia: </b></td>
+                                                    <td style="width: 40%; text-align: right">
+                                                        <b><s:text name="modeloAsociado.descripcion"/></b>
+                                                    </td>
                                                     <td><s:text name="producto.referencia"/></td>
                                                 </tr>
                                             </table>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <table>
+                                        <td colspan="2">
+                                            <table style="width: 100%;">
                                                 <tr>
-                                                    <td style="width: 40%;text-align: right"><b>Nombre: </b></td>
+                                                    <td style="width: 20%;text-align: left;"><b>Nombre: </b></td>
                                                     <td><s:text name="producto.nombre"/></td>
                                                 </tr>
                                             </table>
                                         </td>
-                                        <td>
+                                        <td style=" display: none;">
                                             <table>
                                                 <tr>
-                                                    <td style="width: 40%;text-align: right"><b>Descripción: </b></td>
+                                                    <td style="width: 40%;text-align: left;"><b>Descripción: </b></td>
                                                     <td><s:text name="producto.descripcion"/></td>
                                                 </tr>
                                             </table>

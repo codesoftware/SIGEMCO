@@ -123,10 +123,10 @@ public class Inv_ProductoLogica {
         try {
             String sql = "select dska_refe referencia , dska_cod codigo , dska_nom_prod nombre, dska_desc descripcion, dska_marca marca, dska_dska id,"
                     + "dska_iva iva, dska_porc_iva porcIva\n";
-            sql += ", to_char(prpr_precio,'LFM9,999,999.99') prpr_precio\n ";
+            sql += ", to_char(prpr_precio,'9,999,999,999.99') prpr_precio\n ";
             sql += "from in_tdska LEFT JOIN in_tprpr\n";
             sql += "on dska_dska = prpr_dska\n";
-            sql += "where upper(dska_cod) like upper('%" + codigo.trim() + "%')\n";
+            sql += "where upper(dska_cod) = upper('" + codigo.trim() + "')\n";
             if (id != null && !id.equalsIgnoreCase("")) {
                 sql += " and dska_dska = " + id + "\n";
             }
