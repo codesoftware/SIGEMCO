@@ -23,7 +23,7 @@ function insertarParametro() {
         success: function(data, textStatus, jqXHR) {
             var valorPromedio = parseInt(data.rta);
             var futuroValor = document.getElementById('futuroPrecio').value;
-            futuroValor = replaceAll(futuroValor, '.', '');
+            futuroValor = replaceAll(futuroValor, ',', '');
             // futuroValor = futuroValor.split('.').join('')
             if (futuroValor <= valorPromedio) {
                 $('#confirmacion').modal('show');

@@ -8,6 +8,7 @@ package co.com.hotel.logica.general;
 import co.com.hotel.email.EnviarCorreoIns;
 import co.com.hotel.action.general.*;
 import co.com.hotel.persistencia.general.EnvioFunction;
+import co.com.sigemco.alfa.email.SendMail;
 
 /**
  * Clase la cual hace la logica de recuperar la contraseña del usuario
@@ -34,18 +35,28 @@ public class RecuperaContraLogica {
         try {
             if (confirmaDatos(correo)) {
                 String stringContra = contra.generarContrasena();
-                enviar.logginCorreo();
-                enviar.setAsunto("Cambio Contraseña Shaoloom");
-                enviar.setMensaje("Su solicitud de  cambio de contraseña a sido procesada "
+//                enviar.logginCorreo();
+//                enviar.setAsunto("Cambio Contraseña Shaoloom");
+//                enviar.setMensaje("Su solicitud de  cambio de contraseña a sido procesada "
+//                        + "con estos datos podra ingresar a la aplicación:"
+//                        + "\n\n USUARIO: " + this.usuario
+//                        + "\n\n CONTRASEÑA: " + stringContra
+//                        + "\n\n Si esta solicitud no fue realizada por usted por favor omita este mensaje"
+//                );
+                String msg = "Su solicitud de  cambio de contraseña a sido procesada "
                         + "con estos datos podra ingresar a la aplicación:"
                         + "\n\n USUARIO: " + this.usuario
                         + "\n\n CONTRASEÑA: " + stringContra
-                        + "\n\n Si esta solicitud no fue realizada por usted por favor omita este mensaje"
-                );
+                        + "\n\n Si esta solicitud no fue realizada por usted por favor omita este mensaje";
+                String asunto="Cambio contraseña";
+
+                SendMail sm = new SendMail(msg, correo, asunto);
+
                 boolean confirma = cambioContra(this.usuario, stringContra);
                 //confirma = true; corregir
                 if (confirma) {
-                    enviar.envioCorreoIns(correo);
+                    sm.send();
+                   // enviar.envioCorreoIns(correo);
                 } else {
                     return false;
                 }
@@ -56,6 +67,7 @@ public class RecuperaContraLogica {
             return rta;
 
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }

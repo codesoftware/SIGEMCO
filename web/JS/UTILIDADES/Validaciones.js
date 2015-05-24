@@ -19,10 +19,10 @@ function mascaraMoneda(input) {
 }
 
 function mascaraMonedaConValor(valor) {
-    var num = valor.replace(/\./g, '');
+    var num = valor.replace(/\,/g, '');
     if (!isNaN(num)) {
-        num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g, '$1.');
-        num = num.split('').reverse().join('').replace(/^[\.]/, '');
+        num = num.toString().split('').reverse().join('').replace(/(?=\d*\,?)(\d{3})/g, '$1,');
+        num = num.split('').reverse().join('').replace(/^[\,]/, '');
         return num;
     }
 }
@@ -31,12 +31,34 @@ function mascaraMonedaConValor(valor) {
  * @param {type} e
  * @returns {Boolean}
  */
-function soloNumeros(e){
-	var evt = (evt) ? evt : window.event
-	var charCode = (evt.which) ? evt.which : evt.keyCode
-	if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode != 44) {
-		 event.returnValue = false;
-	}else{
-		return true
-	}                              
+function soloNumeros(e) {
+    var evt = (evt) ? evt : window.event
+    var charCode = (evt.which) ? evt.which : evt.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode != 44) {
+        event.returnValue = false;
+    } else {
+        return true
+    }
+}
+
+
+//Funcion mejorada  mascara moneda
+
+function mascaraMonedaNew(o, f) {
+    v_obj = o;
+    v_fun = f;
+    setTimeout("ejecutamascara()", 1);
+}
+function ejecutamascara() {
+    v_obj.value = v_fun(v_obj.value);
+}
+function expresionRegular(v) {
+    v = v.replace(/([^0-9\.]+)/g, '');
+    v = v.replace(/^[\.]/, '');
+    v = v.replace(/[\.][\.]/g, '');
+    v = v.replace(/\.(\d)(\d)(\d)/g, '.$1$2');
+    v = v.replace(/\.(\d{1,2})\./g, '.$1');
+    v = v.toString().split('').reverse().join('').replace(/(\d{3})/g, '$1,');
+    v = v.split('').reverse().join('').replace(/^[\,]/, '');
+    return v;
 }

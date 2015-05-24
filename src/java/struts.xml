@@ -7,7 +7,7 @@
     <constant name="struts.custom.i18n.resources" value="mensajes" />
     <package name="default" extends="struts-default">
         <action name="recuperarContra">
-            <result>/RECUPERACONTRA/recuperarContra.jsp</result>            
+            <result>/WEB-INF/ACCIONES/RECUPERACONTRA/recuperarContra.jsp</result>            
         </action>        
         <action name="logout" class="co.com.hotel.action.general.LoginAction" method="logout">
             <result name="success">/inicio.jsp</result>
@@ -16,8 +16,8 @@
             <result>/inicio.jsp</result>
         </action>
         <action name="recupera" class="co.com.hotel.action.general.RecuperarContrasena">
-            <result name="success">/RECUPERACONTRA/recuperaSuccess.jsp</result>
-            <result name="error">/RECUPERACONTRA/recuperaError.jsp</result>
+            <result name="success">/WEB-INF/ACCIONES/RECUPERACONTRA/recuperaSuccess.jsp</result>
+            <result name="error">/WEB-INF/ACCIONES/RECUPERACONTRA/recuperaError.jsp</result>
         </action>
         <action name="logeo" class="co.com.hotel.action.general.LoginAction">
             <result name="administrador">/WEB-INF/ACCIONES/bienvenidaAdmin.jsp</result>            

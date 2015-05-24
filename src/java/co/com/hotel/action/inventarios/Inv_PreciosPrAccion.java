@@ -14,6 +14,7 @@ import co.com.hotel.utilidades.UsuarioHabilitado;
 import co.com.hotel.validacion.ValidaCampos;
 import co.com.sigemco.alfa.inventario.dto.PrecioSedeDto;
 import co.com.sigemco.alfa.inventario.logica.PreciosLogica;
+import co.com.sigemco.alfa.validaciones.ValidacionesString;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,9 +70,12 @@ public class Inv_PreciosPrAccion extends ActionSupport implements SessionAware, 
         Adm_SedeLogica sedeLogica = new Adm_SedeLogica();
         this.sedes = sedeLogica.obtieneSedes();
         Inv_ProductoLogica logica = new Inv_ProductoLogica();
+        ValidacionesString val = new ValidacionesString();
         try {
+            producto.setPrecio(val.quitacomas(producto.getPrecio()));
+            System.out.println("PONR"+val.ponePunto(producto.getPrecio()));
             PreciosLogica objLogica = new PreciosLogica();
-            String rta = logica.parametrizaPrecioPr(producto.getId(), usuario.getIdTius(), producto.getPrecio(), producto.getSede());
+            String rta = logica.parametrizaPrecioPr(producto.getId(), usuario.getIdTius(), val.ponePunto(producto.getPrecio()), producto.getSede());
             if (rta.equalsIgnoreCase("Ok")) {
                 addActionMessage("Parametrizacion de precio correctamente");
                 producto = null;
