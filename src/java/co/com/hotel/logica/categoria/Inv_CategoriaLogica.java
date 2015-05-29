@@ -10,6 +10,7 @@ import co.com.hotel.persistencia.general.EnvioFunction;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,11 +38,12 @@ public class Inv_CategoriaLogica {
             sql += "SELECT cate_cate, cate_desc\n";
             sql += "  FROM in_tcate            \n";
             sql += " WHERE cate_estado = 'A'   \n";
+            sql += " ORDER BY cate_desc ";
             
             ResultSet rs = function.enviarSelect(sql);
             while(rs.next()){
                 if(contador == 0){
-                    rta = new HashMap<String, String>();
+                    rta = new LinkedHashMap<String, String>();
                     contador++;
                 }
                 rta.put(rs.getString("cate_cate"), rs.getString("cate_desc"));

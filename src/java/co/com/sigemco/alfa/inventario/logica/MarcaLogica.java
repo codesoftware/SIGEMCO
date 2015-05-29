@@ -11,6 +11,7 @@ import co.com.sigemco.alfa.inventario.dto.MarcaDto;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -44,11 +45,12 @@ public class MarcaLogica {
             sql += "SELECT marca_marca, marca_nombre ";
             sql += "  FROM in_tmarca             ";
             sql += " WHERE marca_estado = 'A'    ";
+            sql += "  ORDER BY marca_nombre ";
 
             ResultSet rs = function.enviarSelect(sql);
             while (rs.next()) {
                 if (contador == 0) {
-                    rta = new HashMap<String, String>();
+                    rta = new LinkedHashMap<String, String>();
                     contador++;
                 }
                 rta.put(rs.getString("marca_marca"), rs.getString("marca_nombre"));
