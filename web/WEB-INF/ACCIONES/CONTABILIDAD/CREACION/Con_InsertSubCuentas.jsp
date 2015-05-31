@@ -20,10 +20,33 @@
                 <s:param name="title"><s:property value="usuario.usuario" /></s:param>
             </s:include> 
         </s:div>
+        <div class="row">  
+            <div class="col-md-3 col-xs-0 col-sm-0"></div>
+            <div class="col-md-6 col-xs-12 col-sm-12">
+                <div class="Mensajes" style="display: none;">
+                    <s:if test="hasActionErrors()">
+                        <div class="alert alert-danger" id="info" role="alert" ><h4><s:actionerror /></h4></div>
+                        <script>
+                            mostrarMsn();
+                        </script>
+                    </s:if>
+                </div>
+                <div class="MensajesOk" style="display: none;">
+                    <s:if test="hasActionMessages()">
+                        <div class="alert alert-success" id="info" role="alert" ><h4><s:actionmessage/></h4></div>
+                        <script>
+                            mostrarMsnOk();
+                        </script>
+                    </s:if>
+                </div>
+            </div>
+            <div class="col-md-3 col-xs-0 col-sm-0"></div>
+        </div>            
         <div class="row">
             <div class="col-md-3 col-sm-0 col-xs-0"></div>
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <s:form theme="simple" action="Con_InsertSubCuentas" name="Con_InsertSubCuentas" id="Con_InsertSubCuentas">
+                    <s:textfield name="accion" value="insetarSubCuenta" cssStyle="display:none" />
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -68,7 +91,7 @@
                             </tr>
                             <tr>
                                 <td>Codigo:</td>
-                                <td><s:textfield cssClass="form-control" name="subCuenta.sbcu_codigo" id="sbcu_codigo"/></td>
+                                <td><s:textfield cssClass="form-control" name="subCuenta.sbcu_codigo" id="sbcu_codigo" onkeypress="return validaNumeros(event)"/></td>
                             </tr>
                             <tr>
                                 <td colspan="4">
@@ -90,6 +113,23 @@
                 </s:form>
             </div>
             <div class="col-md-3 col-sm-0 col-xs-0"></div>
+        </div>
+        <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="mensaje">
+            <div class="modal-dialog">                
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">INFORMACION</h4>
+                    </div>
+                    <div class="modal-body">
+                        <span id="textoMsn"></span>
+                    </div>
+                    <div class="modal-footer">                        
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            ACEPTAR
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>

@@ -11,9 +11,6 @@ import co.com.sigemco.alfa.contabilidad.dto.ClaseDto;
 import co.com.sigemco.alfa.contabilidad.dto.CuentaDto;
 import co.com.sigemco.alfa.contabilidad.dto.GrupoDto;
 import co.com.sigemco.alfa.contabilidad.dto.SubCuentaDto;
-import co.com.sigemco.alfa.contabilidad.logica.ClaseLogica;
-import co.com.sigemco.alfa.contabilidad.logica.CuentaLogica;
-import co.com.sigemco.alfa.contabilidad.logica.GrupoLogica;
 import co.com.sigemco.alfa.contabilidad.logica.SubCuentaLogica;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.HashMap;
@@ -77,9 +74,16 @@ public class SubCuentaAction extends ActionSupport implements SessionAware, Usua
     }
     
     public void validate(){
-        //if(accion.equalsIgnoreCase("insetarSubCuenta")){
-            
-        //}
+        if("insetarSubCuenta".equalsIgnoreCase(accion)){
+            if(subCuenta.getSbcu_codigo().length()>2){
+                addActionError("Error de validacion el codigo no puede tener mas de dos caracteres");
+                this.guadaDatos();
+            }
+            if("-1".equalsIgnoreCase(subCuenta.getSbcu_naturaleza())){
+                addActionError("Por favor seleccione una naturaleza para la subcuenta");
+                this.guadaDatos();
+            }
+        }
     }
 
     public Usuario getUsuario() {

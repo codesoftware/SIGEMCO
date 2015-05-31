@@ -62,3 +62,13 @@ function expresionRegular(v) {
     v = v.split('').reverse().join('').replace(/^[\,]/, '');
     return v;
 }
+
+function validaCaracteres(valor, cantidad){
+    var caracteres = valor.length;
+    cantidad = parseInt(cantidad);
+    if(caracteres<=cantidad){
+        return true;
+    }
+    return false;
+    
+}
