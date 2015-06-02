@@ -37,6 +37,7 @@ function agregaProductoConteo() {
             dataType: 'json',
             success: function (data, textStatus, jqXHR) {
                 if (data.respuesta == 'Ok') {
+                    $('#codigo').val('');
                     producto = data.objeto;
                     actualizaInventario(data.objeto.dska_dska);
                 } else {
