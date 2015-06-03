@@ -72,13 +72,18 @@ public class NuevoUsuarioAction extends ActionSupport implements SessionAware, U
         try {
             periflObj = new Adm_PerfilLogica();
             this.perfilesMap = periflObj.obitnePerfilIdNombre(); 
-            this.estadoMap = new HashMap<String, String>();
+            this.estadoMap = new HashMap<>();
             this.estadoMap.put("A", "Activo");
             this.estadoMap.put("I", "Inactivo");
             ConsultaUsuarios logica = new ConsultaUsuarios();
             this.usuaNuevo.setUsuario(aliasUsuarioNuevo);
             usuaNuevo = logica.buscaUsuarioXFiltros(this.usuaNuevo);
             modifica = logica.getTrajoDatos();
+            if("N".equalsIgnoreCase(modifica)){
+                addActionError("No se encontraron coincidencias al buscar el usario");
+            }else{
+                this.aliasUsuarioNuevo = usuaNuevo.getUsuario();
+            }
             Adm_SedeLogica sedeLogica  = new Adm_SedeLogica();
             this.sedes = sedeLogica.obtieneSedes();
         } catch (Exception e) {

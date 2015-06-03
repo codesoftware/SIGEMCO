@@ -174,7 +174,7 @@ public class ConsultaUsuarios {
                 }
             }
         } catch (Exception e) {
-
+            e.printStackTrace();
         } finally {
             function.cerrarConexion();
         }

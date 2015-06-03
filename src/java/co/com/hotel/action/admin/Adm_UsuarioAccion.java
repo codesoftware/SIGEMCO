@@ -78,9 +78,12 @@ public class Adm_UsuarioAccion extends ActionSupport implements SessionAware, Us
             sedes = sedeLogica.obtieneSedes();
             if (validateUpdate()) {
                 usuarioObj = new Adm_UsuarioLogica();
+                usuaNuevo.setUsuario(aliasUsuarioNuevo);
                 boolean rtaAct = usuarioObj.actualizaUsuario(usuaNuevo);
                 if (rtaAct) {
-                    addActionMessage("El usuario fue actualizado correctamente");
+                    addActionMessage("El usuario "+ aliasUsuarioNuevo+" fue actualizado correctamente");
+                    usuaNuevo = null;
+                    aliasUsuarioNuevo = "";
                 } else {
                     addActionError("Error al actualizar el usuario");
                 }

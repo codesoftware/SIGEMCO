@@ -1,5 +1,8 @@
 $(function() {
-    $(".fechaNacimiento").datepicker( );
+    $(".fechaNacimiento").datepicker({
+        format: 'dd/mm/yyyy',
+        todayHighlight: true
+    });
     $(".nombreUsuario").autocomplete({
             source: nomUsua,
             select: function(event, ui){    

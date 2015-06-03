@@ -5,7 +5,7 @@
 <html>
     <head>
         <s:include value="/WEB-INF/NEWTEMPLATE/cabecera.jsp"></s:include>
-            <script type="text/javascript" src="<%=RutaSitio %>/JS/ADMINISTRACION/USUARIO/Adm_UpdUsuario.js"></script>
+        <script type="text/javascript" src="<%=RutaSitio%>/JS/ADMINISTRACION/USUARIO/Adm_UpdUsuario.js"></script>
         <s:head/>        
     </head>
     <body>
@@ -41,6 +41,13 @@
                         </script>
                     </s:if>
                 </div>
+
+            </div>
+            <div class="col-md-3 col-sm-0 col-xs-0"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-sm-0 col-xs-0"></div>
+            <div class="col-md-6 col-sm-12 col-xs-12">                
                 <s:form action="consDatosXUsua" id="consDatosXUsua" theme="simple" method="post">
                     <table class="table table-bordered">
                         <thead>
