@@ -1,9 +1,14 @@
+<%@page import="co.com.hotel.datos.session.Parametros"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="/struts-tags" prefix="s" %>
 <%@include file="/WEB-INF/NEWTEMPLATE/Parametros.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
+        <%            Parametros parametros = (Parametros) session.getAttribute("parametros");
+            System.out.println("Esta es la fecha Inicial " + parametros.getPrimerDiaMes());
+            System.out.println("Esta es la fecha final " + parametros.getUltimoDiaMes());
+        %>
         <s:include value="/WEB-INF/NEWTEMPLATE/cabecera.jsp"></s:include>
         <script type="text/javascript" src="<%=RutaSitio%>/JS/CONTABILIDAD/Con_MovContable.js"></script>
         <style>
@@ -122,7 +127,7 @@
                                 </s:include>
                             </div>
                             <div class="form-group col-md-2 col-sm-2 col-xs-2">                                
-                                <img src="<%=RutaSitio%>/IMAGENES/GIFS/xlsx.png" width="60px" id="imagenXls" onclick="ejecutaReporte()"/>
+                                <img src="<%=RutaSitio%>/IMAGENES/GIFS/xlsx.png" style="width: 50px;" id="imagenXls" onclick="ejecutaReporte()"/>
                             </div>
                         </div>
 
@@ -163,7 +168,6 @@
                                         <a href="#" onclick="obtenerAsientocontable('<s:property value="mvco_trans"/>');
                                                 $('#partidaDoble').modal('show');" >
                                         <s:property value="sbcu_codigo"/></td>
-                                    </a>
                                     <td>
                                         <s:property value="sbcu_nombre"/>
                                     </td>
@@ -233,6 +237,14 @@
                 }
                 var cuenta = '<s:text name="moviContable.cuen_cuen"/>';
                 document.getElementById('cuen_cuen').value = cuenta;
+            </script>
+        </s:if>
+        <s:if test="%{resultMoviContable == null}">
+            <script type="text/javascript">
+                var fechaInicial = '<%=parametros.getPrimerDiaMes()%>';
+                var fechaFinal = '<%=parametros.getUltimoDiaMes()%>';
+                document.getElementById('fechaIni').value = fechaInicial;
+                document.getElementById('fechaFin').value = fechaFinal;
             </script>
         </s:if>
     </body>

@@ -1,7 +1,7 @@
 $(document).ready(function () {
     
-    primerDiaMes();
-    ultimoDiaMes();
+    //primerDiaMes();
+    //ultimoDiaMes();
     
     $('#listClase').change(function () {
         var datos = new Object();

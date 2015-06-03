@@ -65,20 +65,23 @@ public class Inv_ProductoLogica {
         try {
             String sql = "select dska_refe referencia , dska_cod codigo , dska_nom_prod nombre, dska_desc descripcion, dska_marca marca, dska_dska id,"
                     + "dska_iva iva, dska_porc_iva porcIva\n";
-            sql += ", to_char(prpr_precio,'LFM9,999,999.99') prpr_precio\n ";
-            sql += "from in_tdska, in_tprpr\n";
+            sql += ", to_char(prpr_precio,'LFM9,999,999.99') prpr_precio, marca_nombre, refe_desc \n ";
+            sql += "from in_tdska, in_tprpr, in_tmarca, in_trefe\n";
             sql += " WHERE 1 = 1 ";
+            sql += " and prpr_dska = dska_dska ";
+            sql += " and marca_marca = dska_marca ";
+            sql += " and dska_refe = refe_refe ";
             if (obj.getCodigo() != null & !"".equalsIgnoreCase(obj.getCodigo())) {
                 sql += " and dska_cod = '" + obj.getCodigo().trim() + "'\n";
             }
             if (obj.getNombre() != null & !"".equalsIgnoreCase(obj.getNombre())) {
-                sql += " AND dska_cod = '" + obj.getNombre().trim() + "'\n";
+                sql += " AND dska_nom_prod = '" + obj.getNombre().trim() + "'\n";
             }
 
             if (obj.getReferencia() != null && !"".equalsIgnoreCase(obj.getReferencia()) && !"-1".equalsIgnoreCase(obj.getReferencia())) {
                 sql += " AND dska_refe = " + obj.getReferencia().trim() + " \n";
             }
-
+            System.out.println("Este es el sql:\n  " + sql );
             rs = function.enviarSelect(sql);
             while (rs.next()) {
                 if (cont == 0) {
@@ -86,10 +89,10 @@ public class Inv_ProductoLogica {
                     cont++;
                 }
                 Producto prod = new Producto();
-                prod.setReferencia(rs.getString("referencia"));
+                prod.setReferencia(rs.getString("refe_desc"));
                 prod.setCodigo(rs.getString("codigo"));
                 prod.setNombre(rs.getString("nombre"));
-                prod.setMarca(rs.getString("marca"));
+                prod.setMarca(rs.getString("marca_nombre"));
                 prod.setId(rs.getString("id"));
                 prod.setDescripcion(rs.getString("descripcion"));
                 prod.setIva(rs.getString("iva"));

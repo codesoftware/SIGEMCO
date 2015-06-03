@@ -57,7 +57,8 @@ public class Adm_SedeLogica {
      */
     public ArrayList<Sede> consultaGeneralSede(String filtro) throws SQLException {
         ArrayList<Sede> resultado = null;
-        String sql = "select sede_sede id, sede_nombre nombre, sede_direccion direccion, sede_estado estado, sede_telefono telefono\n";
+        String sql = "select sede_sede id, sede_nombre nombre, sede_direccion direccion, sede_estado estado, sede_telefono telefono, \n";
+        sql += "to_char(sede_fecin, 'dd/mm/yyyy') fecha \n";
         sql += "from em_tsede\n";
         sql += "where upper(sede_estado) = upper(";
         if (filtro.equalsIgnoreCase("A")) {
@@ -74,13 +75,14 @@ public class Adm_SedeLogica {
         if (rs != null) {
             resultado = new ArrayList<Sede>();
             while (rs.next()) {
-                Sede auxPerfil = new Sede();
-                auxPerfil.setSede_estado(rs.getString("estado"));
-                auxPerfil.setSede_direccion(rs.getString("direccion"));
-                auxPerfil.setSede_nombre(rs.getString("nombre"));
-                auxPerfil.setSede_sede(rs.getString("id"));
-                auxPerfil.setSede_telefono(rs.getString("telefono"));
-                resultado.add(auxPerfil);
+                Sede auxSede = new Sede();
+                auxSede.setSede_estado(rs.getString("estado"));
+                auxSede.setSede_direccion(rs.getString("direccion"));
+                auxSede.setSede_nombre(rs.getString("nombre"));
+                auxSede.setSede_sede(rs.getString("id"));
+                auxSede.setSede_telefono(rs.getString("telefono"));
+                auxSede.setSede_fecin(rs.getString("fecha"));
+                resultado.add(auxSede);
             }
         }
         return resultado;

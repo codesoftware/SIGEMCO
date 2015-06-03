@@ -68,50 +68,52 @@
             </div>
             <div class="col-md-3 col-sm-0 col-xs-0"></div>
         </div>
-        <div class="row">
-            <div class="col-md-1 col-sm-0 col-xs-0"></div>
-            <div class="col-md-10 col-sm-12 col-xs-12">
-                <table class="table table-hover">
-                    <tr>
-                        <td>NOMBRE</td>
-                        <td>DIRECCIÓN</td>
-                        <td>TELÉFONO</td>
-                        <td>FECHA CREACIÓN</td>
-                        <td>ACCIÓN</td>
-                    </tr>
-                    <%
-                        int i = 0;
-                    %>
-                    <s:iterator value="resultSede">
-                        <%
-                            if (i % 2 == 0) {
-                        %>
-                        <tr class="active">
-                            <%
-                            } else {
-                            %>
-                        <tr>
-                            <%
-                                }
-                                i++;
-                            %>
-                            <td><a href="#" onclick="permisoSede('<s:text name="sede_sede"/>')" class="linkPemiso"><s:property value="sede_nombre"/></a></td>
-                            <td><s:property value="sede_direccion"/></td>
-                            <td><s:property value="sede_telefono"/></td>                        
-                            <td><s:property value="sede_fecin"/> </td>                        
-                            <td><s:include value="/WEB-INF/TEMPLATE/botones/update.jsp" > 
-                                    <s:param name="function">actualizarSede</s:param>
-                                    <s:param name="title">Modificar Datos de la sede</s:param>
-                                    <s:param name="paramFunction">'<s:text name="sede_sede" />'</s:param>
-                                    <s:param name="clase">imagenIcono</s:param>
-                                </s:include>
-                            </td>                          
-                        </tr>
-                    </s:iterator>                
-                </table>
+        <s:if test=" resultSede != null ">
+            <div class="row">
                 <div class="col-md-1 col-sm-0 col-xs-0"></div>
+                <div class="col-md-10 col-sm-12 col-xs-12">
+                    <table class="table table-hover">
+                        <tr>
+                            <td>NOMBRE</td>
+                            <td>DIRECCIÓN</td>
+                            <td>TELÉFONO</td>
+                            <td>FECHA CREACIÓN</td>
+                            <td>ACCIÓN</td>
+                        </tr>
+                        <%
+                            int i = 0;
+                        %>
+                        <s:iterator value="resultSede">
+                            <%
+                                if (i % 2 == 0) {
+                            %>
+                            <tr class="active">
+                                <%
+                                } else {
+                                %>
+                            <tr>
+                                <%
+                                    }
+                                    i++;
+                                %>
+                                <td><a href="#" onclick="permisoSede('<s:text name="sede_sede"/>')" class="linkPemiso"><s:property value="sede_nombre"/></a></td>
+                                <td><s:property value="sede_direccion"/></td>
+                                <td><s:property value="sede_telefono"/></td>                        
+                                <td><s:property value="sede_fecin"/> </td>                        
+                                <td><s:include value="/WEB-INF/TEMPLATE/botones/update.jsp" > 
+                                        <s:param name="function">actualizarSede</s:param>
+                                        <s:param name="title">Modificar Datos de la sede</s:param>
+                                        <s:param name="paramFunction">'<s:text name="sede_sede" />'</s:param>
+                                        <s:param name="clase">imagenIcono</s:param>
+                                    </s:include>
+                                </td>                          
+                            </tr>
+                        </s:iterator>                
+                    </table>
+                    <div class="col-md-1 col-sm-0 col-xs-0"></div>
+                </div>
             </div>
-        </div>
+        </s:if>
         <s:form action="adm_conEspSede" theme="simple" id="adm_conEspSede" method="post">
             <s:textfield type="hidden" name="sede.sede_sede" id="linkSede" />
         </s:form>

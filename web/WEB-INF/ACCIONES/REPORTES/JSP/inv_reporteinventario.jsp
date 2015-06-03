@@ -3,7 +3,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="/struts-tags" prefix="s" %>
 <%@include file="/WEB-INF/NEWTEMPLATE/Parametros.jsp" %>
-<%    Usuario usuario = (Usuario) session.getAttribute("usuario");
+<%    
+    Usuario usuario = (Usuario) session.getAttribute("usuario");
     String permisos = usuario.getPermisos();
     Parametros parametros = (Parametros) session.getAttribute("parametros");
 %>
@@ -58,21 +59,18 @@
                                 </s:if>
                             </div>
                             <div class="form-group col-md-12 col-xs-12 col-sm-12 thumbnail">
-                                <div colspan="3" class="col-md-12 col-xs-12 col-sm-12 alert-success text-center"><h3>PROMEDIO PONDERADO</h3></div>
+                                <div  class="col-md-12 col-xs-12 col-sm-12 alert-success text-center"><h3>PROMEDIO PONDERADO</h3></div>
                                 <div class="form-group col-md-4 col-xs-4 col-sm-4">
-                                    <td>Código:</td>
-                                    <td style="width: 90%"><s:textfield cssClass="form-control" name="producto.codigo"/></td>
+                                    Código:
+                                    <s:textfield cssClass="form-control" name="producto.codigo"/>
                                 </div>
                                 <div class="form-group col-md-4 col-xs-4 col-sm-4">
-                                    <td>Nombre:</td>
-                                    <td><s:textfield cssClass="form-control" name="producto.nombre"/></td>
+                                    Referencia:
+                                    <s:textfield cssClass="form-control" name="producto.nombre"/>
                                 </div>
                                 <div class="form-group col-md-4 col-xs-4 col-sm-4">
-                                    <td><s:text name="modeloAsociado.descripcion"/></td>
-                                    <td>
-                                        <s:select cssClass="form-control" list="referencias" name="producto.referencia" id="referencia" headerKey="-1" headerValue="Modelo Asociado" />
-                                        <%--<s:textfield cssClass="form-control" name="producto.referencia" />--%>
-                                    </td>
+                                    <s:text name="modeloAsociado.descripcion"/>
+                                    <s:select cssClass="form-control" list="referencias" name="producto.referencia" id="referencia" headerKey="-1" headerValue="Modelo Asociado" />
                                 </div>   
                                 <div class="form-group col-md-12 col-xs-12 col-sm-12">
                                     <a onclick="buscaProducto()" style="cursor:pointer;float: right" >
@@ -132,7 +130,7 @@
                                         <td colspan="2">
                                             <table style="width: 100%;">
                                                 <tr>
-                                                    <td style="width: 20%;text-align: left;"><b>Nombre: </b></td>
+                                                    <td style="width: 20%;text-align: left;"><b>Referencia: </b></td>
                                                     <td><s:text name="producto.nombre"/></td>
                                                 </tr>
                                             </table>
@@ -224,14 +222,14 @@
         <s:set name="variable" value="bandera" />
         <s:if test="%{#variable.equalsIgnoreCase('S')}">                            
             <script>
-                $(function() {
+                $(function () {
                     $('#myTab a:last').tab('show');
                 })
             </script>
         </s:if>
         <s:else>
             <script>
-                $(function() {
+                $(function () {
                     $('#myTab a:first').tab('show');
                 })
             </script>

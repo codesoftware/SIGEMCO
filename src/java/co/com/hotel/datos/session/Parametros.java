@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package co.com.hotel.datos.session;
 
 /**
@@ -11,11 +10,14 @@ package co.com.hotel.datos.session;
  * @author SOFIA
  */
 public class Parametros {
+
     private String fechaHoy;
     private String fechaManana;
     private String fechaAyer;
     private String fechaUnMesAtras;
     private String RutaSitio;
+    private String primerDiaMes;
+    private String ultimoDiaMes;
 
     public String getFechaHoy() {
         return fechaHoy;
@@ -56,4 +58,21 @@ public class Parametros {
     public void setRutaSitio(String RutaSitio) {
         this.RutaSitio = RutaSitio;
     }
+
+    public String getPrimerDiaMes() {
+        return primerDiaMes;
+    }
+
+    public void setPrimerDiaMes(String primerDiaMes) {
+        this.primerDiaMes = primerDiaMes;
+    }
+
+    public String getUltimoDiaMes() {
+        return ultimoDiaMes;
+    }
+
+    public void setUltimoDiaMes(String ultimoDiaMes) {
+        this.ultimoDiaMes = ultimoDiaMes;
+    }
+
 }

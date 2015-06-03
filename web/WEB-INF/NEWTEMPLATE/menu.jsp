@@ -45,10 +45,7 @@
                                 <%}
                                     if (permisos.indexOf(".AdPf3.") >= 0) {%>
                             <li><a href="reenvioGeneral.action?accion=124">Consulta General</a></li>
-                                <%}
-                                    if (permisos.indexOf(".AdPf4.") >= 0) {%>
-                            <li style="-webkit-border-radius: 0 0 10px 10px;border-radius: 0 0 10px 10px;"><a>Eliminar</a></li>
-                                <%}%>
+                                <%}%>                                    
                         </ul>
                     </li>
                     <%}
@@ -58,14 +55,8 @@
                             <%if (permisos.indexOf(".AdSe1.") >= 0) {%>
                             <li><a href="reenvioGeneral.action?accion=141">Insertar</a></li>
                                 <%}
-                                    if (permisos.indexOf(".AdSe2.") >= 0) {%>
-                            <li><a href="reenvioGeneral.action?accion=142">Modificar</a></li>
-                                <%}
                                     if (permisos.indexOf(".AdSe3.") >= 0) {%>
                             <li><a href="reenvioGeneral.action?accion=144">Consulta General</a></li>
-                                <%}
-                                    if (permisos.indexOf(".AdSe4.") >= 0) {%>
-                            <li style="-webkit-border-radius: 0 0 10px 10px;border-radius: 0 0 10px 10px;"><a>Eliminar</a></li>
                                 <%}%>
                         </ul>
                     </li>
