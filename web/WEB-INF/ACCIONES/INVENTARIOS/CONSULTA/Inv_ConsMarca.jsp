@@ -47,6 +47,13 @@
                         </script>
                     </s:if>
                 </div>
+            </div>
+            <div class="col-md-2 col-xs-0 col-sm-0"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 col-xs-0 col-sm-0"></div>
+            <div class="col-md-4 col-xs-12 col-sm-12">
                 <br/>
                 <s:form name="inv_ConMarca" action="inv_ConMarca" theme="simple">
                     <s:textfield name="accion" cssStyle="display:none" value="consultaGeneral"/>
@@ -57,12 +64,13 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group col-md-8 col-sm-8 col-xs-8">
                                 Estado:<br>
                                 <s:select  list="estadoMap"  name="marca.marca_estado" required="true" headerKey="-1" headerValue="Estado" cssClass="form-control"/>
 
                             </div>
                             <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                                <br/>
                                 <s:include value="/WEB-INF/TEMPLATE/botones/find.jsp">
                                     <s:param name="function">consultarMarcas</s:param>
                                     <s:param name="title">Busqueda de Marcas</s:param>
@@ -72,56 +80,59 @@
                     </div>                    
                 </s:form>
             </div>
-            <div class="col-md-2 col-xs-0 col-sm-0"></div>
+            <div class="col-md-4 col-xs-0 col-sm-0"></div>
         </div>
         <br/>
-        <div class="row">
-            <div class="col-md-1 col-xs-0 col-sm-0"></div>
-            <div class="col-md-10 col-xs-12 col-sm-12">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Descripción</th>
-                            <th>Estado</th>
-                            <th>Acción</th>
-                        </tr> 
-                    </thead>
-                    <tbody>
-                        <%
-                            int i = 0;
-                        %>
-                        <s:iterator value="resultMarca">
-                            <%
-                                if (i % 2 == 0) {
-                            %>
-                            <tr class="active">
-                                <%
-                                } else {
-                                %>
+        <s:if test="resultMarca != null">
+            <div class="row">
+                <div class="col-md-1 col-xs-0 col-sm-0"></div>
+                <div class="col-md-10 col-xs-12 col-sm-12">
+                    <table class="table table-hover">
+                        <thead>
                             <tr>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Estado</th>
+                                <th>Acción</th>
+                            </tr> 
+                        </thead>
+                        <tbody>
+                            <%
+                                int i = 0;
+                            %>
+                            <s:iterator value="resultMarca">
                                 <%
-                                    }
-                                    i++;
+                                    if (i % 2 == 0) {
                                 %>
-                                <td><s:property value="marca_nombre"/></td>
-                                <td><s:property value="marca_descr"/></td>
-                                <td><s:property value="marca_estado"/></td>
-                                <td>
-                                    <s:include value="/WEB-INF/TEMPLATE/botones/update.jsp" >
-                                        <s:param name="function">actulizarEspecifico</s:param>
-                                        <s:param name="title">Actualizar Marca  </s:param>
-                                        <s:param name="paramFunction">'<s:property value="marca_marca"/>'</s:param>
-                                        <s:param name="clase">imagenIconoPeq</s:param>
-                                    </s:include>
-                                </td>
-                            </tr>
-                        </s:iterator>
-                    </tbody>
-                </table>
+                                <tr class="active">
+                                    <%
+                                    } else {
+                                    %>
+                                <tr>
+                                    <%
+                                        }
+                                        i++;
+                                    %>
+                                    <td><s:property value="marca_nombre"/></td>
+                                    <td><s:property value="marca_descr"/></td>
+                                    <td><s:property value="marca_estado"/></td>
+                                    <td>
+                                        <s:include value="/WEB-INF/TEMPLATE/botones/update.jsp" >
+                                            <s:param name="function">actulizarEspecifico</s:param>
+                                            <s:param name="title">Actualizar Marca  </s:param>
+                                            <s:param name="paramFunction">'<s:property value="marca_marca"/>'</s:param>
+                                            <s:param name="clase">imagenIconoPeq</s:param>
+                                        </s:include>
+                                    </td>
+                                </tr>
+                            </s:iterator>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-1 col-xs-0 col-sm-0"></div>                        
             </div>
-            <div class="col-md-1 col-xs-0 col-sm-0"></div>                        
-        </div>
+
+        </s:if>        
         <s:form action="inv_conUpdMarca" id="inv_conUpdMarca" cssStyle="display:none;"  theme="simple" >
             <s:textfield name="accion" id="accion" cssStyle="display:none" value="consultaUpd"/>
             <s:textfield name="marca.marca_marca" id="marca_marca"/>            
