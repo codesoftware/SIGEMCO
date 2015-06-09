@@ -30,6 +30,32 @@ public class ValidacionesString {
         }
         return rta;
     }
+    
+    public String validaPunto(String valor){
+        String rta="";
+        try {
+            if(valor.contains(".")){
+              rta = valor;  
+            }else{
+                rta = valor.concat(".00");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rta;
+    }
+    
+        public  String eliminaMascaraMoneda2(String cadena) {
+        String resultado = "";
+        try {
+            resultado = cadena.replaceAll("\\.", "");
+                   
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultado;
+
+    }
             
            
     

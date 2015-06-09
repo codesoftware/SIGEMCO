@@ -72,6 +72,8 @@ public class Inv_PreciosPrAccion extends ActionSupport implements SessionAware, 
         Inv_ProductoLogica logica = new Inv_ProductoLogica();
         ValidacionesString val = new ValidacionesString();
         try {
+            producto.setPrecio(val.validaPunto(producto.getPrecio()));
+            producto.setPrecio(val.eliminaMascaraMoneda2(producto.getPrecio()));
             producto.setPrecio(val.quitacomas(producto.getPrecio()));
             System.out.println("PONR"+val.ponePunto(producto.getPrecio()));
             PreciosLogica objLogica = new PreciosLogica();

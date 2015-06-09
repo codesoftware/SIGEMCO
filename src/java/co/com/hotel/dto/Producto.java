@@ -113,7 +113,7 @@ public class Producto {
     }
 
     public String getPrecio() {
-        return ManejoString.eliminaMascaraMoneda(precio);
+        return precio;
     }
 
     public void setPrecio(String precio) {
