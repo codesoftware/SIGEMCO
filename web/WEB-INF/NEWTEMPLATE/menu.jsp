@@ -116,7 +116,7 @@
                                     if (permisos.indexOf(".InPr5.") >= 0) {%>
                             <!--<li><a href="reenvioGeneral.action?accion=212">Actualizar Producto</a></li>-->
                             <%}
-                                    if (permisos.indexOf(".InPr9.") >= 0) {%>
+                                if (permisos.indexOf(".InPr9.") >= 0) {%>
                             <li><a href="reenvioGeneral.action?accion=218">Cambio de Sede</a></li>
                                 <%}
                                     if (permisos.indexOf(".InPr10.") >= 0) {%>
@@ -168,16 +168,6 @@
                                 <%}
                                     if (permisos.indexOf(".InMi3.") >= 0) {%>
                             <li><a href="reenvioGeneral.action?accion=244">Consultar Movimientos </a></li>
-                                <%}%>
-                        </ul>
-                    </li>
-                    <%}
-                        if (permisos.indexOf(".InMCo3.") >= 0) {%>
-                    <li><a href="#">Mov. Contable</a>
-                        <ul class="dropdown-menu">
-
-                            <%  if (permisos.indexOf(".InMCo3.") >= 0) {%>
-                            <li><a href="reenvioGeneral.action?accion=294">Consultar Movimientos Contables</a></li>
                                 <%}%>
                         </ul>
                     </li>
@@ -277,9 +267,19 @@
                             <% if (permisos.indexOf(".CoPu1.") > 0) {%>
                             <li><a href="reenvioGeneral.action?accion=514">Consulta General</a>                                
                             </li>
-                            <%}%>                            
+                            <%}%>                                
                         </ul>
                     </li>
+                    <%if (permisos.indexOf(".InMCo3.") >= 0) {%>
+                    <li><a href="#">Mov. Contable</a>
+                        <ul class="dropdown-menu">
+
+                            <%  if (permisos.indexOf(".InMCo3.") >= 0) {%>
+                            <li><a href="reenvioGeneral.action?accion=294">Consultar Movimientos Contables</a></li>
+                                <%}%>
+                        </ul>
+                    </li>
+                    <%}%>
                 </ul>
             </li>
             <%}%>
