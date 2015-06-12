@@ -63,22 +63,49 @@
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
 	<subDataset name="facturas" uuid="8d7e6b73-ab06-474d-aeaf-e8574e3d95a3">
 		<parameter name="CIER_CIER" class="java.lang.String"/>
 		<queryString>
-			<![CDATA[SELECT fact_fact FACTURA ,tius_usuario,'$'||to_char((fact_vlr_total + fact_vlr_iva),'999,999,999.99') TOTAL,
+			<![CDATA[SELECT fact_fact FACTURA ,tius_usuario,'$'||to_char((fact_vlr_total + fact_vlr_iva-fact_vlr_dcto),'999,999,999.99') TOTAL,
 CASE WHEN  FACT_TIPO_PAGO = 'E' THEN 'EFECTIVO'
+WHEN FACT_TIPO_PAGO = 'M' THEN 'MIXTO'
 ELSE 
 'TARJETA'
-END TIPOPAGO
+END TIPOPAGO,
+fact_vlr_dcto DESCUENTO,
+fact_vlr_efectivo VLR_EFECTIVO,
+fact_vlr_tarjeta  VLR_TARJETA
 FROM fa_tfact, us_ttius
 where fact_tius = tius_tius
-AND fact_cierre = $P!{CIER_CIER}]]>
+AND fact_cierre = $P!{CIER_CIER};]]>
 		</queryString>
 		<field name="factura" class="java.lang.Integer"/>
 		<field name="tius_usuario" class="java.lang.String"/>
 		<field name="total" class="java.lang.String"/>
 		<field name="tipopago" class="java.lang.String"/>
+		<field name="descuento" class="java.math.BigDecimal"/>
+		<field name="vlr_efectivo" class="java.math.BigDecimal"/>
+		<field name="vlr_tarjeta" class="java.math.BigDecimal"/>
 	</subDataset>
 	<parameter name="FECHA" class="java.lang.String"/>
 	<parameter name="SEDE" class="java.lang.String"/>
@@ -120,89 +147,6 @@ where cier_fech = to_date($P{FECHA},'dd/mm/yyyy') and cier_sede =$P!{SEDE} and s
 				<reportElement x="194" y="1" width="140" height="20" uuid="96c8ab68-0849-40ee-a5f3-9f1bef443c00"/>
 				<textFieldExpression><![CDATA[$F{nombresede}]]></textFieldExpression>
 			</textField>
-			<componentElement>
-				<reportElement key="table 2" style="table 2" x="0" y="20" width="555" height="50" uuid="e07613e0-1fb7-41ef-80ab-49e4c43ce12b"/>
-				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="facturas" uuid="c04ddd0e-944c-4c17-aaf2-050cee3ca0f8">
-						<datasetParameter name="CIER_CIER">
-							<datasetParameterExpression><![CDATA[$F{cierre}]]></datasetParameterExpression>
-						</datasetParameter>
-						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					</datasetRun>
-					<jr:column width="120" uuid="c44e5c18-796c-4084-b7c1-0742d361bc99">
-						<jr:columnHeader style="table_TD" height="30" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="120" height="30" uuid="5b3f519d-8a11-498b-9c90-845207ab8114"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="13" isBold="true"/>
-								</textElement>
-								<text><![CDATA[FACTURA No]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="120" height="20" uuid="50d9144d-70b3-4173-9981-273c84ee891b"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{factura}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="120" uuid="c76f7590-b92a-4bae-a486-6589fcf1f1c6">
-						<jr:columnHeader style="table_TD" height="30" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="120" height="30" uuid="bcbeae3b-890e-45d6-ae5c-8921364cb32a"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="13" isBold="true"/>
-								</textElement>
-								<text><![CDATA[USUARIO]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="120" height="20" uuid="65bfc42e-5080-4012-842a-725322f56684"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{tius_usuario}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="120" uuid="0e1e6f94-bbde-4fdc-9cc0-b4ee1be15ae1">
-						<jr:columnHeader style="table_TD" height="30" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="120" height="30" uuid="8a7f0dcd-7012-404d-9ca2-2ef2c76dfbf4"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="13" isBold="true"/>
-								</textElement>
-								<text><![CDATA[TOTAL]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="120" height="20" uuid="25b3b260-596e-4657-ad06-e4a4c3f6432b"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="120" uuid="ac0b27f4-b8a7-4e12-a55e-2b49c1a5e9a9">
-						<jr:columnHeader style="table_TD" height="30" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="120" height="30" uuid="3ce53315-9e2b-41a7-9ce3-318e9f88fb86"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="13" isBold="true"/>
-								</textElement>
-								<text><![CDATA[TIPO PAGO]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="120" height="20" uuid="2a5d5085-23d2-4f59-8e29-21ec7bcdf672"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{tipopago}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-				</jr:table>
-			</componentElement>
 			<staticText>
 				<reportElement x="334" y="1" width="100" height="19" uuid="bdf7023d-9ce4-42c0-81a3-84fa4b172190"/>
 				<text><![CDATA[TOTAL DEL CIERRE]]></text>
@@ -211,6 +155,140 @@ where cier_fech = to_date($P{FECHA},'dd/mm/yyyy') and cier_sede =$P!{SEDE} and s
 				<reportElement x="441" y="1" width="100" height="20" uuid="09fe7a96-963a-441f-becc-db7fd1f6a9c3"/>
 				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
+			<componentElement>
+				<reportElement key="table 3" style="table 3" x="2" y="21" width="553" height="50" uuid="a707e4c2-2ac7-42bc-9d4a-b490b21f7677"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="facturas" uuid="57f94993-c142-4df5-baef-dfaf679d7795">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="5ffc0380-e102-499b-8007-d7067f0532a3">
+						<jr:columnHeader height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="b6e23be3-8235-425d-964a-dacbb40e0b82"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[FACTURA]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="6cadf581-fbe0-4967-b83f-271cd120654f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{factura}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="d0cf7c4d-9c17-40ca-96e9-c4298c288e44">
+						<jr:columnHeader height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="6939e1ec-471d-47c9-b942-ed03e272a155"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[USUARIO]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="7cf3fa33-a9b8-4c0d-8dff-8ffbaad22404"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{tius_usuario}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="80a5ce8c-8d68-4dde-9c47-e913ac008022">
+						<jr:columnHeader height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="41736f7c-1e43-48fc-8991-b7d53e97f269"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[TIPO PAGO]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="75c92e47-117a-4201-bcf6-ff8148edcce5"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{tipopago}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="44333518-926e-4fdb-a418-500068d806d5">
+						<jr:columnHeader height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="7f67f0f9-ea1a-4cbb-a8ba-77a042f78deb"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[DESCUENTO]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="1b370489-cf77-4004-881e-c1a6617ae780"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{descuento}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="d9d468cd-1aa5-4c76-9c18-8a8e341afd44">
+						<jr:columnHeader height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="7b5f8014-3e5d-4f6e-ab2c-237445947756"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[VLR EFECTIVO]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="dfda112f-1861-4188-9ca4-4e5d4165cb26"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{vlr_efectivo}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="97d26b35-09e5-4bd6-bcbc-8b29b697d5de">
+						<jr:columnHeader height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="8b5b976d-0869-4874-a71e-a04d12225d01"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[VLR TARJETA]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="0e984b41-c692-4b4e-b2bf-877d8cd1c374"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{vlr_tarjeta}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="fb8f0832-9462-46bf-87cb-7c753bb4c43a">
+						<jr:columnHeader height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="dda9e779-7f4b-4fa4-b441-f262dff7a095"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[TOTAL]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="ac5f2f24-ab7a-4dc2-a384-e5c26f0f6fb4"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
 		</band>
 	</detail>
 </jasperReport>

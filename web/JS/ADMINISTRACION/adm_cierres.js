@@ -10,10 +10,10 @@ function consultaCierre() {
     var sede = $('#sede').val();
     var url = "inv_ReporteCierre?cierreDiario.cier_fech="+fecha + "&cierreDiario.cier_sede=" + sede;
     window.open(url);
-    //document.getElementById('inv_ReporteCierre').submit();
+    document.getElementById('inv_ReporteCierre').submit();
 }
 function insertaCierre() {
-    //document.getElementById('inv_consCierre').submit();
+    document.getElementById('inv_consCierre').submit();
 }
 
 function ejecutaReporte(){
