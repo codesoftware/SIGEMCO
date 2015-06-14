@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="1800" pageHeight="864" orientation="Landscape" columnWidth="1760" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6f8acd23-188e-486e-9a79-a6c351587d91">
-	<property name="ireport.zoom" value="1.4641000000000015"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="1800" pageHeight="864" columnWidth="1760" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="751e9425-cedc-4aad-91b0-5f32614f2973">
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="table">
@@ -23,107 +23,11 @@
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="table 1">
-		<box>
-			<pen lineWidth="1.0" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 2">
-		<box>
-			<pen lineWidth="1.0" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 3">
-		<box>
-			<pen lineWidth="1.0" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 3_TH" mode="Opaque" backcolor="#F0F8FF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 3_CH" mode="Opaque" backcolor="#BFE1FF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 4">
-		<box>
-			<pen lineWidth="1.0" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 4_TH" mode="Opaque" backcolor="#F0F8FF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 4_CH" mode="Opaque" backcolor="#BFE1FF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 5">
-		<box>
-			<pen lineWidth="1.0" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 5_TH" mode="Opaque" backcolor="#F0F8FF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 5_CH" mode="Opaque" backcolor="#BFE1FF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 5_TD" mode="Opaque" backcolor="#FFFFFF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<subDataset name="tabla" uuid="a6f4702e-da7a-4e20-bc15-fd59fbb03e09">
+	<subDataset name="tabla_1" uuid="3c0ca873-5bac-4c18-b4a9-dc882cb90209">
+		<parameter name="FECHA_INI_1" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="FECHA_FIN_1" class="java.lang.String"/>
 		<queryString>
 			<![CDATA[SELECT dska_cod, 
        dska_nom_prod, 
@@ -156,9 +60,9 @@ FROM   in_tdska,
         WHERE  mvin_mvin = kr1.kapr_mvin 
                AND mvin_natu = 'E' 
                AND Cast(kr1.kapr_fecha AS DATE) BETWEEN 
-                   To_date('15/04/2015', 'dd/mm/yyyy') 
+                   To_date(cast($P{FECHA_INI_1} as varchar), 'dd/mm/yyyy') 
                    AND To_date 
-                   ('13/06/2015', 'dd/mm/yyyy') 
+                   (cast($P{FECHA_FIN_1} as varchar), 'dd/mm/yyyy') 
         GROUP  BY kr1.kapr_dska 
         ORDER  BY kr1.kapr_dska) egresos, 
        (SELECT Sum(kapr_cant_mvto)     cntMtoSumIn, 
@@ -169,16 +73,16 @@ FROM   in_tdska,
         WHERE  mvin_mvin = kr1.kapr_mvin 
                AND mvin_natu = 'I' 
                AND Cast(kr1.kapr_fecha AS DATE) BETWEEN 
-                   To_date('15/04/2015', 'dd/mm/yyyy') 
+                   To_date(cast($P{FECHA_INI_1} as varchar), 'dd/mm/yyyy') 
                    AND To_date 
-                   ('13/06/2015', 'dd/mm/yyyy') 
+                   (cast($P{FECHA_FIN_1} as varchar), 'dd/mm/yyyy')
         GROUP  BY kr1.kapr_dska 
         ORDER  BY kr1.kapr_dska) ingresos 
 WHERE  dska_refe = refe_refe 
        AND marca_marca = dska_marca 
        AND dska_cate = cate_cate 
        AND egresos.dskaeg = dska_dska 
-       AND ingresos.dskain = dska_dska ]]>
+       AND ingresos.dskain = dska_dska]]>
 		</queryString>
 		<field name="dska_cod" class="java.lang.String"/>
 		<field name="dska_nom_prod" class="java.lang.String">
@@ -196,6 +100,8 @@ WHERE  dska_refe = refe_refe
 		<field name="promponuniin" class="java.math.BigDecimal"/>
 		<field name="prompontotin" class="java.math.BigDecimal"/>
 	</subDataset>
+	<parameter name="fechaInicial" class="java.lang.String"/>
+	<parameter name="fechaFinal" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'NIT') NIT,  
        (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'NOMBREEMPRESA') NOMBRE,
@@ -209,9 +115,9 @@ WHERE  dska_refe = refe_refe
 	<field name="direccion" class="java.lang.String"/>
 	<field name="ciudad" class="java.lang.String"/>
 	<title>
-		<band height="65" splitType="Stretch">
+		<band height="60" splitType="Stretch">
 			<frame>
-				<reportElement x="0" y="0" width="800" height="60" uuid="8d422f75-48bf-4dee-9bf8-baa5d5c5cf9c"/>
+				<reportElement x="0" y="0" width="950" height="60" uuid="489764e3-167a-47be-b7cd-82cd21f7bd49"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -220,272 +126,306 @@ WHERE  dska_refe = refe_refe
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textField>
-					<reportElement x="0" y="0" width="800" height="20" uuid="b8c1e4dc-5047-4c91-980e-999aa9d81231"/>
+					<reportElement x="0" y="0" width="950" height="20" uuid="d843f5f5-630b-4f89-9e9b-c758e0d30629"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="14" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="128" y="20" width="217" height="20" uuid="0b1f294e-9566-40b1-94ba-21960c15d03a"/>
+					<reportElement x="128" y="20" width="217" height="20" uuid="af40874f-0d4b-4696-a5ff-9380059a1468"/>
 					<textElement verticalAlignment="Middle">
 						<font size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{nit}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="0" y="20" width="128" height="20" uuid="a2bb7376-05fe-47ac-aea1-709cab4df520"/>
+					<reportElement x="0" y="20" width="128" height="20" uuid="87d9ace7-6326-4d33-946f-fd1828e2864e"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="13" isBold="true"/>
 					</textElement>
 					<text><![CDATA[NIT:  ]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="345" y="20" width="112" height="20" uuid="7d72cad6-aae0-4947-a6f9-6e16912577cf"/>
+					<reportElement x="345" y="20" width="112" height="20" uuid="4d8842f4-5105-47a9-aa47-264413e6e7e5"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="13" isBold="true"/>
 					</textElement>
 					<text><![CDATA[TELEFONOS:  ]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="457" y="20" width="343" height="20" uuid="ec654994-f5a8-4dda-8b89-9b71540b845a"/>
+					<reportElement x="457" y="20" width="251" height="20" uuid="3b6dd2b9-bcd4-4432-b519-e3fbb373e6df"/>
 					<textElement verticalAlignment="Middle">
 						<font size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{telefonos}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="128" y="40" width="217" height="20" uuid="e784c351-ed97-4fc7-a65b-a5ddf4836f99"/>
+					<reportElement x="128" y="40" width="217" height="20" uuid="a2f0c0c0-9105-45da-b086-ddb152ea46a3"/>
 					<textElement verticalAlignment="Middle">
 						<font size="13"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{direccion}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="457" y="40" width="343" height="20" uuid="0fee6d90-d527-44ee-bc2b-7ac0ae454467"/>
+					<reportElement x="457" y="40" width="251" height="20" uuid="bcbd0990-cbeb-4fec-8c86-e37327cc239f"/>
 					<textElement verticalAlignment="Middle">
 						<font size="13"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{ciudad}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="0" y="40" width="128" height="20" uuid="a6911bde-862c-4971-880c-0590f12315c5"/>
+					<reportElement x="0" y="40" width="128" height="20" uuid="67b70887-54be-47bd-9c50-719ac9e0bac4"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="13" isBold="true"/>
 					</textElement>
 					<text><![CDATA[DIRECCION:  ]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="345" y="40" width="112" height="20" uuid="024931e2-d0e0-44bf-8823-3f06122d76cd"/>
+					<reportElement x="345" y="40" width="112" height="20" uuid="1b3daf82-739d-4479-a8db-6b419425994f"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="13" isBold="true"/>
 					</textElement>
 					<text><![CDATA[CIUDAD:  ]]></text>
 				</staticText>
+				<staticText>
+					<reportElement x="708" y="20" width="116" height="20" uuid="f4f400b3-dae9-4e58-abbc-185982eed68c"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="13" isBold="true"/>
+					</textElement>
+					<text><![CDATA[FECHA INICIAL:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="708" y="40" width="116" height="20" uuid="67748c37-b7cb-4a17-b3b3-1b1279fc5f72"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="13" isBold="true"/>
+					</textElement>
+					<text><![CDATA[FECHA FINAL:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="824" y="20" width="126" height="20" uuid="ba9f473e-916e-44b9-9e89-9a005bc60f2d"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{fechaInicial}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="824" y="40" width="126" height="20" uuid="6177510d-fa59-4fd9-bb2c-a1715597f66c"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{fechaFinal}]]></textFieldExpression>
+				</textField>
 			</frame>
 		</band>
 	</title>
 	<detail>
-		<band height="50" splitType="Stretch">
+		<band height="125" splitType="Stretch">
 			<componentElement>
-				<reportElement key="table 5" style="table 5" x="0" y="0" width="1500" height="50" uuid="3e0843e7-ea94-4026-8953-6f1c41faab21"/>
+				<reportElement key="table" style="table" x="0" y="0" width="1500" height="50" uuid="372043b9-a608-47c2-a2c1-13bd8f22f0f1"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="tabla" uuid="a409e3f9-c23a-4202-940b-cac253c3dad9">
+					<datasetRun subDataset="tabla_1" uuid="ac53a658-2fd7-4101-9d3a-df7e7745bc75">
+						<datasetParameter name="FECHA_INI_1">
+							<datasetParameterExpression><![CDATA[$P{fechaInicial}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="FECHA_FIN_1">
+							<datasetParameterExpression><![CDATA[$P{fechaFinal}]]></datasetParameterExpression>
+						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
-					<jr:column width="120" uuid="34c1a7e0-850a-4e9e-af2f-08371b442a66">
+					<jr:column width="130" uuid="c94cc9f5-a2aa-4ea6-aa9d-f07899259120">
 						<jr:columnHeader style="table" height="30" rowSpan="1">
 							<staticText>
-								<reportElement style="table" mode="Opaque" x="0" y="0" width="120" height="30" uuid="83ea2371-506b-4270-831d-1d9e3e84bd45"/>
+								<reportElement x="0" y="0" width="130" height="30" uuid="6b52f1aa-af04-444a-b9fb-fc51feea5866"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="11" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Codigo ]]></text>
+								<text><![CDATA[CODIGO]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table" height="20" rowSpan="1">
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="120" height="20" uuid="f1186d18-4e14-4ba1-af1d-13276480f259"/>
+								<reportElement x="0" y="0" width="130" height="20" uuid="9e87e9ba-f20f-401d-8185-c9e19c388aef"/>
 								<textElement verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{dska_cod}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="300" uuid="40d62c55-6777-44b3-9cc2-de8ceb29f226">
+					<jr:column width="250" uuid="16f55b3a-9d0a-4992-9182-1f9328f314ba">
 						<jr:columnHeader style="table" height="30" rowSpan="1">
 							<staticText>
-								<reportElement style="table" mode="Opaque" x="0" y="0" width="300" height="30" uuid="0b377efd-13ea-4879-9d7e-a666e6d5dbf5"/>
+								<reportElement x="0" y="0" width="250" height="30" uuid="78005d07-e258-4fe3-a2e2-ffcbb98f02cb"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="11" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Referencia]]></text>
+								<text><![CDATA[REFERENCIA]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table" height="20" rowSpan="1">
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="300" height="20" uuid="02e6ec35-7c05-42e6-b20c-da8c1d02612a"/>
+								<reportElement x="0" y="0" width="250" height="20" uuid="09c0ba70-734c-4230-8690-b878a509c703"/>
 								<textElement verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{dska_nom_prod}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="120" uuid="069c4917-89b1-411c-824c-90fbeb660ff6">
+					<jr:column width="130" uuid="ce8f8ab0-9320-4e26-90a1-d60b00727853">
 						<jr:columnHeader style="table" height="30" rowSpan="1">
 							<staticText>
-								<reportElement style="table" mode="Opaque" x="0" y="0" width="120" height="30" uuid="a8ff17fe-ee21-427e-bbd8-56a702400d94"/>
+								<reportElement x="0" y="0" width="130" height="30" uuid="7f612cf4-cf46-4d06-bf5f-37485273a6f5"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="11" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Modelo Asociado]]></text>
+								<text><![CDATA[MODELO ASOCIADO]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table" height="20" rowSpan="1">
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="120" height="20" uuid="10f3e677-f4f4-4ba1-ac98-995c3b77f11d"/>
+								<reportElement x="0" y="0" width="130" height="20" uuid="1ba9b3ee-c261-4f58-820c-d45c211301cb"/>
 								<textElement verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{refe_desc}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="180" uuid="6a7b527a-d674-4b73-80f3-36e226aacd3e">
+					<jr:column width="130" uuid="f27773bd-6cb4-4aa1-be41-cf79e2a24d0b">
 						<jr:columnHeader style="table" height="30" rowSpan="1">
 							<staticText>
-								<reportElement style="table" mode="Opaque" x="0" y="0" width="180" height="30" uuid="03502df5-aebf-4eeb-89e4-7fdb4c9f51f9"/>
+								<reportElement x="0" y="0" width="130" height="30" uuid="2f599f52-fac2-42eb-917c-00634fc411a6"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="11" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Marca]]></text>
+								<text><![CDATA[MARCA]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table" height="20" rowSpan="1">
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="180" height="20" uuid="c2eaaeb1-22c7-4997-9b0c-25f0f48ac826"/>
+								<reportElement x="0" y="0" width="130" height="20" uuid="4628cc3c-3507-4c52-b4db-6fa1d9511625"/>
 								<textElement verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{marca_nombre}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="120" uuid="0c7fc64f-e07a-4705-9fdc-7da166df4a4b">
+					<jr:column width="130" uuid="4bf7b719-4028-451d-9bd7-161edf33ba60">
 						<jr:columnHeader style="table" height="30" rowSpan="1">
 							<staticText>
-								<reportElement style="table" mode="Opaque" x="0" y="0" width="120" height="30" uuid="9e184e51-9287-4011-b614-5dac1e47887b"/>
+								<reportElement x="0" y="0" width="130" height="30" uuid="79c8ba02-7e37-44b4-b633-1b700142409f"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="11" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Categoria]]></text>
+								<text><![CDATA[CATEGORIA]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table" height="20" rowSpan="1">
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="120" height="20" uuid="d6738495-e232-4d53-8fee-82fe35fb8d83"/>
+								<reportElement x="0" y="0" width="130" height="20" uuid="0889998f-61eb-4b89-ac84-81fef9826b77"/>
 								<textElement verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{cate_desc}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="120" uuid="d4b17b71-d175-41c2-8ccd-0351ab3aa43c">
+					<jr:column width="130" uuid="d3c390aa-1abc-4a1b-8592-5cfb0cb4153d">
 						<jr:columnHeader style="table" height="30" rowSpan="1">
 							<staticText>
-								<reportElement style="table" mode="Opaque" x="0" y="0" width="120" height="30" uuid="157a12a4-da4f-42b0-9b8b-6279803c5a32"/>
+								<reportElement x="0" y="0" width="130" height="30" uuid="e50cdc93-4616-41df-8e4a-41dae608b150"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="11" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Suma Egresos]]></text>
+								<text><![CDATA[SUMA EGRESOS]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table" height="20" rowSpan="1">
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="120" height="20" uuid="c263cc72-f6e1-4434-b3e3-57fe52c5b7fd"/>
+								<reportElement x="0" y="0" width="130" height="20" uuid="8188152d-4236-4127-a677-6c2292bb38ea"/>
 								<textElement verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{cntmtosumeg}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="180" uuid="f5da0b36-fb7c-46f1-ad5e-fa0cc290f30f">
+					<jr:column width="180" uuid="986389bc-7d75-49a7-b5bd-aa552151c20b">
 						<jr:columnHeader style="table" height="30" rowSpan="1">
 							<staticText>
-								<reportElement style="table" mode="Opaque" x="0" y="0" width="180" height="30" uuid="53c8ac92-cdbd-4960-bd81-a7387a6484cd"/>
+								<reportElement x="0" y="0" width="180" height="30" uuid="496bc9a1-8884-4c5e-a43d-72b3600d265d"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="11" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Promedio Ponderado Unidad Egreso]]></text>
+								<text><![CDATA[PROMEDIO PONDERADO UNIDAD EGRESOS]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table" height="20" rowSpan="1">
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="180" height="20" uuid="157324f6-ae5a-4bee-b997-7fd783974d98"/>
+								<reportElement x="0" y="0" width="180" height="20" uuid="e102ace3-dc35-42f8-b7e4-b24745544e00"/>
 								<textElement verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{promponunieg}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="180" uuid="1a77aafb-fd35-43de-ab39-c8330525756e">
+					<jr:column width="180" uuid="641de7f5-df0e-4241-ad98-2e629ee4242a">
 						<jr:columnHeader style="table" height="30" rowSpan="1">
 							<staticText>
-								<reportElement style="table" mode="Opaque" x="0" y="0" width="180" height="30" uuid="d2b02630-3cbf-4751-999c-79bb9791f8a3"/>
+								<reportElement x="0" y="0" width="180" height="30" uuid="b90ca3d6-8de2-486e-ae9d-ff7e9cbef8ab"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="11" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Promedio Ponderado Total Egreso]]></text>
+								<text><![CDATA[PROMEDIO PONDERADO TOTAL EGRESOS]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table" height="20" rowSpan="1">
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="180" height="20" uuid="1956216c-77bc-46f3-a807-5bfa78dfeb39"/>
+								<reportElement x="0" y="0" width="180" height="20" uuid="a4f198f4-f4d4-48db-9c5a-d528975ae82e"/>
 								<textElement verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{prompontoteg}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="120" uuid="046a6caf-07be-402e-bc2a-6ce66edad4a7">
+					<jr:column width="130" uuid="1f362277-3f88-41d7-b793-fe17a1f535d3">
 						<jr:columnHeader style="table" height="30" rowSpan="1">
 							<staticText>
-								<reportElement style="table" mode="Opaque" x="0" y="0" width="120" height="30" uuid="ef8b655a-be89-4d16-8534-483d73a8579a"/>
+								<reportElement x="0" y="0" width="130" height="30" uuid="cf2c8ad1-df19-4a2b-8419-f44c47cb84f9"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="11" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Suma Ingresos]]></text>
+								<text><![CDATA[SUMA INGRESOS]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table" height="20" rowSpan="1">
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="120" height="20" uuid="1d2e9755-b058-4c97-9967-23d3934162ce"/>
+								<reportElement x="0" y="0" width="130" height="20" uuid="71655022-4642-432f-bd34-b81c9a1e9ae0"/>
 								<textElement verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{cntmtosumin}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="180" uuid="e9c593d1-f47c-4b81-8ded-3e9048d7f999">
+					<jr:column width="180" uuid="4a049441-b86b-473c-865f-f59c759d09aa">
 						<jr:columnHeader style="table" height="30" rowSpan="1">
 							<staticText>
-								<reportElement style="table" mode="Opaque" x="0" y="0" width="180" height="30" uuid="b6bbdddb-36a9-40d2-912c-d141313651e5"/>
+								<reportElement x="0" y="0" width="180" height="30" uuid="78a6d6e2-e411-41c9-b18e-f56cfd3291d2"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="11" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Promedio Ponderado Unidad Ingreso]]></text>
+								<text><![CDATA[PROMEDIO PONDERADO UNIDAD INGRESOS]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table" height="20" rowSpan="1">
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="180" height="20" uuid="46e993dd-10e8-42ff-9c5a-f21f1fdac481"/>
+								<reportElement x="0" y="0" width="180" height="20" uuid="efadd1c7-875f-4735-8257-a7a6a1906396"/>
 								<textElement verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{promponuniin}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="180" uuid="138038e8-378e-41e7-a7f0-2b26c0d75a97">
+					<jr:column width="180" uuid="f64fbeaa-0c0a-44ea-8c8d-906b0a291d41">
 						<jr:columnHeader style="table" height="30" rowSpan="1">
 							<staticText>
-								<reportElement style="table" mode="Opaque" x="0" y="0" width="180" height="30" uuid="d6e089a8-a0e0-4af1-8373-09bb3aea935c"/>
+								<reportElement x="0" y="0" width="180" height="30" uuid="02e94d9b-ba86-4653-be8e-756ecb27be34"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="11" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Promedio Ponderado Total Ingreso]]></text>
+								<text><![CDATA[PROMEDIO PONDERADO TOTAL INGRESOS]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table" height="20" rowSpan="1">
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="180" height="20" uuid="347275c4-6c9c-47b6-b140-347a7f2d3e08"/>
+								<reportElement x="0" y="0" width="180" height="20" uuid="f2f494bf-f513-4d47-a02f-380d362dd6c7"/>
 								<textElement verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{prompontotin}]]></textFieldExpression>
 							</textField>

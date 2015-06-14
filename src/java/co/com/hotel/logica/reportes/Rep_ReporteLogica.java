@@ -213,6 +213,8 @@ public class Rep_ReporteLogica {
             String ubicacionReporte = ruta;
             String print = null;
             Map<String, Object> properties = new HashMap<String, Object>();
+            properties.put("fechaInicial", fechaIni);
+            properties.put("fechaFinal", fechaFin);
             JasperReport jasperReport = (JasperReport) JRLoader.loadObject(ubicacionReporte);
             print = JasperFillManager.fillReportToFile(ubicacionReporte,
             properties, conn);

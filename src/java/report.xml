@@ -145,7 +145,7 @@
             </result>
         </action>
         <action name="con_Reportes" class="co.com.sigemco.alfa.inventario.reporte.ProductoSticker" method="generarRepGenProd" >
-            <param name="nombreJasper">ProductosInventario.jasper</param>
+            <param name="nombreJasper">kardexGeneral.jasper</param>
             <result name="success" type="stream">
                 <!-- nombre del atributo del action que contiene el InputStream a devolver, por defecto se considera inputStream -->
                 <param name="inputName">fileInputStream</param>
