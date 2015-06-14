@@ -33,6 +33,7 @@ public class ProductoSticker extends ActionSupport implements SessionAware, Usua
     private ProductoDto producto;
     private String fechaIni;
     private String fechaFin;
+    private String dska_dska;
 
     public String generarStiker() {
         try {
@@ -62,11 +63,32 @@ public class ProductoSticker extends ActionSupport implements SessionAware, Usua
             File reporteDestino = new File(request.getSession().getServletContext().getRealPath("/IMAGENES/REPORTES/consolidadosProductos.xls"));
             String path = reporte.getPath();
             Rep_ReporteLogica logica = new Rep_ReporteLogica();
-            String rta = logica.generarConsolidadoProdInventario(path, reporteDestino.getPath(),fechaIni, fechaFin);
+            String rta = logica.generarConsolidadoProdInventario(path, reporteDestino.getPath(), fechaIni, fechaFin);
             if (rta.equalsIgnoreCase("Ok")) {
                 fileInputStream = new FileInputStream(reporteDestino);
                 this.contentLength = reporteDestino.length();
                 this.contentName = "consolidadosProductos.xls";
+            } else {
+                addActionError("Error al generar el reporte \n" + rta);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return SUCCESS;
+    }
+
+    public String generarRepKardexPromPond() {
+        try {
+            HttpServletRequest request = ServletActionContext.getRequest();
+            File reporte = new File(request.getSession().getServletContext().getRealPath("/WEB-INF/ACCIONES/REPORTES/FUENTES/" + nombreJasper));
+            File reporteDestino = new File(request.getSession().getServletContext().getRealPath("/IMAGENES/REPORTES/promPond_"+dska_dska+".pdf"));
+            String path = reporte.getPath();
+            Rep_ReporteLogica logica = new Rep_ReporteLogica();
+            String rta = logica.generarPromPondXProd(path, reporteDestino.getPath(), fechaIni, fechaFin,dska_dska);
+            if (rta.equalsIgnoreCase("Ok")) {
+                fileInputStream = new FileInputStream(reporteDestino);
+                this.contentLength = reporteDestino.length();
+                this.contentName = "promPond_"+dska_dska+".pdf";
             } else {
                 addActionError("Error al generar el reporte \n" + rta);
             }
@@ -146,6 +168,14 @@ public class ProductoSticker extends ActionSupport implements SessionAware, Usua
 
     public void setFechaFin(String fechaFin) {
         this.fechaFin = fechaFin;
+    }
+
+    public String getDska_dska() {
+        return dska_dska;
+    }
+
+    public void setDska_dska(String dska_dska) {
+        this.dska_dska = dska_dska;
     }
 
 }

@@ -17,13 +17,13 @@
         <%
             String IP;
             String host;
-            String req="";
-            req=request.getRemoteAddr();
+            String req = "";
+            req = request.getRemoteAddr();
             IP = java.net.InetAddress.getLocalHost().getHostAddress();
             host = java.net.InetAddress.getLocalHost().getHostName();
-            System.out.println("host ip"+IP+request.getRemoteHost());
-            System.out.println("host "+host+request.getRemoteAddr());
-            
+            System.out.println("host ip" + IP + request.getRemoteHost());
+            System.out.println("host " + host + request.getRemoteAddr());
+
         %>
         <s:div cssClass="header">
             <s:include value="/WEB-INF/NEWTEMPLATE/FrameTop.jsp" > 
@@ -56,7 +56,12 @@
                         </script>
                     </s:if>
                 </div>
-                <br/>
+            </div>
+            <div class="col-md-2 col-xs-0 col-sm-0"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-xs-0 col-sm-0"></div>
+            <div class="col-md-6 col-xs-12 col-sm-12">
                 <s:form name="inv_consCierre" action="inv_consCierre" theme="simple">
                     <s:textfield name="accion" cssStyle="display:none" value="cierreDiario"/>
                     <div class="form-group col-md-12 col-sm-12 col-xs-12 thumbnail">
@@ -66,11 +71,11 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group col-md-5 col-sm-5 col-xs-5">
                                 Sede:<br>
                                 <s:select list="sedes"  id="sede" name="sede" required="true" headerKey="-1" headerValue="Seleccione una Sede.." cssClass="form-control" />
                             </div>
-                            <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group col-md-7 col-sm-7 col-xs-7">
                                 Fecha:<br>
                                 <div class="input-group date" >
                                     <s:textfield  cssClass="form-control" name="fecha" readonly="true"/>
@@ -78,25 +83,42 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group col-md-4 col-sm-4 col-xs-4">
-                            <br>
-
-                            <s:include value="/WEB-INF/TEMPLATE/botones/add.jsp">
-                                <s:param name="function">insertaCierre</s:param>
-                                <s:param name="title">Consulta de cierre</s:param>
-                            </s:include>
-                                <a onclick="consultaCierre()" >Consultar</a>
-                            <%--<s:include value="/WEB-INF/TEMPLATE/botones/find.jsp">
-                                <s:param name="function">consultaCierre</s:param>
-                                <s:param name="title">Consulta de cierre</s:param>
-                            </s:include>--%>
-                        </div>
-
+                        <div class="row">
+                            <div class="form-group col-md-5 col-sm-5 col-xs-5"></div>
+                            <div class="form-group col-md-3 col-sm-3 col-xs-3">
+                                <s:include value="/WEB-INF/TEMPLATE/botones/add.jsp">
+                                    <s:param name="function">insertaCierre</s:param>
+                                    <s:param name="title">Consulta de cierre</s:param>
+                                </s:include>
+                            </div>
+                            <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                                <a href="#" class="btn btn-primary" onclick="consultaCierre()" >  
+                                    CONSULTAR                                    
+                                </a>
+                            </div>
+                        </div>                        
                     </div>                    
                 </s:form>
             </div>
-            <div class="col-md-2 col-xs-0 col-sm-0"></div>
+            <div class="col-md-3 col-xs-0 col-sm-0"></div>
         </div>
-        <br/>        
+        <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="mensaje">
+                <div class="modal-dialog">                
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">INFORMACION</h4>
+                        </div>
+                        <div class="modal-body">
+                            <span id="textoMsn"></span>
+                        </div>
+                        <div class="modal-footer">                        
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                ACEPTAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </body>
 </html>
+

@@ -24,6 +24,12 @@ function generaReporte(id){
     var fechaIni= document.getElementById("fechaIni").value;
     var fechaFin= document.getElementById("fechaFin").value;            
     var url = "rep_PromPonderado?producto.id="+ id + "&fechaFin="+ fechaFin + "&fechaIni="+fechaIni;    
-    window.open(url,"_blank","directories=no, status=no,width=1400, height=870,top=0,left=0");
-    
+    window.open(url,"_blank","directories=no, status=no,width=1400, height=870,top=0,left=0");   
+}
+
+function llamaReportePdf(id){
+    var fechaIni= document.getElementById("fechaIni").value;
+    var fechaFin= document.getElementById("fechaFin").value;            
+    var url = "inv_ReportePromPonXProd?dska_dska="+ id + "&fechaFin="+ fechaFin + "&fechaIni="+fechaIni;    
+    window.open(url);
 }

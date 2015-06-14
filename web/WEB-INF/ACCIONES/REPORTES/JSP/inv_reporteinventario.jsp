@@ -3,8 +3,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="/struts-tags" prefix="s" %>
 <%@include file="/WEB-INF/NEWTEMPLATE/Parametros.jsp" %>
-<%    
-    Usuario usuario = (Usuario) session.getAttribute("usuario");
+<%    Usuario usuario = (Usuario) session.getAttribute("usuario");
     String permisos = usuario.getPermisos();
     Parametros parametros = (Parametros) session.getAttribute("parametros");
 %>
@@ -168,11 +167,11 @@
                                 </table>                                
                                 <table class="table table-bordered">
                                     <tr>
-                                        <td colspan="2" class="text-center alert-success">Detalle Producto</td>
+                                        <td colspan="3" class="text-center alert-success">Detalle Producto</td>
                                     </tr>                                                    
                                     <tr>
                                         <td>Fecha Incial:</td>
-                                        <td>
+                                        <td colspan="2">
                                             <div class="input-group date" >
                                                 <s:textfield name="fechaIni" id="fechaIni" cssClass="form-control" readonly="true"/>
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
@@ -181,7 +180,7 @@
                                     </tr>
                                     <tr>
                                         <td>Fecha Final:</td>
-                                        <td>
+                                        <td colspan="2">
                                             <div class="input-group date" >
                                                 <s:textfield name="fechaFin" id="fechaFin" cssClass="form-control" readonly="true"/>
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
@@ -191,8 +190,13 @@
                                     <tr>
                                         <td colspan="2" style="height: 35px;text-align: right;">
                                             <a class="btnElimina" style="font-weight: bold;color: white;" onclick="generaReporte('<s:text name="producto.id"/>')">
-                                                <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-download-alt"></span>&nbsp;Generar Reporte</button>
+                                                <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-download-alt"></span>&nbsp;Generar Reporte Online</button>
                                             </a>
+                                        </td>
+                                        <td colspan="2" style="height: 35px;text-align: right;">
+                                            <button type="button" class="btn btn-default" onclick="llamaReportePdf('<s:text name="producto.id"/>')" >
+                                                <span class="glyphicon glyphicon-download-alt"></span>&nbsp;Generar Reporte Pdf
+                                            </button>
                                         </td>
                                     </tr>
                                 </table>

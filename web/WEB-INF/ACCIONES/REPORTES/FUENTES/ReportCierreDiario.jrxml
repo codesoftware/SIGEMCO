@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="034a0dfe-4562-43ad-8af9-9666f7cca274">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="tabla" uuid="e66681aa-8d4c-4da8-8c09-412bb54e52f3">
+		<parameter name="cier_cier" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[SELECT fact_fact FACTURA ,tius_usuario,'$'||to_char((fact_vlr_total + fact_vlr_iva-fact_vlr_dcto),'999,999,999.99') TOTAL,
+CASE WHEN  FACT_TIPO_PAGO = 'E' THEN 'EFECTIVO'
+WHEN FACT_TIPO_PAGO = 'M' THEN 'MIXTO'
+ELSE 
+'TARJETA'
+END TIPOPAGO,
+fact_vlr_dcto DESCUENTO,
+fact_vlr_efectivo VLR_EFECTIVO,
+fact_vlr_tarjeta  VLR_TARJETA
+FROM fa_tfact, us_ttius
+where fact_tius = tius_tius
+AND fact_cierre = cast($P{cier_cier} as int);]]>
+		</queryString>
+		<field name="factura" class="java.lang.Integer"/>
+		<field name="tius_usuario" class="java.lang.String"/>
+		<field name="total" class="java.lang.String"/>
+		<field name="tipopago" class="java.lang.String"/>
+		<field name="descuento" class="java.math.BigDecimal"/>
+		<field name="vlr_efectivo" class="java.math.BigDecimal"/>
+		<field name="vlr_tarjeta" class="java.math.BigDecimal"/>
+	</subDataset>
+	<parameter name="FECHA" class="java.lang.String"/>
+	<parameter name="SEDE" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'NIT') NIT,  
+       (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'NOMBREEMPRESA') NOMBRE,
+       (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'TELEFONOS') TELEFONOS,
+       (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'DIRECCION') DIRECCION,
+       (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'CIUDAD') CIUDAD,
+       (SELECT sede_nombre FROM em_TSEDE WHERE sede_sede = cast($P{SEDE} as int))	SEDE,
+       '$'||to_char(cier_vlrc,'999,999,999.99') total,
+       cier_cier
+FROM ad_tcier 
+where cast(cier_fech as date) = to_date($P{FECHA}, 'dd/mm/yyyy')
+and cier_sede = cast($P{SEDE} as int)]]>
+	</queryString>
+	<field name="nit" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="telefonos" class="java.lang.String"/>
+	<field name="direccion" class="java.lang.String"/>
+	<field name="ciudad" class="java.lang.String"/>
+	<field name="sede" class="java.lang.String"/>
+	<field name="total" class="java.lang.String"/>
+	<field name="cier_cier" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Identificador primario de la tabla]]></fieldDescription>
+	</field>
+	<title>
+		<band height="140" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="802" height="40" uuid="c5403aa5-59bd-41ee-ad87-b549af9c5575"/>
+				<textElement textAlignment="Center">
+					<font size="30" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE CIERRE DIARIO]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="0" y="40" width="802" height="100" uuid="c06631c0-787e-4c67-b444-bd1c476b6fe8"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textField>
+					<reportElement x="0" y="0" width="802" height="20" uuid="176f6329-783a-4dd1-95d2-39b9862e89fd"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="154" y="20" width="244" height="20" uuid="05679723-de90-4f33-a602-5025e1766e91"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nit}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="20" width="128" height="20" uuid="8fa59d01-fa0f-4027-8251-da7255a542cf"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="13" isBold="true"/>
+					</textElement>
+					<text><![CDATA[NIT:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="419" y="20" width="116" height="20" uuid="7ae7e779-ee0e-4d63-9a83-645f8a027dd4"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="13" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TELEFONOS:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="551" y="20" width="251" height="20" uuid="90cb733e-52f4-45f3-a44f-31068b018e5d"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{telefonos}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="154" y="40" width="244" height="20" uuid="92ce4296-830e-4189-baf2-243771c107f0"/>
+					<textElement verticalAlignment="Middle">
+						<font size="13"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{direccion}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="551" y="40" width="251" height="20" uuid="b61f5bb1-4263-468c-9aa3-574d55b7bb4c"/>
+					<textElement verticalAlignment="Middle">
+						<font size="13"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ciudad}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="40" width="128" height="20" uuid="36c5a8c0-e51f-44f7-b444-9b77c0df816a"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="13" isBold="true"/>
+					</textElement>
+					<text><![CDATA[DIRECCION:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="419" y="40" width="116" height="20" uuid="6b3949e2-0f7b-4021-9733-672179a610a0"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="13" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CIUDAD:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="60" width="128" height="20" uuid="304f7d8e-e500-4947-9089-a980d644591c"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="13" isBold="true"/>
+					</textElement>
+					<text><![CDATA[FECHA:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="154" y="60" width="244" height="20" uuid="b71cbac1-f050-4752-98dd-6f4dfd7ee88d"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{FECHA}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="419" y="60" width="116" height="20" uuid="3be46cdd-4f19-473a-9fef-8d013ac2eaff"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="13" isBold="true"/>
+					</textElement>
+					<text><![CDATA[SEDE:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="551" y="60" width="251" height="20" uuid="ce776b1f-da64-43d2-836a-c012dc06ac96"/>
+					<textElement verticalAlignment="Middle">
+						<font size="13"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{sede}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="80" width="128" height="20" uuid="58fbc098-278f-4b18-a0e1-40de82fdbbab"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="13" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TOTAL:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="154" y="80" width="244" height="20" uuid="6e54d918-6710-4291-8a97-60e8df7dbcb6"/>
+					<textElement verticalAlignment="Middle">
+						<font size="13"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<detail>
+		<band height="70" splitType="Stretch">
+			<componentElement>
+				<reportElement key="table" style="table" x="0" y="20" width="802" height="50" uuid="462b09b4-c0f4-4774-ab1b-d8506e6db01e"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="tabla" uuid="4219d768-d3d7-469f-b0ba-94ecc8d4d5e9">
+						<datasetParameter name="cier_cier">
+							<datasetParameterExpression><![CDATA[$F{cier_cier}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="110" uuid="cc542826-b29d-4357-9e2c-8e7ce3a2f89f">
+						<jr:columnHeader style="table" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="110" height="30" uuid="7871f063-f850-47e2-aced-e6965eb5e0d8"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[ID. FACT]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="110" height="20" uuid="8345a179-db27-4842-960f-f6d8f4f8df7a"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{factura}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="110" uuid="53e5651e-20ef-49b6-9a8c-6578c31354a9">
+						<jr:columnHeader style="table" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="110" height="30" uuid="96417197-757b-4cf7-bc9a-32a0181296e8"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[FACTURO]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="110" height="20" uuid="a1eb34dc-d17f-442b-ba76-1a5ccd03a909"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{tius_usuario}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="110" uuid="48492135-c8c3-4871-9ea9-aa78b059651a">
+						<jr:columnHeader style="table" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="110" height="30" uuid="ad69725a-aa82-4e0e-95c6-63b499501460"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[TOTAL]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="110" height="20" uuid="1e08b9d2-eabf-4f94-ab3d-fc301a51b4db"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="110" uuid="515c2d25-26d9-486a-a364-8d2ca4b9ed05">
+						<jr:columnHeader style="table" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="110" height="30" uuid="4466fd9d-daec-4c83-a1a2-f079cca50fe4"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[TIPO PAGO]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="110" height="20" uuid="3f2d35f4-327c-4b41-b033-89b6f098dda4"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{tipopago}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="110" uuid="b0dc60e6-1e71-4204-a4dc-47c33b619a4a">
+						<jr:columnHeader style="table" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="110" height="30" uuid="43d727a9-6e4d-4665-aea6-26f1f4e8c189"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[DESCUENTO]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="110" height="20" uuid="6159a2a0-29d6-4fb3-a620-47ac40ca9773"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{descuento}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="110" uuid="c427a7cf-662e-4490-9885-2c3c6ac5db59">
+						<jr:columnHeader style="table" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="110" height="30" uuid="3b960102-58e7-4a9a-a285-9e5ad4f16495"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[VALOR EFECTIVO]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="110" height="20" uuid="f432f72e-3a5c-40fd-b68e-bd326fa9c510"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{vlr_efectivo}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="110" uuid="e694e119-549e-4f98-bbb5-e7e67cd58c78">
+						<jr:columnHeader style="table" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="110" height="30" uuid="0a5a16fd-85d8-4e2f-8e15-2d1bc45e549b"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[VALOR TARJETA]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="110" height="20" uuid="ab752ddb-490f-4d36-8545-5564b5a16895"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{vlr_tarjeta}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+</jasperReport>

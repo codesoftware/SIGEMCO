@@ -239,5 +239,31 @@ public class Rep_ReporteLogica {
         }
         return rta;
     }
+    
+    public String generarPromPondXProd(String ruta, String rutaDestino, String fechaIni, String fechaFin,String dska) {
+        String rta = "Ok";
+        Connection conn = null;
+        try {
+            conn = this.generarConexion();
+            String ubicacionReporte = ruta;
+            Map<String, Object> properties = new HashMap<String, Object>();
+            properties.put("fechaInicial", fechaIni);
+            properties.put("fechaFinal", fechaFin);
+            properties.put("dska", dska);
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(ubicacionReporte);
+            JasperPrint print = JasperFillManager.fillReport(jasperReport, properties, conn);
+            JasperExportManager.exportReportToPdfFile(print, rutaDestino);
+        } catch (Exception e) {
+            e.printStackTrace();
+            rta = "Error " + e;
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Rep_ReporteLogica.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return rta;
+    }
 
 }
