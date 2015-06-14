@@ -8,10 +8,7 @@
 <html>
     <head>
         <s:include value="/WEB-INF/NEWTEMPLATE/cabecera.jsp"></s:include>
-        <script type="text/javascript" src="<%=RutaSitio%>/JS/INVENTARIOS/Adm_Reportes.js"></script>
-        <style>
-            .ocultar{display: none;}
-        </style>
+        <script type="text/javascript" src="<%=RutaSitio%>/JS/INVENTARIOS/Adm_Reportes.js"></script>        
     </head>
     <body>
         <s:div cssClass="header">
@@ -45,7 +42,12 @@
                         </script>
                     </s:if>
                 </div>
-                <br/>
+            </div>
+            <div class="col-md-2 col-xs-0 col-sm-0"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-xs-0 col-sm-0"></div>
+            <div class="col-md-8 col-xs-12 col-sm-12">
                 <s:form name="con_Reportes" action="con_Reportes" theme="simple">
                     <s:textfield name="accion" cssStyle="display:none" value="reporteGeneral"/>
                     <div class="form-group col-md-12 col-sm-12 col-xs-12 thumbnail">
@@ -55,15 +57,28 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                            <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                 Tipo:<br>
                                 <s:select list="reportes"  id="reportes" name="reportes" required="true" headerKey="-1" headerValue="Favor seleccione un reporte......" cssClass="form-control" />
                             </div>
-                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                            <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                                Fecha Inicial:<br>
+                                <div class="input-group date" >
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                                Fecha Final:<br>
+                                <div class="input-group date" >
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12 text-right">
                                 <div class="form-group col-md-2 col-sm-2 col-xs-2">                                
                                     <img src="<%=RutaSitio%>/IMAGENES/GIFS/xlsx.png" width="60px" id="imagenXls" onclick="ejecutaReporte()"/>
                                 </div>
-
                             </div>
                         </div>
                     </div>                    

@@ -31,19 +31,21 @@ public class ProductoSticker extends ActionSupport implements SessionAware, Usua
     private long contentLength;
     private String contentName;
     private ProductoDto producto;
+    private String fechaIni;
+    private String fechaFin;
 
     public String generarStiker() {
         try {
             HttpServletRequest request = ServletActionContext.getRequest();
-                File reporte = new File(request.getSession().getServletContext().getRealPath("/WEB-INF/ACCIONES/REPORTES/FUENTES/" + nombreJasper));
-            File reporteDestino = new File(request.getSession().getServletContext().getRealPath("/IMAGENES/REPORTES/codigo_"+producto.getDska_dska()+".pdf"));
+            File reporte = new File(request.getSession().getServletContext().getRealPath("/WEB-INF/ACCIONES/REPORTES/FUENTES/" + nombreJasper));
+            File reporteDestino = new File(request.getSession().getServletContext().getRealPath("/IMAGENES/REPORTES/codigo_" + producto.getDska_dska() + ".pdf"));
             String path = reporte.getPath();
             Rep_ReporteLogica logica = new Rep_ReporteLogica();
             String rta = logica.generarStikerProd(producto.getDska_dska(), path, reporteDestino.getPath());
             if (rta.equalsIgnoreCase("Ok")) {
                 fileInputStream = new FileInputStream(reporteDestino);
                 this.contentLength = reporteDestino.length();
-                this.contentName = "stikerProd_"+producto.getDska_dska()+".pdf";
+                this.contentName = "stikerProd_" + producto.getDska_dska() + ".pdf";
             } else {
                 addActionError("Error al generar el reporte \n" + rta);
             }
@@ -52,7 +54,7 @@ public class ProductoSticker extends ActionSupport implements SessionAware, Usua
         }
         return SUCCESS;
     }
-    
+
     public String generarRepGenProd() {
         try {
             HttpServletRequest request = ServletActionContext.getRequest();
@@ -60,7 +62,7 @@ public class ProductoSticker extends ActionSupport implements SessionAware, Usua
             File reporteDestino = new File(request.getSession().getServletContext().getRealPath("/IMAGENES/REPORTES/consolidadosProductos.xls"));
             String path = reporte.getPath();
             Rep_ReporteLogica logica = new Rep_ReporteLogica();
-            String rta = logica.generarConsolidadoProdInventario(path, reporteDestino.getPath());
+            String rta = logica.generarConsolidadoProdInventario(path, reporteDestino.getPath(),fechaIni, fechaFin);
             if (rta.equalsIgnoreCase("Ok")) {
                 fileInputStream = new FileInputStream(reporteDestino);
                 this.contentLength = reporteDestino.length();
@@ -128,6 +130,22 @@ public class ProductoSticker extends ActionSupport implements SessionAware, Usua
 
     public void setProducto(ProductoDto producto) {
         this.producto = producto;
+    }
+
+    public String getFechaIni() {
+        return fechaIni;
+    }
+
+    public void setFechaIni(String fechaIni) {
+        this.fechaIni = fechaIni;
+    }
+
+    public String getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(String fechaFin) {
+        this.fechaFin = fechaFin;
     }
 
 }

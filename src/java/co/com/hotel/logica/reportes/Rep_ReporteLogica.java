@@ -205,7 +205,7 @@ public class Rep_ReporteLogica {
         return rta;
     }
 
-    public String generarConsolidadoProdInventario(String ruta, String rutaDestino) {
+    public String generarConsolidadoProdInventario(String ruta, String rutaDestino, String fechaIni, String fechaFin) {
         String rta = "Ok";
         Connection conn = null;
         try {
