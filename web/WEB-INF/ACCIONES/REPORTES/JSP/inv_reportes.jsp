@@ -64,12 +64,14 @@
                             <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                 Fecha Inicial:<br>
                                 <div class="input-group date" >
+                                    <s:textfield name="fechaIni" cssClass="form-control" readonly="true" id="fechaIni"/>
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                 </div>
                             </div>
                             <div class="form-group col-md-4 col-sm-4 col-xs-4">
                                 Fecha Final:<br>
                                 <div class="input-group date" >
+                                    <s:textfield name="fechaFin" cssClass="form-control" readonly="true" id="fechaFin"/>
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                 </div>
                             </div>
