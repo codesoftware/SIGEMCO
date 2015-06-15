@@ -174,8 +174,8 @@ public class SubCuentaDao {
         sql += "  AND sbft_visible = 'S'                      \n";
         return sql;
     }
-    
-    public String buscaSubcuentaXFiltroCodigo(){
+
+    public String buscaSubcuentaXFiltroCodigo() {
         StringBuilder sql = new StringBuilder();
         sql.append("select (sbcu_codigo || ' - ' || upper(sbcu_nombre)) AS sbcu_codigo ");
         sql.append("from co_tsbcu ");
@@ -183,5 +183,36 @@ public class SubCuentaDao {
         sql.append(this.getSbcu_codigo());
         sql.append("%'");
         return sql.toString();
+    }
+
+    /**
+     * Funcion la cual creara el query para contar cuantos movimientos contables
+     * tiene determinada subcuenta
+     *
+     * @param sbcu_sbcu
+     * @return
+     */
+    public String cuentaSubcuentasMvco(String sbcu_sbcu) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT count(*) conteo ");
+        sql.append("FROM co_tmvco ");
+        sql.append("WHERE mvco_sbcu = ");
+        sql.append(sbcu_sbcu);
+        return sql.toString();
+    }
+    
+    /**
+     * Funcion encargada de retornar un Query para buscar una subcuenta por su
+     * id
+     *
+     * @return
+     */
+    public String buscaSubCuentaXId() {
+        String sql = "";
+        sql += "SELECT sbcu_sbcu, sbcu_cuen, sbcu_clas, sbcu_grup, sbcu_estado, sbcu_nombre, \n";
+        sql += "       sbcu_codigo, sbcu_descripcion, sbcu_naturaleza                        \n";
+        sql += "  FROM co_tsbcu                                                              \n";
+        sql += " WHERE sbcu_sbcu = '" + this.getSbcu_sbcu()+ "' ";
+        return sql;
     }
 }

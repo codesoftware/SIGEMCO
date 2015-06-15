@@ -89,7 +89,7 @@
                                 <s:iterator value="cuenta.subCuenta" >
                                     <tr>
                                         <td><s:property value="sbcu_codigo" /></td>
-                                        <td><a ><s:property value="sbcu_nombre" /></a></td>
+                                        <td><a onclick="edicionSubcuentas(<s:property value="sbcu_sbcu" />)" ><s:property value="sbcu_nombre" /></a></td>
                                     </tr>
                                 </s:iterator>
                             </tbody>
@@ -99,6 +99,46 @@
             </div>
             <div class="col-md-3 col-xs-0 col-sm-0"></div>
         </div>
+        <!--Div utilizado para mostrar mensajes la usuario-->
+        <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="mensaje">
+            <div class="modal-dialog">                
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">INFORMACION</h4>
+                    </div>
+                    <div class="modal-body">
+                        <span id="textoMsn"></span>
+                    </div>
+                    <div class="modal-footer">                        
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            ACEPTAR
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Div utilizado para Actualizar una subcuenta-->
+        <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="updateSbcu">
+            <div class="modal-dialog">                
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">ACTUALIZACION DE SUBCUENTA <span id="codigoSbcuTitulo"></span></h4>
+                    </div>
+                    <div class="modal-body">
+                        <span id="tcontenidoUpdate"></span>
+                    </div>
+                    <div class="modal-footer">                        
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            CANCELAR
+                        </button>
+                        <button type="button" class="btn btn-primary" id="ejecutaActulizacionSbcu">
+                            ACTUALIZAR
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
     </body>
     <s:form action="buscaCuentasXGrup" id="buscaCuentasXGrup" theme="simple" cssStyle="display:none" >
         <s:textfield name="clase.clas_clas" id="claseBusca"/>

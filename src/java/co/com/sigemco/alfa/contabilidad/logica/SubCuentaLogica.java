@@ -72,7 +72,6 @@ public class SubCuentaLogica {
             objDto.setSbcu_cuen(cuenDto.getCuen_cuen());
 
             objDao = poblarDao(objDto);
-            System.out.println("Query: " + objDao.insertSubCuenta());
             boolean rs = function.enviarUpdate(objDao.insertSubCuenta());
             if (!rs) {
                 rta = "Error ";
@@ -195,15 +194,15 @@ public class SubCuentaLogica {
         }
         return objDao;
     }
-    
-    public ArrayList<String> buscaSubCuentasXFiltro(String sbcu_codigo){
-        SubCuentaDao objDao  = new SubCuentaDao();
+
+    public ArrayList<String> buscaSubCuentasXFiltro(String sbcu_codigo) {
+        SubCuentaDao objDao = new SubCuentaDao();
         ArrayList lista = null;
-        try(EnvioFunction function = new EnvioFunction()) {
+        try (EnvioFunction function = new EnvioFunction()) {
             objDao.setSbcu_codigo(sbcu_codigo);
             ResultSet rs = function.enviarSelect(objDao.buscaSubcuentaXFiltroCodigo());
-            while(rs.next()){
-                if(lista == null){
+            while (rs.next()) {
+                if (lista == null) {
                     lista = new ArrayList();
                 }
                 lista.add(rs.getString("sbcu_codigo"));
@@ -211,6 +210,65 @@ public class SubCuentaLogica {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return lista;        
+        return lista;
+    }
+
+    /**
+     * Funcion encargada de evaluar si se puede editar una subcuenta por medio
+     * de su id
+     *
+     * @param sbcu_sbcu
+     * @return
+     */
+    public String evaluaEdicionSubcuenta(String sbcu_sbcu) {
+        String rta = null;
+        SubCuentaDao objDao = new SubCuentaDao();
+        try (EnvioFunction function = new EnvioFunction()) {
+            ResultSet rs = function.enviarSelect(objDao.cuentaSubcuentasMvco(sbcu_sbcu));
+            if (rs.next()) {
+                rta = rs.getString("conteo");
+                int aux = Integer.parseInt(rta);
+                if (aux > 0) {
+                    rta = "No";
+                } else {
+                    rta = "Si";
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rta;
+    }
+
+    /**
+     * Funcion encargada de realizar la busqueda de una subcuenta por medio de
+     * su id
+     *
+     * @param sbcu_codigo
+     * @return
+     */
+    public SubCuentaDto buscaSubcuentaXId(String sbcu_sbcu) {
+        SubCuentaDto objDto = null;
+        try (EnvioFunction function = new EnvioFunction()) {
+            SubCuentaDao objDao = new SubCuentaDao();
+            objDao.setSbcu_sbcu(sbcu_sbcu);
+            ResultSet rs = function.enviarSelect(objDao.buscaSubCuentaXId());
+            if (rs.next()) {
+                objDto = new SubCuentaDto();
+                objDto.setSbcu_sbcu(rs.getString("SBCU_SBCU"));
+                objDto.setSbcu_cuen(rs.getString("SBCU_CUEN"));
+                objDto.setSbcu_clas(rs.getString("SBCU_CLAS"));
+                objDto.setSbcu_grup(rs.getString("SBCU_GRUP"));
+                objDto.setSbcu_estado(rs.getString("SBCU_ESTADO"));
+                objDto.setSbcu_nombre(rs.getString("SBCU_NOMBRE"));
+                objDto.setSbcu_codigo(rs.getString("SBCU_CODIGO"));
+                objDto.setSbcu_descripcion(rs.getString("SBCU_DESCRIPCION"));
+                objDto.setSbcu_naturaleza(rs.getString("SBCU_NATURALEZA"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            objDto = null;
+        }
+        return objDto;
     }
 }

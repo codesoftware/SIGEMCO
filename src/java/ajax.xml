@@ -46,5 +46,7 @@
         </action>
         <action name="buscaProdConteo" class="co.com.sigemco.alfa.inventario.ajax.ajaxControllerProducto" method="buscaProductoConteo">
         </action>
+        <action name="buscaDatosEditarSubcuenta" class="co.com.sigemco.alfa.contabilidad.ajax.AjaxSubCuentaAction" method="verificaEdicionSubcuenta">
+        </action>
     </package>
 </struts>
