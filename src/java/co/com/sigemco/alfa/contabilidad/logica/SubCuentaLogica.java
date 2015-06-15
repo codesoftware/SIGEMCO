@@ -271,4 +271,27 @@ public class SubCuentaLogica {
         }
         return objDto;
     }
+
+    /**
+     * Funcion encargada de realizar la logica para actualizar los datos de una
+     * subcuenta por medio de su id
+     *
+     * @param objDto
+     * @return
+     */
+    public String actualizaSubCuenta(SubCuentaDto objDto) {
+        String rta = null;
+        try (EnvioFunction function = new EnvioFunction()) {
+            SubCuentaDao objDao = new SubCuentaDao();
+            boolean valida = function.enviarUpdate(objDao.actualizasubCuenta(objDto));
+            if(valida){
+                rta = "Ok";
+            }else{
+                rta = "Error";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rta;
+    }
 }

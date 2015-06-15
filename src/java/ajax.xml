@@ -48,5 +48,8 @@
         </action>
         <action name="buscaDatosEditarSubcuenta" class="co.com.sigemco.alfa.contabilidad.ajax.AjaxSubCuentaAction" method="verificaEdicionSubcuenta">
         </action>
+        <action name="actualizaSbcu" class="co.com.sigemco.alfa.contabilidad.ajax.AjaxSubCuentaAction" method="actualizaSubCuenta">
+        </action>
+        
     </package>
 </struts>

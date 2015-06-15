@@ -5,6 +5,8 @@
  */
 package co.com.sigemco.alfa.contabilidad.dao;
 
+import co.com.sigemco.alfa.contabilidad.dto.SubCuentaDto;
+
 /**
  *
  * @author SISCOMPUTO
@@ -200,7 +202,7 @@ public class SubCuentaDao {
         sql.append(sbcu_sbcu);
         return sql.toString();
     }
-    
+
     /**
      * Funcion encargada de retornar un Query para buscar una subcuenta por su
      * id
@@ -212,7 +214,30 @@ public class SubCuentaDao {
         sql += "SELECT sbcu_sbcu, sbcu_cuen, sbcu_clas, sbcu_grup, sbcu_estado, sbcu_nombre, \n";
         sql += "       sbcu_codigo, sbcu_descripcion, sbcu_naturaleza                        \n";
         sql += "  FROM co_tsbcu                                                              \n";
-        sql += " WHERE sbcu_sbcu = '" + this.getSbcu_sbcu()+ "' ";
+        sql += " WHERE sbcu_sbcu = '" + this.getSbcu_sbcu() + "' ";
         return sql;
+    }
+
+    /**
+     * Funcion encargada de realizar el query para actualizar una subcuenta
+     *
+     * @param obj
+     * @return
+     */
+    public String actualizasubCuenta(SubCuentaDto obj) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("update co_tsbcu       ");
+        sql.append("set sbcu_nombre = '");
+        sql.append(obj.getSbcu_nombre());
+        sql.append("',");
+        sql.append("sbcu_descripcion = '");
+        sql.append(obj.getSbcu_descripcion());
+        sql.append("',");
+        sql.append("sbcu_naturaleza = '");
+        sql.append(obj.getSbcu_naturaleza());
+        sql.append("'");
+        sql.append("where sbcu_sbcu = ");
+        sql.append(obj.getSbcu_sbcu());
+        return sql.toString();
     }
 }

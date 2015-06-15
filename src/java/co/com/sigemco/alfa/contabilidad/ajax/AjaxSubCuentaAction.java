@@ -25,6 +25,9 @@ import org.apache.struts2.interceptor.SessionAware;
 public class AjaxSubCuentaAction extends ActionSupport implements SessionAware, UsuarioHabilitado {
 
     private String sbcu_sbcu;
+    private String sbcu_nombre;
+    private String sbcu_descripcion;
+    private String sbcu_naturaleza;
     private Usuario usuario;
     private Map session;
 
@@ -54,6 +57,33 @@ public class AjaxSubCuentaAction extends ActionSupport implements SessionAware, 
             e.printStackTrace();
         }
     }
+    
+    public void actualizaSubCuenta(){
+        HttpServletResponse response = ServletActionContext.getResponse();
+        response.setContentType("text/plain;charset=utf-8");
+        try {
+            PrintWriter out = response.getWriter();
+            Gson gson = new Gson();
+            Map<String, Object> respuesta = new HashMap<>();
+            String objJson = "";
+            objJson = gson.toJson(respuesta);
+            SubCuentaLogica logica = new SubCuentaLogica();
+            SubCuentaDto objDto = new SubCuentaDto();
+            objDto.setSbcu_sbcu(sbcu_sbcu);
+            objDto.setSbcu_nombre(sbcu_nombre);
+            objDto.setSbcu_descripcion(sbcu_descripcion);
+            objDto.setSbcu_naturaleza(sbcu_naturaleza);
+            String valida = logica.actualizaSubCuenta(objDto);
+            if("Ok".equalsIgnoreCase(valida)){
+                respuesta.put("respuesta", "Ok");
+            }else{
+                respuesta.put("resuesta", "Error");
+            }
+            out.println(objJson);
+        } catch (Exception e) {
+           e.printStackTrace();
+        }
+    }
 
     public String getSbcu_sbcu() {
         return sbcu_sbcu;
@@ -77,6 +107,30 @@ public class AjaxSubCuentaAction extends ActionSupport implements SessionAware, 
 
     public void setSession(Map session) {
         this.session = session;
+    }
+
+    public String getSbcu_nombre() {
+        return sbcu_nombre;
+    }
+
+    public void setSbcu_nombre(String sbcu_nombre) {
+        this.sbcu_nombre = sbcu_nombre;
+    }
+
+    public String getSbcu_descripcion() {
+        return sbcu_descripcion;
+    }
+
+    public void setSbcu_descripcion(String sbcu_descripcion) {
+        this.sbcu_descripcion = sbcu_descripcion;
+    }
+
+    public String getSbcu_naturaleza() {
+        return sbcu_naturaleza;
+    }
+
+    public void setSbcu_naturaleza(String sbcu_naturaleza) {
+        this.sbcu_naturaleza = sbcu_naturaleza;
     }
 
 }
