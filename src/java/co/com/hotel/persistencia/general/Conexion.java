@@ -25,13 +25,13 @@ import java.util.logging.Logger;
  */
 public class Conexion {
 
-    private static Conexion conexion;
-    private static Connection con;
-    private static String host;
-    private static String port;
-    private static String user;
-    private static String pass;
-    private static String db;
+        private static Conexion conexion;
+        private static Connection con;
+        private static String host;
+        private static String port;
+        private static String user;
+        private static String pass;
+        private static String db;
 
     private Conexion() {
         ResourceBundle rb = ResourceBundle.getBundle("co.com.sigemco.alfa.archivos.BASECONFIG");        
