@@ -44,11 +44,15 @@
 		</box>
 	</style>
 	<subDataset name="usuarios" uuid="9704bf82-c4ed-4740-9719-a08f534457b9">
-		<queryString language="SQL">
+		<parameter name="PEFIL_DS" class="java.lang.String"/>
+		<parameter name="ESTADO_DS" class="java.lang.String"/>
+		<queryString>
 			<![CDATA[SELECT to_char(tius_fecha_registro,'dd/mm/yyyy') fec_ingreso,to_char(tius_ultimo_ingreso, 'dd/mm/yyyy') fec_ultimoIng,tius_estado estado,
        pers_cedula cedula, pers_email email, pers_apellido || ' ' ||pers_nombre nombre
 from us_ttius, us_tpers
-where tius_pers  = pers_pers]]>
+where tius_pers  = pers_pers
+AND tius_perf = case when cast($P{PEFIL_DS} as int) = -1 then tius_perf else cast($P{PEFIL_DS} AS INT) end
+AND TIUS_ESTADO = case when UPPER($P{ESTADO_DS}) = '-1' THEN TIUS_ESTADO ELSE UPPER($P{ESTADO_DS}) END]]>
 		</queryString>
 		<field name="fec_ingreso" class="java.lang.String"/>
 		<field name="fec_ultimoing" class="java.lang.String"/>
@@ -57,6 +61,8 @@ where tius_pers  = pers_pers]]>
 		<field name="email" class="java.lang.String"/>
 		<field name="nombre" class="java.lang.String"/>
 	</subDataset>
+	<parameter name="PERFIL" class="java.lang.String"/>
+	<parameter name="ESTADO" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT para_valor  FROM em_tpara where para_clave = 'NOMBREEMPRESA']]>
 	</queryString>
@@ -87,7 +93,13 @@ where tius_pers  = pers_pers]]>
 			<componentElement>
 				<reportElement key="table 1" style="table 1" x="0" y="0" width="555" height="50" uuid="06e9fdf6-acef-4946-bee0-35d6464b23c2"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="usuarios" uuid="6fe1856e-a833-44d8-a564-94dec9d4872f">
+					<datasetRun subDataset="usuarios" uuid="2d447ead-873b-406a-9f22-0d164c6fa099">
+						<datasetParameter name="PEFIL_DS">
+							<datasetParameterExpression><![CDATA[$P{PERFIL}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="ESTADO_DS">
+							<datasetParameterExpression><![CDATA[$P{ESTADO}]]></datasetParameterExpression>
+						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
 					<jr:column width="90" uuid="17bed61c-ad02-43a6-9e21-eba8d44ee969">
