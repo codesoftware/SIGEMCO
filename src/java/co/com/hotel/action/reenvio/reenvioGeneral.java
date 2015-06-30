@@ -19,6 +19,7 @@ import co.com.sigemco.alfa.contabilidad.dto.ClaseDto;
 import co.com.sigemco.alfa.contabilidad.logica.ClaseLogica;
 import co.com.sigemco.alfa.inventario.dto.RemisionDto;
 import co.com.sigemco.alfa.inventario.logica.MarcaLogica;
+import co.com.sigemco.alfa.inventario.logica.ProveedorLogica;
 import co.com.sigemco.alfa.inventario.logica.ReferenciaLogica;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.ArrayList;
@@ -87,6 +88,10 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     public static final int INV_INS_MARCA = 601;
     public static final int INV_UPD_MARCA = 602;
     public static final int INV_CON_MARCA = 604;
+    //Paginas de Proveedores
+    public static final int INV_INS_PROVED= 701;
+    public static final int INV_UPD_PROVED = 702;
+    public static final int INV_CON_PROVED = 704;
     // paginas de categorias
     public static final int INV_INS_CATEGORIA = 271;
     public static final int INV_UPD_CATEGORIA = 272;
@@ -125,6 +130,8 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     private Map<String, String> sedes;
     private Map<String, String> categorias;
     private Map<String, String> referencias;
+    //Mapas necesarios para los proveedores
+    private Map<String, String> proveedores;
 
     //Mapas Necesarios para Referencias de Celular
     private Map<String, String> camara;
@@ -163,6 +170,7 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
         Adm_PerfilLogica periflObj = null;
         Adm_UsuarioLogica usuarioObj = null;
         Adm_SedeLogica sedeLogica = null;
+        ProveedorLogica provLogica = null;
         Inv_CategoriaLogica cateLogica = null;
         ReferenciaLogica refeLogica = null;
         Emp_EmpresaLogica logicaEmp = null;
@@ -220,6 +228,8 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
                     nextPage = "inv_ins_producto";
                     sedeLogica = new Adm_SedeLogica();
                     this.sedes = sedeLogica.obtieneSedes();
+                    provLogica = new ProveedorLogica();
+                    this.proveedores = provLogica.obtieneProovedores();
                     cateLogica = new Inv_CategoriaLogica();
                     this.categorias = cateLogica.obtieneCategorias();
                     logicaMarca = new MarcaLogica();
@@ -277,6 +287,8 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
                     this.yesNo = new HashMap<String, String>();
                     this.yesNo.put("S", "Si");
                     this.yesNo.put("N", "No");
+//                    provLogica = new ProveedorLogica();
+//                    this.proveedores = provLogica.obtieneProovedores(); 
                     break;
                 case REP_INV_PONDERADO:
                     refeLogica = new ReferenciaLogica();
@@ -397,6 +409,18 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
                     break;
                 case INV_CON_MARCA:
                     nextPage = "Inv_Conmarca";
+                    this.estadoMap = new HashMap<String, String>();
+                    this.estadoMap.put("A", "Activo");
+                    this.estadoMap.put("I", "Inactivo");
+                    break;
+                case INV_INS_PROVED:
+                    nextPage = "inv_ins_proved";
+                    break;
+                case INV_UPD_PROVED:
+                    nextPage = "inv_upd_proved";
+                    break;
+                case INV_CON_PROVED:
+                    nextPage = "Inv_ConProved";
                     this.estadoMap = new HashMap<String, String>();
                     this.estadoMap.put("A", "Activo");
                     this.estadoMap.put("I", "Inactivo");
@@ -663,6 +687,16 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     public void setSedes(Map<String, String> sedes) {
         this.sedes = sedes;
     }
+
+    public Map<String, String> getProveedores() {
+        return proveedores;
+    }
+
+    public void setProveedores(Map<String, String> proveedores) {
+        this.proveedores = proveedores;
+    }
+    
+    
 
     public Map<String, String> getCategorias() {
         return categorias;

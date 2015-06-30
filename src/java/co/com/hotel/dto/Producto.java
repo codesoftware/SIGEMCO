@@ -31,7 +31,7 @@ public class Producto {
     //Id el cual sirve para realizar los movimientos contables
     private String idTranMvCo;
     private String promPonderado; //Valor ponderado del producto
-
+    private String proveedores;
     public String getReferencia() {
         return referencia;
     }
@@ -167,4 +167,13 @@ public class Producto {
     public void setPromPonderado(String promPonderado) {
         this.promPonderado = promPonderado;
     }
+
+    public String getProveedores() {
+        return proveedores;
+    }
+
+    public void setProveedores(String proveedores) {
+        this.proveedores = proveedores;
+    }
+    
 }

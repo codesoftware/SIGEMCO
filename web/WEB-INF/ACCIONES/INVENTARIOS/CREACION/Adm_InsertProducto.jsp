@@ -102,6 +102,10 @@
                                         <td><s:select  list="sedes"  name="producto.sede" required="true" headerKey="-1" headerValue="Sede"  cssClass="form-control" id="sedes"/></td>
                                     </tr>
                                     <tr>
+                                        <td>Proveedor:</td>
+                                        <td><s:select  list="proveedores"  name="producto.proveedores" required="true" headerKey="-1" headerValue="Proveedor.."  cssClass="form-control" id="proveedores"/></td>
+                                    </tr>
+                                    <tr>
                                         <td>Cantidad:</td>
                                         <td><s:textfield name="producto.cantidad" requiered="true" cssClass="form-control" id="producto_cantidad" onkeypress="return validaNumeros(event)" /></td>
                                     </tr>

@@ -197,6 +197,20 @@
                         </ul>
                     </li>
                     <%}
+                     
+                         if (permisos.indexOf(".InProved1.") >= 0 || permisos.indexOf(".InProved2.") >= 0 || permisos.indexOf(".InProved.") >= 0) {%>
+                    <li><a href="#">Proveedores</a>
+                        <ul class="dropdown-menu">
+                            <%if (permisos.indexOf(".InProved1.") >= 0) {%>
+                            <li><a href="reenvioGeneral.action?accion=701">Adicionar Proveedor</a></li>
+                                <%}
+                                    if (permisos.indexOf(".InProved3.") >= 0) {%>
+                            <li><a href="reenvioGeneral.action?accion=704">Consultar Proveedores</a></li>
+                                <%}%>
+                        </ul>
+                    </li>
+                    <%}    
+                        
                         if (permisos.indexOf(".InCat1.") >= 0 || permisos.indexOf(".InCat2.") >= 0 || permisos.indexOf(".InCat3.") >= 0) {%>
                     <li><a href="#">Categorias</a>
                         <ul class="dropdown-menu">

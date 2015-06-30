@@ -22,6 +22,7 @@ public class ProductoDao {
     private String dska_estado;
     private String dska_fec_ingreso;
     private String dska_cate;
+    private String dska_prov;
     private String cantExis;
     private String cantidad;
 
@@ -128,6 +129,15 @@ public class ProductoDao {
     public void setCantidad(String cantidad) {
         this.cantidad = cantidad;
     }
+
+    public String getDska_prov() {
+        return dska_prov;
+    }
+
+    public void setDska_prov(String dska_prov) {
+        this.dska_prov = dska_prov;
+    }
+    
 
     /**
      * Funcion encargada de retornar el select con los filtros solicitados por

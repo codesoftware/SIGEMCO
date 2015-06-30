@@ -1,7 +1,6 @@
 $(function(){
     
 });
-
 function consultarMarcas(){
     document.getElementById('inv_ConMarca').submit();
 }

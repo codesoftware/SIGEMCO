@@ -53,6 +53,7 @@ public class ProductoLogica {
                 aux.setDska_fec_ingreso(rs.getString("dska_fec_ingreso"));
                 aux.setDska_cate(rs.getString("dska_cate"));
                 aux.setReferenciaNombre(rs.getString("refe_desc"));
+                aux.setDska_prov(rs.getString("dska_prov"));
                 String cant = this.buscaCanProdExistenXId(aux.getDska_dska());
                 aux.setCantExis(cant);
                 String promPon = this.obtieneValorPonderadoProducto(objDto.getDska_dska());
@@ -81,6 +82,7 @@ public class ProductoLogica {
             objDao.setDska_fec_ingreso(objDto.getDska_fec_ingreso());
             objDao.setDska_cate(objDto.getDska_cate());
             objDao.setCantidad(objDto.getCantidad());
+            objDao.setDska_prov(objDto.getDska_prov());
         } catch (Exception e) {
             e.printStackTrace();
         }

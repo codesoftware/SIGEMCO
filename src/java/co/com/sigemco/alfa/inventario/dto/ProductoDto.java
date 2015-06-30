@@ -22,6 +22,7 @@ public class ProductoDto {
     private String dska_estado;
     private String dska_fec_ingreso;
     private String dska_cate;
+    private String dska_prov;
     private String filtros; //Indica S como se le debe mostrar al cliente y N como se le debe enviar a la base de datos
     private String cantExis; //Numero de cantidades existentes de cada producto
     private String promPonderado;
@@ -208,5 +209,15 @@ public class ProductoDto {
 
     public void setValorTotalVenta(String valorTotalVenta) {
         this.valorTotalVenta = valorTotalVenta;
-    }    
+    } 
+
+    public String getDska_prov() {
+        return dska_prov;
+    }
+
+    public void setDska_prov(String dska_prov) {
+        this.dska_prov = dska_prov;
+    }
+    
+    
 }

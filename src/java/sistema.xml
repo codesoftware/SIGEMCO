@@ -60,7 +60,11 @@
             <result name="inv_ins_referencia">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertReferencia.jsp</result>
             <result name="inv_ins_marca">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertMarca.jsp</result>
             <result name="Inv_Conmarca">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsMarca.jsp</result>
-                      
+            
+            <!-- Proveedores-->
+            <result name="inv_ins_proved">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertProved.jsp</result>
+            <result name="Inv_ConProved">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsProved.jsp</result>
+            <!-- fin Proveedores-->         
             <result name="Inv_ConReferencia">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsReferencia.jsp</result>
             <result name="Inv_ConCategoria">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsCategoria.jsp</result>
             <result name="inv_ins_categoria">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertCategoria.jsp</result>
@@ -156,7 +160,29 @@
         <action name="inv_InsMarca" class="co.com.sigemco.alfa.inventario.action.MarcaAction" method="insertar">
             <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertMarca.jsp</result>
             <result name="input"  >/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertMarca.jsp</result>
+        </action>
+        
+        <!--Proveedores -->
+        <action name="inv_InsProved" class="co.com.sigemco.alfa.inventario.action.ProvedAction" method="insertar">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertProved.jsp</result>
+            <result name="input"  >/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertProved.jsp</result>
+        </action>
+        
+        <action name="inv_UpdProv" class="co.com.sigemco.alfa.inventario.action.ProvedAction" method="actualizaProovedor">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/inv_conUpdProved.jsp</result>
+            <result name="input"  >/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/inv_conUpdProved.jsp</result>
+        </action>
+        
+        <action name="inv_ConProved" class="co.com.sigemco.alfa.inventario.action.ProvedAction" method="consultaProveedores">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsProved.jsp</result>
+            <result name="input"  >/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsProved.jsp</result>
         </action>  
+        <action name="inv_conUpdProved" class="co.com.sigemco.alfa.inventario.action.ProvedAction" method="consultaProveedorEspecifico">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/inv_conUpdProved.jsp</result>
+            <result name="input"  >/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/inv_conUpdProved.jsp</result>
+        </action>
+        
+        <!-- fin -->        
         
         <action name="inv_ConCategoria" class="co.com.sigemco.alfa.inventario.action.CategoriaAction" method="consultaCategorias">
             <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsCategoria.jsp</result>

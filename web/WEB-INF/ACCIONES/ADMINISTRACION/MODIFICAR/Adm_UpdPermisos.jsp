@@ -391,6 +391,27 @@
                                                 </tbody>                                
                                             </table>
                                         </div>
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <table style="width: 100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="subTitulo"><a id="InProved">PROVEEDORES</a></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody style="display: none;" class="subPermisoInProved">
+                                                    <tr>                                    
+                                                        <td style="width: 30%">Inserci&oacute;n</td>
+                                                        <td style="width: 20%"><input type="checkbox" value="InProved1" id="InProved1"/></td>
+                                                    </tr>
+                                                    <tr>                                    
+                                                        <td>Consulta General</td>
+                                                        <td><input type="checkbox" value="InProved3" id="InProved3" /></td>
+                                                        <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                                        <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                                    </tr>
+                                                </tbody>                                
+                                            </table>
+                                        </div>
                                     </div>                                    
                                 </div>
                             </div>
