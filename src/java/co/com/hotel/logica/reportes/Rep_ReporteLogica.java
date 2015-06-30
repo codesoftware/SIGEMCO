@@ -80,8 +80,9 @@ public class Rep_ReporteLogica {
         try {
             conn = this.generarConexion();
             String ubicacionReporte = ruta;
-            Map<String, Object> properties = new HashMap<String, Object>();
-            //properties.put("fact_fact", Integer.parseInt(fact_fact));
+            Map<String, Object> properties = new HashMap<String, Object>();            
+            properties.put("PERFIL", usua.getIdPerfil());
+            properties.put("ESTADO", usua.getEstado());
             JasperReport jasperReport = (JasperReport) JRLoader.loadObject(ubicacionReporte);
             JasperPrint print = JasperFillManager.fillReport(jasperReport, properties, conn);
             JasperExportManager.exportReportToPdfFile(print, rutaDestino);

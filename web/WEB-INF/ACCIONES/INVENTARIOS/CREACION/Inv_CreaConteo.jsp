@@ -50,7 +50,7 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th class="alert alert-success text-center" colspan="2"><h4>Creacion de inventario</h4></th>
+                                <th class="alert alert-success text-center" colspan="2"><h4>Creacion de Conteo de Inventario Físico</h4></th>
                         </tr>
                         </thead>
                         <tbody>
