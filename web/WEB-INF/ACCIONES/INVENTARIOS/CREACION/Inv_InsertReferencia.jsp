@@ -5,7 +5,7 @@
 <html>
     <head>
         <s:include value="/WEB-INF/NEWTEMPLATE/cabecera.jsp"></s:include>
-         <script type="text/javascript" src="JS/INVENTARIOS/Inv_UpdReferencia.js"></script>
+            <script type="text/javascript" src="JS/INVENTARIOS/Inv_UpdReferencia.js"></script>
         </head>
         <body>
         <s:div cssClass="header">
@@ -44,7 +44,10 @@
                     <table class="table table-bordered" >
                         <thead>
                             <tr>
-                                <th colspan="2" style="text-align: center;" class="alert alert-info text-center"><h3>INSERCION DE REFERENCIAS DE CELULAR</h3></th>
+                                <th colspan="2" style="text-align: center;" class="alert alert-info text-center"><h3>
+                                <s:i18n name="co.com.sigemco.alfa.archivos.MessagesBundleProducto" >
+                                    <s:text name="texto1" />
+                                    </s:i18n></h3></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -52,7 +55,7 @@
                                 <td>Descripción:</td>
                                 <td><s:textfield name="referencia.refe_desc" cssClass="form-control"  /></td>
                             </tr>
-                         
+
                             <tr>
                                 <td>Camara (mpx):</td>
                                 <td><s:textfield name="referencia.refe_came" cssClass="form-control" onkeypress="return validaNumeros(event)"/></td>

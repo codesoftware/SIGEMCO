@@ -106,7 +106,9 @@
                                 <td style="text-align: right;" colspan="2">
                                     <s:include value="/WEB-INF/TEMPLATE/botones/modify.jsp" >
                                         <s:param name="function">actulizarEspecifico</s:param>
-                                        <s:param name="title">Modifica el celular seleccionado</s:param>
+                                        <s:param name="title">Modifica el <s:i18n name="co.com.sigemco.alfa.archivos.MessagesBundleProducto" >
+                                                <s:text name="texto2" />
+                                            </s:i18n> seleccionado</s:param>
                                     </s:include>
 
                                 </td>

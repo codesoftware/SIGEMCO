@@ -82,7 +82,7 @@
                                     <tr>
                                         <td><s:text name="modeloAsociado.descripcion"/></td>
                                         <td>
-                                            <s:select cssClass="form-control" list="referencias" name="producto.referencia" id="referencia" headerKey="-1" headerValue="Modelo Asociado" />
+                                            <s:select cssClass="form-control" list="referencias" name="producto.referencia" id="referencia" headerKey="-1" headerValue="seleccione..." />
                                         </td>
                                     </tr>
                                     <%--<tr>

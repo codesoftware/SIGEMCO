@@ -218,9 +218,13 @@
                                                         <td><input type="checkbox" value="InPr6" id="InPr6" /></td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Ingreso Celular</td>
+                                                        <td>Ingreso <s:i18n name="co.com.sigemco.alfa.archivos.MessagesBundleProducto" >
+                                                                <s:text name="texto2" />
+                                                            </s:i18n></td>
                                                         <td><input type="checkbox" value="InPr7" id="InPr7" /></td>
-                                                        <td>Consulta Equipos Celulares</td>
+                                                        <td>Consulta <s:i18n name="co.com.sigemco.alfa.archivos.MessagesBundleProducto" >
+                                                                <s:text name="texto2" />
+                                                            </s:i18n></td>
                                                         <td><input type="checkbox" value="InPr8" id="InPr8" /></td>
                                                     </tr>
                                                     <tr>
@@ -350,7 +354,9 @@
                                             <table style="width: 100%">
                                                 <thead>
                                                     <tr>
-                                                        <th class="subTitulo"><a id="InRefe">REFERENCIAS</a></th>
+                                                        <th class="subTitulo"><a id="InRefe"><s:i18n name="co.com.sigemco.alfa.archivos.MessagesBundleProducto" >
+                                                                    <s:text name="texto1" />
+                                                                </s:i18n></a></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody style="display: none;" class="subPermisoInRefe">

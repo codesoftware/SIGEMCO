@@ -44,7 +44,9 @@
                     <div class="form-group col-md-12 col-sm-12 col-xs-12 thumbnail">
                         <div class="row">
                             <div class="form-group col-md-12 col-sm-12 col-xs-12 ">
-                                <div class="alert alert-success text-center"  role="alert" ><h3>CONSULTA GENERAL DE EQUIPOS CELULARES EN PRESTAMO</h3></div>
+                                <div class="alert alert-success text-center"  role="alert" ><h3>CONSULTA GENERAL DE <s:i18n name="co.com.sigemco.alfa.archivos.MessagesBundleProducto" >
+                                            <s:text name="texto2" />
+                                        </s:i18n></h3></div>
                             </div>
                         </div>
                         <div class="row">
@@ -199,10 +201,14 @@
             <div class="modal-dialog">                
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Acci&oacute;n Equipos Celulares</h4>
+                        <h4 class="modal-title">Acci&oacute;n <s:i18n name="co.com.sigemco.alfa.archivos.MessagesBundleProducto" >
+                                <s:text name="texto2" />
+                            </s:i18n></h4>
                     </div>
                     <div class="modal-body">
-                        ¿Que accion desea Realizale al Equipo Celular?
+                        ¿Que accion desea Realizale al <s:i18n name="co.com.sigemco.alfa.archivos.MessagesBundleProducto" >
+                            <s:text name="texto2" />
+                        </s:i18n>?
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">
@@ -228,7 +234,9 @@
                         <h4 class="modal-title">Devolución de equipos</h4>
                     </div>
                     <div class="modal-body">
-                        ¿Esta seguro de devolver el celular?
+                        ¿Esta seguro de devolver el <s:i18n name="co.com.sigemco.alfa.archivos.MessagesBundleProducto" >
+                            <s:text name="texto1" />
+                        </s:i18n>?
                     </div>
                     <div class="modal-footer">
                         <div class="form-group">

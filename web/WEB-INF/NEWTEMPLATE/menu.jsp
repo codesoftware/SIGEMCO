@@ -1,4 +1,5 @@
 <%@page import="co.com.hotel.datos.session.Usuario"%>
+<%@taglib uri="/struts-tags" prefix="s" %>
 <%
     Usuario usuario = (Usuario) session.getAttribute("usuario");
     String permisos = usuario.getPermisos();
@@ -173,14 +174,21 @@
                     </li>
                     <%}
                         if (permisos.indexOf(".InRef1.") >= 0 || permisos.indexOf(".InRef2.") >= 0 || permisos.indexOf(".InRef3.") >= 0) {%>
-                    <li><a href="#">Referencias Celular</a>
+                    <li><a href="#"><s:i18n name="co.com.sigemco.alfa.archivos.MessagesBundleProducto" >
+                                <s:text name="texto1" />
+                            </s:i18n></a>
                         <ul class="dropdown-menu">
                             <%if (permisos.indexOf(".InRef1.") >= 0) {%>
-                            <li><a href="reenvioGeneral.action?accion=261">Adicionar Referencia</a></li>
-                                <%}
+
+                            <li><a href="reenvioGeneral.action?accion=261">Adicionar <s:i18n name="co.com.sigemco.alfa.archivos.MessagesBundleProducto" >
+                                        <s:text name="texto1" />
+                                    </s:i18n></a></li>
+                                    <%}
                                     if (permisos.indexOf(".InRef3.") >= 0) {%>
-                            <li><a href="reenvioGeneral.action?accion=264">Consultar Referencia</a></li>
-                                <%}%>
+                            <li><a href="reenvioGeneral.action?accion=264">Consultar <s:i18n name="co.com.sigemco.alfa.archivos.MessagesBundleProducto" >
+                                        <s:text name="texto1" />
+                                    </s:i18n></a></li>
+                                    <%}%>
                         </ul>
                     </li>
 
@@ -197,8 +205,8 @@
                         </ul>
                     </li>
                     <%}
-                     
-                         if (permisos.indexOf(".InProved1.") >= 0 || permisos.indexOf(".InProved2.") >= 0 || permisos.indexOf(".InProved.") >= 0) {%>
+
+                        if (permisos.indexOf(".InProved1.") >= 0 || permisos.indexOf(".InProved2.") >= 0 || permisos.indexOf(".InProved.") >= 0) {%>
                     <li><a href="#">Proveedores</a>
                         <ul class="dropdown-menu">
                             <%if (permisos.indexOf(".InProved1.") >= 0) {%>
@@ -209,8 +217,8 @@
                                 <%}%>
                         </ul>
                     </li>
-                    <%}    
-                        
+                    <%}
+
                         if (permisos.indexOf(".InCat1.") >= 0 || permisos.indexOf(".InCat2.") >= 0 || permisos.indexOf(".InCat3.") >= 0) {%>
                     <li><a href="#">Categorias</a>
                         <ul class="dropdown-menu">
@@ -224,7 +232,9 @@
                     </li>
                     <%}
                         if (permisos.indexOf(".InPr7.") >= 0 || permisos.indexOf(".InPr8.") >= 0) {%>
-                    <li><a href="#">Celulares</a>
+                    <li><a href="#"><s:i18n name="co.com.sigemco.alfa.archivos.MessagesBundleProducto" >
+                                <s:text name="texto2" />
+                            </s:i18n></a>
                         <ul class="dropdown-menu">
                             <%if (permisos.indexOf(".InPr7.") >= 0) {%>
                             <li><a href="reenvioGeneral.action?accion=251">Ingreso</a></li>
@@ -257,7 +267,7 @@
                     <li><a href="#">Usuarios</a>
                         <ul class="dropdown-menu">
                             <li><a href="reenvioGeneral.action?accion=431">Activos</a></li>
-                            <li><a href="reenvioGeneral.action?accion=431">Facturación de Usuarios</a></li>
+                            <!--<li><a href="reenvioGeneral.action?accion=431">Facturación de Usuarios</a></li>-->
                         </ul>
                     </li>
                     <%}%>

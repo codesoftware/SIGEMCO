@@ -5,13 +5,13 @@
 <html>
     <head>
         <s:include value="/WEB-INF/NEWTEMPLATE/cabecera.jsp"></s:include> 
-        <style>
-            .ocultas{
-                display: none;
-            }
-        </style>
-    </head>
-    <body>
+            <style>
+                .ocultas{
+                    display: none;
+                }
+            </style>
+        </head>
+        <body>
         <s:div >
             <s:include value="/WEB-INF/NEWTEMPLATE/FrameTop.jsp" > 
                 <s:param name="nombre"><s:text name="usuario.apellido"/> <s:text name="usuario.nombre"/></s:param>
@@ -34,7 +34,9 @@
                     <thead>
                         <tr id="cabecera">
                             <th>FECHA</th>
-                            <th>REFERENCIA</th>
+                            <th><s:i18n name="co.com.sigemco.alfa.archivos.MessagesBundleProducto" >
+                                    <s:text name="texto1" />
+                                </s:i18n></th>
                             <th>SEDE</th>
                             <th class="ocultas">IMEI</th>
                             <th class="ocultas">ICCID</th>

@@ -57,7 +57,10 @@
                                 <s:select  list="categorias"  name="producto.dska_cate" required="true" headerKey="-1" headerValue="Categoria" cssClass="form-control" id="producto_categoria" />
                             </div>
                             <div class="form-group col-md-4 col-sm-4 col-xs-4">
-                                Modelo Asociado:<br>                                
+                                <s:i18n name="co.com.sigemco.alfa.archivos.MessagesBundleProducto" >
+                                    <s:text name="texto1" />
+                                </s:i18n>
+                                <br>                                
                                 <s:select cssClass="form-control" list="referencias" name="producto.dska_refe" id="referencia" headerKey="-1" headerValue="Referencia" />
                             </div>
                         </div>
@@ -92,7 +95,9 @@
                                 <th>Codigo</th>
                                 <th>Referencia</th>
                                     <%--<th>Descripción</th>--%>
-                                <th>Modelo Asociado</th>
+                                <th> <s:i18n name="co.com.sigemco.alfa.archivos.MessagesBundleProducto" >
+                                        <s:text name="texto1" />
+                                    </s:i18n></th>
                                 <th>Marca</th>
                                 <th>Categoria</th>                                    
                                 <th>Cant. Exis.</th>

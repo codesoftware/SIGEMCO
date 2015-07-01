@@ -45,7 +45,9 @@
                     <table class="table table-bordered" >
                         <thead>
                             <tr>
-                                <th colspan="2" style="text-align: center;" class="alert alert-info text-center"><h3>INSERCION DE CELULARES</h3></th>
+                                <th colspan="2" style="text-align: center;" class="alert alert-info text-center"><h3>INSERCION DE <s:i18n name="co.com.sigemco.alfa.archivos.MessagesBundleProducto" >
+                                    <s:text name="texto1" />
+                                    </s:i18n></h3></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -102,7 +104,9 @@
                                 <td style="text-align: right;" colspan="2">
                                     <s:include value="/WEB-INF/TEMPLATE/botones/add.jsp" > 
                                         <s:param name="function">insertarCelular</s:param>
-                                        <s:param name="title">Adicion un equipo Celular</s:param>
+                                        <s:param name="title">Adicion un <s:i18n name="co.com.sigemco.alfa.archivos.MessagesBundleProducto" >
+                                                <s:text name="texto2" />
+                                            </s:i18n></s:param>
                                     </s:include>
                                     <s:include value="/WEB-INF/TEMPLATE/botones/clean.jsp" />
 
@@ -123,7 +127,11 @@
         </s:if>
         <s:else>
             <script>
-                alert('Debe parametrizar la comision de venta para equipos celulares');
+                <s:i18n name="co.com.sigemco.alfa.archivos.MessagesBundleProducto" >
+                     alert('Debe parametrizar la comision de venta de'+'<s:text name="texto1" />');
+                    
+                </s:i18n>
+               
             </script>
         </s:else>
     </body>
