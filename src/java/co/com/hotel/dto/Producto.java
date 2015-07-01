@@ -32,6 +32,7 @@ public class Producto {
     private String idTranMvCo;
     private String promPonderado; //Valor ponderado del producto
     private String proveedores;
+    
     public String getReferencia() {
         return referencia;
     }

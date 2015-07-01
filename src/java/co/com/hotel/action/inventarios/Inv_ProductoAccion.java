@@ -17,6 +17,7 @@ import co.com.hotel.validacion.ValidaCampos;
 import co.com.hotel.validacion.ValidaDuplicadodosProd;
 import co.com.sigemco.alfa.contabilidad.logica.MoviContablesLogica;
 import co.com.sigemco.alfa.inventario.logica.MarcaLogica;
+import co.com.sigemco.alfa.inventario.logica.ProveedorLogica;
 import co.com.sigemco.alfa.inventario.logica.ReferenciaLogica;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class Inv_ProductoAccion extends ActionSupport implements SessionAware, U
     private ArrayList<String> ArrayAddSubCuentas;
     private String mandaParamePrecio;
     private Map<String, String> referencias;
+    private Map<String, String> proveedores;
 
     /**
      * Funcion encargada de realizar el llamado de la funcion que insertara
@@ -94,11 +96,13 @@ public class Inv_ProductoAccion extends ActionSupport implements SessionAware, U
         Emp_EmpresaLogica logicaEmp = new Emp_EmpresaLogica();
         Empresa empresa = logicaEmp.obtieneDatosEmpresa();
         producto.setPorcIva(empresa.getIva());
+        ProveedorLogica provLogica = new ProveedorLogica();
+        this.proveedores = provLogica.obtieneProovedores();
         empresa = null;
         boolean rtaValida = false;
         //rtaValida = valida.validaNulo(producto.getNombre());
         //if (rtaValida == false) {
-            //addActionError("El campo nombre no puede ser nulo");
+        //addActionError("El campo nombre no puede ser nulo");
         //}
 //        rtaValida = valida.validaNulo(producto.getDescripcion());
 //        if (rtaValida == false) {
@@ -112,7 +116,7 @@ public class Inv_ProductoAccion extends ActionSupport implements SessionAware, U
         if (rtaValida == false) {
             addActionError("El campo costo debe ser numerico o los decimales deben ser con .");
         }
-        if("-1".equalsIgnoreCase(producto.getMarca())){
+        if ("-1".equalsIgnoreCase(producto.getMarca())) {
             addActionError("Debe seleccionar una marca para su producto");
         }
         rtaValida = valida.validaNumerico(producto.getCantidad());
@@ -233,6 +237,14 @@ public class Inv_ProductoAccion extends ActionSupport implements SessionAware, U
 
     public void setMarcas(Map<String, String> marcas) {
         this.marcas = marcas;
+    }
+
+    public Map<String, String> getProveedores() {
+        return proveedores;
+    }
+
+    public void setProveedores(Map<String, String> proveedores) {
+        this.proveedores = proveedores;
     }
 
 }
