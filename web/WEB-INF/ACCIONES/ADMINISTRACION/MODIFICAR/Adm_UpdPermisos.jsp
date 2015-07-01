@@ -354,7 +354,8 @@
                                             <table style="width: 100%">
                                                 <thead>
                                                     <tr>
-                                                        <th class="subTitulo"><a id="InRefe"><s:i18n name="co.com.sigemco.alfa.archivos.MessagesBundleProducto" >
+                                                        <th class="subTitulo"><a id="InRefe">
+                                                                <s:i18n name="co.com.sigemco.alfa.archivos.MessagesBundleProducto" >
                                                                     <s:text name="texto1" />
                                                                 </s:i18n></a></th>
                                                     </tr>
