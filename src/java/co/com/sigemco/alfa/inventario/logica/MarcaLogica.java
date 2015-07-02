@@ -38,15 +38,13 @@ public class MarcaLogica {
 
     public Map<String, String> obtieneMarcas() {
         Map<String, String> rta = null;
-        try {
+        try(EnvioFunction function = new EnvioFunction()) {
             int contador = 0;
-            EnvioFunction function = new EnvioFunction();
             String sql = "";
             sql += "SELECT marca_marca, marca_nombre ";
             sql += "  FROM in_tmarca             ";
             sql += " WHERE marca_estado = 'A'    ";
             sql += "  ORDER BY marca_nombre ";
-
             ResultSet rs = function.enviarSelect(sql);
             while (rs.next()) {
                 if (contador == 0) {

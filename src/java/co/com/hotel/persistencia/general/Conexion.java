@@ -10,10 +10,12 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Enumeration;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 
 /**
  * Clase la cual se conecta con la base de datos y la cual lanza los Scripts y
@@ -25,21 +27,28 @@ import java.util.logging.Logger;
  */
 public class Conexion {
 
-        private static Conexion conexion;
-        private static Connection con;
-        private static String host;
-        private static String port;
-        private static String user;
-        private static String pass;
-        private static String db;
+    private static Conexion conexion;
+    private static Connection con;
+    private static String host;
+    private static String port;
+    private static String user;
+    private static String pass;
+    private static String db;
+    private static String tipoCon;
+    private static String nameResource;
+    
+    private Context context;
+    private DataSource ds;
 
     private Conexion() {
-        ResourceBundle rb = ResourceBundle.getBundle("co.com.sigemco.alfa.archivos.BASECONFIG");        
+        ResourceBundle rb = ResourceBundle.getBundle("co.com.sigemco.alfa.archivos.BASECONFIG");
         this.host = rb.getString("HOST").trim();
         this.user = rb.getString("USER").trim();
         this.pass = rb.getString("PASSWORD").trim();
         this.db = rb.getString("DATABASE").trim();
         this.port = rb.getString("PUERTO").trim();
+        this.tipoCon = rb.getString("TIPOCON").trim();
+        this.nameResource = rb.getString("NAMEPOOL").trim(); 
     }
 
     public static Conexion getInstance() {
@@ -61,12 +70,36 @@ public class Conexion {
     }
 
     /**
+     * Funcion encargada de realizar la conexion ya sea de forma directa o por
+     * medio de un data source
+     *
+     * @return
+     */
+    public String conexion() {
+        try {
+            if("pool".equalsIgnoreCase(tipoCon)){
+                context = new InitialContext();
+                ds = (DataSource) context.lookup("java:/comp/env/jdbc/"+nameResource);
+                con = ds.getConnection();
+            }else{
+                Class.forName("org.postgresql.Driver");
+                String url = "jdbc:postgresql://" + this.host + ":" + this.port + "/" + this.db;
+                con = DriverManager.getConnection(url, this.user, this.pass);                
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error";
+        }
+        return "Ok";
+    }
+
+    /**
      * Función la cual se conecta a la base de datos
      *
      * @return String mensaje el cual nos indica si fue exitosa la conexion con
      * la base de datos
      */
-    public String conexion() {
+    public String conexion3() {
         try {
             Class.forName("org.postgresql.Driver");
             String url = "jdbc:postgresql://" + this.host + ":" + this.port + "/" + this.db;
@@ -107,12 +140,12 @@ public class Conexion {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                con.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
-                System.err.println("Error conexion.queryConRetorno " + ex);
-            }
+//            try {
+//                con.close();
+//            } catch (SQLException ex) {
+//                Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+//                System.err.println("Error conexion.queryConRetorno " + ex);
+//            }
         }
         return rs;
     }

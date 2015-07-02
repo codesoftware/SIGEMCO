@@ -184,6 +184,7 @@ public class EnvioFunction implements AutoCloseable{
             }
             this.respuesta = res;
         } catch (Exception e) {
+            e.printStackTrace();
             this.respuesta = null;
         }
     }

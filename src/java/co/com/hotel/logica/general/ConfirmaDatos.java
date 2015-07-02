@@ -62,7 +62,8 @@ public class ConfirmaDatos {
                 function = null;                
             }
 
-        } catch (Exception e) {            
+        } catch (Exception e) {       
+            e.printStackTrace();
         }
         return retorno;
     }

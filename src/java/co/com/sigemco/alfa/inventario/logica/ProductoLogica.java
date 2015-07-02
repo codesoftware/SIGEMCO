@@ -35,6 +35,7 @@ public class ProductoLogica {
         List<ProductoDto> rta = null;
         try (EnvioFunction function = new EnvioFunction()) {
             objDao = this.poblarDao(objDto);
+            System.out.println("Este es el sql: \n" + objDao.selectConFiltros());
             ResultSet rs = function.enviarSelect(objDao.selectConFiltros());
             while (rs.next()) {
                 if (rta == null) {
@@ -82,7 +83,13 @@ public class ProductoLogica {
             objDao.setDska_fec_ingreso(objDto.getDska_fec_ingreso());
             objDao.setDska_cate(objDto.getDska_cate());
             objDao.setCantidad(objDto.getCantidad());
-            objDao.setDska_prov(objDto.getDska_prov());
+            try {
+                System.out.println("Este es el campo: " + objDto.getDska_prov() );
+                objDao.setDska_prov(objDto.getDska_prov());
+            } catch (Error e) {
+                e.printStackTrace();
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
