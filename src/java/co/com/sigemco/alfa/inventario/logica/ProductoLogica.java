@@ -13,8 +13,12 @@ import co.com.sigemco.alfa.inventario.dto.DetalleConteoDto;
 import co.com.sigemco.alfa.inventario.dto.ProductoDto;
 import com.google.gson.Gson;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Clase encargada de manipular la logica para los productos del sistema
@@ -33,10 +37,11 @@ public class ProductoLogica {
     public List<ProductoDto> buscaProductosXFiltro(ProductoDto objDto) {
         ProductoDao objDao = null;
         List<ProductoDto> rta = null;
+        ResultSet rs = null;
         try (EnvioFunction function = new EnvioFunction()) {
             objDao = this.poblarDao(objDto);
-            System.out.println("Este es el sql: \n" + objDao.selectConFiltros());
-            ResultSet rs = function.enviarSelect(objDao.selectConFiltros());
+            //System.out.println("Este es el sql: \n" + objDao.selectConFiltros());
+            rs = function.enviarSelect(objDao.selectConFiltros());
             while (rs.next()) {
                 if (rta == null) {
                     rta = new ArrayList<ProductoDto>();
@@ -55,11 +60,40 @@ public class ProductoLogica {
                 aux.setDska_cate(rs.getString("dska_cate"));
                 aux.setReferenciaNombre(rs.getString("refe_desc"));
                 aux.setDska_prov(rs.getString("dska_prov"));
+                //String cant = this.buscaCanProdExistenXId(aux.getDska_dska());
+                //aux.setCantExis(cant);
+                //String promPon = this.obtieneValorPonderadoProducto(objDto.getDska_dska());
+                //aux.setPromPonderado(promPon);
+                rta.add(aux);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rta;
+    }
+
+    /**
+     * Funcion encargada de realizar la busqueda de las cantidades existeentes
+     * de los productos y los promedios ponderados
+     *
+     * @param listaProd
+     * @return
+     */
+    public List<ProductoDto> buscaCanPromPondListaProd(List<ProductoDto> listaProd) {
+        List<ProductoDto> rta = null;
+        try {
+            Iterator<ProductoDto> it = listaProd.iterator();
+            while(it.hasNext()){
+                if(rta == null){
+                    rta = new ArrayList<>();
+                }
+                ProductoDto aux = it.next();
                 String cant = this.buscaCanProdExistenXId(aux.getDska_dska());
                 aux.setCantExis(cant);
-                String promPon = this.obtieneValorPonderadoProducto(objDto.getDska_dska());
+                String promPon = this.obtieneValorPonderadoProducto(aux.getDska_dska());
                 aux.setPromPonderado(promPon);
                 rta.add(aux);
+                it.remove();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -84,12 +118,11 @@ public class ProductoLogica {
             objDao.setDska_cate(objDto.getDska_cate());
             objDao.setCantidad(objDto.getCantidad());
             try {
-                System.out.println("Este es el campo: " + objDto.getDska_prov() );
+                System.out.println("Este es el campo: " + objDto.getDska_prov());
                 objDao.setDska_prov(objDto.getDska_prov());
             } catch (Error e) {
                 e.printStackTrace();
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
