@@ -60,10 +60,6 @@ public class ProductoLogica {
                 aux.setDska_cate(rs.getString("dska_cate"));
                 aux.setReferenciaNombre(rs.getString("refe_desc"));
                 aux.setDska_prov(rs.getString("dska_prov"));
-                //String cant = this.buscaCanProdExistenXId(aux.getDska_dska());
-                //aux.setCantExis(cant);
-                //String promPon = this.obtieneValorPonderadoProducto(objDto.getDska_dska());
-                //aux.setPromPonderado(promPon);
                 rta.add(aux);
             }
         } catch (Exception e) {

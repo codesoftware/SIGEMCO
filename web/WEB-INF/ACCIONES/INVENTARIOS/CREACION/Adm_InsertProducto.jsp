@@ -34,15 +34,30 @@
             </div>
             <div class="col-md-3 col-xs-0 col-sm-0"></div>
         </div>
+        <div class="row errorProveedores" style="display:none">
+            <div class="col-md-3 col-xs-0 col-sm-0"></div>
+            <div class="col-md-6 col-xs-12 col-sm-12">
+                <div class="alert alert-danger" id="info" role="alert">
+                    No existe ningun Proveedor parametrizado en el sistema por favor parametriza al menos uno para continuar el ingreso de productos
+                </div>
+            </div>
+            <div class="col-md-3 col-xs-0 col-sm-0"></div>
+        </div>
+        <s:if test="proveedores == null">
+            <script>
+                $('.IngProducto').hide('slow');
+                $('.errorProveedores').show('slow');
+            </script>
+        </s:if>
         <s:if test="%{referencias != null}">
             <s:form  action="inv_insertProducto" id="inv_insertProducto" theme="simple" method="post" autocomplete="off" >
                 <div class="IngProducto">
                     <s:if test="%{marcas == null}">                        
                         <script>
-            $('.IngProducto').hide('slow');
-            $('.errorMarcas').show('slow');
+                            $('.IngProducto').hide('slow');
+                            $('.errorMarcas').show('slow');
                         </script>
-                    </s:if>
+                    </s:if>                    
                     <div class="row datosProd">
                         <div class="col-md-3 col-xs-0 col-sm-0"></div>
                         <div class="col-md-6 col-xs-12 col-sm-12">

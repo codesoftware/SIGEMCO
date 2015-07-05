@@ -22,7 +22,7 @@
         </s:div>
         <div class="row">
             <div class="col-md-3 col-sm-0 col-xs-0"></div>
-            <div class="col-md-6 col-sm-12 col-xs-12">
+            <div class="col-md-4 col-sm-12 col-xs-12">
                 <div class="Mensajes" style="display: none;">
                     <s:if test="hasActionErrors()">
                         <div class="alert alert-danger" id="info" role="alert" ><h4><s:actionerror /></h4></div>
@@ -31,19 +31,34 @@
                         </script>
                     </s:if>
                 </div>
-                <div class="row thumbnail">
-                    <div class="alert alert-success text-center"  role="alert" ><h3>ACTIVACION O INACTIVACION DE PRODUCTOS</h3></div>
-                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        Codigo Producto:<br>
-                        <s:textfield cssClass="form-control" name="producto.codigo"/>
-                    </div>
-                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        Estado:<br>
-                        <s:select cssClass="form-control" list="estadoMap"  name="habitacion.estado" required="true" headerKey="-1" headerValue="ESTADO" />
-                    </div>
+                <div class="MensajesOk" style="display: none;">
+                    <s:if test="hasActionMessages()">
+                        <div class="alert alert-success" id="info" role="alert" ><h4><s:actionmessage/></h4></div>
+                        <script>
+                            mostrarMsnOk();
+                        </script>
+                    </s:if>
                 </div>
             </div>
             <div class="col-md-3 col-sm-0 col-xs-0"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-0 col-xs-0"></div>
+            <div class="col-md-4 col-sm-12 col-xs-12">
+                <div class="row thumbnail">
+                    <div class="alert alert-success text-center"  role="alert" ><h3>ACTIVACION O INACTIVACION DE PRODUCTOS</h3></div>
+                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                        Codigo Producto:<br>
+                        <s:textfield cssClass="form-control" name="producto.codigo"/>
+                    </div>
+                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                        <a class="btn btn-primary">
+                            Buscar
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-0 col-xs-0"></div>
         </div>
     </body>
 </html>
