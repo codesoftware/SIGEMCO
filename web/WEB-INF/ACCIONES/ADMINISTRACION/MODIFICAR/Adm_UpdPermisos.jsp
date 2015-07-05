@@ -1,7 +1,9 @@
+<%@page import="co.com.sigemco.alfa.permisos.logica.AdPermisosLogica"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="/struts-tags" prefix="s" %>
 <%@include file="/WEB-INF/NEWTEMPLATE/Parametros.jsp" %>
 <!DOCTYPE html>
+<%AdPermisosLogica logica = new AdPermisosLogica();%>
 <html>
     <head>
         <s:include value="/WEB-INF/NEWTEMPLATE/cabecera.jsp"></s:include>
@@ -79,6 +81,7 @@
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <%if (!logica.consultaPermiso("USUARIOS").equalsIgnoreCase("I")) {%>
                                             <table style="width:100%">
                                                 <thead>
                                                     <tr>
@@ -105,11 +108,13 @@
                                                         <td style="width: 20%">&nbsp;&nbsp;&nbsp;</td>
                                                     </tr>
                                                 </tbody>
-                                            </table>                                        
+                                            </table>
+                                            <%}%>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <%if (!logica.consultaPermiso("PARAMETROS EMPRESARIALES").equalsIgnoreCase("I")) {%>
                                             <table style="width: 100%">
                                                 <thead>
                                                     <tr>
@@ -118,17 +123,24 @@
                                                 </thead>
                                                 <tbody style="display: none;" class="subPermisoAdmEmp">
                                                     <tr>
+                                                        <%if (!logica.consultaPermiso("INFORMACION EMPRESARIAL").equalsIgnoreCase("I")) {%>
                                                         <td style="width: 30%">Información Empresarial</td>
                                                         <td style="width: 20%"><input type="checkbox" value="AdEm1" id="AdEm1"></td>
+                                                        <%}%>
+                                                        <%if (!logica.consultaPermiso("PARAMETROS GENERALES").equalsIgnoreCase("I")) {%>
                                                         <td style="width: 30%">Parametros Generales </td>
                                                         <td style="width: 20%"><input type="checkbox" value="AdEm2" id="AdEm2"></td>
+                                                        <%}%>
                                                     </tr>
                                                 </tbody>
                                             </table>
+                                            <%}%>
                                         </div>
                                     </div>
+                                        <%if (!logica.consultaPermiso("PERFILES").equalsIgnoreCase("I")) {%>
                                     <div class="row">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
+                                            
                                             <table style="width: 100%">
                                                 <thead>
                                                     <tr>
@@ -152,6 +164,7 @@
                                             </table>                                            
                                         </div>
                                     </div>
+                                    <%}%>
                                     <div class="row">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <table style="width: 100%">
@@ -250,6 +263,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <%if (!logica.consultaPermiso("SERVICIOS").equalsIgnoreCase("I")) {%>
                                             <table style="width: 100%">
                                                 <thead>
                                                     <tr>
@@ -277,8 +291,10 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
+                                            <%}%>
                                         </div>
                                     </div>
+                                        <%if (!logica.consultaPermiso("MOVIMIENTOS DE INVENTARIO").equalsIgnoreCase("I")) {%>
                                     <div class="row">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <table style="width: 100%">
@@ -304,6 +320,7 @@
                                             </table>  
                                         </div>
                                     </div>
+                                    <%}%>
 
                                     <div class="row">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
