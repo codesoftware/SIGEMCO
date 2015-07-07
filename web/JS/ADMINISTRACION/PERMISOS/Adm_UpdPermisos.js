@@ -44,6 +44,9 @@ $(function() {
     $("#InProved").click(function() {
         $(".subPermisoInProved").toggle("slow");
     });
+    $("#InArqueos").click(function() {
+        $(".subPermisoInArqueos").toggle("slow");
+    });
     $("#RepUsua").click(function() {
         $(".subPermisoRepUsua").toggle("slow");
     });
@@ -139,6 +142,10 @@ function mostrarPermisos(valor) {
     var proved = valor.indexOf('InProved');
     if(proved > 0){
          $(".subPermisoInProved").show("slow");
+    }
+    var arqueos = valor.indexOf('InArqueos');
+    if(arqueos > 0){
+         $(".subPermisoInArqueos").show("slow");
     }
     var repUsua = valor.indexOf('RpUs');
     if (repUsua > 0) {

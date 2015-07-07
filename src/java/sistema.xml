@@ -65,6 +65,10 @@
             <result name="inv_ins_proved">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertProved.jsp</result>
             <result name="Inv_ConProved">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsProved.jsp</result>
             <!-- fin Proveedores-->         
+            <!-- Arqueos-->
+            <result name="inv_ins_arqueo">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertArqueo.jsp</result>
+            <result name="Inv_ConArqueo">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsArqueo.jsp</result>                        
+            <!--fin arqueos-->
             <result name="Inv_ConReferencia">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsReferencia.jsp</result>
             <result name="Inv_ConCategoria">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsCategoria.jsp</result>
             <result name="inv_ins_categoria">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertCategoria.jsp</result>
@@ -182,7 +186,14 @@
             <result name="input"  >/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/inv_conUpdProved.jsp</result>
         </action>
         
-        <!-- fin -->        
+        <!-- fin Proveedores-->        
+        
+        <!-- Inicio Arqueos-->
+        <action name="inv_InsArqueo" class="co.com.sigemco.alfa.inventario.action.ArqueoAction" method="insertar">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertProved.jsp</result>
+            <result name="input"  >/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertProved.jsp</result>
+        </action>
+        <!-- Fin arqueos-->
         
         <action name="inv_ConCategoria" class="co.com.sigemco.alfa.inventario.action.CategoriaAction" method="consultaCategorias">
             <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsCategoria.jsp</result>

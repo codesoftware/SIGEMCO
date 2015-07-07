@@ -218,7 +218,18 @@
                         </ul>
                     </li>
                     <%}
-
+                         if (permisos.indexOf(".InArqueo1.") >= 0 || permisos.indexOf(".InArqueo2.") >= 0 || permisos.indexOf(".InArqueo3.") >= 0) {%>
+                    <li><a href="#">Arqueos</a>
+                        <ul class="dropdown-menu">
+                            <%if (permisos.indexOf(".InArqueo1.") >= 0) {%>
+                            <li><a href="reenvioGeneral.action?accion=801">Crear Arqueo</a></li>
+                                <%}
+                                    if (permisos.indexOf(".InArqueo3.") >= 0) {%>
+                            <li><a href="reenvioGeneral.action?accion=804">Consultar Arqueos</a></li>
+                                <%}%>
+                        </ul>
+                    </li>
+                        <%}
                         if (permisos.indexOf(".InCat1.") >= 0 || permisos.indexOf(".InCat2.") >= 0 || permisos.indexOf(".InCat3.") >= 0) {%>
                     <li><a href="#">Categorias</a>
                         <ul class="dropdown-menu">

@@ -89,9 +89,13 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     public static final int INV_UPD_MARCA = 602;
     public static final int INV_CON_MARCA = 604;
     //Paginas de Proveedores
-    public static final int INV_INS_PROVED= 701;
+    public static final int INV_INS_PROVED = 701;
     public static final int INV_UPD_PROVED = 702;
     public static final int INV_CON_PROVED = 704;
+    //paginas de arqueos
+    public static final int INV_INS_ARQUEO = 801;
+    public static final int INV_UPD_ARQUEO = 802;
+    public static final int INV_CON_ARQUEO = 804;
     // paginas de categorias
     public static final int INV_INS_CATEGORIA = 271;
     public static final int INV_UPD_CATEGORIA = 272;
@@ -425,6 +429,21 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
                     this.estadoMap.put("A", "Activo");
                     this.estadoMap.put("I", "Inactivo");
                     break;
+                case INV_INS_ARQUEO:
+                    Adm_SedeLogica sede = new Adm_SedeLogica();
+                    this.sedes = sede.obtieneSedes();
+                    nextPage = "inv_ins_arqueo";
+                    break;
+                case INV_UPD_ARQUEO:
+                    nextPage = "inv_upd_arqueo";
+                    break;
+                case INV_CON_ARQUEO:
+                    nextPage = "Inv_ConArqueo";
+                    this.estadoMap = new HashMap<String, String>();
+                    this.estadoMap.put("B", "Bueno");
+                    this.estadoMap.put("S", "Sobro");
+                    this.estadoMap.put("F", "Falto");
+                    break;
                 case INV_INS_CATEGORIA:
                     nextPage = "inv_ins_categoria";
                     this.runico = new HashMap<String, String>();
@@ -512,7 +531,7 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
 
                 case ADM_CIERRE_DIARIO:
 
-                    Adm_SedeLogica sede = new Adm_SedeLogica();
+                     sede = new Adm_SedeLogica();
                     this.sedes = sede.obtieneSedes();
                     nextPage = "adm_cierre_diario";
                     break;
@@ -695,8 +714,6 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     public void setProveedores(Map<String, String> proveedores) {
         this.proveedores = proveedores;
     }
-    
-    
 
     public Map<String, String> getCategorias() {
         return categorias;
