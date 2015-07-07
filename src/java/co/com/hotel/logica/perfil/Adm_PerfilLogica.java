@@ -148,32 +148,41 @@ public class Adm_PerfilLogica {
         return false;
     }
 
-    public ArrayList<Perfil> consultaGeneralPerfil(String filtro) throws SQLException {
+    /**
+     * Funcion encargada de realizar la consulta general de prefieles
+     *
+     * @param filtro
+     * @return
+     */
+    public ArrayList<Perfil> consultaGeneralPerfil(String filtro) {
         ArrayList<Perfil> resultado = null;
-        String sql = "select perf_perf id, perf_nomb nombre, perf_desc descri, perf_estado estado\n";
-        sql += "from us_tperf\n";
-        sql += "where upper(perf_estado) = upper(";
-        if (filtro.equalsIgnoreCase("A")) {
-            sql += "'A')";
-        } else if (filtro.equalsIgnoreCase("I")) {
-            sql += "'I')";
-        } else if (filtro.equalsIgnoreCase("-1")) {
-            sql += "perf_estado)";
-        }
-        EnvioFunction function = new EnvioFunction();
-        ResultSet rs = null;
-        rs = function.enviarSelect(sql);
-        function.cerrarConexion();
-        if (rs != null) {
-            resultado = new ArrayList<Perfil>();
-            while (rs.next()) {
-                Perfil auxPerfil = new Perfil();
-                auxPerfil.setEstado(rs.getString("estado"));
-                auxPerfil.setDescripcion(rs.getString("descri"));
-                auxPerfil.setNombre(rs.getString("nombre"));
-                auxPerfil.setId(rs.getString("id"));
-                resultado.add(auxPerfil);
+        try (EnvioFunction function = new EnvioFunction()) {
+            String sql = "select perf_perf id, perf_nomb nombre, perf_desc descri, perf_estado estado\n";
+            sql += "from us_tperf\n";
+            sql += "where upper(perf_estado) = upper(";
+            if (filtro.equalsIgnoreCase("A")) {
+                sql += "'A')";
+            } else if (filtro.equalsIgnoreCase("I")) {
+                sql += "'I')";
+            } else if (filtro.equalsIgnoreCase("-1")) {
+                sql += "perf_estado)";
             }
+            ResultSet rs = null;
+            rs = function.enviarSelect(sql);
+            if (rs != null) {
+                resultado = new ArrayList<Perfil>();
+                while (rs.next()) {
+                    Perfil auxPerfil = new Perfil();
+                    auxPerfil.setEstado(rs.getString("estado"));
+                    auxPerfil.setDescripcion(rs.getString("descri"));
+                    auxPerfil.setNombre(rs.getString("nombre"));
+                    auxPerfil.setId(rs.getString("id"));
+                    resultado.add(auxPerfil);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return resultado;
     }
@@ -214,7 +223,6 @@ public class Adm_PerfilLogica {
 
                 ResultSet rs = null;
                 rs = function.enviarSelect(sql);
-
                 if (rs != null) {
                     while (rs.next()) {
                         result = rs.getString("id");
@@ -241,9 +249,9 @@ public class Adm_PerfilLogica {
             sql += "WHERE perf_perf = '" + idPerfil + "'";
 
             ResultSet rs = null;
-            rs = function.enviarSelect(sql);            
-            if(rs.next()){
-                if(contador == 0){
+            rs = function.enviarSelect(sql);
+            if (rs.next()) {
+                if (contador == 0) {
                     perfil = new Perfil();
                     contador++;
                 }
@@ -261,27 +269,27 @@ public class Adm_PerfilLogica {
         }
         return perfil;
     }
-    
-    public String actualizaPermisos(String id, String permisos){
+
+    public String actualizaPermisos(String id, String permisos) {
         String rta = "Ok";
         EnvioFunction function = new EnvioFunction();
         String sql = "";
         try {
             sql = "Update us_tperf\n";
             sql += "set perf_permisos = '" + permisos + "'\n";
-            sql += "WHERE perf_perf = "+id.trim()+"";
+            sql += "WHERE perf_perf = " + id.trim() + "";
             function.enviarSelect(sql);
         } catch (Exception e) {
             System.out.println("Error Adm_PerfilLogica.actualizaPermisos " + e);
             rta = "Error";
-        }finally{
+        } finally {
             function.cerrarConexion();
             function = null;
         }
         return rta;
     }
-    
-    public Map<String, String> obitnePerfilIdNombre(){
+
+    public Map<String, String> obitnePerfilIdNombre() {
         Map<String, String> map = null;
         EnvioFunction function = new EnvioFunction();
         String sql = "";
@@ -292,17 +300,17 @@ public class Adm_PerfilLogica {
             sql += "FROM us_tperf";
             rs = function.enviarSelect(sql);
             while (rs.next()) {
-                if(contador == 0){
+                if (contador == 0) {
                     map = new HashMap<>();
                     contador++;
                 }
-                String auxId= rs.getString("id_perfil");
+                String auxId = rs.getString("id_perfil");
                 String auxNom = rs.getString("nombre_perf");
-                map.put(auxId,auxNom);
+                map.put(auxId, auxNom);
             }
         } catch (Exception e) {
             System.out.println("Error Adm_PerfilLogica.obitnePerfilIdNombre " + e);
-        }finally{
+        } finally {
             function.cerrarConexion();
             function = null;
             rs = null;

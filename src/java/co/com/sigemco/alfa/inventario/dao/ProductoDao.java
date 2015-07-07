@@ -150,7 +150,7 @@ public class ProductoDao {
         select += "SELECT dska_dska, dska_refe, dska_cod, dska_nom_prod, dska_desc, dska_iva, \n";
         select += "       dska_porc_iva, dska_estado, dska_fec_ingreso, refe_desc, \n";
         select += "       coalesce((select marca_nombre from in_tmarca where marca_marca = dska_marca), 'SIN MARCA') dska_marca,  \n";
-        select += "        cate_desc as dska_cate ";
+        select += "        cate_desc as dska_cate, dska_prov ";
         select += "  FROM in_tdska, in_trefe, in_tcate                                                  \n";
         select += " WHERE refe_refe = dska_refe \n";
         select += "   AND cate_cate = dska_cate \n";

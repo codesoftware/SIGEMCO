@@ -61,6 +61,7 @@ public class ProductoAction extends ActionSupport implements SessionAware, Usuar
         try {
             logica = new ProductoLogica();
             listProductos = logica.buscaProductosXFiltro(producto);
+            listProductos = logica.buscaCanPromPondListaProd(listProductos);
             if (listProductos == null) {
                 addActionError("La consulta no arrojo ningun resultado");
             } else {

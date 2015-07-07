@@ -52,6 +52,7 @@ public class IngresaProductoNuevo {
                 //function.addicionarParametroDate(producto.getFechaVencimiento()); Se elimina ya que no es necesaria la funcionalidad
             }
             function.adicionarNumeric(producto.getIdTranMvCo());
+            function.adicionarNumeric(producto.getProveedores());
             String rta = "";
             rta = function.llamarFunction(function.getSql());
             function.recuperarString();
