@@ -63,18 +63,18 @@
 
                     </div>
                     <div class="form-group col-md-4 col-sm-4 col-xs-4">
-                        Camara (mpx):<br>
-                        <s:select list="camara"  name="referencia.refe_came" required="true" headerKey="-1" headerValue="Seleccione mpx de la camara" cssClass="form-control"/>
+                        <s:text name="modeloAsociado.caracteristica1"/><br>
+                        <s:select list="camara"  name="referencia.refe_came" required="true" headerKey="-1" headerValue="Seleccione..." cssClass="form-control"/>
                     </div>
                     <div class="form-group col-md-4 col-sm-4 col-xs-4">
-                        Memoria (GB)<br>
-                        <s:select list="memoria" name="referencia.refe_memori" required="true" headerKey="-1" headerValue="Seleccione Almacenamiento Interno" cssClass="form-control"/> 
+                        <s:text name="modeloAsociado.caracteristica2"/><br>
+                        <s:select list="memoria" name="referencia.refe_memori" required="true" headerKey="-1" headerValue="Seleccione..." cssClass="form-control"/> 
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-4 col-sm-4 col-xs-4">
-                        Pantalla (pulgadas)<br>
-                        <s:select list="pantalla" name="referencia.refe_pantalla" required="true" headerKey="-1" headerValue="Seleccione pulgadas de la pantalla" cssClass="form-control"/> 
+                        <s:text name="modeloAsociado.caracteristica3"/><br>
+                        <s:select list="pantalla" name="referencia.refe_pantalla" required="true" headerKey="-1" headerValue="Seleccione..." cssClass="form-control"/> 
                     </div>
                     <div class="form-group col-md-4 col-sm-4 col-xs-4">
                         <s:include value="/WEB-INF/TEMPLATE/botones/find.jsp">
@@ -96,9 +96,9 @@
             <thead>
                 <tr>
                     <th>Descripci&oacute;n</th>
-                    <th>Camara</th>
-                    <th>Memoria</th>
-                    <th>Pantalla</th>
+                    <th><s:text name="modeloAsociado.caracteristica1"/></th>
+                    <th><s:text name="modeloAsociado.caracteristica2"/></th>
+                    <th><s:text name="modeloAsociado.caracteristica3"/></th>
                     <th>Estado</th>
                     <th>Accion</th>
                 </tr> 

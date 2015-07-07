@@ -57,15 +57,15 @@
                             </tr>
 
                             <tr>
-                                <td>Camara (mpx):</td>
+                                <td><s:text name="modeloAsociado.caracteristica1"/></td>
                                 <td><s:textfield name="referencia.refe_came" cssClass="form-control" onkeypress="return validaNumeros(event)"/></td>
                             </tr>
                             <tr>
-                                <td>Memoria interna (GB):</td>
+                                <td><s:text name="modeloAsociado.caracteristica2"/></td>
                                 <td><s:textfield name="referencia.refe_memori" cssClass="form-control" onkeypress="return validaNumeros(event)" /></td>
                             </tr>
                             <tr>
-                                <td>Pantalla (pulgadas):</td>
+                                <td><s:text name="modeloAsociado.caracteristica3"/></td>
                                 <td><s:textfield name="referencia.refe_pantalla" cssClass="form-control"   onkeypress="return validaNumeros(event)"  /></td>
                             </tr>
 
