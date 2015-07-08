@@ -5,6 +5,7 @@
 <html>
     <head>
         <s:include value="/WEB-INF/NEWTEMPLATE/cabecera.jsp"></s:include>
+        <script type="text/javascript" src="<%=RutaSitio%>/JS/INVENTARIOS/Inv_ActIncProductos.js"></script>
         <s:head/>
     </head>
     <body>
@@ -52,7 +53,7 @@
                         <s:textfield cssClass="form-control" name="producto.codigo"/>
                     </div>
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                        <a class="btn btn-primary">
+                        <a class="btn btn-primary" id="buscaProducto">
                             Buscar
                         </a>
                     </div>

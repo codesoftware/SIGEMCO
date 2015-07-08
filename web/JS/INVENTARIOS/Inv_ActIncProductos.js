@@ -1,0 +1,5 @@
+$(function(){
+    $('#buscaProducto').click(function(){
+        
+    });
+}); 

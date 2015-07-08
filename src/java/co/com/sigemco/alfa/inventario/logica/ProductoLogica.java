@@ -248,7 +248,7 @@ public class ProductoLogica {
 
     /**
      * Funcion encargada de realizar la busqueda de un producto por medio de su
-     * codigo
+     * codigo(No cambiar)
      *
      * @param codigo
      * @return
