@@ -50,7 +50,9 @@
         </action>
         <action name="actualizaSbcu" class="co.com.sigemco.alfa.contabilidad.ajax.AjaxSubCuentaAction" method="actualizaSubCuenta">
         </action>
-        <action name="buscaProductoXCodigo" class="co.com.sigemco.alfa.inventario.ajax.ajaxControllerProducto" method="simulaDetalleServicioFactura">
+        <action name="buscaProductoXCodigo" class="co.com.sigemco.alfa.inventario.ajax.ajaxControllerProducto" method="buscaProductoXCodigo">
+        </action>
+        <action name="inactivaProductoXId" class="co.com.sigemco.alfa.inventario.ajax.ajaxControllerProducto" method="inactivaProductoXId">
         </action>
     </package>
 </struts>

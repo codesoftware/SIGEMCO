@@ -244,11 +244,33 @@ public class ajaxControllerProducto extends ActionSupport implements SessionAwar
             Gson gson = new Gson();
             ProductoLogica logica = new ProductoLogica();
             ProductoDto objDto = logica.buscaProductoXCodigo(dska_codigo); 
+            if(objDto != null){
+                rta.put("respuesta", "existente");                
+                rta.put("objeto", objDto);
+            }else{
+                rta.put("respuesta", "inexistente");
+            }
             objJson = gson.toJson(rta);
             out.print(objJson);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    public void inactivaProductoXId(){
+        String objJson = "";
+        Map<String, Object> rta = null;
+        try {
+            HttpServletResponse response = ServletActionContext.getResponse();
+            response.setContentType("text/plain;charset=utf-8");
+            PrintWriter out = response.getWriter();
+            Gson gson = new Gson();
+            objJson = gson.toJson(rta);
+            out.print(objJson);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
     }
 
     public Usuario getUsuario() {
