@@ -9,7 +9,6 @@ import co.com.hotel.datos.session.Usuario;
 import co.com.hotel.utilidades.UsuarioHabilitado;
 import co.com.sigemco.alfa.facturacion.dto.DetFactServicoDto;
 import co.com.sigemco.alfa.facturacion.logica.DetFactServicioLogica;
-import co.com.sigemco.alfa.inventario.dao.ProductoDao;
 import co.com.sigemco.alfa.inventario.dto.DetalleConteoDto;
 import co.com.sigemco.alfa.inventario.dto.ProductoDto;
 import co.com.sigemco.alfa.inventario.logica.ConteoProdLogica;
@@ -40,6 +39,7 @@ public class ajaxControllerProducto extends ActionSupport implements SessionAwar
     private String dska_refe;
     private String dska_marca;
     private String dska_cate;
+    private String dska_estado;
 
     /**
      * Funcion encargada de realizar la accion de consulta de productos por
@@ -219,10 +219,10 @@ public class ajaxControllerProducto extends ActionSupport implements SessionAwar
             PrintWriter out = response.getWriter();
             ProductoLogica logica = new ProductoLogica();
             DetalleConteoDto objAux = logica.buscaProductoConteoXCodigo(dska_codigo, copr_copr);
-            rta = new HashMap<String,Object>();
-            if(objAux == null){
+            rta = new HashMap<String, Object>();
+            if (objAux == null) {
                 rta.put("respuesta", "Error al buscar el producto en el conteo o no existe registro del producto en este conteo");
-            }else{
+            } else {
                 rta.put("respuesta", "Ok");
                 rta.put("objeto", objAux);
             }
@@ -232,22 +232,22 @@ public class ajaxControllerProducto extends ActionSupport implements SessionAwar
             e.printStackTrace();
         }
     }
-    
-    public void buscaProductoXCodigo(){
+
+    public void buscaProductoXCodigo() {
         String objJson = "";
         Map<String, Object> rta = null;
         try {
             HttpServletResponse response = ServletActionContext.getResponse();
             response.setContentType("text/plain;charset=utf-8");
             PrintWriter out = response.getWriter();
-            rta = new HashMap<String,Object>();
+            rta = new HashMap<String, Object>();
             Gson gson = new Gson();
             ProductoLogica logica = new ProductoLogica();
-            ProductoDto objDto = logica.buscaProductoXCodigo(dska_codigo); 
-            if(objDto != null){
-                rta.put("respuesta", "existente");                
+            ProductoDto objDto = logica.buscaProductoXCodigo(dska_codigo);
+            if (objDto != null) {
+                rta.put("respuesta", "existente");
                 rta.put("objeto", objDto);
-            }else{
+            } else {
                 rta.put("respuesta", "inexistente");
             }
             objJson = gson.toJson(rta);
@@ -256,8 +256,8 @@ public class ajaxControllerProducto extends ActionSupport implements SessionAwar
             e.printStackTrace();
         }
     }
-    
-    public void inactivaProductoXId(){
+
+    public void cambiarEstadoProducto() {
         String objJson = "";
         Map<String, Object> rta = null;
         try {
@@ -265,12 +265,20 @@ public class ajaxControllerProducto extends ActionSupport implements SessionAwar
             response.setContentType("text/plain;charset=utf-8");
             PrintWriter out = response.getWriter();
             Gson gson = new Gson();
+            rta = new HashMap<>();
+            ProductoLogica objLogica = new ProductoLogica();
+            String respuesta = objLogica.cambiaEstadoProducto(dska_dska, dska_estado);
+            if("Ok".equalsIgnoreCase(respuesta)){
+                rta.put("respuesta", "Ok");
+            }else{
+                rta.put("respuesta", respuesta);
+            }
             objJson = gson.toJson(rta);
             out.print(objJson);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }
 
     public Usuario getUsuario() {
@@ -351,6 +359,14 @@ public class ajaxControllerProducto extends ActionSupport implements SessionAwar
 
     public void setDska_cate(String dska_cate) {
         this.dska_cate = dska_cate;
+    }
+
+    public String getDska_estado() {
+        return dska_estado;
+    }
+
+    public void setDska_estado(String dska_estado) {
+        this.dska_estado = dska_estado;
     }
 
 }

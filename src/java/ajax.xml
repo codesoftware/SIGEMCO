@@ -52,7 +52,7 @@
         </action>
         <action name="buscaProductoXCodigo" class="co.com.sigemco.alfa.inventario.ajax.ajaxControllerProducto" method="buscaProductoXCodigo">
         </action>
-        <action name="inactivaProductoXId" class="co.com.sigemco.alfa.inventario.ajax.ajaxControllerProducto" method="inactivaProductoXId">
+        <action name="cambiarEstadoProducto" class="co.com.sigemco.alfa.inventario.ajax.ajaxControllerProducto" method="cambiarEstadoProducto">
         </action>
     </package>
 </struts>

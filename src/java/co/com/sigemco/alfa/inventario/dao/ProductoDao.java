@@ -137,7 +137,6 @@ public class ProductoDao {
     public void setDska_prov(String dska_prov) {
         this.dska_prov = dska_prov;
     }
-    
 
     /**
      * Funcion encargada de retornar el select con los filtros solicitados por
@@ -348,6 +347,22 @@ public class ProductoDao {
         sql.append("and ecop_dska = dska_dska ");
         sql.append("and ecop_copr = ");
         sql.append(copr_copr);
+        return sql.toString();
+    }
+
+    /**
+     * Funcion encargada de realizar el Query para cambiar de estado un producto
+     *
+     * @param dska_dska
+     * @param estado
+     * @return
+     */
+    public String cambiaEstado(String dska_dska, String estado) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("update in_tdska set dska_estado = '");
+        sql.append(estado);
+        sql.append("' where dska_dska = ");
+        sql.append(dska_dska);
         return sql.toString();
     }
 

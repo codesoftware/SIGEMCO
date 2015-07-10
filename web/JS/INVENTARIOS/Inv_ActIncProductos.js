@@ -18,7 +18,7 @@ $(function () {
                     if (data.respuesta != 'existente') {
                         $('#textoMsn').html('Producto inexistente en el sistema por favor verifiquelo e intente de nuevo');
                         $('#mensaje').modal('show');
-                    } else {                        
+                    } else {
                         var table = '';
                         table += '<table class="table table-bordered">                       ';
                         table += '    <thead>                                                            ';
@@ -29,17 +29,17 @@ $(function () {
                         table += '    <tbody>                                                            ';
                         table += '        <tr>           ';
                         table += '            <td>Codigo</td>  ';
-                        table += '            <td>'+data.objeto.dska_cod+'</td>  ';
+                        table += '            <td>' + data.objeto.dska_cod + '</td>  ';
                         table += '            <td>Referencia</td>  ';
-                        table += '            <td>'+data.objeto.dska_desc+'</td>  ';
+                        table += '            <td>' + data.objeto.dska_desc + '</td>  ';
                         table += '        </tr>          ';
                         table += '        <tr>           ';
                         table += '            <td>Promedio Ponderado</td>  ';
-                        table += '            <td>'+data.objeto.promPonderado+'</td>  ';
-                        if(data.objeto.dska_estado == 'A'){
-                            table += '            <td colspan="2"><a class="btn btn-primary" onclick="inactivar(\''+data.objeto.dska_dska+'\')" >Inactivar</a></td>  ';
-                        }else{
-                            table += '            <td colspan="2"><a class="btn btn-danger" onclick="activar("'+data.objeto.dska_dska+'")">Activar</a></td>  ';
+                        table += '            <td>' + data.objeto.promPonderado + '</td>  ';
+                        if (data.objeto.dska_estado == 'A') {
+                            table += '            <td colspan="2"><a class="btn btn-primary" onclick="cambiaEstado(\'' + data.objeto.dska_dska + '\',\'I\')" >Inactivar</a></td>  ';
+                        } else {
+                            table += '            <td colspan="2"><a class="btn btn-danger" onclick="cambiaEstado(\'' + data.objeto.dska_dska + '\',\'A\')">Activar</a></td>  ';
                         }
                         table += '        </tr>          ';
                         table += '    </tbody>                ';
@@ -49,13 +49,28 @@ $(function () {
                 }
             });
         }
-    });  
-}); 
+    });
+});
 
-function inactivar(id){
-    alert(id);
-}
-
-function activar(id){
-    alert(id);
+function cambiaEstado(id, estado) {
+    var datos = new Object();
+    datos.dska_dska = id;
+    datos.dska_estado = estado;
+    $.ajax({
+        url: RutaSitio + "/cambiarEstadoProducto.action",
+        data: datos,
+        cache: false,
+        type: 'POST',
+        dataType: 'json',
+        success: function (data, textStatus, jqXHR) {
+            if (data.respuesta == "Ok") {
+                $('#textoMsn').html('Producto actualizado correctamente');
+                $('#mensaje').modal('show');
+            }else{
+                $('#textoMsn').html('Error al cambiar de estado el producto: ' + data.respuesta );
+                $('#mensaje').modal('show');
+            }
+            $('#datosBasicos').html('');
+        }
+    });
 }

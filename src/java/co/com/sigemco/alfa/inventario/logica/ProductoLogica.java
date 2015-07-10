@@ -79,8 +79,8 @@ public class ProductoLogica {
         List<ProductoDto> rta = null;
         try {
             Iterator<ProductoDto> it = listaProd.iterator();
-            while(it.hasNext()){
-                if(rta == null){
+            while (it.hasNext()) {
+                if (rta == null) {
                     rta = new ArrayList<>();
                 }
                 ProductoDto aux = it.next();
@@ -497,6 +497,28 @@ public class ProductoLogica {
             e.printStackTrace();
         }
         return objDto;
+    }
+
+    /**
+     * Funcion encargada de cambiar de estado a un producto
+     *
+     * @param dska_dska
+     * @param estado
+     * @return
+     */
+    public String cambiaEstadoProducto(String dska_dska, String estado) {
+        String rta = "Ok";
+        try (EnvioFunction function = new EnvioFunction()) {
+            ProductoDao objDao = new ProductoDao();
+            boolean valida = function.enviarUpdate(objDao.cambiaEstado(dska_dska, estado));
+            if (!valida) {
+                rta = "Error al actualizar el producto ";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            rta = "Error " + e;
+        }
+        return rta;
     }
 
 }
