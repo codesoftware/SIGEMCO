@@ -84,6 +84,9 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     public static final int INV_INS_REFERENCIA = 261;
     public static final int INV_UPD_REFERENCIA = 262;
     public static final int INV_CON_REFERENCIA = 264;
+    //Paginas para Recetas
+    public static final int INV_INS_RECETA = 291;
+    public static final int INV_CONS_RECETA = 292;
     //paginas de marcas
     public static final int INV_INS_MARCA = 601;
     public static final int INV_UPD_MARCA = 602;
@@ -113,6 +116,7 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     //MODULO FACTURACION (Primer digito 3)
     public static final int FAC_INS_FACTURA = 311;
     public static final int FAC_UPD_FACTURA = 312;
+    public static final int FAC_CANC_FACTURA = 313;
     //MODULO DE REPORTES (Primer digito 4)
     // Este modulo tiene una numeracion especial
     // primer digito(3) segundo (inventarios = 1, productos = 2 , usuarios= 3)
@@ -355,6 +359,9 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
                     nextPage = "fac_upd_factura";
                     this.estado = "inicial";
                     break;
+                case FAC_CANC_FACTURA:
+                    nextPage = "fac_canc_factura";                    
+                    break;
                 case REP_INV_USUARIOS:
                     periflObj = new Adm_PerfilLogica();
                     this.perfilesMap = periflObj.obitnePerfilIdNombre();
@@ -541,10 +548,8 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
                     this.reportes.put("1", "Reporte Promedio ponderado todo los productos");
                     nextPage = "adm_reporte_gral";
                     break;
-
                 case ADM_CON_SEDE:
                     nextPage = "adm_con_sede";
-
                     break;
                 case ADM_INS_SEDE:
                     nextPage = "adm_ins_sede";
@@ -556,6 +561,12 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
                     break;
                 case CON_INSERTSUBCUENTAS:
                     nextPage = "con_insertcuentas";
+                    break;
+                case INV_INS_RECETA:
+                    nextPage = "inv_ins_receta";
+                    break;
+                case INV_CONS_RECETA:
+                    nextPage = "inv_cons_receta";
                     break;
             }
         } catch (Exception e) {

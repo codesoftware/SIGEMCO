@@ -142,9 +142,24 @@
                             <li><a href="reenvioGeneral.action?accion=231">Parametrizaci&oacute;n de Precios</a></li>
                                 <%}%>
                         </ul>
+                    </li>                    
+                    <%}%>
+                    <%if (permisos.indexOf(".InRec1.") >= 0 || permisos.indexOf(".InRec2.") >= 0) {
+                    %>                    
+                    <li><a href="#">Recetas</a>
+                        <ul class="dropdown-menu">
+                            <%if (permisos.indexOf(".InRec1.") >= 0) {
+                            %>                   
+                            <li><a href="reenvioGeneral.action?accion=291">Creación</a></li>
+                                <%}%>
+                                <%if (permisos.indexOf(".InRec2.") >= 0) {
+                                %>                   
+                            <li><a href="reenvioGeneral.action?accion=292">Consulta General</a></li>
+                                <%}%>
+                        </ul>
                     </li>
-                    <%}
-                        if (permisos.indexOf(".InPr11.") >= 0) {
+                    <%}%>
+                    <%if (permisos.indexOf(".InPr11.") >= 0) {
                     %>                    
                     <li><a href="#">Conteos</a>
                         <ul class="dropdown-menu">
@@ -184,7 +199,7 @@
                                         <s:text name="texto1" />
                                     </s:i18n></a></li>
                                     <%}
-                                    if (permisos.indexOf(".InRef3.") >= 0) {%>
+                                        if (permisos.indexOf(".InRef3.") >= 0) {%>
                             <li><a href="reenvioGeneral.action?accion=264">Consultar <s:i18n name="co.com.sigemco.alfa.archivos.MessagesBundleProducto" >
                                         <s:text name="texto1" />
                                     </s:i18n></a></li>
@@ -218,7 +233,7 @@
                         </ul>
                     </li>
                     <%}
-                         if (permisos.indexOf(".InArqueo1.") >= 0 || permisos.indexOf(".InArqueo2.") >= 0 || permisos.indexOf(".InArqueo3.") >= 0) {%>
+                        if (permisos.indexOf(".InArqueo1.") >= 0 || permisos.indexOf(".InArqueo2.") >= 0 || permisos.indexOf(".InArqueo3.") >= 0) {%>
                     <li><a href="#">Arqueos</a>
                         <ul class="dropdown-menu">
                             <%if (permisos.indexOf(".InArqueo1.") >= 0) {%>
@@ -229,7 +244,7 @@
                                 <%}%>
                         </ul>
                     </li>
-                        <%}
+                    <%}
                         if (permisos.indexOf(".InCat1.") >= 0 || permisos.indexOf(".InCat2.") >= 0 || permisos.indexOf(".InCat3.") >= 0) {%>
                     <li><a href="#">Categorias</a>
                         <ul class="dropdown-menu">
@@ -268,6 +283,9 @@
                     <li><a href="reenvioGeneral.action?accion=312">Adición Serv. Y Productos Fac. Existente</a></li>
                         <%}%>
                     <li><a href="#">Cerrar Factura</a></li>
+                        <% if (permisos.indexOf(".FcCr5.") >= 0) {%>
+                    <li><a href="reenvioGeneral.action?accion=313">Cancelación de Facturas</a></li>
+                        <%}%>
                 </ul>
             </li>            
             <%}

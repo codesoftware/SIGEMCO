@@ -448,17 +448,34 @@
                                                     <tr>                                    
                                                         <td style="width: 30%">Crear</td>
                                                         <td style="width: 20%"><input type="checkbox" value="InArqueo1" id="InArqueo1"/></td>
-                                                    </tr>
-                                                    <tr>                                    
-                                                        <td>Consulta General</td>
-                                                        <td><input type="checkbox" value="InArqueo3" id="InArqueo3" /></td>
-                                                        <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                                                        <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                                        <td style="width: 20%">Consulta General</td>
+                                                        <td style="width: 20%"><input type="checkbox" value="InArqueo3" id="InArqueo3" /></td>
                                                     </tr>
                                                 </tbody>                                
                                             </table>
                                         </div>
                                         <%}%>
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <table style="width: 100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="subTitulo"><a id="InRec">Recetas o Platos</a></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody style="display: none;" class="subPermisoInRec">
+                                                    <tr>                                    
+                                                        <td style="width: 30%">Creación</td>
+                                                        <td style="width: 20%"><input type="checkbox" value="InRec1" id="InRec1"/></td>
+                                                        <td style="width: 30%">Consulta General</td>
+                                                        <td style="width: 20%"><input type="checkbox" value="InRec2" id="InRec2"/></td>
+                                                    </tr> 
+                                                    <tr>                                    
+                                                        <td style="width: 30%">Actualizar</td>
+                                                        <td style="width: 20%"><input type="checkbox" value="InRec3" id="InRec3"/></td>
+                                                    </tr>  
+                                                </tbody>                                
+                                            </table>
+                                        </div>
                                     </div>                                    
                                 </div>
                             </div>
@@ -493,6 +510,10 @@
                                                         <td><input type="checkbox" value="FcCr3" id="FcCr3"/></td>
                                                         <td>Cerrar Factura</td>
                                                         <td><input type="checkbox" value="FcCr4" id="FcCr4"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Cancelacion de Facturas</td>
+                                                        <td><input type="checkbox" value="FcCr5" id="FcCr5"/></td>
                                                     </tr>
                                                 </tbody>
                                             </table>

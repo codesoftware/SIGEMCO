@@ -81,8 +81,11 @@
             <result name="inv_con_conteoprod">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsGenConteos.jsp</result>
             <result name="adm_cierre_diario">/WEB-INF/ACCIONES/REPORTES/JSP/inv_CierreDiario.jsp</result>
             <result name="adm_reporte_gral">/WEB-INF/ACCIONES/REPORTES/JSP/inv_reportes.jsp</result>
-            
-            
+            <result name="fac_canc_factura">/WEB-INF/ACCIONES/FACTURACION/MODIFICAR/Fact_CancelaFactura.jsp</result>            
+            <!--Inicio Recetas -->
+            <result name="inv_ins_receta">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertReceta.jsp</result>            
+            <result name="inv_cons_receta">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsGenRecetas.jsp</result>            
+            <!--Fin Recetas -->
             <result name="error">/inicio.jsp</result>
         </action>
         <!-- Acciones que sirven para redireccionar -->    

@@ -50,6 +50,9 @@ $(function() {
     $("#RepUsua").click(function() {
         $(".subPermisoRepUsua").toggle("slow");
     });
+    $("#InRec").click(function() {
+        $(".subPermisoInRec").toggle("slow");
+    });
 });
 
 function actualizar() {
@@ -154,6 +157,14 @@ function mostrarPermisos(valor) {
     var movCont = valor.indexOf('InMCo');
     if (movCont > 0) {
         $(".subPermisoInvMvCon").show("slow");
+    }
+    var arqueos = valor.indexOf('InArqueo');
+    if (arqueos > 0) {
+        $(".subPermisoInArqueos").show("slow");
+    }
+    var recetas = valor.indexOf('InRec');
+    if (recetas > 0) {
+        $(".subPermisoInRec").show("slow");
     }
     cargarPermisos(vector);
 }

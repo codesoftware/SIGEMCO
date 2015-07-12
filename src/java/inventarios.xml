@@ -144,5 +144,19 @@
             <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_EjecutaConteo.jsp</result>
             <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_EjecutaConteo.jsp</result>
         </action>
+        <!-- Inicio Recetas -->
+        <action name="Inv_InsertReceta" class="co.com.sigemco.alfa.inventario.action.RecetasAction" method="insertarReceta">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertReceta.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertReceta.jsp</result>
+        </action>
+        <action name="Inv_ConsGenReceta" class="co.com.sigemco.alfa.inventario.action.RecetasAction" method="consultaRecetasXFiltro">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsGenRecetas.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsGenRecetas.jsp</result>
+        </action>       
+        <action name="consActualizaReceta" class="co.com.sigemco.alfa.inventario.action.RecetasAction" method="consultaRecetasXId">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_UpdReceta.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsGenRecetas.jsp</result>
+        </action>  
+        <!-- FIn Recetas -->        
     </package>
 </struts>
