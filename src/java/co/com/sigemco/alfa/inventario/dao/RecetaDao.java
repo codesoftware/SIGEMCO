@@ -51,4 +51,44 @@ public class RecetaDao {
         return sql.toString();
     }
 
+    /**
+     * Funcion encargada de realizar el Query para la actualizacion de una Receta
+     * por medio de su Id
+     *
+     * @param objDto
+     * @return
+     */
+    public String actualizaRecetaXId(RecetaDto objDto) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("UPDATE in_trece ");
+        sql.append("   SET rece_nombre='");
+        sql.append(objDto.getRece_nombre());
+        sql.append("',");
+        sql.append("rece_desc='");
+        sql.append(objDto.getRece_desc());
+        sql.append("',");
+        sql.append("rece_estado='");
+        sql.append(objDto.getRece_estado());
+        sql.append("' WHERE rece_rece = ");
+        sql.append(objDto.getRece_rece());
+        return sql.toString();
+    }
+
+    /**
+     * Funcion encargada de realizar el Query la consulta especifica de una
+     * receta por su id
+     *
+     * @param objDto
+     * @return
+     */
+    public String consultaGeneralRecetasXId(RecetaDto objDto) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT rece_rece, rece_codigo, rece_nombre, rece_desc, rece_iva, rece_estado, ");
+        sql.append("rece_fec_ingreso, rece_promedio ");
+        sql.append("FROM in_trece ");
+        sql.append("WHERE rece_rece=");
+        sql.append(objDto.getRece_rece());
+        return sql.toString();
+    }
+
 }

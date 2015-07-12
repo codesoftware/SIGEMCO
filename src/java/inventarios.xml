@@ -157,6 +157,10 @@
             <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_UpdReceta.jsp</result>
             <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsGenRecetas.jsp</result>
         </action>  
+        <action name="actualizaReceta" class="co.com.sigemco.alfa.inventario.action.RecetasAction" method="actualizaReceta">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsGenRecetas.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsGenRecetas.jsp</result>
+        </action>
         <!-- FIn Recetas -->        
     </package>
 </struts>

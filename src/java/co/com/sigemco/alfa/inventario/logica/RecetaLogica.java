@@ -77,4 +77,55 @@ public class RecetaLogica {
         return rta;
     }
 
+    /**
+     * Funcion con la cual se realiza la logica para actualizar las recetas del
+     * sistema
+     *
+     * @param objDto
+     * @return
+     */
+    public String actualizaReceta(RecetaDto objDto) {
+        String rta = "Ok";
+        try (EnvioFunction function = new EnvioFunction()) {
+            RecetaDao objDao = new RecetaDao();
+            boolean valida = function.enviarUpdate(objDao.actualizaRecetaXId(objDto));
+            if(!valida){
+                rta = "Error al ejecutar la receta";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rta;
+    }
+
+    /**
+     * Funcion que se encarga de realizar la logica para la busqueda de una
+     * receta por su id
+     *
+     * @param objDto
+     * @return
+     */
+    public RecetaDto consultaRecetaXId(RecetaDto objDto) {
+        RecetaDto rta = null;
+        try (EnvioFunction function = new EnvioFunction()) {
+            RecetaDao objDao = new RecetaDao();
+            ResultSet rs = function.enviarSelect(objDao.consultaGeneralRecetasXId(objDto));
+            if (rs.next()) {
+                if (rta == null) {
+                    rta = new RecetaDto();
+                }
+                rta.setRece_rece(rs.getString("Rece_rece"));
+                rta.setRece_codigo(rs.getString("Rece_codigo"));
+                rta.setRece_nombre(rs.getString("Rece_nombre"));
+                rta.setRece_desc(rs.getString("Rece_desc"));
+                rta.setRece_iva(rs.getString("Rece_iva"));
+                rta.setRece_estado(rs.getString("Rece_estado"));
+                rta.setRece_fec_ingreso(rs.getString("Rece_fec_ingreso"));
+                rta.setRece_promedio(rs.getString("Rece_promedio"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rta;
+    }
 }

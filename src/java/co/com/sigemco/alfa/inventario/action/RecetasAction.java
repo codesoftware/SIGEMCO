@@ -11,6 +11,7 @@ import co.com.hotel.validacion.ValidaCampos;
 import co.com.sigemco.alfa.inventario.dto.RecetaDto;
 import co.com.sigemco.alfa.inventario.logica.RecetaLogica;
 import com.opensymphony.xwork2.ActionSupport;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.struts2.interceptor.SessionAware;
@@ -27,6 +28,7 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
     private RecetaDto receta;
     private List recetas;
     private String permisoAct;
+    private Map<String, String> estadoMap;
 
     /**
      * Funcion encargada de realizar la accion de insertar una receta en el
@@ -64,9 +66,9 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
             if (recetas == null) {
                 addActionError("La consulta no arrojo ningun resultado");
             } else {
-                if(usuario.getPermisos().indexOf(".InRec3.")>0){
+                if (usuario.getPermisos().indexOf(".InRec3.") > 0) {
                     permisoAct = "S";
-                }else{
+                } else {
                     permisoAct = "N";
                 }
             }
@@ -75,8 +77,43 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
         }
         return SUCCESS;
     }
-    
-    public String consultaRecetasXId(){
+
+    /**
+     * Funcion encargada de realizar la accion de consultar la receta por su Id
+     *
+     * @return
+     */
+    public String consultaRecetasXId() {
+        RecetaLogica objLogica = new RecetaLogica();
+        try {
+            receta = objLogica.consultaRecetaXId(receta);
+            if (receta == null) {
+                addActionError("No se encontro ninguna receta con ese id");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return SUCCESS;
+    }
+
+    /**
+     * Funcion encargada de realizar la accion de actualizar una receta
+     *
+     * @return
+     */
+    public String actualizaReceta() {
+        RecetaLogica objLogica = new RecetaLogica();
+        try {
+            String valida = objLogica.actualizaReceta(receta);
+            if ("Ok".equalsIgnoreCase(valida)) {
+                addActionMessage("La receta se ha actualizado correctamente");
+                receta = null;
+            } else {
+                addActionError(valida);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return SUCCESS;
     }
 
@@ -88,9 +125,23 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
             } else if (!valida.validaNulo(receta.getRece_desc())) {
                 addActionError("El campo descripcion no puede ser nulo");
             }
-        }else if("consultaActuliza".equalsIgnoreCase(accion)){
-            if(!valida.validaNulo(receta.getRece_rece())){
+        } else if ("consultaActuliza".equalsIgnoreCase(accion)) {
+            this.estadoMap = new HashMap<String, String>();
+            this.estadoMap.put("A", "Activo");
+            this.estadoMap.put("I", "Inactivo");
+            if (!valida.validaNulo(receta.getRece_rece())) {
                 addActionError("El Id de la receta no puede ser nulo");
+            }
+        } else if ("actualizaReceta".equalsIgnoreCase(accion)) {
+            this.estadoMap = new HashMap<String, String>();
+            this.estadoMap.put("A", "Activo");
+            this.estadoMap.put("I", "Inactivo");
+            if (!valida.validaNulo(receta.getRece_nombre())) {
+                addActionError("El campo nombre no puede ser nulo");
+            } else if (!valida.validaNulo(receta.getRece_desc())) {
+                addActionError("El campo descripcion no puede ser nulo");
+            } else if ("-1".equalsIgnoreCase(receta.getRece_rece())) {
+                addActionError("Por Favor seleccione un estado para la receta");
             }
         }
     }
@@ -142,4 +193,13 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
     public void setPermisoAct(String permisoAct) {
         this.permisoAct = permisoAct;
     }
+
+    public Map<String, String> getEstadoMap() {
+        return estadoMap;
+    }
+
+    public void setEstadoMap(Map<String, String> estadoMap) {
+        this.estadoMap = estadoMap;
+    }
+
 }

@@ -120,7 +120,7 @@
         </s:if>
         <s:form action="consActualizaReceta" theme="simple" method="post" cssStyle="display:none;" id="consultaActualizacionReceta">
             <s:textfield name="receta.rece_rece" id="rece_receActu" />
-            <s:textfield name="action" value="consultaActuliza" />
+            <s:textfield name="accion" value="consultaActuliza" />
         </s:form>
     </body>
 </html>
