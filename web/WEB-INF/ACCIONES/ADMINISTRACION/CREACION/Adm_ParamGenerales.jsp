@@ -41,6 +41,7 @@
                     </s:if>
                 </div>
                 <s:form theme="simple" name="adm_updtParaGenEmp" id="adm_updtParaGenEmp" action="adm_updtParaGenEmp" autocomplete="off">
+                    <s:textfield name="accion" value="parametrizaPrecioReceta" cssStyle="display:none" />
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -49,11 +50,20 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td style="width: 30%">IVA:</td>
+                                <td style="width: 30%">IVA COMPRAS:</td>
                                 <td style="width: 70%">
                                     <div class="input-group">
                                         <span class="input-group-addon">%</span>
-                                        <s:textfield id="iva" name="empresa.iva" cssClass="form-control" onkeypress="soloNumeros();"/>
+                                        <s:textfield id="iva" name="empresa.iva" cssClass="form-control" onkeypress="soloNumeros();" maxLength="3"/>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 30%">IVA VENTAS:</td>
+                                <td style="width: 70%">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">%</span>
+                                        <s:textfield id="iva" name="empresa.ivaVentas" cssClass="form-control" onkeypress="soloNumeros();" maxLength="3"/>
                                     </div>
                                 </td>
                             </tr>

@@ -17,6 +17,7 @@ public class Empresa {
     private String ciudad;
     private String telefono;
     private String iva;
+    private String ivaVentas;
     private String diasVen;//Dias de vencimiento para las notificaciones
     private String comisionPrepago;
     private String comisionPostpago;
@@ -110,4 +111,13 @@ public class Empresa {
     public void setSubcuentaBancos(String subcuentaBancos) {
         this.subcuentaBancos = subcuentaBancos;
     }
+
+    public String getIvaVentas() {
+        return ivaVentas;
+    }
+
+    public void setIvaVentas(String ivaVentas) {
+        this.ivaVentas = ivaVentas;
+    }
+
 }

@@ -141,6 +141,16 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
         return SUCCESS;
     }
 
+    /**
+     * Funcion encargada de realizar la accion de parametrizar el precio de una
+     * receta
+     *
+     * @return
+     */
+    public String parametrizaPrecioReceta() {
+        return SUCCESS;
+    }
+
     public void validate() {
         ValidaCampos valida = new ValidaCampos();
         if ("insertReceta".equalsIgnoreCase(accion)) {
@@ -166,6 +176,12 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
                 addActionError("El campo descripcion no puede ser nulo");
             } else if ("-1".equalsIgnoreCase(receta.getRece_rece())) {
                 addActionError("Por Favor seleccione un estado para la receta");
+            }
+        }else if("parametrizaPrecioReceta".equalsIgnoreCase(accion)){
+            if(!valida.validaNulo(receta.getRece_precio())){
+                addActionError("El precio no puede ser nulo");
+            }else if("-1".equalsIgnoreCase(receta.getRece_sede())){
+                addActionError("Por Favor seleccione la sede en la cual va ha parametrizar el precio");
             }
         }
     }

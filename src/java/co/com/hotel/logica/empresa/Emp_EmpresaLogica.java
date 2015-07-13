@@ -69,6 +69,10 @@ public class Emp_EmpresaLogica {
             if (!inserts.equalsIgnoreCase("Ok")) {
                 return inserts;
             }
+            inserts = this.ingresaIvaVentas(empresa.getIvaVentas());
+            if (!inserts.equalsIgnoreCase("Ok")) {
+                return inserts;
+            }
             inserts = this.ingresaDiasVencimiento(empresa.getDiasVen());
             if (!inserts.equalsIgnoreCase("Ok")) {
                 return inserts;
@@ -275,7 +279,8 @@ public class Emp_EmpresaLogica {
     }
 
     /**
-     * Funcion encargada de ingresar el iva que cobrara la empresa
+     * Funcion encargada de ingresar el iva con el cual compra la empresa sus
+     * productos
      *
      * @param iva
      * @return
@@ -302,6 +307,47 @@ public class Emp_EmpresaLogica {
                 sql = "UPDATE em_tpara                     \n";
                 sql += "SET para_valor = '" + iva + "'  \n";
                 sql += "WHERE upper(para_clave) = 'IVAPR' \n";
+            }
+            function.enviarUpdate(sql);
+        } catch (Exception e) {
+            System.err.println("Error Emp_EmpresaLogica.ingresaNombreEmpresa");
+            e.printStackTrace();
+            return "Error al insertar el nombre de la empresa: " + e;
+        } finally {
+            function.cerrarConexion();
+        }
+        return "Ok";
+    }
+
+    /**
+     * Funcion encargada de ingresar el iva con el cual compra la empresa sus
+     * productos
+     *
+     * @param iva
+     * @return
+     */
+    private String ingresaIvaVentas(String iva) {
+        EnvioFunction function = new EnvioFunction();
+        ResultSet rs = null;
+        String select = "";
+        String sql = "";
+        int cont = 0;
+        try {
+            select += "select COUNT(*)  contador              \n";
+            select += "from em_tpara                          \n";
+            select += "where upper(para_clave) = 'IVAPRVENTA' \n";
+            rs = function.enviarSelect(select);
+            while (rs.next()) {
+                cont = rs.getInt("contador");
+            }
+            if (cont == 0) {
+                sql = "insert into em_tpara(para_clave, para_valor) \n";
+                sql += "values('IVAPRVENTA', '" + iva + "')   \n";
+
+            } else {
+                sql = "UPDATE em_tpara                  \n";
+                sql += "SET para_valor = '" + iva + "'  \n";
+                sql += "WHERE upper(para_clave) = 'IVAPRVENTA' \n";
             }
             function.enviarUpdate(sql);
         } catch (Exception e) {
@@ -419,7 +465,8 @@ public class Emp_EmpresaLogica {
             sql += "       (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'COMISIONPRE') COMISIONPRE  ,";
             sql += "       (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'COMISIONREP') COMISIONREP  ,";
             sql += "       (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'COMISIONPOST') COMISIONPOST , ";
-            sql += "       (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'SBCUTARJETA') SBCUTARJETA ";
+            sql += "       (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'SBCUTARJETA') SBCUTARJETA, ";
+            sql += "       (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'IVAPRVENTA') IVAPRVENTA ";
             rs = function.enviarSelect(sql);
             while (rs.next()) {
                 if (contador == 0) {
@@ -437,6 +484,7 @@ public class Emp_EmpresaLogica {
                 obj.setComisionPostpago(rs.getString("COMISIONPOST"));
                 obj.setComisionReposicion(rs.getString("COMISIONREP"));
                 obj.setSubcuentaBancos(rs.getString("SBCUTARJETA"));
+                obj.setIvaVentas(rs.getString("IVAPRVENTA"));
             }
         } catch (Exception e) {
             System.out.println("Error Emp_EmpresaLogica.obtieneDatosEmpresa " + e);

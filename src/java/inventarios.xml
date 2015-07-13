@@ -166,6 +166,11 @@
             <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_ParamePrecioReceta.jsp</result>
             <result name="error">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_ParamePrecioReceta.jsp</result>
         </action>
+        <action name="Inv_ParametrizaPrecioReceta" class="co.com.sigemco.alfa.inventario.action.RecetasAction" method="parametrizaPrecioReceta">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_PrecioReceta.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_PrecioReceta.jsp</result>
+            <result name="error">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_ParamePrecioReceta.jsp</result>
+        </action>
         <!-- FIn Recetas -->        
     </package>
 </struts>
