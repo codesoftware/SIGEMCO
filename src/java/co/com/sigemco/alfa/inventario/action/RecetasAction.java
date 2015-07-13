@@ -6,6 +6,7 @@
 package co.com.sigemco.alfa.inventario.action;
 
 import co.com.hotel.datos.session.Usuario;
+import co.com.hotel.logica.sede.Adm_SedeLogica;
 import co.com.hotel.utilidades.UsuarioHabilitado;
 import co.com.hotel.validacion.ValidaCampos;
 import co.com.sigemco.alfa.inventario.dto.RecetaDto;
@@ -29,6 +30,7 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
     private List recetas;
     private String permisoAct;
     private Map<String, String> estadoMap;
+    private Map<String, String> sedes;
 
     /**
      * Funcion encargada de realizar la accion de insertar una receta en el
@@ -110,6 +112,28 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
                 receta = null;
             } else {
                 addActionError(valida);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return SUCCESS;
+    }
+
+    /**
+     * Funcion encargada de realizar la accion de buscar una receta por su
+     * codigo
+     *
+     * @return
+     */
+    public String buscaRecetaXCod() {
+        RecetaLogica objLogica = new RecetaLogica();
+        try {
+            Adm_SedeLogica sedeLogica = new Adm_SedeLogica();
+            this.sedes = sedeLogica.obtieneSedes();
+            receta = objLogica.consultaGeneralXCodigo(receta);
+            if (receta == null) {
+                addActionError("No existe ninguna receta con ese codigo");
+                return ERROR;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -200,6 +224,14 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
 
     public void setEstadoMap(Map<String, String> estadoMap) {
         this.estadoMap = estadoMap;
+    }
+
+    public Map<String, String> getSedes() {
+        return sedes;
+    }
+
+    public void setSedes(Map<String, String> sedes) {
+        this.sedes = sedes;
     }
 
 }

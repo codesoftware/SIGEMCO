@@ -144,7 +144,7 @@
                         </ul>
                     </li>                    
                     <%}%>
-                    <%if (permisos.indexOf(".InRec1.") >= 0 || permisos.indexOf(".InRec2.") >= 0) {
+                    <%if (permisos.indexOf(".InRec1.") >= 0 || permisos.indexOf(".InRec2.") >= 0 || permisos.indexOf(".InRec4.") >= 0) {
                     %>                    
                     <li><a href="#">Recetas</a>
                         <ul class="dropdown-menu">
@@ -155,6 +155,10 @@
                                 <%if (permisos.indexOf(".InRec2.") >= 0) {
                                 %>                   
                             <li><a href="reenvioGeneral.action?accion=292">Consulta General</a></li>
+                                <%}%>
+                                <%if (permisos.indexOf(".InRec4.") >= 0) {
+                                %>                   
+                            <li><a href="reenvioGeneral.action?accion=293">Precios</a></li>
                                 <%}%>
                         </ul>
                     </li>

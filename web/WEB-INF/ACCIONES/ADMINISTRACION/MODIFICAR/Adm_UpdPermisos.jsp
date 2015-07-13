@@ -472,6 +472,8 @@
                                                     <tr>                                    
                                                         <td style="width: 30%">Actualizar</td>
                                                         <td style="width: 20%"><input type="checkbox" value="InRec3" id="InRec3"/></td>
+                                                        <td style="width: 30%">Precios</td>
+                                                        <td style="width: 20%"><input type="checkbox" value="InRec4" id="InRec4"/></td>
                                                     </tr>  
                                                 </tbody>                                
                                             </table>

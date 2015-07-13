@@ -161,6 +161,11 @@
             <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsGenRecetas.jsp</result>
             <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsGenRecetas.jsp</result>
         </action>
+        <action name="Inv_buscaRecetaXCod" class="co.com.sigemco.alfa.inventario.action.RecetasAction" method="buscaRecetaXCod">
+            <result name="success">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_PrecioReceta.jsp</result>
+            <result name="input">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_ParamePrecioReceta.jsp</result>
+            <result name="error">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_ParamePrecioReceta.jsp</result>
+        </action>
         <!-- FIn Recetas -->        
     </package>
 </struts>

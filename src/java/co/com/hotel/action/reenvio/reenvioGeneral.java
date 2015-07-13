@@ -87,6 +87,7 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     //Paginas para Recetas
     public static final int INV_INS_RECETA = 291;
     public static final int INV_CONS_RECETA = 292;
+    public static final int INV_PARA_PRECIORECETA = 293;
     //paginas de marcas
     public static final int INV_INS_MARCA = 601;
     public static final int INV_UPD_MARCA = 602;
@@ -567,6 +568,9 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
                     break;
                 case INV_CONS_RECETA:
                     nextPage = "inv_cons_receta";
+                    break;
+                case INV_PARA_PRECIORECETA:
+                    nextPage = "inv_para_precioreceta";
                     break;
             }
         } catch (Exception e) {

@@ -52,8 +52,8 @@ public class RecetaDao {
     }
 
     /**
-     * Funcion encargada de realizar el Query para la actualizacion de una Receta
-     * por medio de su Id
+     * Funcion encargada de realizar el Query para la actualizacion de una
+     * Receta por medio de su Id
      *
      * @param objDto
      * @return
@@ -88,6 +88,24 @@ public class RecetaDao {
         sql.append("FROM in_trece ");
         sql.append("WHERE rece_rece=");
         sql.append(objDto.getRece_rece());
+        return sql.toString();
+    }
+
+    /**
+     * Funcion encargada de realizar el Query la consulta de una receta por su
+     * codigo
+     *
+     * @param objDto
+     * @return
+     */
+    public String consultaGeneralRecetasXCodigo(RecetaDto objDto) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT rece_rece, rece_codigo, rece_nombre, rece_desc, rece_iva, rece_estado, ");
+        sql.append("to_char(rece_fec_ingreso, 'dd/mm/yyyy') rece_fec_ingreso , rece_promedio ");
+        sql.append("FROM in_trece ");
+        sql.append("WHERE rece_codigo = '");
+        sql.append(objDto.getRece_codigo());
+        sql.append("'");
         return sql.toString();
     }
 

@@ -84,7 +84,8 @@
             <result name="fac_canc_factura">/WEB-INF/ACCIONES/FACTURACION/MODIFICAR/Fact_CancelaFactura.jsp</result>            
             <!--Inicio Recetas -->
             <result name="inv_ins_receta">/WEB-INF/ACCIONES/INVENTARIOS/CREACION/Inv_InsertReceta.jsp</result>            
-            <result name="inv_cons_receta">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsGenRecetas.jsp</result>            
+            <result name="inv_cons_receta">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsGenRecetas.jsp</result>
+            <result name="inv_para_precioreceta">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_ParamePrecioReceta.jsp</result>
             <!--Fin Recetas -->
             <result name="error">/inicio.jsp</result>
         </action>
