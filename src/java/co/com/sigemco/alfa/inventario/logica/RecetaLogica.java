@@ -160,4 +160,49 @@ public class RecetaLogica {
         }
         return aux;
     }
+
+    /**
+     * Funcion con la cual actualiza los precios de las recetas
+     *
+     * @return
+     */
+    public String actualizaPrecioReceta(RecetaDto objDto, String tius_tius) {
+        String rta = "Ok";
+        try (EnvioFunction function = new EnvioFunction()) {
+            RecetaDao objDao = new RecetaDao();
+            String valida = this.inactivaRecetasXSede(objDto);
+            if("Ok".equalsIgnoreCase(valida)){
+                boolean respuesta = function.enviarUpdate(objDao.insertPrecioReceta(objDto, tius_tius));
+                if(!respuesta){
+                    rta = "Error al insertar el precio nuevo de la receta ";
+                }
+            }else{
+                rta = valida;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            rta = "Error " + e;
+        }
+        return rta;
+    }
+
+    /**
+     * Funcion con la cual inactivo todos los precios de una receta por sede
+     *
+     * @param objDto
+     * @return
+     */
+    public String inactivaRecetasXSede(RecetaDto objDto) {
+        String rta = "Ok";
+        try (EnvioFunction function = new EnvioFunction()) {
+            RecetaDao objDao = new RecetaDao();
+            boolean valida = function.enviarUpdate(objDao.actualizaPreciosInactivosXSede(objDto));
+            if (!valida) {
+                rta = "Error al inactivar los precios";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rta;
+    }
 }

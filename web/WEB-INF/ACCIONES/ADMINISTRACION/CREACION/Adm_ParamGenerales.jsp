@@ -41,7 +41,6 @@
                     </s:if>
                 </div>
                 <s:form theme="simple" name="adm_updtParaGenEmp" id="adm_updtParaGenEmp" action="adm_updtParaGenEmp" autocomplete="off">
-                    <s:textfield name="accion" value="parametrizaPrecioReceta" cssStyle="display:none" />
                     <table class="table table-bordered">
                         <thead>
                             <tr>

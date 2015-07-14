@@ -42,6 +42,8 @@
             <div class="col-md-3 col-xs-0 col-sm-0"></div>
         </div>
         <s:form theme="simple" autocomplete="off" method="post" action="Inv_ParametrizaPrecioReceta">
+            <s:textfield name="accion" value="parametrizaPrecioReceta" cssStyle="display:none" />
+            <s:textfield name="receta.rece_codigo" cssStyle="display:none" />
             <div class="row">
                 <div class="col-md-1 col-xs-0 col-sm-0"></div>
                 <div class="col-md-10 col-xs-12 col-sm-12" style="border: 1px solid #D6E3E2;padding-left: 0px;padding-right: 0px;">

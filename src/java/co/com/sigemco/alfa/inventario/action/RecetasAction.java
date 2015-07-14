@@ -148,6 +148,17 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
      * @return
      */
     public String parametrizaPrecioReceta() {
+        RecetaLogica logica = new RecetaLogica();
+        try {
+            String valida = logica.actualizaPrecioReceta(receta, usuario.getIdTius());
+            if("Ok".equalsIgnoreCase(valida)){
+                addActionMessage("El precio de "+ receta.getRece_nombre() + " fue parametrizada correctamente");
+            }else{
+                addActionError(valida);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return SUCCESS;
     }
 
@@ -177,10 +188,18 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
             } else if ("-1".equalsIgnoreCase(receta.getRece_rece())) {
                 addActionError("Por Favor seleccione un estado para la receta");
             }
-        }else if("parametrizaPrecioReceta".equalsIgnoreCase(accion)){
-            if(!valida.validaNulo(receta.getRece_precio())){
+        } else if ("parametrizaPrecioReceta".equalsIgnoreCase(accion)) {
+            String auxPrecio=receta.getRece_precio();
+            String auxSede = receta.getRece_sede();
+            Adm_SedeLogica sedeLogica = new Adm_SedeLogica();
+            this.sedes = sedeLogica.obtieneSedes();
+            RecetaLogica objLogica = new RecetaLogica();            
+            receta = objLogica.consultaGeneralXCodigo(receta);
+            receta.setRece_sede(auxSede);
+            receta.setRece_precio(auxPrecio);
+            if (!valida.validaNulo(receta.getRece_precio())) {                
                 addActionError("El precio no puede ser nulo");
-            }else if("-1".equalsIgnoreCase(receta.getRece_sede())){
+            } else if ("-1".equalsIgnoreCase(receta.getRece_sede())) {
                 addActionError("Por Favor seleccione la sede en la cual va ha parametrizar el precio");
             }
         }

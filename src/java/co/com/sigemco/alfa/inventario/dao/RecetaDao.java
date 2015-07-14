@@ -109,4 +109,47 @@ public class RecetaDao {
         return sql.toString();
     }
 
+    /**
+     * Funcion con la cual parametrizo el precio de una receta
+     *
+     * @param objDto
+     * @param tius_tius
+     * @return
+     */
+    public String insertPrecioReceta(RecetaDto objDto, String tius_tius) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("INSERT INTO in_tprre(");
+        sql.append("prre_rece, prre_precio, prre_tius_crea, prre_tius_update, ");
+        sql.append("prre_sede) ");
+        sql.append("VALUES (");
+        sql.append(objDto.getRece_rece());
+        sql.append(",");
+        sql.append(objDto.getRece_precio());
+        sql.append(",");
+        sql.append(tius_tius);
+        sql.append(",");
+        sql.append(tius_tius);
+        sql.append(",");
+        sql.append(objDto.getRece_sede());
+        sql.append(")");
+        return sql.toString();
+    }
+
+    /**
+     * Actualiza todas las recetas a inactivo por sede
+     *
+     * @param objDto
+     * @return
+     */
+    public String actualizaPreciosInactivosXSede(RecetaDto objDto) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("UPDATE in_tprre ");
+        sql.append("SET prre_estado = 'I' ");
+        sql.append("WHERE prre_rece = ");
+        sql.append(objDto.getRece_rece());
+        sql.append(" AND prre_sede = ");
+        sql.append(objDto.getRece_sede());
+        return sql.toString();
+    }
+
 }
