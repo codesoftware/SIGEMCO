@@ -160,7 +160,7 @@ public class RecetaDao {
      */
     public String buscaPreciosPorSede(String sede, String rece) {
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT prre_prre, prre_sede, prre_estado, prre_precio, prre_fecha ");
+        sql.append("SELECT prre_prre, prre_sede, prre_estado, to_char(prre_precio,'9,999,999,999.00') prre_precio, prre_fecha ");
         sql.append("FROM in_tprre ");
         sql.append("WHERE prre_rece = ");
         sql.append(rece);
