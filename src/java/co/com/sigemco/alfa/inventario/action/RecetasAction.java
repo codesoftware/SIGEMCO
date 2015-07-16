@@ -9,9 +9,11 @@ import co.com.hotel.datos.session.Usuario;
 import co.com.hotel.logica.sede.Adm_SedeLogica;
 import co.com.hotel.utilidades.UsuarioHabilitado;
 import co.com.hotel.validacion.ValidaCampos;
+import co.com.sigemco.alfa.inventario.dto.PrecioSedeRecetaDto;
 import co.com.sigemco.alfa.inventario.dto.RecetaDto;
 import co.com.sigemco.alfa.inventario.logica.RecetaLogica;
 import com.opensymphony.xwork2.ActionSupport;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +33,7 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
     private String permisoAct;
     private Map<String, String> estadoMap;
     private Map<String, String> sedes;
+    private ArrayList<PrecioSedeRecetaDto> histPrRecetas;
 
     /**
      * Funcion encargada de realizar la accion de insertar una receta en el
@@ -134,6 +137,9 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
             if (receta == null) {
                 addActionError("No existe ninguna receta con ese codigo");
                 return ERROR;
+            } else {
+                RecetaLogica objLogicaRece = new RecetaLogica();
+                this.histPrRecetas = objLogicaRece.buscaPreciosSedeRecetas(receta.getRece_rece());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -151,9 +157,9 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
         RecetaLogica logica = new RecetaLogica();
         try {
             String valida = logica.actualizaPrecioReceta(receta, usuario.getIdTius());
-            if("Ok".equalsIgnoreCase(valida)){
-                addActionMessage("El precio de "+ receta.getRece_nombre() + " fue parametrizada correctamente");
-            }else{
+            if ("Ok".equalsIgnoreCase(valida)) {
+                addActionMessage("El precio de " + receta.getRece_nombre() + " fue parametrizada correctamente");
+            } else {
                 addActionError(valida);
             }
         } catch (Exception e) {
@@ -189,15 +195,15 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
                 addActionError("Por Favor seleccione un estado para la receta");
             }
         } else if ("parametrizaPrecioReceta".equalsIgnoreCase(accion)) {
-            String auxPrecio=receta.getRece_precio();
+            String auxPrecio = receta.getRece_precio();
             String auxSede = receta.getRece_sede();
             Adm_SedeLogica sedeLogica = new Adm_SedeLogica();
             this.sedes = sedeLogica.obtieneSedes();
-            RecetaLogica objLogica = new RecetaLogica();            
+            RecetaLogica objLogica = new RecetaLogica();
             receta = objLogica.consultaGeneralXCodigo(receta);
             receta.setRece_sede(auxSede);
             receta.setRece_precio(auxPrecio);
-            if (!valida.validaNulo(receta.getRece_precio())) {                
+            if (!valida.validaNulo(receta.getRece_precio())) {
                 addActionError("El precio no puede ser nulo");
             } else if ("-1".equalsIgnoreCase(receta.getRece_sede())) {
                 addActionError("Por Favor seleccione la sede en la cual va ha parametrizar el precio");
@@ -267,6 +273,14 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
 
     public void setSedes(Map<String, String> sedes) {
         this.sedes = sedes;
+    }
+
+    public ArrayList<PrecioSedeRecetaDto> getHistPrRecetas() {
+        return histPrRecetas;
+    }
+
+    public void setHistPrRecetas(ArrayList<PrecioSedeRecetaDto> histPrRecetas) {
+        this.histPrRecetas = histPrRecetas;
     }
 
 }

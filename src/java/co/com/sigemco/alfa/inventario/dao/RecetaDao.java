@@ -152,4 +152,22 @@ public class RecetaDao {
         return sql.toString();
     }
 
+    /**
+     * .Funcion encargada de realizar el Query que obtiene el historico de
+     * precios de recetas por sede
+     *
+     * @return
+     */
+    public String buscaPreciosPorSede(String sede, String rece) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT prre_prre, prre_sede, prre_estado, prre_precio, prre_fecha ");
+        sql.append("FROM in_tprre ");
+        sql.append("WHERE prre_rece = ");
+        sql.append(rece);
+        sql.append(" AND prre_sede = ");
+        sql.append(sede);
+        sql.append(" order by prre_prre desc ");
+        return sql.toString();
+    }
+
 }

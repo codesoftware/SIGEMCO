@@ -104,5 +104,60 @@
                 <div class="col-md-1 col-xs-0 col-sm-0"></div>
             </div>    
         </s:form>
+        <br>
+        <div class="row">
+            <div class="col-md-3 col-xs-0 col-sm-0"></div>
+            <div class="col-md-6 col-xs-12 col-sm-12">
+                <s:if test="%{histPrRecetas!=null}" >
+                    <ul class="nav nav-tabs" id="myTab">
+                        <%int i = 1;%>
+                        <s:iterator value="histPrRecetas">
+                            <li>
+                                <a href="#tabs-<%=i%>" data-toggle="tab" style="text-transform: uppercase;"><s:property value="sede_nombre" /></a>
+                            </li>
+                            <%i++;%>
+                        </s:iterator>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <%int j = 1;%>
+                        <s:iterator value="histPrRecetas">
+                            <div id="tabs-<%=j%>" class="tab-pane fade">
+                                <br/>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="3" style="text-align: center;" class="alert alert-info text-center"><h3>HISTORIAL DE PRECIOS</h3></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <s:if test="precios!=null" >
+                                            <tr>
+                                                <td><h4 style="font-weight: bold">Fecha</h4></td>
+                                                <td><h4 style="font-weight: bold">Precio</h4></td>
+                                                <td><h4 style="font-weight: bold">Estado</h4></td>
+                                            </tr>
+                                            <s:iterator value="precios">
+                                                <tr>
+                                                    <td><s:property value="prre_fecha"/></td>
+                                                    <td><s:property value="prre_precio"/></td>
+                                                    <td><s:property value="prre_estado"/></td>
+                                                </tr>                                                        
+                                            </s:iterator>                                                    
+                                        </s:if>
+                                        <s:else>
+                                            <tr>
+                                                <td>NO EXISTEN PRECIOS PARAMETRIZADOS PARA ESTA SEDE</td>
+                                            </tr>
+                                        </s:else>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <%j++;%>
+                        </s:iterator>
+                    </div>
+                </s:if>
+            </div>
+            <div class="col-md-3 col-xs-0 col-sm-0"></div>
+        </div>
     </body>
 </html>

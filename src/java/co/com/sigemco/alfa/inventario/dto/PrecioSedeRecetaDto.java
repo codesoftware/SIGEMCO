@@ -5,20 +5,27 @@
  */
 package co.com.sigemco.alfa.inventario.dto;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
- * @author Nicolas
+ * @author nicolas
  */
-public class PrecioSedeDto {
+public class PrecioSedeRecetaDto {
 
+    private String rece_rece;
     private String sede_sede;
     private String sede_nombre;
-    private String dska_dska;
-    private List<PrecioProductoDto> precios;
+    private ArrayList<PrecioRecetaDto> precios;
 
-    
+    public String getRece_rece() {
+        return rece_rece;
+    }
+
+    public void setRece_rece(String rece_rece) {
+        this.rece_rece = rece_rece;
+    }
+
     public String getSede_sede() {
         return sede_sede;
     }
@@ -35,20 +42,12 @@ public class PrecioSedeDto {
         this.sede_nombre = sede_nombre;
     }
 
-    public List<PrecioProductoDto> getPrecios() {
+    public ArrayList<PrecioRecetaDto> getPrecios() {
         return precios;
     }
 
-    public void setPrecios(List<PrecioProductoDto> precios) {
+    public void setPrecios(ArrayList<PrecioRecetaDto> precios) {
         this.precios = precios;
-    }
-
-    public String getDska_dska() {
-        return dska_dska;
-    }
-
-    public void setDska_dska(String dska_dska) {
-        this.dska_dska = dska_dska;
     }
 
 }

@@ -5,12 +5,17 @@
  */
 package co.com.sigemco.alfa.inventario.logica;
 
+import co.com.hotel.logica.sede.Adm_SedeLogica;
 import co.com.hotel.persistencia.general.EnvioFunction;
 import co.com.sigemco.alfa.inventario.dao.RecetaDao;
+import co.com.sigemco.alfa.inventario.dto.PrecioRecetaDto;
+import co.com.sigemco.alfa.inventario.dto.PrecioSedeDto;
+import co.com.sigemco.alfa.inventario.dto.PrecioSedeRecetaDto;
 import co.com.sigemco.alfa.inventario.dto.RecetaDto;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -171,12 +176,12 @@ public class RecetaLogica {
         try (EnvioFunction function = new EnvioFunction()) {
             RecetaDao objDao = new RecetaDao();
             String valida = this.inactivaRecetasXSede(objDto);
-            if("Ok".equalsIgnoreCase(valida)){
+            if ("Ok".equalsIgnoreCase(valida)) {
                 boolean respuesta = function.enviarUpdate(objDao.insertPrecioReceta(objDto, tius_tius));
-                if(!respuesta){
+                if (!respuesta) {
                     rta = "Error al insertar el precio nuevo de la receta ";
                 }
-            }else{
+            } else {
                 rta = valida;
             }
         } catch (Exception e) {
@@ -199,6 +204,69 @@ public class RecetaLogica {
             boolean valida = function.enviarUpdate(objDao.actualizaPreciosInactivosXSede(objDto));
             if (!valida) {
                 rta = "Error al inactivar los precios";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rta;
+    }
+
+    /**
+     * Funcion encargada de buscar por sede todos los precios que se han
+     * parametrizados para determinada receta
+     *
+     * @return
+     */
+    public ArrayList<PrecioSedeRecetaDto> buscaPreciosSedeRecetas(String rece_rece) {
+        ArrayList<PrecioSedeRecetaDto> lista = null;
+        try {
+            Adm_SedeLogica sedeLogica = new Adm_SedeLogica();
+            Map<String, String> sedes = sedeLogica.obtieneSedes();
+            for (Map.Entry<String, String> e : sedes.entrySet()) {
+                if (lista == null) {
+                    lista = new ArrayList<PrecioSedeRecetaDto>();
+                }
+                PrecioSedeRecetaDto aux = new PrecioSedeRecetaDto();
+                aux.setSede_sede(e.getKey());
+                aux.setSede_nombre(e.getValue());
+                aux.setPrecios(this.buscaPreciosSedeReceta(e.getKey(), rece_rece));
+                lista.add(aux);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
+    /**
+     * Funcion encargada de realizar la logica para buscar el historial de
+     * precios de una receta por sede
+     *
+     * @param sede_sede
+     * @param rece_rece
+     * @return
+     */
+    public ArrayList<PrecioRecetaDto> buscaPreciosSedeReceta(String sede_sede, String rece_rece) {
+        ArrayList<PrecioRecetaDto> rta = null;
+        try (EnvioFunction function = new EnvioFunction()) {
+            RecetaDao objDao = new RecetaDao();
+            ResultSet rs = function.enviarSelect(objDao.buscaPreciosPorSede(sede_sede, rece_rece));
+            while (rs.next()) {
+                if (rta == null) {
+                    rta = new ArrayList<>();
+                }
+                PrecioRecetaDto aux = new PrecioRecetaDto();
+                aux.setPrre_sede(rs.getString("prre_sede"));
+                aux.setPrre_prre(rs.getString("prre_prre"));
+                aux.setPrre_precio(rs.getString("prre_precio"));
+                aux.setPrre_fecha(rs.getString("prre_fecha"));
+                String aux2 = rs.getString("prre_estado");
+                if("A".equalsIgnoreCase(aux2)){
+                    aux.setPrre_estado("ACTIVO");
+                }else{
+                    aux.setPrre_estado("INACTIVO");
+                }
+                rta.add(aux);
             }
         } catch (Exception e) {
             e.printStackTrace();
