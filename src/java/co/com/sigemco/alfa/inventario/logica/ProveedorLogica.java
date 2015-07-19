@@ -24,9 +24,9 @@ public class ProveedorLogica {
         try (EnvioFunction funcion = new EnvioFunction()) {
             objDao = poblarDAO(objDto);
             if (funcion.enviarUpdate(objDao.insertaProveedor())) {
-                return "PROVEEDOR INSERTADO CORRECTAMENTE";
+                return "Ok";
             } else {
-                return "NO SE PUDO INSERTAR EL PROVEEDOR";
+                return "Error";
             }
         } catch (Exception e) {
             e.printStackTrace();

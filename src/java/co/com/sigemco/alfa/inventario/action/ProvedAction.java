@@ -42,7 +42,12 @@ public class ProvedAction extends ActionSupport implements SessionAware, Usuario
         try {
             res = new ProveedorLogica();
             String resultado = res.insertaProovedor(proved);
-            addActionMessage(resultado);
+            if("Ok".equalsIgnoreCase(resultado)){
+                addActionMessage("EL PROVEEDOR FUE INSERTADO CORRECTAMENTE");
+                proved = null;
+            }else{
+                addActionError("ERROR AL INSERTAR EL PROVEEDOR");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -24,13 +24,15 @@ import org.apache.struts2.interceptor.SessionAware;
  * @author nicolas
  */
 public class RecetasAction extends ActionSupport implements SessionAware, UsuarioHabilitado {
-
+    
     private Usuario usuario;
     private Map session;
     private String accion;
     private RecetaDto receta;
     private List recetas;
     private String permisoAct;
+    private String permisoPrecio;
+    private String permisoAddProd;
     private Map<String, String> estadoMap;
     private Map<String, String> sedes;
     private ArrayList<PrecioSedeRecetaDto> histPrRecetas;
@@ -51,7 +53,7 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
             } else {
                 addActionError(valida);
             }
-
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -76,6 +78,18 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
                 } else {
                     permisoAct = "N";
                 }
+                if (usuario.getPermisos().indexOf(".InRec4.") > 0) {
+                    permisoPrecio = "S";
+                } else {
+                    permisoPrecio = "N";
+                    
+                }
+                if (usuario.getPermisos().indexOf(".InRec5.") > 0) {
+                    permisoAddProd = "S";
+                } else {
+                    permisoAddProd = "N";
+                }
+                
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -148,6 +162,24 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
     }
 
     /**
+     * Funcion encargada de realizar la busqueda de una receta por id
+     *
+     * @return
+     */
+    public String buscaRecetaXId() {
+        RecetaLogica objLogica = new RecetaLogica();
+        try {
+            this.receta = objLogica.consultaRecetaXId(receta);
+            if (receta == null) {
+                addActionError("La consulta no arrojo ningun resultado");
+            }         
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return SUCCESS;
+    }
+
+    /**
      * Funcion encargada de realizar la accion de parametrizar el precio de una
      * receta
      *
@@ -167,7 +199,7 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
         }
         return SUCCESS;
     }
-
+    
     public void validate() {
         ValidaCampos valida = new ValidaCampos();
         if ("insertReceta".equalsIgnoreCase(accion)) {
@@ -210,77 +242,93 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
             }
         }
     }
-
+    
     public Usuario getUsuario() {
         return usuario;
     }
-
+    
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-
+    
     public Map getSession() {
         return session;
     }
-
+    
     public void setSession(Map session) {
         this.session = session;
     }
-
+    
     public String getAccion() {
         return accion;
     }
-
+    
     public void setAccion(String accion) {
         this.accion = accion;
     }
-
+    
     public RecetaDto getReceta() {
         return receta;
     }
-
+    
     public void setReceta(RecetaDto receta) {
         this.receta = receta;
     }
-
+    
     public List getRecetas() {
         return recetas;
     }
-
+    
     public void setRecetas(List recetas) {
         this.recetas = recetas;
     }
-
+    
     public String getPermisoAct() {
         return permisoAct;
     }
-
+    
     public void setPermisoAct(String permisoAct) {
         this.permisoAct = permisoAct;
     }
-
+    
     public Map<String, String> getEstadoMap() {
         return estadoMap;
     }
-
+    
     public void setEstadoMap(Map<String, String> estadoMap) {
         this.estadoMap = estadoMap;
     }
-
+    
     public Map<String, String> getSedes() {
         return sedes;
     }
-
+    
     public void setSedes(Map<String, String> sedes) {
         this.sedes = sedes;
     }
-
+    
     public ArrayList<PrecioSedeRecetaDto> getHistPrRecetas() {
         return histPrRecetas;
     }
-
+    
     public void setHistPrRecetas(ArrayList<PrecioSedeRecetaDto> histPrRecetas) {
         this.histPrRecetas = histPrRecetas;
     }
-
+    
+    public String getPermisoPrecio() {
+        return permisoPrecio;
+    }
+    
+    public void setPermisoPrecio(String permisoPrecio) {
+        this.permisoPrecio = permisoPrecio;
+    }
+    
+    public String getPermisoAddProd() {
+        return permisoAddProd;
+    }
+    
+    public void setPermisoAddProd(String permisoAddProd) {
+        this.permisoAddProd = permisoAddProd;
+    }
+    
 }

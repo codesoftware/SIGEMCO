@@ -105,7 +105,17 @@
                                                 }
                                             </script>                                            
                                         </td>
-                                        <td><s:text name="rece_nombre"/></td>                                        
+                                        <td>
+                                            <script>
+                                                var permisoPrecio = '<s:text name="permisoPrecio"/>';
+                                                var permisoAddProd = '<s:text name="permisoAddProd"/>';
+                                                if (permisoPrecio == 'S' || permisoAddProd == 'S') {
+                                                    document.write("<a href=\"#\" onclick=\"ejecutaAcciones('<s:text name="rece_rece"/>','<s:text name="rece_codigo"/>')\"><s:text name="rece_nombre"/></a>");
+                                                } else {
+                                                    document.write('<s:text name="rece_nombre"/>');
+                                                }
+                                            </script> 
+                                        </td>                                        
                                         <td><s:text name="rece_desc"/></td>                                        
                                         <td><s:text name="rece_estado"/></td>                                        
                                         <td><s:text name="rece_promedio"/></td>                                        
@@ -122,5 +132,39 @@
             <s:textfield name="receta.rece_rece" id="rece_receActu" />
             <s:textfield name="accion" value="consultaActuliza" />
         </s:form>
+        <s:form action="Inv_buscaRecetaXCod" theme="simple" method="post" cssStyle="display:none;" id="Inv_buscaRecetaXCod">
+            <s:textfield name="receta.rece_codigo" cssClass="form-control" id="rece_codigoPrecio" />
+        </s:form>
+        <s:form action="Inv_buscaRecetaXCodAddProd" theme="simple" method="post" cssStyle="display:none;" id="Inv_buscaRecetaXCodAddProd">
+            <s:textfield name="receta.rece_rece" cssClass="form-control" id="rece_receAddProd" />
+        </s:form>
+        <!-- Div utilizado para visualizar las acciones que tiene habilitadas el usuario -->
+        <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="ejecutaAcciones">
+            <div class="modal-dialog">                
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Acciones</h4>
+                    </div>
+                    <div class="modal-body">
+                        Cual de las siguientes acciones desea ejecutar al producto
+                    </div>
+                    <div class="modal-footer">                        
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            CANCELAR
+                        </button>
+                        <s:if test="permisoPrecio.equalsIgnoreCase('S')">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnParaPrecio">
+                                PARAMETRIZAR PRECIO
+                            </button>
+                        </s:if>
+                        <s:if test="permisoAddProd.equalsIgnoreCase('S')">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal" id="btnAddProdReceta">
+                                ADICION DE PRODUCTOS
+                            </button>
+                        </s:if>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

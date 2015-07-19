@@ -30,7 +30,6 @@ public class ProveedorDao {
         String select = "";
         select = "INSERT into in_tprov (prov_nombre,  prov_nit,prov_razon_social,prov_representante,prov_telefono,prov_direccion,prov_celular)"
                 .concat("values ('" + this.prov_nombre + "','" + this.prov_nit + "','" + this.prov_razon_social + "','" + this.prov_representante + "','" + this.prov_telefono + "','" + this.prov_direccion + "','" + this.prov_celular + "')");
-        System.out.println("prueba" + select);
         return select;
     }
 
@@ -53,7 +52,7 @@ public class ProveedorDao {
         select += "select prov_prov, prov_nombre,  prov_nit,prov_razon_social,prov_representante,prov_telefono,prov_direccion,prov_celular,prov_estado \n";
         select += "  FROM in_tprov                                                 \n";
         select += " WHERE prov_prov = " + this.prov_prov + " \n";
-        System.out.println("select"+select);
+        System.out.println("select" + select);
         return select;
     }
 

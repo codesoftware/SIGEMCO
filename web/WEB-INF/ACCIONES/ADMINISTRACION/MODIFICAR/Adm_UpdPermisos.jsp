@@ -474,7 +474,11 @@
                                                         <td style="width: 20%"><input type="checkbox" value="InRec3" id="InRec3"/></td>
                                                         <td style="width: 30%">Precios</td>
                                                         <td style="width: 20%"><input type="checkbox" value="InRec4" id="InRec4"/></td>
-                                                    </tr>  
+                                                    </tr>
+                                                    <tr>                                                        
+                                                        <td style="width: 30%">Adicion de Productos</td>
+                                                        <td style="width: 20%"><input type="checkbox" value="InRec5" id="InRec5"/></td>                                                            
+                                                    </tr>
                                                 </tbody>                                
                                             </table>
                                         </div>

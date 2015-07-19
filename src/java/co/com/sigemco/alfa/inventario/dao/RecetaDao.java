@@ -84,7 +84,7 @@ public class RecetaDao {
     public String consultaGeneralRecetasXId(RecetaDto objDto) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT rece_rece, rece_codigo, rece_nombre, rece_desc, rece_iva, rece_estado, ");
-        sql.append("rece_fec_ingreso, rece_promedio ");
+        sql.append("to_char(rece_fec_ingreso, 'dd/mm/yyyy HH:MM') rece_fec_ingreso, to_char(rece_promedio,'9,999,999,999.00') rece_promedio ");
         sql.append("FROM in_trece ");
         sql.append("WHERE rece_rece=");
         sql.append(objDto.getRece_rece());
