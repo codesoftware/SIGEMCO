@@ -261,9 +261,9 @@ public class RecetaLogica {
                 aux.setPrre_precio(rs.getString("prre_precio"));
                 aux.setPrre_fecha(rs.getString("prre_fecha"));
                 String aux2 = rs.getString("prre_estado");
-                if("A".equalsIgnoreCase(aux2)){
+                if ("A".equalsIgnoreCase(aux2)) {
                     aux.setPrre_estado("ACTIVO");
-                }else{
+                } else {
                     aux.setPrre_estado("INACTIVO");
                 }
                 rta.add(aux);
@@ -272,5 +272,158 @@ public class RecetaLogica {
             e.printStackTrace();
         }
         return rta;
+    }
+
+    /**
+     * Funcion encargada de realizar la logica para insertar un producto en una
+     * receta
+     *
+     * @param rece_rece
+     * @param dska_dska
+     * @param tius_tius
+     * @return
+     */
+    public String insertaProductoReceta(String rece_rece, String dska_dska, String tius_tius) {
+        String rta = "";
+        RecetaDto objDto = new RecetaDto();
+        try (EnvioFunction function = new EnvioFunction()) {
+            ProductoLogica objLogicaProd = new ProductoLogica();
+            String auxProm = objLogicaProd.obtieneValorPonderadoProducto(dska_dska);
+            if (auxProm != null) {
+                objDto.setRece_promedio(auxProm);
+                objDto.setRece_rece(rece_rece);
+                RecetaDao objDao = new RecetaDao();
+                boolean valida = function.enviarUpdate(objDao.adicionaProductoReceta(objDto, dska_dska, tius_tius));
+                if (valida) {
+                    rta = "Ok";
+                } else {
+                    rta = "Error al crear la insercion del producto en la receta";
+                }
+            } else {
+                rta = "Error al obtener el promedio ponderado por favor contacte al administrador del sistema";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rta;
+    }
+
+    /**
+     * Funcion encargada de realizar la logica para adicionar una unidad a un
+     * producto de una receta en especifico
+     *
+     * @param rece_rece
+     * @param rece_dska
+     * @return
+     */
+    public String adicionaCantidadProductoReceta(String rece_rece, String rece_dska) {
+        String rta = "";
+        try (EnvioFunction function = new EnvioFunction()) {
+            RecetaDao objDao = new RecetaDao();
+            boolean valida = function.enviarUpdate(objDao.sumaUnoCantidadProductoReceta(rece_rece, rece_dska));
+            if (valida) {
+                rta = "Ok";
+            } else {
+                rta = "Error al realizar la actualizacion ";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            rta = "Error " + e;
+        }
+        return rta;
+    }
+
+    /**
+     * Funcion la cual realiza la logica para contar si un producto en
+     * especifico existe en una receta
+     *
+     * @param rece_rece
+     * @param dska_dska
+     * @return
+     */
+    public int validaProductoReceta(String rece_rece, String dska_dska) {
+        int conteo = 0;
+        try (EnvioFunction function = new EnvioFunction()) {
+            RecetaDao objDao = new RecetaDao();
+            ResultSet rs = function.enviarSelect(objDao.cuentaProductosReceta(rece_rece, dska_dska));
+            while (rs.next()) {
+                conteo = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return conteo;
+    }
+
+    /**
+     * Funcion encargada de realizar la logica para eliminar un producto de una
+     * receta especifica
+     *
+     * @param rece_rece
+     * @param rece_dska
+     * @return
+     */
+    public String eliminaProdReceta(String rece_rece, String rece_dska) {
+        String rta = "";
+        try (EnvioFunction function = new EnvioFunction()) {
+            RecetaDao objDao = new RecetaDao();
+            boolean valida = function.enviarUpdate(objDao.eliminaFilaProductoReceta(rece_rece, rece_dska));
+            if (valida) {
+                rta = "Ok";
+            } else {
+                rta = "Error";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            rta = "Error " + e;
+        }
+        return rta;
+    }
+
+    /**
+     * .Funcion con la cual se le quita una unidad a un producto de una receta
+     * en especifico
+     *
+     * @param rece_rece
+     * @param rece_dska
+     * @return
+     */
+    public String reduceProdReceta(String rece_rece, String rece_dska) {
+        String rta = "";
+        try (EnvioFunction function = new EnvioFunction()) {
+            RecetaDao objDao = new RecetaDao();
+            boolean valida = function.enviarUpdate(objDao.reduceUnProductoReceta(rece_rece, rece_dska));
+            if (valida) {
+                rta = "Ok";
+            } else {
+                rta = "Error";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            rta = "Error " + e;
+        }
+        return rta;
+    }
+
+    /**
+     * Funcion la cual realiza la logica para obtener la cantidad de productos
+     * que hay en una receta
+     *
+     * @param rece_rece
+     * @param dska_dska
+     * @return
+     */
+    public int obtieneCantidadProductoReceta(String rece_rece, String dska_dska) {
+        int conteo = 0;
+        try (EnvioFunction function = new EnvioFunction()) {
+            RecetaDao objDao = new RecetaDao();
+            ResultSet rs = function.enviarSelect(objDao.obtieneCatidadProdReceta(rece_rece, dska_dska));
+            while (rs.next()) {
+                conteo = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return conteo;
     }
 }

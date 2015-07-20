@@ -56,6 +56,7 @@
                     <div class="form-group">
                         <label for="descripcion">Descripcion:</label>
                         <s:text name="receta.rece_desc" />
+                        <s:textfield name="receta.rece_rece" id="idRecetaPrinc" theme="simple" cssStyle="display:none;"/>
                     </div>
                 </div>
                 <div class="col-md-4 col-xs-12 col-sm-6 ">
@@ -109,18 +110,42 @@
             </div>
             <div class="col-md-1 col-xs-0 col-sm-0"></div>
         </div>
+        <br/>
         <div class="row">
             <div class="col-md-1 col-xs-0 col-sm-0"></div>
             <div class="col-md-10 col-xs-12 col-sm-12">
                 <table class="table table-responsive table-bordered">
                     <thead>
                         <tr>
-                            <td>Codigo</td>
-                            <td>Nombre</td>
-                            <td>Promedio</td>
+                            <th>Codigo</th>
+                            <th>Nombre</th>
+                            <th>Promedio</th>
+                            <th>Cantidad</th>
+                            <th>Acción</th>
                         </tr>
                     </thead> 
                     <tbody id="filasProdAdicionados">                        
+                        <s:iterator value="productosReceta">
+                            <tr class="filaAdicionada">
+                                <td>
+                                    <s:property value="dska_cod"/>
+                                </td>
+                                <td>
+                                    <s:property value="dska_nombre" />
+                                </td>
+                                <td>
+                                    <s:property value="repr_promedio"/>
+                                </td>
+                                <td>
+                                    <s:property value="repr_cantidad"/>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger" data-dska="<s:property value="repr_dska"/>" onclick="eliminarFila(this)">
+                                        <span class="glyphicon glyphicon-remove"></span> 
+                                    </button>
+                                </td>                            
+                            </tr>
+                        </s:iterator>
                     </tbody>
                 </table>  
             </div>

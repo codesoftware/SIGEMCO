@@ -54,5 +54,13 @@
         </action>
         <action name="cambiarEstadoProducto" class="co.com.sigemco.alfa.inventario.ajax.ajaxControllerProducto" method="cambiarEstadoProducto">
         </action>
+        <!--Recetas-->
+        <action name="addProdReceta" class="co.com.sigemco.alfa.inventario.ajax.AjaxRecetasAction" method="adicionaProductoReceta">
+        </action>
+        <action name="consultaProductosReceta" class="co.com.sigemco.alfa.inventario.ajax.AjaxRecetasAction" method="buscaProductosReceta">
+        </action>
+        <action name="eliminaProductoReceta" class="co.com.sigemco.alfa.inventario.ajax.AjaxRecetasAction" method="eliminaProductoReceta">
+        </action>        
+        <!-- Fin Recetas -->
     </package>
 </struts>

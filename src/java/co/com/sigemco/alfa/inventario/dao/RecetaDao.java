@@ -170,4 +170,131 @@ public class RecetaDao {
         return sql.toString();
     }
 
+    /**
+     * Funcion encargada de realizar el Query para la insercion de productos a
+     * las recetas
+     *
+     * @param objDto
+     * @param dska_dska
+     * @param promedio
+     * @param tius
+     * @return
+     */
+    public String adicionaProductoReceta(RecetaDto objDto, String dska_dska, String tius) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("INSERT INTO in_trepr(");
+        sql.append("repr_rece, repr_dska, repr_promedio, repr_tius) ");
+        sql.append("VALUES (");
+        sql.append(objDto.getRece_rece());
+        sql.append(",");
+        sql.append(dska_dska);
+        sql.append(",");
+        sql.append(objDto.getRece_promedio());
+        sql.append(",");
+        sql.append(tius);
+        sql.append(")");
+        return sql.toString();
+    }
+
+    /**
+     * Funcion la cual crea el Query con el cual cuenta si hay un producto en
+     * una receta
+     *
+     * @param rece_rece
+     * @param rece_dska
+     * @return
+     */
+    public String cuentaProductosReceta(String rece_rece, String rece_dska) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("select count(*) conteo ");
+        sql.append("from in_trepr ");
+        sql.append("where repr_rece = ");
+        sql.append(rece_rece);
+        sql.append(" and repr_dska = ");
+        sql.append(rece_dska);
+        return sql.toString();
+    }
+
+    /**
+     * Funcion la cual crea el Query con el cual se obtiene la cantidad de
+     * productos que hay en la receta
+     *
+     * @param rece_rece
+     * @param rece_dska
+     * @return
+     */
+    public String obtieneCatidadProdReceta(String rece_rece, String rece_dska) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("select repr_cantidad ");
+        sql.append("from in_trepr ");
+        sql.append("where repr_rece = ");
+        sql.append(rece_rece);
+        sql.append(" and repr_dska = ");
+        sql.append(rece_dska);
+        return sql.toString();
+    }
+
+    /**
+     * Funcion encargada de realizar el Query para adicionar una unidad a un
+     * producto de una receta
+     *
+     * @param rece_rece
+     * @param rece_dska
+     * @return
+     */
+    public String sumaUnoCantidadProductoReceta(String rece_rece, String rece_dska) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("update in_trepr ");
+        sql.append("set repr_cantidad = (select repr_cantidad + 1  from in_trepr where repr_rece = ");
+        sql.append(rece_rece);
+        sql.append("and repr_dska = ");
+        sql.append(rece_dska);
+        sql.append(")");
+        sql.append("where repr_rece =");
+        sql.append(rece_rece);
+        sql.append(" and repr_dska = ");
+        sql.append(rece_dska);
+        return sql.toString();
+    }
+
+    /**
+     * Funcion encargada de realizar la eliminacion de un producto de una receta
+     *
+     * @param rece_rece
+     * @param rece_dska
+     * @return
+     */
+    public String eliminaFilaProductoReceta(String rece_rece, String rece_dska) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("delete from in_trepr ");
+        sql.append("where repr_rece = ");
+        sql.append(rece_rece);
+        sql.append(" and repr_dska = ");
+        sql.append(rece_dska);
+        return sql.toString();
+    }
+
+    /**
+     * Funcion la cual crea el Query que elimina una unidad del producto de
+     * determinada receta
+     *
+     * @param rece_rece
+     * @param rece_dska
+     * @return
+     */
+    public String reduceUnProductoReceta(String rece_rece, String rece_dska) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("update in_trepr ");
+        sql.append("set repr_cantidad = (select repr_cantidad - 1  from in_trepr where repr_rece = ");
+        sql.append(rece_rece);
+        sql.append("and repr_dska = ");
+        sql.append(rece_dska);
+        sql.append(")");
+        sql.append("where repr_rece =");
+        sql.append(rece_rece);
+        sql.append(" and repr_dska = ");
+        sql.append(rece_dska);
+        return sql.toString();
+    }
+
 }

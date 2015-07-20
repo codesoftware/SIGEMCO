@@ -10,7 +10,9 @@ import co.com.hotel.logica.sede.Adm_SedeLogica;
 import co.com.hotel.utilidades.UsuarioHabilitado;
 import co.com.hotel.validacion.ValidaCampos;
 import co.com.sigemco.alfa.inventario.dto.PrecioSedeRecetaDto;
+import co.com.sigemco.alfa.inventario.dto.ProductoRecetaDto;
 import co.com.sigemco.alfa.inventario.dto.RecetaDto;
+import co.com.sigemco.alfa.inventario.logica.ProductoRecetaLogica;
 import co.com.sigemco.alfa.inventario.logica.RecetaLogica;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.ArrayList;
@@ -24,7 +26,7 @@ import org.apache.struts2.interceptor.SessionAware;
  * @author nicolas
  */
 public class RecetasAction extends ActionSupport implements SessionAware, UsuarioHabilitado {
-    
+
     private Usuario usuario;
     private Map session;
     private String accion;
@@ -36,6 +38,7 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
     private Map<String, String> estadoMap;
     private Map<String, String> sedes;
     private ArrayList<PrecioSedeRecetaDto> histPrRecetas;
+    private ArrayList<ProductoRecetaDto> productosReceta;
 
     /**
      * Funcion encargada de realizar la accion de insertar una receta en el
@@ -53,7 +56,7 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
             } else {
                 addActionError(valida);
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -82,14 +85,14 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
                     permisoPrecio = "S";
                 } else {
                     permisoPrecio = "N";
-                    
+
                 }
                 if (usuario.getPermisos().indexOf(".InRec5.") > 0) {
                     permisoAddProd = "S";
                 } else {
                     permisoAddProd = "N";
                 }
-                
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -172,7 +175,10 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
             this.receta = objLogica.consultaRecetaXId(receta);
             if (receta == null) {
                 addActionError("La consulta no arrojo ningun resultado");
-            }         
+            } else {
+                ProductoRecetaLogica objLoRece = new ProductoRecetaLogica();
+                this.productosReceta = objLoRece.obtienePrdoctosReceta(receta.getRece_rece());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -199,7 +205,7 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
         }
         return SUCCESS;
     }
-    
+
     public void validate() {
         ValidaCampos valida = new ValidaCampos();
         if ("insertReceta".equalsIgnoreCase(accion)) {
@@ -242,93 +248,101 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
             }
         }
     }
-    
+
     public Usuario getUsuario() {
         return usuario;
     }
-    
+
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    
+
     public Map getSession() {
         return session;
     }
-    
+
     public void setSession(Map session) {
         this.session = session;
     }
-    
+
     public String getAccion() {
         return accion;
     }
-    
+
     public void setAccion(String accion) {
         this.accion = accion;
     }
-    
+
     public RecetaDto getReceta() {
         return receta;
     }
-    
+
     public void setReceta(RecetaDto receta) {
         this.receta = receta;
     }
-    
+
     public List getRecetas() {
         return recetas;
     }
-    
+
     public void setRecetas(List recetas) {
         this.recetas = recetas;
     }
-    
+
     public String getPermisoAct() {
         return permisoAct;
     }
-    
+
     public void setPermisoAct(String permisoAct) {
         this.permisoAct = permisoAct;
     }
-    
+
     public Map<String, String> getEstadoMap() {
         return estadoMap;
     }
-    
+
     public void setEstadoMap(Map<String, String> estadoMap) {
         this.estadoMap = estadoMap;
     }
-    
+
     public Map<String, String> getSedes() {
         return sedes;
     }
-    
+
     public void setSedes(Map<String, String> sedes) {
         this.sedes = sedes;
     }
-    
+
     public ArrayList<PrecioSedeRecetaDto> getHistPrRecetas() {
         return histPrRecetas;
     }
-    
+
     public void setHistPrRecetas(ArrayList<PrecioSedeRecetaDto> histPrRecetas) {
         this.histPrRecetas = histPrRecetas;
     }
-    
+
     public String getPermisoPrecio() {
         return permisoPrecio;
     }
-    
+
     public void setPermisoPrecio(String permisoPrecio) {
         this.permisoPrecio = permisoPrecio;
     }
-    
+
     public String getPermisoAddProd() {
         return permisoAddProd;
     }
-    
+
     public void setPermisoAddProd(String permisoAddProd) {
         this.permisoAddProd = permisoAddProd;
     }
-    
+
+    public ArrayList<ProductoRecetaDto> getProductosReceta() {
+        return productosReceta;
+    }
+
+    public void setProductosReceta(ArrayList<ProductoRecetaDto> productosReceta) {
+        this.productosReceta = productosReceta;
+    }
+
 }
