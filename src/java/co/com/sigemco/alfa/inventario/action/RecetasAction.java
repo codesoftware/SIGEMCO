@@ -227,6 +227,8 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
                 productosPantalla = objLogica.buscaProductos();
                 recetasPantalla = objLogica.buscaRecetas();
             } else {
+                productosPantalla = objLogica.buscaProductos();
+                recetasPantalla = objLogica.buscaRecetas();
                 addActionError(valida);
             }
         } catch (Exception e) {
