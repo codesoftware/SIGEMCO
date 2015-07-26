@@ -11,6 +11,7 @@ $(function () {
 function validaDatos() {
     var codigo = $('#codigo');
     var cant = $('#posicion');
+    var archivo = $('#imagen');
     if (parseInt(cant.val()) >= 10 || parseInt(cant.val()) <= 0) {
         $('#textoMsn').html('La cantida ingresada no esta permitida el randgo es de 1 a 10');
         $('#mensaje').modal('show');
@@ -26,7 +27,11 @@ function validaDatos() {
         $('#mensaje').modal('show');
         return false;
     }
-
+    if (archivo.val() == '') {
+        $('#textoMsn').html('El archivo no puede estar vacio');
+        $('#mensaje').modal('show');
+        return false;
+    }
     return true;
 }
 

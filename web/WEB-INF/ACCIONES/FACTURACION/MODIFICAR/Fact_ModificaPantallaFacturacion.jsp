@@ -65,7 +65,7 @@
                         <div class="col-md-4 col-xs-12 col-sm-12 ">
                             <div class="form-group">
                                 <label for="posicion">Imagen:</label>
-                                <s:file name="pantalla.imagen" accept="image/jpeg" cssClass="form-control"/>
+                                <s:file name="pantalla.imagen" accept="image/jpeg" cssClass="form-control"  id="imagen"/>
                             </div>                                
                         </div>
                         <div class="col-md-2 col-xs-12 col-sm-12 ">
