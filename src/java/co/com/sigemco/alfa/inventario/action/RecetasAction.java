@@ -9,11 +9,9 @@ import co.com.hotel.datos.session.Usuario;
 import co.com.hotel.logica.sede.Adm_SedeLogica;
 import co.com.hotel.utilidades.UsuarioHabilitado;
 import co.com.hotel.validacion.ValidaCampos;
-import co.com.sigemco.alfa.inventario.dto.PantallaPrincipalDto;
 import co.com.sigemco.alfa.inventario.dto.PrecioSedeRecetaDto;
 import co.com.sigemco.alfa.inventario.dto.ProductoRecetaDto;
 import co.com.sigemco.alfa.inventario.dto.RecetaDto;
-import co.com.sigemco.alfa.inventario.logica.PantallaPrincipalLogica;
 import co.com.sigemco.alfa.inventario.logica.ProductoRecetaLogica;
 import co.com.sigemco.alfa.inventario.logica.RecetaLogica;
 import com.opensymphony.xwork2.ActionSupport;
@@ -43,8 +41,6 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
     private ArrayList<ProductoRecetaDto> productosReceta;
     private String tipoProducto;
     private String posicion;
-    private ArrayList<PantallaPrincipalDto> productosPantalla;
-    private ArrayList<PantallaPrincipalDto> recetasPantalla;
 
     /**
      * Funcion encargada de realizar la accion de insertar una receta en el
@@ -212,32 +208,6 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
         return SUCCESS;
     }
 
-    /**
-     * Funcion encargada de realizar la adicion de productos o recetas a la
-     * pantalla principal de facturacion
-     *
-     * @return
-     */
-    public String adicionaPantallaPrincipal() {
-        try {
-            PantallaPrincipalLogica objLogica = new PantallaPrincipalLogica();
-            String valida = objLogica.guardaProducto(receta.getRece_codigo(), tipoProducto, Integer.parseInt(posicion));
-            if ("Ok".equalsIgnoreCase(valida)) {
-                addActionMessage("Producto adicionado correctamente");
-                productosPantalla = objLogica.buscaProductos();
-                recetasPantalla = objLogica.buscaRecetas();
-            } else {
-                productosPantalla = objLogica.buscaProductos();
-                recetasPantalla = objLogica.buscaRecetas();
-                addActionError(valida);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            addActionError("Error " + e);
-        }
-        return SUCCESS;
-    }
-
     public void validate() {
         ValidaCampos valida = new ValidaCampos();
         if ("insertReceta".equalsIgnoreCase(accion)) {
@@ -278,13 +248,6 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
             } else if ("-1".equalsIgnoreCase(receta.getRece_sede())) {
                 addActionError("Por Favor seleccione la sede en la cual va ha parametrizar el precio");
             }
-        } else if ("addPantallaPrincipal".equalsIgnoreCase(accion)) {
-            if (!valida.validaNulo(receta.getRece_codigo())) {
-                addActionError("El codigo no puede ser nulo");
-            } else if (!valida.validaNulo(posicion)) {
-                addActionError("La posicion no puede ser nulo");
-            }
-
         }
     }
 
@@ -398,22 +361,6 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
 
     public void setPosicion(String posicion) {
         this.posicion = posicion;
-    }
-
-    public ArrayList<PantallaPrincipalDto> getProductosPantalla() {
-        return productosPantalla;
-    }
-
-    public void setProductosPantalla(ArrayList<PantallaPrincipalDto> productosPantalla) {
-        this.productosPantalla = productosPantalla;
-    }
-
-    public ArrayList<PantallaPrincipalDto> getRecetasPantalla() {
-        return recetasPantalla;
-    }
-
-    public void setRecetasPantalla(ArrayList<PantallaPrincipalDto> recetasPantalla) {
-        this.recetasPantalla = recetasPantalla;
     }
 
 }

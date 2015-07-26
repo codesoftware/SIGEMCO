@@ -42,7 +42,7 @@
             </div>
             <div class="col-md-3 col-xs-0 col-sm-0"></div>
         </div>
-        <s:form method="post" action="Inv_adicionaPantallaPrinc" id="Inv_adicionaPantallaPrinc" theme="simple">
+        <s:form method="post" action="Inv_adicionaPantallaPrinc" id="Inv_adicionaPantallaPrinc" theme="simple" enctype="multipart/form-data">
             <s:textfield name="accion" value="addPantallaPrincipal" cssStyle="display:none"/>
             <s:textfield name="tipoProducto" id="tipoProducto" cssStyle="display:none"/>
             <div class="row">
@@ -50,16 +50,22 @@
                 <div class="col-md-10 col-xs-12 col-sm-12" style="border: 1px solid #D6E3E2;padding-left: 0px;padding-right: 0px;">
                     <div class="panel">
                         <div class="col-md-12 col-xs-12 col-sm-12 alert alert-success text-center"><h3>PRODUCTOS Y RECETAS QUE DESEA VER EN LA PANTALLA PRINCIPAL DE FACTURACION</h3></div>
-                        <div class="col-md-5 col-xs-12 col-sm-12 ">
+                        <div class="col-md-4 col-xs-12 col-sm-12 ">
                             <div class="form-group">
                                 <label for="codigo">Codigo:</label>
-                                <s:textfield name="receta.rece_codigo" cssClass="form-control" id="codigo" onkeyup="validarEnter(event,'1');"/>
+                                <s:textfield name="pantalla.ppfa_codigo" cssClass="form-control" id="codigo" onkeyup="validarEnter(event,'1');"/>
                             </div>                                
                         </div>
-                        <div class="col-md-5 col-xs-12 col-sm-12 ">
+                        <div class="col-md-2 col-xs-12 col-sm-12 ">
                             <div class="form-group">
                                 <label for="posicion">Posicion:</label>
                                 <s:textfield name="posicion" cssClass="form-control" onkeypress="soloNumeros();" id="posicion"/>
+                            </div>                                
+                        </div>
+                        <div class="col-md-4 col-xs-12 col-sm-12 ">
+                            <div class="form-group">
+                                <label for="posicion">Imagen:</label>
+                                <s:file name="pantalla.imagen" accept="image/jpeg" cssClass="form-control"/>
                             </div>                                
                         </div>
                         <div class="col-md-2 col-xs-12 col-sm-12 ">

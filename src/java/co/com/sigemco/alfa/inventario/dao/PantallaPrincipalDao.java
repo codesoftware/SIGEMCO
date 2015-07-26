@@ -22,7 +22,7 @@ public class PantallaPrincipalDao {
      */
     public String insertaProducto(PantallaPrincipalDto objDto) {
         StringBuilder sql = new StringBuilder();
-        sql.append("insert into in_tppfa(PPFA_CODIGO  , PPFA_TIPO    , PPFA_NOMBRE  , PPFA_POSICION, PPGA_RUTA_IMG) ");
+        sql.append("insert into in_tppfa(PPFA_CODIGO  , PPFA_TIPO    , PPFA_NOMBRE  , PPFA_POSICION, PPGA_RUTA_IMG,PPFA_EXTENSION) ");
         sql.append("values('");
         sql.append(objDto.getPpfa_codigo());
         sql.append("',");
@@ -31,7 +31,11 @@ public class PantallaPrincipalDao {
         sql.append(objDto.getPpfa_codigo());
         sql.append("'),");
         sql.append(objDto.getPpfa_posicion());
-        sql.append(",'aaa')");
+        sql.append(",'");
+        sql.append(objDto.getPpfa_ruta_img());
+        sql.append("','");
+        sql.append(objDto.getPpfa_extencion());
+        sql.append("')");
         return sql.toString();
     }
 
@@ -44,7 +48,7 @@ public class PantallaPrincipalDao {
      */
     public String insertaReceta(PantallaPrincipalDto objDto) {
         StringBuilder sql = new StringBuilder();
-        sql.append("insert into in_tppfa(PPFA_CODIGO  , PPFA_TIPO    , PPFA_NOMBRE  , PPFA_POSICION, PPGA_RUTA_IMG) ");
+        sql.append("insert into in_tppfa(PPFA_CODIGO  , PPFA_TIPO    , PPFA_NOMBRE  , PPFA_POSICION, PPGA_RUTA_IMG,PPFA_EXTENSION) ");
         sql.append("values('");
         sql.append(objDto.getPpfa_codigo());
         sql.append("',");
@@ -53,7 +57,11 @@ public class PantallaPrincipalDao {
         sql.append(objDto.getPpfa_codigo());
         sql.append("'),");
         sql.append(objDto.getPpfa_posicion());
-        sql.append(",'aaa')");
+        sql.append(",'");
+        sql.append(objDto.getPpfa_ruta_img());
+        sql.append("','");
+        sql.append(objDto.getPpfa_extencion());
+        sql.append("')");
         return sql.toString();
     }
 
@@ -74,8 +82,8 @@ public class PantallaPrincipalDao {
         sql.append("ORDER BY ppfa_posicion                                                           ");
         return sql.toString();
     }
-    
-    public String eliminaItem(String ppfa_ppfa){
+
+    public String eliminaItem(String ppfa_ppfa) {
         StringBuilder sql = new StringBuilder();
         sql.append("DELETE FROM in_tppfa ");
         sql.append("WHERE ppfa_ppfa = ");

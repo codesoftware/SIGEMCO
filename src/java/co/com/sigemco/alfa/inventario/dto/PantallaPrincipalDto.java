@@ -5,6 +5,8 @@
  */
 package co.com.sigemco.alfa.inventario.dto;
 
+import java.io.File;
+
 /**
  *
  * @author nicolas
@@ -16,7 +18,11 @@ public class PantallaPrincipalDto {
     private String ppfa_tipo;
     private String ppfa_nombre;
     private String ppfa_posicion;
-    private String ppga_ruta_img;
+    private String ppfa_ruta_img;
+    private String ppfa_extencion;
+    private File imagen;
+    private String imagenFileName;
+    private String imagenContentType;
 
     public String getPpfa_ppfa() {
         return ppfa_ppfa;
@@ -58,12 +64,44 @@ public class PantallaPrincipalDto {
         this.ppfa_posicion = ppfa_posicion;
     }
 
-    public String getPpga_ruta_img() {
-        return ppga_ruta_img;
+    public File getImagen() {
+        return imagen;
     }
 
-    public void setPpga_ruta_img(String ppga_ruta_img) {
-        this.ppga_ruta_img = ppga_ruta_img;
+    public void setImagen(File imagen) {
+        this.imagen = imagen;
+    }
+
+    public String getImagenFileName() {
+        return imagenFileName;
+    }
+
+    public void setImagenFileName(String imagenFileName) {
+        this.imagenFileName = imagenFileName;
+    }
+
+    public String getImagenContentType() {
+        return imagenContentType;
+    }
+
+    public void setImagenContentType(String imagenContentType) {
+        this.imagenContentType = imagenContentType;
+    }
+
+    public String getPpfa_ruta_img() {
+        return ppfa_ruta_img;
+    }
+
+    public void setPpfa_ruta_img(String ppfa_ruta_img) {
+        this.ppfa_ruta_img = ppfa_ruta_img;
+    }
+
+    public String getPpfa_extencion() {
+        return ppfa_extencion;
+    }
+
+    public void setPpfa_extencion(String ppfa_extencion) {
+        this.ppfa_extencion = ppfa_extencion;
     }
 
 }

@@ -177,7 +177,7 @@
             <result name="error">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_AdicionaProductosReceta.jsp</result>
         </action>
         <!-- FIn Recetas -->   
-        <action name="Inv_adicionaPantallaPrinc" class="co.com.sigemco.alfa.inventario.action.RecetasAction" method="adicionaPantallaPrincipal">
+        <action name="Inv_adicionaPantallaPrinc" class="co.com.sigemco.alfa.inventario.action.PantallaPrincipalAction" method="adicionaPantallaPrincipal">
             <result name="success">/WEB-INF/ACCIONES/FACTURACION/MODIFICAR/Fact_ModificaPantallaFacturacion.jsp</result>
             <result name="input">/WEB-INF/ACCIONES/FACTURACION/MODIFICAR/Fact_ModificaPantallaFacturacion.jsp</result>
             <result name="error">/WEB-INF/ACCIONES/FACTURACION/MODIFICAR/Fact_ModificaPantallaFacturacion.jsp</result>
