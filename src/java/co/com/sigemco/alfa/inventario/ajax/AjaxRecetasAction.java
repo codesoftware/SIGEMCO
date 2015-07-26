@@ -9,6 +9,7 @@ import co.com.hotel.datos.session.Usuario;
 import co.com.hotel.utilidades.UsuarioHabilitado;
 import co.com.sigemco.alfa.inventario.dto.ProductoRecetaDto;
 import co.com.sigemco.alfa.inventario.dto.RecetaDto;
+import co.com.sigemco.alfa.inventario.logica.PantallaPrincipalLogica;
 import co.com.sigemco.alfa.inventario.logica.ProductoRecetaLogica;
 import co.com.sigemco.alfa.inventario.logica.RecetaLogica;
 import com.google.gson.Gson;
@@ -32,6 +33,7 @@ public class AjaxRecetasAction extends ActionSupport implements SessionAware, Us
     private String rece_rece;
     private String rece_dska;
     private String rece_codigo;
+    private String ppfa;
 
     /**
      * Funcion encargada de realizar la accion de adicionar un producto a una
@@ -156,6 +158,33 @@ public class AjaxRecetasAction extends ActionSupport implements SessionAware, Us
 
     }
 
+    /**
+     * Funcion encargada de realizar la accion de eliminar un item de la tabla
+     * de los items principales
+     */
+    public void eliminaItemPantallaPrincipal() {
+        Map<String, Object> rta = new HashMap<>();
+        String objJson;
+        Gson gson = new Gson();
+        try {
+            HttpServletResponse response = ServletActionContext.getResponse();
+            response.setContentType("text/plain;charset=utf-8");
+            PrintWriter out = response.getWriter();
+            PantallaPrincipalLogica objLogica = new PantallaPrincipalLogica();            
+            String valida = objLogica.eliminaItem(ppfa);
+            if ("Ok".equalsIgnoreCase(valida)) {
+                rta.put("respuesta", "Ok");
+            } else {
+                rta.put("respuesta", "El item no pudo se eliminado: " + valida);
+            }
+            objJson = gson.toJson(rta);
+            out.print(objJson);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public Usuario getUsuario() {
         return usuario;
     }
@@ -194,6 +223,14 @@ public class AjaxRecetasAction extends ActionSupport implements SessionAware, Us
 
     public void setRece_codigo(String rece_codigo) {
         this.rece_codigo = rece_codigo;
+    }
+
+    public String getPpfa() {
+        return ppfa;
+    }
+
+    public void setPpfa(String ppfa) {
+        this.ppfa = ppfa;
     }
 
 }

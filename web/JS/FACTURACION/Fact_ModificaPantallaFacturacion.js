@@ -143,3 +143,23 @@ function buscaReceta(codigo) {
     });
 
 }
+
+function eliminarFila(objeto) {
+    var datos = new Object();
+    datos.ppfa = $(objeto).data('ppfa');
+    $.ajax({
+        url: RutaSitio + "/eliminaItemPantallaPrincipal.action",
+        data: datos,
+        dataType: 'json',
+        cache: false,
+        success: function (data, textStatus, jqXHR) {
+            if (data.respuesta == 'Ok') {
+                $(objeto).closest('tr').remove();
+            } else {
+                $('#textoMsn').html(data.respuesta);
+                $('#mensaje').modal('show');
+
+            }
+        }
+    });
+}

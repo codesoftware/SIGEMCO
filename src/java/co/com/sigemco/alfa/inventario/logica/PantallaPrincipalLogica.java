@@ -109,4 +109,29 @@ public class PantallaPrincipalLogica {
         }
         return rta;
     }
+
+    /**
+     * Funcion encargada de eliminar un item de la tabla de los productos que se
+     * visualizaran en la pantalla principal
+     *
+     * @param ppfa_ppfa
+     * @return
+     */
+    public String eliminaItem(String ppfa_ppfa) {
+        String rta = "";
+        try (EnvioFunction function = new EnvioFunction()) {
+            PantallaPrincipalDao objdao = new PantallaPrincipalDao();
+            boolean valida = function.enviarUpdate(objdao.eliminaItem(ppfa_ppfa));
+            if (valida) {
+                rta = "Ok";
+            } else {
+                rta = "Error al eliminar el item";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            rta = "Error " + e;
+        }
+        return rta;
+    }
+
 }

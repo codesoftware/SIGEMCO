@@ -74,5 +74,13 @@ public class PantallaPrincipalDao {
         sql.append("ORDER BY ppfa_posicion                                                           ");
         return sql.toString();
     }
+    
+    public String eliminaItem(String ppfa_ppfa){
+        StringBuilder sql = new StringBuilder();
+        sql.append("DELETE FROM in_tppfa ");
+        sql.append("WHERE ppfa_ppfa = ");
+        sql.append(ppfa_ppfa);
+        return sql.toString();
+    }
 
 }

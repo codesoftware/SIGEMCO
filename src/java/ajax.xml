@@ -64,5 +64,7 @@
         <action name="buscaRecetaXCodigo" class="co.com.sigemco.alfa.inventario.ajax.AjaxRecetasAction" method="buscaRecetaXCodigo">
         </action>
         <!-- Fin Recetas -->
+        <action name="eliminaItemPantallaPrincipal" class="co.com.sigemco.alfa.inventario.ajax.AjaxRecetasAction" method="eliminaItemPantallaPrincipal">
+        </action>
     </package>
 </struts>
