@@ -60,7 +60,9 @@
         <action name="consultaProductosReceta" class="co.com.sigemco.alfa.inventario.ajax.AjaxRecetasAction" method="buscaProductosReceta">
         </action>
         <action name="eliminaProductoReceta" class="co.com.sigemco.alfa.inventario.ajax.AjaxRecetasAction" method="eliminaProductoReceta">
-        </action>        
+        </action>
+        <action name="buscaRecetaXCodigo" class="co.com.sigemco.alfa.inventario.ajax.AjaxRecetasAction" method="buscaRecetaXCodigo">
+        </action>
         <!-- Fin Recetas -->
     </package>
 </struts>

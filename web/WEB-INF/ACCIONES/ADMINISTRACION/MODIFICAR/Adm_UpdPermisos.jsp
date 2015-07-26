@@ -520,6 +520,8 @@
                                                     <tr>
                                                         <td>Cancelacion de Facturas</td>
                                                         <td><input type="checkbox" value="FcCr5" id="FcCr5"/></td>
+                                                        <td>Pantalla Principal</td>
+                                                        <td><input type="checkbox" value="FcCr6" id="FcCr6"/></td>
                                                     </tr>
                                                 </tbody>
                                             </table>

@@ -9,7 +9,6 @@ import co.com.hotel.logica.sede.Adm_SedeLogica;
 import co.com.hotel.persistencia.general.EnvioFunction;
 import co.com.sigemco.alfa.inventario.dao.RecetaDao;
 import co.com.sigemco.alfa.inventario.dto.PrecioRecetaDto;
-import co.com.sigemco.alfa.inventario.dto.PrecioSedeDto;
 import co.com.sigemco.alfa.inventario.dto.PrecioSedeRecetaDto;
 import co.com.sigemco.alfa.inventario.dto.RecetaDto;
 import java.sql.ResultSet;
@@ -426,4 +425,5 @@ public class RecetaLogica {
         }
         return conteo;
     }
+    
 }

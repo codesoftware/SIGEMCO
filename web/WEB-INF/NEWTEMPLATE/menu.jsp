@@ -290,6 +290,9 @@
                         <% if (permisos.indexOf(".FcCr5.") >= 0) {%>
                     <li><a href="reenvioGeneral.action?accion=313">Cancelación de Facturas</a></li>
                         <%}%>
+                        <% if (permisos.indexOf(".FcCr6.") >= 0) {%>
+                    <li><a href="reenvioGeneral.action?accion=314">Pantalla Principal</a></li>
+                        <%}%>
                 </ul>
             </li>            
             <%}

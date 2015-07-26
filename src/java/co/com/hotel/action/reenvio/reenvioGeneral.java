@@ -17,8 +17,10 @@ import co.com.hotel.logica.usuarios.Adm_UsuarioLogica;
 import co.com.hotel.utilidades.UsuarioHabilitado;
 import co.com.sigemco.alfa.contabilidad.dto.ClaseDto;
 import co.com.sigemco.alfa.contabilidad.logica.ClaseLogica;
+import co.com.sigemco.alfa.inventario.dto.PantallaPrincipalDto;
 import co.com.sigemco.alfa.inventario.dto.RemisionDto;
 import co.com.sigemco.alfa.inventario.logica.MarcaLogica;
+import co.com.sigemco.alfa.inventario.logica.PantallaPrincipalLogica;
 import co.com.sigemco.alfa.inventario.logica.ProveedorLogica;
 import co.com.sigemco.alfa.inventario.logica.ReferenciaLogica;
 import com.opensymphony.xwork2.ActionSupport;
@@ -118,6 +120,7 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     public static final int FAC_INS_FACTURA = 311;
     public static final int FAC_UPD_FACTURA = 312;
     public static final int FAC_CANC_FACTURA = 313;
+    public static final int FAC_UPD_PANTPRINC = 314; //Punto de menu con el cual se modificaran las imagenes que se veran en la pantalla principal de facturacion
     //MODULO DE REPORTES (Primer digito 4)
     // Este modulo tiene una numeracion especial
     // primer digito(3) segundo (inventarios = 1, productos = 2 , usuarios= 3)
@@ -169,6 +172,9 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     private String estado;
     private Empresa empresa;
     private RemisionDto remision;
+    //
+    private ArrayList<PantallaPrincipalDto> productosPantalla;
+    private ArrayList<PantallaPrincipalDto> recetasPantalla;
 
     /**
      *
@@ -361,7 +367,13 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
                     this.estado = "inicial";
                     break;
                 case FAC_CANC_FACTURA:
-                    nextPage = "fac_canc_factura";                    
+                    nextPage = "fac_canc_factura";
+                    break;
+                case FAC_UPD_PANTPRINC:
+                    nextPage = "fac_upd_pantprinc";
+                    PantallaPrincipalLogica objLogica = new PantallaPrincipalLogica();
+                    productosPantalla = objLogica.buscaProductos();
+                    recetasPantalla = objLogica.buscaRecetas();
                     break;
                 case REP_INV_USUARIOS:
                     periflObj = new Adm_PerfilLogica();
@@ -539,7 +551,7 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
 
                 case ADM_CIERRE_DIARIO:
 
-                     sede = new Adm_SedeLogica();
+                    sede = new Adm_SedeLogica();
                     this.sedes = sede.obtieneSedes();
                     nextPage = "adm_cierre_diario";
                     break;
@@ -864,6 +876,22 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
 
     public void setReportes(Map<String, String> reportes) {
         this.reportes = reportes;
+    }
+
+    public ArrayList<PantallaPrincipalDto> getProductosPantalla() {
+        return productosPantalla;
+    }
+
+    public void setProductosPantalla(ArrayList<PantallaPrincipalDto> productosPantalla) {
+        this.productosPantalla = productosPantalla;
+    }
+
+    public ArrayList<PantallaPrincipalDto> getRecetasPantalla() {
+        return recetasPantalla;
+    }
+
+    public void setRecetasPantalla(ArrayList<PantallaPrincipalDto> recetasPantalla) {
+        this.recetasPantalla = recetasPantalla;
     }
 
 }

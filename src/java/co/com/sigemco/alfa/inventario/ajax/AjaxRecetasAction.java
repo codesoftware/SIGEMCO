@@ -8,6 +8,7 @@ package co.com.sigemco.alfa.inventario.ajax;
 import co.com.hotel.datos.session.Usuario;
 import co.com.hotel.utilidades.UsuarioHabilitado;
 import co.com.sigemco.alfa.inventario.dto.ProductoRecetaDto;
+import co.com.sigemco.alfa.inventario.dto.RecetaDto;
 import co.com.sigemco.alfa.inventario.logica.ProductoRecetaLogica;
 import co.com.sigemco.alfa.inventario.logica.RecetaLogica;
 import com.google.gson.Gson;
@@ -30,6 +31,7 @@ public class AjaxRecetasAction extends ActionSupport implements SessionAware, Us
     private Map session;
     private String rece_rece;
     private String rece_dska;
+    private String rece_codigo;
 
     /**
      * Funcion encargada de realizar la accion de adicionar un producto a una
@@ -124,6 +126,36 @@ public class AjaxRecetasAction extends ActionSupport implements SessionAware, Us
 
     }
 
+    /**
+     * Funcion encargada de realizar la accion de eliminar un producto de una
+     * receta
+     */
+    public void buscaRecetaXCodigo() {
+        Map<String, Object> rta = new HashMap<>();
+        String objJson;
+        Gson gson = new Gson();
+        try {
+            HttpServletResponse response = ServletActionContext.getResponse();
+            response.setContentType("text/plain;charset=utf-8");
+            PrintWriter out = response.getWriter();
+            RecetaLogica objLogica = new RecetaLogica();
+            RecetaDto objDto = new RecetaDto();
+            objDto.setRece_codigo(rece_codigo);
+            RecetaDto objRta = objLogica.consultaGeneralXCodigo(objDto);
+            if (objRta != null) {
+                rta.put("respuesta", "Ok");
+                rta.put("objeto", objRta);
+            } else {
+                rta.put("respuesta", "La receta que busca no existe");
+            }
+            objJson = gson.toJson(rta);
+            out.print(objJson);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public Usuario getUsuario() {
         return usuario;
     }
@@ -154,6 +186,14 @@ public class AjaxRecetasAction extends ActionSupport implements SessionAware, Us
 
     public void setRece_dska(String rece_dska) {
         this.rece_dska = rece_dska;
+    }
+
+    public String getRece_codigo() {
+        return rece_codigo;
+    }
+
+    public void setRece_codigo(String rece_codigo) {
+        this.rece_codigo = rece_codigo;
     }
 
 }
