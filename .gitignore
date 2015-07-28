@@ -53,3 +53,5 @@ nbproject/genfiles.properties
 /dist/
 src/java/struts_2.xml
 nbproject/private/profiler/configurations.xml
+*.properties
+src/java/co/com/sigemco/alfa/archivos/BASECONFIG.properties
