@@ -41,6 +41,7 @@
                 </div>
                 <br/>
                 <s:form action="inv_InsCategoria" method="post" theme="simple">
+                    <s:textfield name="accion" cssStyle="display:none;" value="insertar" />
                     <table class="table table-bordered" >
                         <thead>
                             <tr>

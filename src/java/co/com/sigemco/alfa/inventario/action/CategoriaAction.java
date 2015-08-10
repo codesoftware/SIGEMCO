@@ -7,6 +7,7 @@ package co.com.sigemco.alfa.inventario.action;
 
 import co.com.hotel.datos.session.Usuario;
 import co.com.hotel.utilidades.UsuarioHabilitado;
+import co.com.hotel.validacion.ValidaCampos;
 import co.com.sigemco.alfa.inventario.dto.CategoriaDto;
 import co.com.sigemco.alfa.inventario.logica.CategoriaLogica;
 import com.opensymphony.xwork2.ActionSupport;
@@ -37,10 +38,15 @@ public class CategoriaAction extends ActionSupport implements SessionAware, Usua
         this.estadoMap = new HashMap<String, String>();
         this.estadoMap.put("A", "Activo");
         this.estadoMap.put("I", "Inactivo");
-
-//        if(accion.equalsIgnoreCase("insertar")){
-//            
-//        }
+       if("insertar".equalsIgnoreCase(accion)){
+            ValidaCampos valida = new ValidaCampos();
+            if(!valida.validaNulo(categoria.getCate_desc())){
+                addActionError("El campo descripcion no puede ser nulo");
+            }
+            if("-1".equalsIgnoreCase(categoria.getCate_estado())){
+                addActionError("Por favor seleccione un estado para el campo categoria");
+            }
+        }
     }
 
     public String consultaCategorias() {
