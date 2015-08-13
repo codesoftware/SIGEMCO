@@ -24,8 +24,8 @@
 
 
         <div class="row">
-            <div class="col-md-4 col-xs-0 col-sm-0"></div>
-            <div class="col-md-4 col-xs-12 col-sm-12">
+            <div class="col-md-3 col-xs-0 col-sm-0"></div>
+            <div class="col-md-6 col-xs-12 col-sm-12">
                 <div class="Mensajes" style="display: none;">
                     <s:if test="hasActionErrors()">
                         <div class="alert alert-danger" id="info" role="alert" ><h4><s:actionerror /></h4></div>
@@ -88,8 +88,7 @@
                     </table>
                 </s:form>
             </div>
-
-            <div class="col-md-4 col-xs-0 col-sm-0"></div>
+            <div class="col-md-3 col-xs-0 col-sm-0"></div>
         </div>
     </body>
 </html>

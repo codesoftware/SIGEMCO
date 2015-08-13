@@ -19,7 +19,6 @@ import co.com.sigemco.alfa.inventario.logica.ReferenciaLogica;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import org.apache.struts2.interceptor.SessionAware;
 import org.apache.struts2.interceptor.validation.SkipValidation;
@@ -103,7 +102,7 @@ public class Inv_ProdAccion extends ActionSupport implements SessionAware, Usuar
      */
     public String consultaProdXFiltroIndv() {
         Inv_ProductoLogica logica = new Inv_ProductoLogica();
-        ArrayList<Producto> r = logica.buscaProductosXFiltro(producto);
+        ArrayList<Producto> r = logica.buscaProductosXFiltro(producto,usuario.getSede());
         clearErrorsAndMessages();
         try {
             if (r == null) {
@@ -126,7 +125,7 @@ public class Inv_ProdAccion extends ActionSupport implements SessionAware, Usuar
     @SkipValidation
     public String consultaProdXFiltrosGen() {
         Inv_ProductoLogica logica = new Inv_ProductoLogica();
-        rtaConsProd = logica.buscaProductosXFiltro(producto);
+        rtaConsProd = logica.buscaProductosXFiltro(producto, usuario.getSede());
         clearErrorsAndMessages();
         try {
             if (rtaConsProd == null) {
@@ -175,7 +174,7 @@ public class Inv_ProdAccion extends ActionSupport implements SessionAware, Usuar
                     addActionError("Error al actualizar el producto");
                 }
             } else if (subAccion.equalsIgnoreCase("consultaFiltro")) {
-                ArrayList<Producto> r = logica.buscaProductosXFiltro(producto);
+                ArrayList<Producto> r = logica.buscaProductosXFiltro(producto, usuario.getSede());
                 if (r == null) {
                     bandera = "N";
                     addActionError("La consulta no arrojo ningun resultado");

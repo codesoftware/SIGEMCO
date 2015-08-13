@@ -57,7 +57,10 @@ public class Inv_ProductoLogica {
         return rtaFun;
     }
 
-    public ArrayList<Producto> buscaProductosXFiltro(Producto obj) {
+    public ArrayList<Producto> buscaProductosXFiltro(Producto obj, String sede) {
+        if(sede == null ){
+            sede = "1";
+        }
         ArrayList<Producto> r = null;
         EnvioFunction function = new EnvioFunction();
         ResultSet rs = null;
@@ -71,6 +74,7 @@ public class Inv_ProductoLogica {
             sql += " and prpr_dska = dska_dska ";
             sql += " and marca_marca = dska_marca ";
             sql += " and dska_refe = refe_refe ";
+            sql += " and prpr_sede = "+sede+ " ";
             if (obj.getCodigo() != null & !"".equalsIgnoreCase(obj.getCodigo())) {
                 sql += " and dska_cod = '" + obj.getCodigo().trim() + "'\n";
             }
@@ -81,7 +85,7 @@ public class Inv_ProductoLogica {
             if (obj.getReferencia() != null && !"".equalsIgnoreCase(obj.getReferencia()) && !"-1".equalsIgnoreCase(obj.getReferencia())) {
                 sql += " AND dska_refe = " + obj.getReferencia().trim() + " \n";
             }
-            System.out.println("Este es el sql:\n  " + sql );
+            //System.out.println("Este es el sql:\n  " + sql );
             rs = function.enviarSelect(sql);
             while (rs.next()) {
                 if (cont == 0) {

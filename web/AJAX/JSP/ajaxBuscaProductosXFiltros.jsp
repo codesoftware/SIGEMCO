@@ -1,3 +1,4 @@
+<%@page import="co.com.hotel.datos.session.Usuario"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.google.gson.Gson"%>
 <%@page import="co.com.hotel.logica.productos.Inv_ProductoLogica"%>
@@ -17,7 +18,8 @@
         obj.setCodigo(codigo);
         obj.setReferencia(referencia);
         obj.setNombre(nombre);
-        ArrayList<Producto> rta = logica.buscaProductosXFiltro(obj);
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        ArrayList<Producto> rta = logica.buscaProductosXFiltro(obj, usuario.getSede());
         String objJson = gson.toJson(rta);
         out.print(objJson);       
     }catch(Exception e){

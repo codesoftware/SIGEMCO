@@ -30,10 +30,16 @@ public class Adm_PerfilAccion extends ActionSupport implements SessionAware, Usu
     private String inserto;
     private ArrayList<Perfil> resultPerfil = null;
 
+    /**
+     * Funcion encargada de realizar la accion de insertar un perfil en la base
+     * de datos
+     *
+     * @return
+     */
     public String execute() {
         Adm_PerfilLogica perfil = new Adm_PerfilLogica();
         try {
-            if( inserto==null || inserto.isEmpty()){
+            if (inserto == null || inserto.isEmpty()) {
                 inserto = "N";
             }
             if (inserto.equalsIgnoreCase("N")) {
@@ -45,7 +51,7 @@ public class Adm_PerfilAccion extends ActionSupport implements SessionAware, Usu
                     addActionError("ERROR AL INSERTAR EL PERFIL");
                     this.inserto = "N";
                 }
-            }else{
+            } else {
                 addActionError("EL REGISTRO YA FUE INSERTADO");
                 this.inserto = "S";
             }
@@ -55,37 +61,53 @@ public class Adm_PerfilAccion extends ActionSupport implements SessionAware, Usu
         }
         return SUCCESS;
     }
-    
-    public String actualizar(){
+
+    /**
+     * Funcion encargada de realizar la accion de actualizar un perfil en la
+     * base de datos
+     *
+     * @return
+     */
+    public String actualizar() {
         Adm_PerfilLogica perfil = new Adm_PerfilLogica();
         try {
             boolean rta = perfil.actulizarPerfil(this.perfil);
-            if(rta == true){
-                addActionMessage("PERFIL MODIFICADO CORRECTAMENTE");                
+            if (rta == true) {
+                addActionMessage("PERFIL MODIFICADO CORRECTAMENTE");
                 limpiaPerfil();
-            }else{
+            } else {
                 addActionError("ERROR AL ACTUALIZAR EL PERFIL");
             }
         } catch (Exception e) {
             System.out.println("Error Adm_PerfilAccion.actualizar: " + e);
-        }                
-        return SUCCESS;
-    }
-    
-    @SkipValidation
-    public String consultar() throws SQLException{
-        if(perfil.getEstado().equals("A") || perfil.getEstado().equals("I") || perfil.getEstado().equals("-1")){
-            Adm_PerfilLogica perfilObj = new Adm_PerfilLogica();
-            resultPerfil = perfilObj.consultaGeneralPerfil(perfil.getEstado());
-            if(resultPerfil == null || resultPerfil.isEmpty()){
-                addActionError("La consulta no ha arrojado ningun resultado");
-            }
-        }else{
-            addActionError("EL FILTRO INGRESADO NO ES PERMITIDO..");
-        }            
+        }
         return SUCCESS;
     }
 
+    /**
+     * Funcion encargada de realizar la accion de consultar los perfiles de la
+     * aplicacion basandose en los filtros proporcionados por el usuario
+     *
+     * @return
+     * @throws SQLException
+     */
+    @SkipValidation
+    public String consultar() throws SQLException {
+        if (perfil.getEstado().equals("A") || perfil.getEstado().equals("I") || perfil.getEstado().equals("-1")) {
+            Adm_PerfilLogica perfilObj = new Adm_PerfilLogica();
+            resultPerfil = perfilObj.consultaGeneralPerfil(perfil.getEstado());
+            if (resultPerfil == null || resultPerfil.isEmpty()) {
+                addActionError("La consulta no ha arrojado ningun resultado");
+            }
+        } else {
+            addActionError("EL FILTRO INGRESADO NO ES PERMITIDO..");
+        }
+        return SUCCESS;
+    }
+
+    /**
+     * Funcion con la cual se validan los datos antes de llegar los accionadores
+     */
     public void validate() {
         ValidaCampos valida = new ValidaCampos();
         boolean aux = valida.validaNulo(perfil.getNombre());
@@ -102,7 +124,7 @@ public class Adm_PerfilAccion extends ActionSupport implements SessionAware, Usu
         } else {
             valorSelect = perfil.getEstado();
         }
-    }    
+    }
 
     public Usuario getUsuario() {
         return usuario;
@@ -150,13 +172,13 @@ public class Adm_PerfilAccion extends ActionSupport implements SessionAware, Usu
 
     public void setResultPerfil(ArrayList<Perfil> resultPerfil) {
         this.resultPerfil = resultPerfil;
-    }    
-    
-    public void limpiaPerfil(){
+    }
+
+    public void limpiaPerfil() {
         perfil.setDescripcion("");
         perfil.setEstado("");
         perfil.setNombre("");
-        valorSelect = ""; 
+        valorSelect = "";
     }
 
 }

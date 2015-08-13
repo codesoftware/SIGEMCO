@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package co.com.hotel.action.admin;
 
 import co.com.hotel.datos.session.Usuario;
@@ -18,42 +17,53 @@ import org.apache.struts2.interceptor.SessionAware;
  *
  * @author SOFIA
  */
-public class Adm_PermisosAccion extends ActionSupport implements SessionAware, UsuarioHabilitado{
-    
+public class Adm_PermisosAccion extends ActionSupport implements SessionAware, UsuarioHabilitado {
+
     private Usuario usuario;
     private Map session;
     private String perfil;
     private Perfil objPerfil;
-    
-    public String actualizaPerfil(){
-        Adm_PerfilLogica logica= null;
+
+    /**
+     * Funcion con la cual se busca un perfil y sus permisos para realizar la
+     * actualizacion de los mismos
+     *
+     * @return
+     */
+    public String actualizaPerfil() {
+        Adm_PerfilLogica logica = null;
         try {
             logica = new Adm_PerfilLogica();
             objPerfil = logica.buscaPerfilXId(perfil);
-            if(objPerfil == null){
+            if (objPerfil == null) {
                 addActionError("Perfil no encontrado");
             }
         } catch (Exception e) {
             System.out.println("Error Adm_PermisosAccion.actualizaPerfil " + e);
-        }finally{
+        } finally {
             logica = null;
         }
         return SUCCESS;
     }
-    
-    public String actualizaPermisoPerfil(){
-        Adm_PerfilLogica logica = null;        
+
+    /**
+     * Funcion con la cual se actualizan los permisos de un perfil
+     *
+     * @return
+     */
+    public String actualizaPermisoPerfil() {
+        Adm_PerfilLogica logica = null;
         try {
             logica = new Adm_PerfilLogica();
             String rta = logica.actualizaPermisos(objPerfil.getId(), objPerfil.getPermisos());
-            if(rta.equalsIgnoreCase("Ok")){
-                addActionMessage("Perfil "+ objPerfil.getNombre() + " actualizado correctamente");
-            }else{
+            if (rta.equalsIgnoreCase("Ok")) {
+                addActionMessage("Perfil " + objPerfil.getNombre() + " actualizado correctamente");
+            } else {
                 addActionError("Error al actualizar el perfil");
             }
         } catch (Exception e) {
             System.out.println("Error Adm_PermisosAccion.actualizaPermisoPerfil " + e);
-        }finally{
+        } finally {
             logica = null;
         }
         return SUCCESS;
@@ -90,7 +100,5 @@ public class Adm_PermisosAccion extends ActionSupport implements SessionAware, U
     public void setSession(Map session) {
         this.session = session;
     }
-    
-    
-    
+
 }

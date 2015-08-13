@@ -10,12 +10,9 @@ import co.com.hotel.dto.Sede;
 import co.com.hotel.logica.sede.Adm_SedeLogica;
 import co.com.hotel.utilidades.UsuarioHabilitado;
 import com.opensymphony.xwork2.ActionSupport;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.struts2.interceptor.SessionAware;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
@@ -32,6 +29,12 @@ public class Adm_SedeAccion extends ActionSupport implements SessionAware, Usuar
     private ArrayList<Sede> resultSede = null;
     private Map<String, String> estadoMap;
 
+    /**
+     * Funcion con la cual se realiza la accion de insertar una sede en la base
+     * de datos
+     *
+     * @return
+     */
     public String insertarSede() {
         Adm_SedeLogica ingSede = null;
         try {
@@ -55,6 +58,12 @@ public class Adm_SedeAccion extends ActionSupport implements SessionAware, Usuar
         }
     }
 
+    /**
+     * Funcion con la cual se realiza la accion de consultar las sedes teniendo
+     * como base los filtros proporcionados por el cliente
+     *
+     * @return
+     */
     @SkipValidation
     public String consultar() {
         System.out.println("Entra Sede" + sede.getSede_estado());
@@ -76,6 +85,12 @@ public class Adm_SedeAccion extends ActionSupport implements SessionAware, Usuar
         return SUCCESS;
     }
 
+    /**
+     * Funcion con la cual se realiza la accion de actualizar una sede teniendo
+     * como base el id
+     *
+     * @return
+     */
     @SkipValidation
     public String actualizaSede() {
         this.estadoMap = new HashMap<String, String>();
@@ -97,6 +112,12 @@ public class Adm_SedeAccion extends ActionSupport implements SessionAware, Usuar
         return SUCCESS;
     }
 
+    /**
+     * Funcion encargada de realizar la accion de consultar una sede en
+     * especifico
+     *
+     * @return
+     */
     @SkipValidation
     public String consultaSedeEspecifico() {
         this.estadoMap = new HashMap<String, String>();

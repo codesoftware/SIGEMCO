@@ -61,6 +61,12 @@ public class Adm_UsuarioAccion extends ActionSupport implements SessionAware, Us
         return SUCCESS;
     }
 
+    /**
+     * Funcion encargada de realizar la accion de actualizar un usuario teniendo
+     * como base su id
+     *
+     * @return
+     */
     @SkipValidation
     public String updateUsuario() {
         clearErrorsAndMessages();
@@ -81,7 +87,7 @@ public class Adm_UsuarioAccion extends ActionSupport implements SessionAware, Us
                 usuaNuevo.setUsuario(aliasUsuarioNuevo);
                 boolean rtaAct = usuarioObj.actualizaUsuario(usuaNuevo);
                 if (rtaAct) {
-                    addActionMessage("El usuario "+ aliasUsuarioNuevo+" fue actualizado correctamente");
+                    addActionMessage("El usuario " + aliasUsuarioNuevo + " fue actualizado correctamente");
                     usuaNuevo = null;
                     aliasUsuarioNuevo = "";
                 } else {

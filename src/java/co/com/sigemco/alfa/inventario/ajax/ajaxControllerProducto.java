@@ -124,7 +124,7 @@ public class ajaxControllerProducto extends ActionSupport implements SessionAwar
     }
 
     /**
-     * Funcion encargada
+     * Funcion encargada de adicionar un producto a una factura
      */
     public void adicionaProductoFactura() {
         ProductoLogica objLogica = null;

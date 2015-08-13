@@ -26,30 +26,34 @@ public class Adm_ServicioAccion extends ActionSupport implements SessionAware, U
     private Map session;
     private Habitacion habitacion;
     private Map<String, String> yesNo;
-    
+
     /**
-     * Funcion encargada de insertar los servicios 
-     * @return 
+     * Funcion encargada de insertar los servicios
+     *
+     * @return
      */
-    public String insertHabitacion(){
+    public String insertHabitacion() {
         Adm_ServicioLogica logica = null;
         try {
             logica = new Adm_ServicioLogica();
             boolean rta = logica.insertaServicio(habitacion);
-            if(rta){
+            if (rta) {
                 habitacion = null;
                 addActionMessage("El servicio ha sido insertado correctamente");
-            }else{
+            } else {
                 addActionError("Error al insertar el servicio");
-            }            
+            }
         } catch (Exception e) {
             return ERROR;
-        }finally{
+        } finally {
             logica = null;
         }
         return SUCCESS;
     }
 
+    /**
+     * Funcion encargada de validar los datos antes de que lleguen al accionador
+     */
     public void validate() {
         ValidaCampos valida = new ValidaCampos();
         boolean rtaValida = false;
@@ -60,16 +64,16 @@ public class Adm_ServicioAccion extends ActionSupport implements SessionAware, U
         rtaValida = valida.validaNumerico(habitacion.getNumHabi());
         if (rtaValida == false) {
             addActionError("El campo numero de habitacion solo pueden ser numeros");
-        }   
+        }
         rtaValida = valida.validaNumerico(habitacion.getIva());
         if (rtaValida == false) {
             addActionError("El campo iva de habitacion solo pueden ser numeros");
-        }   
+        }
         if (habitacion.getNumMaxPers() == 0) {
             addActionError("El campo Num. Maximo de Personas no puede ser cero");
-        } 
+        }
         ValidaDuplicadosServ dupli = new ValidaDuplicadosServ();
-        if(!dupli.validaNumeroHabitacion(habitacion.getNumHabi())){
+        if (!dupli.validaNumeroHabitacion(habitacion.getNumHabi())) {
             addActionError("El numero de habitacion ya se encuentra registrado intente con otro");
         }
         valida = null;
