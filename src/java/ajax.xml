@@ -66,5 +66,9 @@
         <!-- Fin Recetas -->
         <action name="eliminaItemPantallaPrincipal" class="co.com.sigemco.alfa.inventario.ajax.AjaxRecetasAction" method="eliminaItemPantallaPrincipal">
         </action>
+        <action name="buscaParametroInicio" class="co.com.sigemco.alfa.admin.ajax.AjaxAdministracionAction" method="buscaParametroInicio">
+        </action>
+        <action name="buscaProductosInicio" class="co.com.sigemco.alfa.admin.ajax.AjaxAdministracionAction" method="buscaProductosInicio">
+        </action>
     </package>
 </struts>

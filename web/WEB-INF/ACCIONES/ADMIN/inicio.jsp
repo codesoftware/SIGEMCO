@@ -26,21 +26,14 @@
         </s:div>
         <br/>
         <br/>
+
         <div class="row">
             <div class="col-md-2 col-sm-0 col-xs-0"></div>
             <div class="col-md-8 col-sm-12 col-xs-12" >
-                <div class="alert alert-warning text-center"><h3>Vencimiento de Equipos</h3></div>
+                <div class="alert alert-warning text-center"><h3 id="tituloAlerta"></h3></div>
                 <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr id="cabecera">
-                            <th>FECHA</th>
-                            <th><s:i18n name="co.com.sigemco.alfa.archivos.MessagesBundleProducto" >
-                                    <s:text name="texto1" />
-                                </s:i18n></th>
-                            <th>SEDE</th>
-                            <th class="ocultas">IMEI</th>
-                            <th class="ocultas">ICCID</th>
-                        </tr>
+                    <thead id="cabeceraTabla">
+                        
                     </thead>
                     <tbody id="alertas">
 
@@ -49,6 +42,11 @@
             </div>
             <div class="col-md-2 col-sm-0 col-xs-0"></div>
         </div>
+        <script type="text/javascript">
+            <s:i18n name="co.com.sigemco.alfa.archivos.MessagesBundleProducto" >
+                var columna = '<s:text name="texto1" />';         
+            </s:i18n>
+        </script>
         <script type="text/javascript" src="<%=RutaSitio%>/JS/ADMINISTRACION/inicio.js"></script>
     </body>
 </html>
