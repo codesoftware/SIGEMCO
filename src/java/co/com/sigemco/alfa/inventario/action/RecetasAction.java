@@ -215,6 +215,8 @@ public class RecetasAction extends ActionSupport implements SessionAware, Usuari
                 addActionError("El campo nombre no puede ser nulo");
             } else if (!valida.validaNulo(receta.getRece_desc())) {
                 addActionError("El campo descripcion no puede ser nulo");
+            } else if (!valida.validaNulo(receta.getRece_costo())){
+                addActionError("El campo costo de la receta no puede ser nulo");
             }
         } else if ("consultaActuliza".equalsIgnoreCase(accion)) {
             this.estadoMap = new HashMap<String, String>();

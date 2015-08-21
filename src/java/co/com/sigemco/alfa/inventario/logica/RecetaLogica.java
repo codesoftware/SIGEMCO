@@ -71,6 +71,7 @@ public class RecetaLogica {
                 aux.setRece_estado(rs.getString("Rece_estado"));
                 aux.setRece_fec_ingreso(rs.getString("Rece_fec_ingreso"));
                 aux.setRece_promedio(rs.getString("Rece_promedio"));
+                aux.setRece_costo(rs.getString("rece_costo"));
                 rta.add(aux);
 
             }
@@ -126,6 +127,7 @@ public class RecetaLogica {
                 rta.setRece_estado(rs.getString("Rece_estado"));
                 rta.setRece_fec_ingreso(rs.getString("Rece_fec_ingreso"));
                 rta.setRece_promedio(rs.getString("Rece_promedio"));
+                rta.setRece_costo(rs.getString("rece_costo"));
             }
         } catch (Exception e) {
             e.printStackTrace();

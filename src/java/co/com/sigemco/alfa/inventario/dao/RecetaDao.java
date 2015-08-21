@@ -21,8 +21,10 @@ public class RecetaDao {
      */
     public String insertareceta(RecetaDto objDto) {
         StringBuilder sql = new StringBuilder();
+        String costoSinFormato = objDto.getRece_costo();
+        costoSinFormato = costoSinFormato.replaceAll("\\.", "");
         sql.append("INSERT INTO in_trece(");
-        sql.append("rece_rece, rece_codigo, rece_nombre, rece_desc, rece_iva,rece_promedio) ");
+        sql.append("rece_rece, rece_codigo, rece_nombre, rece_desc, rece_iva,rece_costo,rece_promedio) ");
         sql.append("values ((select coalesce(max(rece_rece), 0) + 1 from in_trece),");
         sql.append("(select '3-'|| coalesce(max(rece_rece), 0) + 1 from in_trece),");
         sql.append("upper('");
@@ -31,7 +33,8 @@ public class RecetaDao {
         sql.append(objDto.getRece_desc());
         sql.append("'),");
         sql.append("(SELECT cast(para_valor as numeric) FROM em_tpara WHERE para_clave = 'IVAPRVENTA'),");
-        sql.append("0)");
+        sql.append(costoSinFormato);
+        sql.append(",0)");
         return sql.toString();
     }
 
@@ -45,7 +48,7 @@ public class RecetaDao {
     public String consultaGeneralRecetasXFiltros(RecetaDto objDto) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT rece_rece, rece_codigo, rece_nombre, rece_desc, rece_iva, rece_estado, ");
-        sql.append("rece_fec_ingreso, rece_promedio ");
+        sql.append("rece_fec_ingreso, rece_promedio, replace(cast(trunc(rece_costo,0) as varchar),'.','') rece_costo ");
         sql.append("FROM in_trece ");
         sql.append("WHERE 1=1");
         return sql.toString();
@@ -60,6 +63,8 @@ public class RecetaDao {
      */
     public String actualizaRecetaXId(RecetaDto objDto) {
         StringBuilder sql = new StringBuilder();
+        String costoSinFormato = objDto.getRece_costo();
+        costoSinFormato = costoSinFormato.replaceAll("\\.", "");
         sql.append("UPDATE in_trece ");
         sql.append("   SET rece_nombre='");
         sql.append(objDto.getRece_nombre());
@@ -69,7 +74,10 @@ public class RecetaDao {
         sql.append("',");
         sql.append("rece_estado='");
         sql.append(objDto.getRece_estado());
-        sql.append("' WHERE rece_rece = ");
+        sql.append("',");
+        sql.append("rece_costo = ");
+        sql.append(costoSinFormato);
+        sql.append(" WHERE rece_rece = ");
         sql.append(objDto.getRece_rece());
         return sql.toString();
     }
@@ -84,7 +92,7 @@ public class RecetaDao {
     public String consultaGeneralRecetasXId(RecetaDto objDto) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT rece_rece, rece_codigo, rece_nombre, rece_desc, rece_iva, rece_estado, ");
-        sql.append("to_char(rece_fec_ingreso, 'dd/mm/yyyy HH:MM') rece_fec_ingreso, to_char(rece_promedio,'9,999,999,999.00') rece_promedio ");
+        sql.append("to_char(rece_fec_ingreso, 'dd/mm/yyyy HH:MM') rece_fec_ingreso, to_char(rece_promedio,'9,999,999,999.00') rece_promedio, trunc(rece_costo,0) rece_costo ");
         sql.append("FROM in_trece ");
         sql.append("WHERE rece_rece=");
         sql.append(objDto.getRece_rece());

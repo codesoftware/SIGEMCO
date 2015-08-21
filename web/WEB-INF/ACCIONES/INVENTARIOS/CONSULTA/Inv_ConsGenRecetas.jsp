@@ -82,13 +82,14 @@
                 <div class="col-md-1 col-xs-0 col-sm-0"></div>
                 <div class="col-md-10 col-xs-12 col-sm-12">
                     <div class="row">
-                        <table class="table table-hover">
+                        <table class="table table-hover table-bordered">
                             <thead>
                                 <tr>
                                     <th>Codigo</th>
                                     <th>Nombre</th>
                                     <th>Descripción</th>
                                     <th>Estado</th>
+                                    <th>Costo Receta</th>
                                     <th>Promedio</th>
                                 </tr>
                             </thead>
@@ -118,7 +119,13 @@
                                         </td>                                        
                                         <td><s:text name="rece_desc"/></td>                                        
                                         <td><s:text name="rece_estado"/></td>                                        
-                                        <td><s:text name="rece_promedio"/></td>                                        
+                                        <td>
+                                            <script>
+                                                var valor = '<s:text name="rece_costo" />';
+                                                document.write(mascaraMonedaConValor(valor));
+                                            </script>
+                                        </td>
+                                        <td><s:text name="rece_promedio"/></td>
                                     </tr>
                                 </s:iterator>
                             </tbody>

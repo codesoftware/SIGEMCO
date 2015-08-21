@@ -21,6 +21,7 @@ public class RecetaDto {
     private String rece_promedio;
     private String rece_precio;
     private String rece_sede;
+    private String rece_costo;
 
     public String getRece_rece() {
         return rece_rece;
@@ -102,4 +103,11 @@ public class RecetaDto {
         this.rece_sede = rece_sede;
     }
 
+    public String getRece_costo() {
+        return rece_costo;
+    }
+
+    public void setRece_costo(String rece_costo) {
+        this.rece_costo = rece_costo;
+    }
 }

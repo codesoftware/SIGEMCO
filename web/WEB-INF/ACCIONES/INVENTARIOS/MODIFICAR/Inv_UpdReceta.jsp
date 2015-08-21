@@ -80,6 +80,14 @@
                             </tr>
                             <tr>
                                 <td>
+                                    Costo Receta:
+                                </td>
+                                <td>
+                                    <s:textfield name="receta.rece_costo" cssClass="form-control" id="costoReceta" onkeypress="return validaNumeros(event)" onkeyup="mascaraMoneda(this)"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     Estado:
                                 </td>
                                 <td>
