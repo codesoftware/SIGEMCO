@@ -133,6 +133,12 @@ public class ReferenciaLogica {
 
     }
 
+    /**
+     * Funcion con la cual se pobla el objeto dao en base al objeto dto
+     *
+     * @param objDTO
+     * @return
+     */
     public ReferenciaDao poblarDAO(ReferenciaDTO objDTO) {
         ReferenciaDao objDAO = new ReferenciaDao();
         objDAO.setRefe_desc(objDTO.getRefe_desc());
