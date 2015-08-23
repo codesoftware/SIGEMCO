@@ -5,6 +5,8 @@
  */
 package co.com.sigemco.alfa.inventario.dao;
 
+import co.com.hotel.validacion.ValidaCampos;
+
 /**
  *
  * @author Personal
@@ -17,6 +19,7 @@ public class ReferenciaDao {
     private String refe_came;
     private String refe_memori;
     private String refe_pantalla;
+    private String refe_nombre;
 
     public String getRefe_pantalla() {
         return refe_pantalla;
@@ -66,6 +69,14 @@ public class ReferenciaDao {
         this.refe_memori = refe_memori;
     }
 
+    public String getRefe_nombre() {
+        return refe_nombre;
+    }
+
+    public void setRefe_nombre(String refe_nombre) {
+        this.refe_nombre = refe_nombre;
+    }
+
     /**
      * Funcion la cual devuelve el query para obtener todas las categorias
      * parametrizadas en el sitema
@@ -77,10 +88,11 @@ public class ReferenciaDao {
         select += "SELECT refe_refe, refe_desc, refe_estado, refe_came, refe_memori,refe_pantalla\n";
         select += "  FROM in_trefe                                                 \n";
         select += " WHERE refe_estado = 'A' \n";
-        select += " ORDER BY refe_desc ";   
+        select += " ORDER BY refe_desc ";
         //System.out.println("Sql \n" + select);
         return select;
     }
+
     /**
      * Funcion la cual devuelve el query para obtener todas las categorias
      * parametrizadas en el sitema
@@ -89,8 +101,8 @@ public class ReferenciaDao {
      * @return
      */
     public String consultaFilros(String filtros) {
-        String select = "SELECT refe_refe, refe_desc, refe_estado, refe_came, refe_memori,refe_pantalla  from in_trefe  WHERE "+filtros;
-        System.out.println("Filtros"+select);
+        String select = "SELECT refe_refe,refe_nombre, refe_desc, refe_estado, refe_came, refe_memori,refe_pantalla  from in_trefe  WHERE " + filtros;
+        System.out.println("Filtros" + select);
         return select;
     }
 
@@ -102,7 +114,7 @@ public class ReferenciaDao {
      */
     public String consultaEspecificaXId() {
         String select = "";
-        select += "SELECT refe_refe, refe_desc, refe_estado, refe_came, refe_memori,refe_pantalla \n";
+        select += "SELECT refe_refe,refe_nombre, refe_desc, refe_estado, refe_came, refe_memori,refe_pantalla \n";
         select += "  FROM in_trefe                                                 \n";
         select += " WHERE refe_refe = " + this.refe_refe + " \n";
         return select;
@@ -114,17 +126,62 @@ public class ReferenciaDao {
      
      **/
     public String insertaReferencia() {
-       String select="";
-       select = "INSERT into in_trefe (refe_desc,  refe_came, refe_memori,refe_pantalla)"
-                     .concat( "values ('"+this.refe_desc+"',"+this.refe_came+","+this.refe_memori+","+this.refe_pantalla+")");
-       return select;
+        StringBuilder insert = new StringBuilder();
+        StringBuilder values = new StringBuilder();
+        insert.append("INSERT into in_trefe (refe_desc,  refe_nombre");
+        values.append(" VALUES ('");
+        values.append(this.refe_desc);
+        values.append("','");
+        values.append(this.refe_nombre);
+        values.append("'");
+        ValidaCampos valida = new ValidaCampos();
+        if (valida.validaNulo(this.refe_came)) {
+            insert.append(",refe_came");
+            values.append(",'");
+            values.append(this.refe_came);
+            values.append("'");
+        }
+        if (valida.validaNulo(this.refe_memori)) {
+            insert.append(",refe_memori");
+            values.append(",'");
+            values.append(this.refe_memori);
+            values.append("'");
+        }
+        if (valida.validaNulo(this.refe_pantalla)) {
+            insert.append(",refe_pantalla");
+            values.append(",'");
+            values.append(this.refe_pantalla);
+            values.append("'");
+        }
+        insert.append(")");
+        values.append(")");
+        return insert.toString() + " " + values.toString();
 
     }
-    
-    public String actualizaReferencia(){
-        String select = "UPDATE in_trefe set refe_desc = '"+this.refe_desc+"',refe_estado = '"+this.refe_estado+"',refe_came = '"+this.refe_came+"',refe_memori = '"+this.refe_memori+"',refe_pantalla = '"+this.refe_pantalla+"' WHERE refe_refe = "+this.refe_refe+"";
-        System.out.println("Update "+select);
-        return select;
+
+    /**
+     * Funcion con la cual creo el query para la actualizacion de las
+     * referencias
+     *
+     * @return
+     */
+    public String actualizaReferencia() {
+        StringBuilder update = new StringBuilder();
+        update.append("UPDATE in_trefe set refe_desc = '");
+        update.append(this.refe_desc);
+        update.append("',refe_estado = '");
+        update.append(this.refe_estado);
+        update.append("',refe_came = '");
+        update.append(this.refe_came);
+        update.append("',refe_memori = '");
+        update.append(this.refe_memori);
+        update.append("',refe_pantalla = '");
+        update.append(this.refe_pantalla);
+        update.append("',refe_nombre = '");
+        update.append(this.refe_nombre);
+        update.append("' WHERE refe_refe = ");
+        update.append(this.refe_refe);
+        return update.toString();
     }
 
 }

@@ -22,7 +22,7 @@ public class RecetaDao {
     public String insertareceta(RecetaDto objDto) {
         StringBuilder sql = new StringBuilder();
         sql.append("INSERT INTO in_trece(");
-        sql.append("rece_rece, rece_codigo, rece_nombre, rece_desc, rece_iva,rece_promedio) ");
+        sql.append("rece_rece, rece_codigo, rece_nombre, rece_desc, rece_iva,rece_promedio, rece_costo) ");
         sql.append("values ((select coalesce(max(rece_rece), 0) + 1 from in_trece),");
         sql.append("(select '3-'|| coalesce(max(rece_rece), 0) + 1 from in_trece),");
         sql.append("upper('");
@@ -31,7 +31,9 @@ public class RecetaDao {
         sql.append(objDto.getRece_desc());
         sql.append("'),");
         sql.append("(SELECT cast(para_valor as numeric) FROM em_tpara WHERE para_clave = 'IVAPRVENTA'),");
-        sql.append("0)");
+        sql.append("0,");
+        sql.append(objDto.getRece_costo());
+        sql.append(")");
         return sql.toString();
     }
 

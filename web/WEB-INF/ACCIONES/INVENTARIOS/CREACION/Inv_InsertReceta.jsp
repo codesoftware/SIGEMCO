@@ -76,6 +76,14 @@
                                     <s:textfield name="receta.rece_desc" cssClass="form-control"/>
                                 </td>                            
                             </tr>
+                            <tr>
+                                <td>
+                                    Costo Receta:
+                                </td> 
+                                <td>
+                                    <s:textfield name="receta.rece_costo" cssClass="form-control"/>                                    
+                                </td>
+                            </tr>
                         </tbody>
                         <tfoot>
                             <tr>

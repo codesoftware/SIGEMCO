@@ -12,12 +12,12 @@ package co.com.sigemco.alfa.inventario.dto;
 public class ReferenciaDTO {
 
     private String refe_refe;
+    private String refe_nombre;
     private String refe_desc;
     private String refe_estado;
     private String refe_came;
     private String refe_memori;
     private String refe_pantalla;
-
 
     public String getRefe_refe() {
         return refe_refe;
@@ -66,7 +66,13 @@ public class ReferenciaDTO {
     public void setRefe_pantalla(String refe_pantalla) {
         this.refe_pantalla = refe_pantalla;
     }
-    
-    
+
+    public String getRefe_nombre() {
+        return refe_nombre;
+    }
+
+    public void setRefe_nombre(String refe_nombre) {
+        this.refe_nombre = refe_nombre;
+    }
 
 }

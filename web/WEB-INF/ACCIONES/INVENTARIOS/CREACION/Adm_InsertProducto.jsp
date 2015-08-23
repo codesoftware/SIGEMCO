@@ -53,6 +53,7 @@
             <s:form  action="inv_insertProducto" id="inv_insertProducto" theme="simple" method="post" autocomplete="off" >
                 <div class="IngProducto">
                     <s:if test="%{marcas == null}">                        
+                        entro aqui
                         <script>
                             $('.IngProducto').hide('slow');
                             $('.errorMarcas').show('slow');
@@ -91,8 +92,8 @@
                                         <td><s:textfield name="producto.nombre" required="true" cssClass="form-control" id="producto_nombre"/></td>
                                     </tr>
                                     <tr style="display: none;">
-                                        <td  style="width: 40%;">Referencia</td>
-                                        <td><s:textfield label="Descripción Prod" name="producto.descripcion" required="true" cssClass="form-control" id="producto_descripcion"/></td>
+                                        <td style="width: 40%;">Referencia</td>
+                                        <td style="width: 60%;"><s:textfield label="Descripción Prod" name="producto.descripcion" required="true" cssClass="form-control" id="producto_descripcion"/></td>
                                     </tr>
                                     <tr>
                                         <td><s:text name="modeloAsociado.descripcion"/></td>
@@ -105,8 +106,12 @@
                                         <td><s:textfield name="producto.codigo" required="true" maxLength="9" cssClass="form-control" id="producto_codigo"/></td>
                                     </tr>--%>                                    
                                     <tr>
-                                        <td>Marca:</td>
-                                        <td><s:select  list="marcas"  name="producto.marca" required="true" headerKey="-1" headerValue="Marca" cssClass="form-control" id="producto_marca" /></td>
+                                        <td style="width: 40%;">Marca:</td>
+                                        <td style="width: 60%;">
+                                            <s:if test="%{marcas != null}">           
+                                            <s:select  list="marcas"  name="producto.marca" required="true" headerKey="-1" headerValue="Marca" cssClass="form-control" id="producto_marca" />
+                                            </s:if>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>Categoria:</td>
