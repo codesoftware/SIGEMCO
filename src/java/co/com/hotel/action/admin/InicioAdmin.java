@@ -33,6 +33,12 @@ public class InicioAdmin extends ActionSupport implements SessionAware, UsuarioH
         return ERROR;
     }
 
+    /**
+     * Funcion encargade de realizar la accion de actualizar la contraseña de un
+     * usuario
+     *
+     * @return
+     */
     public String cambioContra() {
         CambioContrasena cambio = new CambioContrasena();
         System.out.println("este es el usuario: " + usuario.getUsuario());
