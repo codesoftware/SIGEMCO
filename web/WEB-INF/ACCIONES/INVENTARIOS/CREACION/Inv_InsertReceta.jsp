@@ -77,9 +77,17 @@
                                 </td>                            
                             </tr>
                             <tr>
+<<<<<<< HEAD
                                 <td>Costo Receta:</td>
                                 <td>
                                     <s:textfield name="receta.rece_costo" cssClass="form-control" onkeypress="return validaNumeros(event)" onkeyup="mascaraMoneda(this)"/>                                    
+=======
+                                <td>
+                                    Costo Receta:
+                                </td> 
+                                <td>
+                                    <s:textfield name="receta.rece_costo" cssClass="form-control"/>                                    
+>>>>>>> origin/master
                                 </td>
                             </tr>
                         </tbody>

@@ -41,6 +41,7 @@
                 </div>
                 <br/>
                 <s:form action="inv_InsReferencia" method="post" theme="simple">
+                    <s:textfield name="accion" value="insertar" cssStyle="display:none;"/>
                     <table class="table table-bordered" >
                         <thead>
                             <tr>
@@ -52,21 +53,24 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Descripción:</td>
-                                <td><s:textfield name="referencia.refe_desc" cssClass="form-control"  /></td>
+                                <td>Nombre:</td>
+                                <td><s:textfield name="referencia.refe_nombre" cssClass="form-control"  maxLength="50"/></td>
                             </tr>
-
+                            <tr>
+                                <td>Descripción:</td>
+                                <td><s:textfield name="referencia.refe_desc" cssClass="form-control"  maxlength="200"/></td>
+                            </tr>
                             <tr>
                                 <td><s:text name="modeloAsociado.caracteristica1"/></td>
-                                <td><s:textfield name="referencia.refe_came" cssClass="form-control" onkeypress="return validaNumeros(event)"/></td>
+                                <td><s:textfield name="referencia.refe_came" cssClass="form-control" /></td>
                             </tr>
                             <tr>
                                 <td><s:text name="modeloAsociado.caracteristica2"/></td>
-                                <td><s:textfield name="referencia.refe_memori" cssClass="form-control" onkeypress="return validaNumeros(event)" /></td>
+                                <td><s:textfield name="referencia.refe_memori" cssClass="form-control" /></td>
                             </tr>
                             <tr>
                                 <td><s:text name="modeloAsociado.caracteristica3"/></td>
-                                <td><s:textfield name="referencia.refe_pantalla" cssClass="form-control"   onkeypress="return validaNumeros(event)"  /></td>
+                                <td><s:textfield name="referencia.refe_pantalla" cssClass="form-control" /></td>
                             </tr>
 
                         </tbody>                        

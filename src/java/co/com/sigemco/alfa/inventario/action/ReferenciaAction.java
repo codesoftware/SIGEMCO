@@ -7,6 +7,7 @@ package co.com.sigemco.alfa.inventario.action;
 
 import co.com.hotel.datos.session.Usuario;
 import co.com.hotel.utilidades.UsuarioHabilitado;
+import co.com.hotel.validacion.ValidaCampos;
 import co.com.sigemco.alfa.inventario.dto.ReferenciaDTO;
 import co.com.sigemco.alfa.inventario.logica.ReferenciaLogica;
 import com.opensymphony.xwork2.ActionSupport;
@@ -46,6 +47,15 @@ public class ReferenciaAction extends ActionSupport implements SessionAware, Usu
         this.memoria.put("16", "MENOS DE 16");
         this.memoria.put("32", "ENTRE 16 Y 32");
         this.memoria.put("33", "MAS DE 33");
+        if ("insertar".equalsIgnoreCase(accion)) {
+            ValidaCampos valida = new ValidaCampos();
+            if (!valida.validaNulo(referencia.getRefe_nombre())) {
+                addActionError("El nombre de la referencia no puede ser nulo");
+            } else if (!valida.validaNulo(referencia.getRefe_desc())) {
+                addActionError("La descripcion de la referencia no puede ser nulo");
+            }
+
+        }
     }
 
     public ArrayList<ReferenciaDTO> getResultReferencia() {
@@ -61,7 +71,12 @@ public class ReferenciaAction extends ActionSupport implements SessionAware, Usu
         try {
             res = new ReferenciaLogica();
             String resultado = res.insertarReferencia(referencia);
-            addActionMessage(resultado);
+            if ("REFERENCIA INSERTADA CORRECTAMENTE".equalsIgnoreCase(resultado)) {
+                addActionMessage(resultado);
+            } else {
+                addActionError(resultado);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -69,6 +84,11 @@ public class ReferenciaAction extends ActionSupport implements SessionAware, Usu
         return SUCCESS;
     }
 
+    /**
+     * Funcion encargada de hacer la consulta general de referencias
+     *
+     * @return
+     */
     public String consultaReferencias() {
         ReferenciaLogica res = null;
         try {
@@ -83,28 +103,32 @@ public class ReferenciaAction extends ActionSupport implements SessionAware, Usu
         }
         return SUCCESS;
     }
-    
-    public String consultaReferenciaEspecifica(){
-        ReferenciaLogica res= null;
+
+    public String consultaReferenciaEspecifica() {
+        ReferenciaLogica res = null;
         try {
-            res= new ReferenciaLogica();
-            referencia =res.traeReferenciaEspecifica(referencia);
-           
+            res = new ReferenciaLogica();
+            referencia = res.traeReferenciaEspecifica(referencia);
+
         } catch (Exception e) {
-             addActionMessage("ERROR EN LA CONSULTA.");
+            addActionMessage("ERROR EN LA CONSULTA.");
             e.printStackTrace();
         }
         return SUCCESS;
     }
-    public String actualizaReferencia(){
-        String resultado="";
-        ReferenciaLogica res= null;
+    /**
+     * Funcion encargada de actualizar una referencia 
+     * @return 
+     */
+    public String actualizaReferencia() {
+        String resultado = "";
+        ReferenciaLogica res = null;
         try {
-            res= new ReferenciaLogica();
-             resultado=res.actualizaReferenciaEspecifica(referencia);
-             addActionMessage(resultado);
+            res = new ReferenciaLogica();
+            resultado = res.actualizaReferenciaEspecifica(referencia);
+            addActionMessage(resultado);
         } catch (Exception e) {
-             addActionMessage("ERROR EN LA ACTUALIZACIÓN.");
+            addActionMessage("ERROR EN LA ACTUALIZACIÓN.");
             e.printStackTrace();
         }
         return SUCCESS;
@@ -165,7 +189,6 @@ public class ReferenciaAction extends ActionSupport implements SessionAware, Usu
     public void setPantalla(Map<String, String> pantalla) {
         this.pantalla = pantalla;
     }
-
 
     public Map<String, String> getMemoria() {
         return memoria;

@@ -110,4 +110,5 @@ public class RecetaDto {
     public void setRece_costo(String rece_costo) {
         this.rece_costo = rece_costo;
     }
+
 }

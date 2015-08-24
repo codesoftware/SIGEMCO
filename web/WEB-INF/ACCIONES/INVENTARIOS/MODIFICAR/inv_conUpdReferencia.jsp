@@ -21,8 +21,6 @@
                 <s:param name="title"><s:property value="usuario.usuario" /></s:param>
             </s:include> 
         </s:div>
-
-
         <div class="row">
             <div class="col-md-4 col-xs-0 col-sm-0"></div>
             <div class="col-md-4 col-xs-12 col-sm-12">
@@ -42,6 +40,12 @@
                         </script>
                     </s:if>
                 </div>
+            </div>
+            <div class="col-md-4 col-xs-0 col-sm-0"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-xs-0 col-sm-0"></div>
+            <div class="col-md-6 col-xs-12 col-sm-12">
                 <s:form action="inv_UpdReferencia" method="post" id="inv_UpdReferencia" theme="simple"> 
                     <s:textfield name="referencia.refe_refe" cssStyle="display:none;" cssClass="idReferenciaUpdate"/>
                     <s:textfield name="accion" cssStyle="display:none" value="updReferenciaIndv"/>
@@ -53,6 +57,10 @@
                         </tr>
                         </thead>
                         <tbody>
+                            <tr>
+                                <td><h4>Nombre:</h4></td>
+                                <td><s:textfield name="referencia.refe_nombre" required="true" cssClass="form-control"/></td>
+                            </tr>
                             <tr>
                                 <td><h4>Descripción:</h4></td>
                                 <td><s:textfield name="referencia.refe_desc" required="true" cssClass="form-control"/></td>
@@ -92,8 +100,7 @@
                     </table>
                 </s:form>
             </div>
-
-            <div class="col-md-4 col-xs-0 col-sm-0"></div>
+            <div class="col-md-6 col-xs-0 col-sm-0"></div>
         </div>
     </body>
 </html>

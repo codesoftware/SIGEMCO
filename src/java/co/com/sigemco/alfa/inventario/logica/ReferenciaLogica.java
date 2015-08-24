@@ -51,6 +51,7 @@ public class ReferenciaLogica {
                 aux.setRefe_memori(rs.getString("refe_memori"));
                 aux.setRefe_pantalla(rs.getString("refe_pantalla"));
                 aux.setRefe_estado(rs.getString("refe_estado"));
+                aux.setRefe_nombre(rs.getString("refe_nombre"));
                 result.add(aux);
             }
 
@@ -68,7 +69,6 @@ public class ReferenciaLogica {
      * @return
      */
     public String actualizaReferenciaEspecifica(ReferenciaDTO objDTO) {
-
         ReferenciaDao objDAO = null;
         try (EnvioFunction funcion = new EnvioFunction()) {
             objDAO = new ReferenciaDao();
@@ -109,7 +109,7 @@ public class ReferenciaLogica {
                 result.setRefe_memori(rs.getString("refe_memori"));
                 result.setRefe_pantalla(rs.getString("refe_pantalla"));
                 result.setRefe_estado(rs.getString("refe_estado"));
-
+                result.setRefe_nombre(rs.getString("refe_nombre"));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -133,6 +133,12 @@ public class ReferenciaLogica {
 
     }
 
+    /**
+     * Funcion con la cual se pobla el objeto dao en base al objeto dto
+     *
+     * @param objDTO
+     * @return
+     */
     public ReferenciaDao poblarDAO(ReferenciaDTO objDTO) {
         ReferenciaDao objDAO = new ReferenciaDao();
         objDAO.setRefe_desc(objDTO.getRefe_desc());
@@ -141,6 +147,7 @@ public class ReferenciaLogica {
         objDAO.setRefe_estado(objDTO.getRefe_estado());
         objDAO.setRefe_pantalla(objDTO.getRefe_pantalla());
         objDAO.setRefe_refe(objDTO.getRefe_refe());
+        objDAO.setRefe_nombre(objDTO.getRefe_nombre());
         return objDAO;
     }
 
@@ -150,46 +157,16 @@ public class ReferenciaLogica {
             if (!objDTO.getRefe_estado().equalsIgnoreCase("-1")) {
                 respuesta += " AND refe_estado='" + objDTO.getRefe_estado() + "'";
             }
-            if (!objDTO.getRefe_came().equalsIgnoreCase("-1")) {
-                if (objDTO.getRefe_came().equalsIgnoreCase("8")) {
-                    respuesta += " AND refe_came <=8 ";
-                } else if (objDTO.getRefe_came().equalsIgnoreCase("13")) {
-                    respuesta += " AND (refe_came >8 AND refe_came <= 13)  ";
-                } else {
-                    respuesta += " AND refe_came > 13 ";
-                }
-
+            if (!objDTO.getRefe_came().equalsIgnoreCase("")) {
+                respuesta += " AND upper(refe_came) like upper('%" + objDTO.getRefe_came() + "%') ";
             }
 
-            if (!objDTO.getRefe_memori().equalsIgnoreCase("-1")) {
-                if (objDTO.getRefe_memori().equalsIgnoreCase("16")) {
-                    respuesta += " AND refe_memori <= 16 ";
-                } else if (objDTO.getRefe_memori().equalsIgnoreCase("16")) {
-                    respuesta += " AND (refe_came > 16 AND refe_came <= 32 )  ";
-                } else {
-                    respuesta += " AND refe_came > 32 ";
-                }
-
+            if (!objDTO.getRefe_memori().equalsIgnoreCase("")) {
+                respuesta += " AND upper(refe_memori) like upper('%" + objDTO.getRefe_memori() + "%') ";
             }
 
-            if (!objDTO.getRefe_memori().equalsIgnoreCase("-1")) {
-                if (objDTO.getRefe_memori().equalsIgnoreCase("16")) {
-                    respuesta += " AND refe_memori <= 16 ";
-                } else if (objDTO.getRefe_memori().equalsIgnoreCase("16")) {
-                    respuesta += " AND (refe_memori > 16 AND refe_memori <= 32 )  ";
-                } else {
-                    respuesta += " AND refe_memori > 32 ";
-                }
-
-            }
-
-            if (!objDTO.getRefe_pantalla().equalsIgnoreCase("-1")) {
-                if (objDTO.getRefe_pantalla().equalsIgnoreCase("4")) {
-                    respuesta += " AND refe_memori <= 4 ";
-                } else {
-                    respuesta += " AND refe_memori > 4 ";
-                }
-
+            if (!objDTO.getRefe_pantalla().equalsIgnoreCase("")) {
+                respuesta += " AND upper(refe_memori) like upper('%" + objDTO.getRefe_pantalla() + "%') ";
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -213,7 +190,7 @@ public class ReferenciaLogica {
                 if (rta == null) {
                     rta = new LinkedHashMap<String, String>();
                 }
-                rta.put(rs.getString("refe_refe"), rs.getString("refe_desc"));
+                rta.put(rs.getString("refe_refe"), rs.getString("refe_nombre"));
             }
         } catch (Exception e) {
             e.printStackTrace();
