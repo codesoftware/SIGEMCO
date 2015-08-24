@@ -190,7 +190,7 @@ public class ReferenciaLogica {
                 if (rta == null) {
                     rta = new LinkedHashMap<String, String>();
                 }
-                rta.put(rs.getString("refe_refe"), rs.getString("refe_desc"));
+                rta.put(rs.getString("refe_refe"), rs.getString("refe_nombre"));
             }
         } catch (Exception e) {
             e.printStackTrace();

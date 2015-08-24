@@ -85,7 +85,7 @@ public class ReferenciaDao {
      */
     public String consultaGeneralActivos() {
         String select = "";
-        select += "SELECT refe_refe, refe_desc, refe_estado, refe_came, refe_memori,refe_pantalla\n";
+        select += "SELECT refe_refe,refe_nombre, refe_desc, refe_estado, refe_came, refe_memori,refe_pantalla\n";
         select += "  FROM in_trefe                                                 \n";
         select += " WHERE refe_estado = 'A' \n";
         select += " ORDER BY refe_desc ";
