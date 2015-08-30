@@ -67,12 +67,12 @@
                                     <s:select cssClass="form-control" list="referencias" name="producto.referencia" id="referencia" headerKey="-1" headerValue="Seleccione..." />
                                 </td>
                             </tr>
-<!--                            <tr>
+<%--                            <tr>
                                 <td>Proveedores:</td>
                                 <td>
                                     <s:select cssClass="form-control" list="proveedores" name="producto.proveedores" id="proveedores" headerKey="-1" headerValue="Seleccione..." />
                                 </td>
-                            </tr>-->
+                            </tr>--%>
                             <tr>
                                 <td>Codigo:</td>
                                 <td><s:text name="producto.codigo" /></td>

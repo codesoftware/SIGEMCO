@@ -45,7 +45,7 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th colspan="4" class="alert alert-info text-center"><h3>CREACÓN DE SEDES</h3></th>
+                                <th colspan="4" class="alert alert-info text-center"><h3>CREACIÓN DE SEDES</h3></th>
                         </tr>
                         </thead>
                         <tbody>

@@ -79,10 +79,16 @@
                 </div>
                 <div class="col-md-4 col-xs-12 col-sm-6 ">
                     <div class="form-group">
-                        <label for="descripcion">Promedio:</label>
-                        <s:text name="receta.rece_promedio" />
+                        <label for="promedio">Promedio:</label>
+                        <span id="costoRecetaLabel"><s:text name="receta.rece_promedio" /></span>
                     </div>
-                </div>                                  
+                </div>
+                <div class="col-md-12 col-xs-12 col-sm-12 ">
+                    <div class="form-group">
+                        <label for="costoReceta" >Costo aproximado Manualmente:</label>
+                        &nbsp;&nbsp; $&nbsp;<s:text name="receta.rece_costo" />
+                    </div>
+                </div>
             </div>
             <div class="col-md-1 col-xs-0 col-sm-0"></div>
         </div>

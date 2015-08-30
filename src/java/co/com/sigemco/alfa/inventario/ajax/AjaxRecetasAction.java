@@ -83,6 +83,13 @@ public class AjaxRecetasAction extends ActionSupport implements SessionAware, Us
             if (lista != null) {
                 rta.put("respuesta", "Ok");
                 rta.put("objeto", lista);
+                RecetaLogica logicaReceta = new RecetaLogica();
+                RecetaDto objRecetaDto = new RecetaDto();
+                objRecetaDto.setRece_rece(rece_rece);
+                objRecetaDto = logicaReceta.consultaRecetaXId(objRecetaDto);                
+                if(objRecetaDto!= null){
+                    rta.put("objReceta", objRecetaDto);
+                }
             } else {
                 rta.put("respuesta", "Error al buscar la lista de productos o la receta no tiene productos aún");
             }

@@ -19,6 +19,7 @@ function buscaProductos() {
         url: RutaSitio + "/consultaProdIXcod.action",
         data: datos,
         cache: false,
+        async: false,
         dataType: 'json',
         success: function (data, textStatus, jqXHR) {
             $('#productoConsulta').html('');
@@ -109,6 +110,8 @@ function buscaProductosReceta() {
                     linea += '</tr> ';
                 });
                 $('#filasProdAdicionados').html(linea);
+                var promedio = data.objReceta.rece_promedio;
+                $('#costoRecetaLabel').html(promedio);
             }
         }
     });

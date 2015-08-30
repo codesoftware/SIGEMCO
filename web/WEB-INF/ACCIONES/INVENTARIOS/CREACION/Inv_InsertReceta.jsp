@@ -5,13 +5,13 @@
 <html>
     <head>
         <s:include value="/WEB-INF/NEWTEMPLATE/cabecera.jsp"></s:include>
-        <script type="text/javascript">
-            $(function(){
-               $('#insertarBtn').click(function(){
-                   document.forms[0].submit();
-               }); 
-            });
-        </script>
+            <script type="text/javascript">
+                $(function () {
+                    $('#insertarBtn').click(function () {
+                        document.forms[0].submit();
+                    });
+                });
+            </script>
         </head>
         <body>
         <s:div cssClass="header">
@@ -51,9 +51,9 @@
         <div class="row">
             <div class="col-md-3 col-xs-0 col-sm-0"></div>
             <div class="col-md-6 col-xs-12 col-sm-12">
-            <s:form theme="simple" method="post" action="Inv_InsertReceta">
-                <s:textfield name="accion" value="insertReceta" cssStyle="display:none" />
-                <table class="table table-bordered">
+                <s:form theme="simple" method="post" action="Inv_InsertReceta">
+                    <s:textfield name="accion" value="insertReceta" cssStyle="display:none" />
+                    <table class="table table-bordered">
                         <thead>
                             <tr>
                                 <td class="alert alert-info text-center" colspan="2"><h3>Adición de Recetas o Platos</h3></td>
@@ -77,17 +77,9 @@
                                 </td>                            
                             </tr>
                             <tr>
-<<<<<<< HEAD
                                 <td>Costo Receta:</td>
                                 <td>
                                     <s:textfield name="receta.rece_costo" cssClass="form-control" onkeypress="return validaNumeros(event)" onkeyup="mascaraMoneda(this)"/>                                    
-=======
-                                <td>
-                                    Costo Receta:
-                                </td> 
-                                <td>
-                                    <s:textfield name="receta.rece_costo" cssClass="form-control"/>                                    
->>>>>>> origin/master
                                 </td>
                             </tr>
                         </tbody>
