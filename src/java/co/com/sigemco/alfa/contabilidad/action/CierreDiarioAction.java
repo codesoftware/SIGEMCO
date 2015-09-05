@@ -6,6 +6,7 @@
 package co.com.sigemco.alfa.contabilidad.action;
 
 import co.com.hotel.datos.session.Usuario;
+import co.com.hotel.dto.Sede;
 import co.com.hotel.logica.sede.Adm_SedeLogica;
 import co.com.hotel.utilidades.UsuarioHabilitado;
 import co.com.sigemco.alfa.contabilidad.dao.CierreDiarioDao;
@@ -15,6 +16,11 @@ import com.opensymphony.xwork2.ActionSupport;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.struts2.ServletActionContext;
@@ -67,6 +73,38 @@ public class CierreDiarioAction extends ActionSupport implements UsuarioHabilita
         return SUCCESS;
     }
 
+    /**
+     * metodo que hace la insercion de cierres automatico
+     *
+     * @return
+     */
+    public String insertaCierreTarea() {
+        ArrayList<Sede> lista = new ArrayList<Sede>();
+        Adm_SedeLogica logicaSede = new Adm_SedeLogica();
+        CierreDiarioLogica logica = new CierreDiarioLogica();
+        try {
+            java.util.Date fecha = new Date();
+            System.out.println(fecha);
+            Calendar cal = new GregorianCalendar();
+            cal.setTimeInMillis(fecha.getTime());
+            cal.add(Calendar.DATE, -1);
+            Date d = new Date();
+            d =cal.getTime();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            String fechaf = sdf.format(d);
+            System.out.println("f" + fechaf);
+            lista = logicaSede.consultaGeneralSede("A");
+            for (Sede lista1 : lista) {
+                logica.insertaCierreDiario("1", lista1.getSede_sede(), fechaf);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            addActionError("Error al ingresar el producto");
+        }
+        return SUCCESS;
+    }
+
     public void validate() {
         if ("cierreDiario".equalsIgnoreCase(accion)) {
             Adm_SedeLogica sedeLogica = null;
@@ -88,7 +126,7 @@ public class CierreDiarioAction extends ActionSupport implements UsuarioHabilita
         try {
             String path = reporte.getPath();
             CierreDiarioLogica logica = new CierreDiarioLogica();
-            String rta = logica.generarReporteCierre(cierreDiario, path,reporteDestino.getPath());
+            String rta = logica.generarReporteCierre(cierreDiario, path, reporteDestino.getPath());
             if (rta.equalsIgnoreCase("Ok")) {
                 fileInputStream = new FileInputStream(reporteDestino);
                 this.contentLength = reporteDestino.length();
@@ -204,6 +242,5 @@ public class CierreDiarioAction extends ActionSupport implements UsuarioHabilita
     public void setContentName(String contentName) {
         this.contentName = contentName;
     }
-    
 
 }

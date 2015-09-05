@@ -20,4 +20,9 @@
     <welcome-file-list>
         <welcome-file>inicio.jsp</welcome-file>
     </welcome-file-list>
+    	<listener>
+	  <listener-class>
+            co.com.sigemco.alfa.tareaProgramada.TareaInvocar
+          </listener-class>
+	</listener>
 </web-app>

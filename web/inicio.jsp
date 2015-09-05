@@ -1,8 +1,13 @@
+<%@page import="co.com.sigemco.alfa.tareaProgramada.Programacion"%>
+<%@page import="co.com.sigemco.alfa.tareaProgramada.TareaInvocar"%>
 <%@taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html>
 <html>
     <head>
         <%@include file="/WEB-INF/NEWTEMPLATE/cabecera.jsp"%> 
+        <%Programacion pr = new Programacion();
+        pr.iniciarTarea();
+        %>
     </head>
     <body>
         <s:form action="logeo" autocomplete="off" theme="simple">
