@@ -70,5 +70,9 @@
         </action>
         <action name="buscaProductosInicio" class="co.com.sigemco.alfa.admin.ajax.AjaxAdministracionAction" method="buscaProductosInicio">
         </action>
+        <!--Inicio Cancelacion Facturacion Facturacion -->
+        <action name="buscaFacturaXId" class="co.com.sigemco.alfa.facturacion.ajax.AjaxCancelaFacturaAction" method="buscaFacturaXId">
+        </action>
+        <!--Fin Cancelacion Facturacion Facturacion -->        
     </package>
 </struts>
