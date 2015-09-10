@@ -7,7 +7,6 @@ package co.com.hotel.logica.reportes;
 
 import co.com.hotel.datos.session.Usuario;
 import co.com.hotel.persistencia.general.EnvioFunction;
-import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -80,7 +79,7 @@ public class Rep_ReporteLogica {
         try {
             conn = this.generarConexion();
             String ubicacionReporte = ruta;
-            Map<String, Object> properties = new HashMap<String, Object>();            
+            Map<String, Object> properties = new HashMap<String, Object>();
             properties.put("PERFIL", usua.getIdPerfil());
             properties.put("ESTADO", usua.getEstado());
             JasperReport jasperReport = (JasperReport) JRLoader.loadObject(ubicacionReporte);
@@ -218,7 +217,7 @@ public class Rep_ReporteLogica {
             properties.put("fechaFinal", fechaFin);
             JasperReport jasperReport = (JasperReport) JRLoader.loadObject(ubicacionReporte);
             print = JasperFillManager.fillReportToFile(ubicacionReporte,
-            properties, conn);
+                    properties, conn);
             //JasperPrint print = JasperFillManager.fillReport(jasperReport, properties, conn);
             //JasperExportManager.exportReportToPdfFile(print, rutaDestino);
             JRXlsExporter exporter = new JRXlsExporter();
@@ -240,8 +239,19 @@ public class Rep_ReporteLogica {
         }
         return rta;
     }
-    
-    public String generarPromPondXProd(String ruta, String rutaDestino, String fechaIni, String fechaFin,String dska) {
+
+    /**
+     * Funcion la cual genera el reporte para crear el pdf del promedio
+     * ponderado
+     *
+     * @param ruta
+     * @param rutaDestino
+     * @param fechaIni
+     * @param fechaFin
+     * @param dska
+     * @return
+     */
+    public String generarPromPondXProd(String ruta, String rutaDestino, String fechaIni, String fechaFin, String dska) {
         String rta = "Ok";
         Connection conn = null;
         try {
@@ -254,6 +264,39 @@ public class Rep_ReporteLogica {
             JasperReport jasperReport = (JasperReport) JRLoader.loadObject(ubicacionReporte);
             JasperPrint print = JasperFillManager.fillReport(jasperReport, properties, conn);
             JasperExportManager.exportReportToPdfFile(print, rutaDestino);
+        } catch (Exception e) {
+            e.printStackTrace();
+            rta = "Error " + e;
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Rep_ReporteLogica.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return rta;
+    }
+
+    public String generaRepProductos(String ruta, String rutaDestino) {
+        String rta = "Ok";
+        Connection conn = null;
+        try {
+            conn = this.generarConexion();
+            String ubicacionReporte = ruta;
+            String print = null;
+            Map<String, Object> properties = new HashMap<String, Object>();
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(ubicacionReporte);
+            print = JasperFillManager.fillReportToFile(ubicacionReporte,
+                    properties, conn);
+            //JasperPrint print = JasperFillManager.fillReport(jasperReport, properties, conn);
+            //JasperExportManager.exportReportToPdfFile(print, rutaDestino);
+            JRXlsExporter exporter = new JRXlsExporter();
+
+            exporter.setParameter(JRExporterParameter.INPUT_FILE_NAME,
+                    print);
+            exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME,
+                    rutaDestino);
+            exporter.exportReport();
         } catch (Exception e) {
             e.printStackTrace();
             rta = "Error " + e;

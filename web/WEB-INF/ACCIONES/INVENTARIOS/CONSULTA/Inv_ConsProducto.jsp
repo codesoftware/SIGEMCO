@@ -19,10 +19,10 @@
             <s:include value="/WEB-INF/NEWTEMPLATE/menu.jsp">
                 <s:param name="title"><s:property value="usuario.usuario" /></s:param>
             </s:include> 
-        </s:div>        
+        </s:div> 
         <div class="row">
-            <div class="col-md-3 col-sm-0 col-xs-0"></div>
-            <div class="col-md-6 col-sm-12 col-xs-12">
+            <div class="col-md-1 col-sm-0 col-xs-0"></div>
+            <div class="col-md-10 col-sm-12 col-xs-12">
                 <div class="Mensajes" style="display: none;">
                     <s:if test="hasActionErrors()">
                         <div class="alert alert-danger" id="info" role="alert" ><h4><s:actionerror /></h4></div>
@@ -39,6 +39,12 @@
                         </script>
                     </s:if>
                 </div>
+            </div>
+            <div class="col-md-1 col-sm-0 col-xs-0"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1 col-sm-0 col-xs-0"></div>
+            <div class="col-md-10 col-sm-12 col-xs-12">                
                 <s:form action="inv_consProdPorFiltrosGen" id="inv_consProdPorFiltrosGen" theme="simple">
                     <s:textfield name="accion" value="consultaGen" cssStyle="display:none" />
                     <div class="form-group col-md-12 col-sm-12 col-xs-12 thumbnail">
@@ -48,39 +54,42 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group col-md-3 col-sm-6 col-xs-12">
                                 Marca:<br>
                                 <s:select  list="marcas"  name="producto.dska_marca" required="true" headerKey="-1" headerValue="Marca" cssClass="form-control" id="producto_marca" />
                             </div>
-                            <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group col-md-3 col-sm-5 col-xs-12">
                                 Categoria:<br>
                                 <s:select  list="categorias"  name="producto.dska_cate" required="true" headerKey="-1" headerValue="Categoria" cssClass="form-control" id="producto_categoria" />
                             </div>
-                            <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group col-md-3 col-sm-6 col-xs-12">
                                 <s:i18n name="co.com.sigemco.alfa.archivos.MessagesBundleProducto" >
                                     <s:text name="texto1" />
                                 </s:i18n>
                                 <br>                                
                                 <s:select cssClass="form-control" list="referencias" name="producto.dska_refe" id="referencia" headerKey="-1" headerValue="Referencia" />
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-8 col-sm-8 col-xs-4">
+                            <div class="form-group col-md-3 col-sm-6 col-xs-12">
                                 Codigo:<br>
                                 <s:textfield name="producto.dska_cod" placeholder="Filtro" cssClass="form-control" />
                             </div>
-                            <div class="form-group col-md-4 col-sm-4 col-xs-4 ">
-                                <br>
+                        </div>
+                        <div class="row">                            
+                            <div class="col-md-8 col-sm-8 col-xs-8"></div>
+                            <div class="form-group col-md-2 col-sm-2 col-xs-2 ">
                                 <s:include value="/WEB-INF/TEMPLATE/botones/find.jsp">
                                     <s:param name="function">buscaGeneral</s:param>
                                     <s:param name="title">Busca Productos</s:param>
                                 </s:include>
                             </div>
+                            <div class="form-group col-md-2 col-sm-2 col-xs-2 ">
+                                <img src="<%=RutaSitio%>/IMAGENES/GIFS/xlsx.png" style="width: 50px;" id="imagenXls" onclick="ejecutaReporte()"/>
+                            </div>
                         </div>                            
                     </div>                        
                 </s:form>
             </div>
-            <div class="col-md-3 col-sm-0 col-xs-0"></div>
+            <div class="col-md-1 col-sm-0 col-xs-0"></div>
         </div>
         <br/>
         <div class="row">
