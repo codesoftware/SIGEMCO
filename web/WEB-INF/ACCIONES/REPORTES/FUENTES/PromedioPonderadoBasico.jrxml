@@ -91,21 +91,21 @@
 			<![CDATA[select kapr_cons_pro consec,                           
     to_char(kapr_fecha, 'dd/mm/yyyy') fecha,           
     mvin_descr mvInv,                                  
-    case when mvin_natu = 'I' then  kapr_cant_mvto     
+    case when mvin_natu = 'I' then  to_char(kapr_cant_mvto,'9,999,999,999')
         end cantMvtoEn,                                
-    case when mvin_natu = 'I' then  kapr_cost_mvto_uni 
+    case when mvin_natu = 'I' then  to_char(kapr_cost_mvto_uni,'9,999,999,999.00')
         end costMvtoUniEn,                             
-    case when mvin_natu = 'I' then  kapr_cost_mvto_tot 
+    case when mvin_natu = 'I' then  to_char(kapr_cost_mvto_tot,'9,999,999,999.00')
         end costMvtTotEn,                              
-    case when mvin_natu = 'E' then  kapr_cant_mvto     
+    case when mvin_natu = 'E' then  to_char(kapr_cant_mvto,'9,999,999,999')
         end cantMvtoSa,                                
-    case when mvin_natu = 'E' then  kapr_cost_mvto_uni 
+    case when mvin_natu = 'E' then  to_char(kapr_cost_mvto_uni,'9,999,999,999.00') 
         end costMvtoUniSa,                             
-    case when mvin_natu = 'E' then  kapr_cost_mvto_tot 
+    case when mvin_natu = 'E' then  to_char(kapr_cost_mvto_tot,'9,999,999,999.00') 
         end costMvtTotSa,                              
     kapr_cant_saldo cantSaldo,                         
-    kapr_cost_saldo_uni,                               
-    kapr_cost_saldo_tot,                                
+    to_char(kapr_cost_saldo_uni,'9,999,999,999.00') kapr_cost_saldo_uni ,                               
+    to_char(kapr_cost_saldo_tot,'9,999,999,999.00') kapr_cost_saldo_tot,                                
     sede_nombre  sede                              
 from in_tkapr, in_tmvin, em_tsede                      
 where kapr_dska = cast($P{DSKA1} as int )                               
@@ -116,17 +116,17 @@ and kapr_sede = sede_sede    order by kapr_cons_pro asc]]>
 		<field name="consec" class="java.lang.Integer"/>
 		<field name="fecha" class="java.lang.String"/>
 		<field name="mvinv" class="java.lang.String"/>
-		<field name="cantmvtoen" class="java.lang.Integer"/>
-		<field name="costmvtounien" class="java.math.BigDecimal"/>
-		<field name="costmvttoten" class="java.math.BigDecimal"/>
-		<field name="cantmvtosa" class="java.lang.Integer"/>
-		<field name="costmvtounisa" class="java.math.BigDecimal"/>
-		<field name="costmvttotsa" class="java.math.BigDecimal"/>
+		<field name="cantmvtoen" class="java.lang.String"/>
+		<field name="costmvtounien" class="java.lang.String"/>
+		<field name="costmvttoten" class="java.lang.String"/>
+		<field name="cantmvtosa" class="java.lang.String"/>
+		<field name="costmvtounisa" class="java.lang.String"/>
+		<field name="costmvttotsa" class="java.lang.String"/>
 		<field name="cantsaldo" class="java.lang.Integer"/>
-		<field name="kapr_cost_saldo_uni" class="java.math.BigDecimal">
+		<field name="kapr_cost_saldo_uni" class="java.lang.String">
 			<fieldDescription><![CDATA[Saldo en costos de cada producto en bodega(Promedio ponderado de cada producto)]]></fieldDescription>
 		</field>
-		<field name="kapr_cost_saldo_tot" class="java.math.BigDecimal">
+		<field name="kapr_cost_saldo_tot" class="java.lang.String">
 			<fieldDescription><![CDATA[Saldo en costos de los productos existentes a la fecha por todos los productos en bodega]]></fieldDescription>
 		</field>
 		<field name="sede" class="java.lang.String"/>
