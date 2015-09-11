@@ -28,10 +28,11 @@
 			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 		</parameter>
 		<queryString>
-			<![CDATA[select dska_cod,dska_nom_prod, ecop_existencias, ecop_diferencia, ecop_valor
+			<![CDATA[select dska_cod,dska_nom_prod, ecop_existencias, ecop_diferencia, ecop_valor,dska_dska
 from in_tecop, in_tdska
 where dska_dska = ecop_dska
-and ecop_copr = cast($P{copr_copr_t} as int)]]>
+and ecop_copr = cast($P{copr_copr_t} as int)
+order by dska_dska]]>
 		</queryString>
 		<field name="dska_cod" class="java.lang.String"/>
 		<field name="dska_nom_prod" class="java.lang.String">
@@ -45,6 +46,9 @@ and ecop_copr = cast($P{copr_copr_t} as int)]]>
 		</field>
 		<field name="ecop_valor" class="java.lang.Integer">
 			<fieldDescription><![CDATA[Numero de valores del producto]]></fieldDescription>
+		</field>
+		<field name="dska_dska" class="java.lang.Integer">
+			<fieldDescription><![CDATA[Identificador primario de la tabla]]></fieldDescription>
 		</field>
 	</subDataset>
 	<parameter name="copr_copr" class="java.lang.String"/>
@@ -209,7 +213,7 @@ AND COPR_COPR = CAST($P{copr_copr} AS int)]]>
 						</jr:columnHeader>
 						<jr:detailCell style="table_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="120" height="20" uuid="fe964419-bd1b-406e-b000-4df0973b4533"/>
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="120" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="fe964419-bd1b-406e-b000-4df0973b4533"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{dska_nom_prod}]]></textFieldExpression>
 							</textField>

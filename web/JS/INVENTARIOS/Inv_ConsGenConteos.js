@@ -9,7 +9,12 @@ function iniciarConteo(copr_copr){
 
 function generarReporte(copr_copr) {
     var url = "inv_reporteConteo?conteo.copr_copr=" + copr_copr ;
-    window.open(url, "_blank", "directories=no, status=no,width=400, height=300,top=0,left=0");
+    window.open(url, "_blank");
+}
+
+function generarReporteExcel(copr_copr) {
+    var url = "inv_prodGeneralXls?conteo.copr_copr=" + copr_copr ;
+    window.open(url, "_parent");
 }
 
 function actualizaConteo(copr_copr){

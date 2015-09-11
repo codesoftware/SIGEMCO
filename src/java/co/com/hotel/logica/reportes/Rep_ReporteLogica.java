@@ -309,5 +309,39 @@ public class Rep_ReporteLogica {
         }
         return rta;
     }
+    
+    public String generarReporteConteoXLs(String copr_copr, String ruta, String rutaDestino) {
+        String rta = "Ok";
+        Connection conn = null;
+        try {
+            conn = this.generarConexion();
+            String ubicacionReporte = ruta;
+            String print = null;
+            Map<String, Object> properties = new HashMap<String, Object>();
+            properties.put("copr_copr", copr_copr.trim());
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(ubicacionReporte);
+            print = JasperFillManager.fillReportToFile(ubicacionReporte,
+                    properties, conn);
+            //JasperPrint print = JasperFillManager.fillReport(jasperReport, properties, conn);
+            //JasperExportManager.exportReportToPdfFile(print, rutaDestino);
+            JRXlsExporter exporter = new JRXlsExporter();
+
+            exporter.setParameter(JRExporterParameter.INPUT_FILE_NAME,
+                    print);
+            exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME,
+                    rutaDestino);
+            exporter.exportReport();
+        } catch (Exception e) {
+            e.printStackTrace();
+            rta = "Error " + e;
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Rep_ReporteLogica.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return rta;
+    }
 
 }

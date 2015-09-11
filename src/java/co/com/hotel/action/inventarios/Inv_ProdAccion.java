@@ -102,7 +102,7 @@ public class Inv_ProdAccion extends ActionSupport implements SessionAware, Usuar
      */
     public String consultaProdXFiltroIndv() {
         Inv_ProductoLogica logica = new Inv_ProductoLogica();
-        ArrayList<Producto> r = logica.buscaProductosXFiltro(producto,usuario.getSede());
+        ArrayList<Producto> r = logica.buscaProductosXFiltroKardex(producto);
         clearErrorsAndMessages();
         try {
             if (r == null) {

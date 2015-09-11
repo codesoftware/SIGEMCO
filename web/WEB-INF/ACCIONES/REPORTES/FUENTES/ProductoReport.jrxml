@@ -1,29 +1,151 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD JasperReport//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
-
-<jasperReport name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-    <background>
-        <band/>
-    </background>
-    <title>
-        <band height="79"/>
-    </title>
-    <pageHeader>
-        <band height="35"/>
-    </pageHeader>
-    <columnHeader>
-        <band height="61"/>
-    </columnHeader>
-    <detail>
-        <band height="125"/>
-    </detail>
-    <columnFooter>
-        <band height="45"/>
-    </columnFooter>
-    <pageFooter>
-        <band height="54"/>
-    </pageFooter>
-    <summary>
-        <band height="42"/>
-    </summary>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="58bed485-53cb-4582-afac-ce41d78a5f3d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select dska_cod, dska_nom_prod, refe_nombre, marca_nombre, cate_desc
+from in_tdska, in_trefe, in_tmarca, in_tcate
+where dska_refe = refe_refe
+and dska_marca = marca_marca
+and dska_cate = cate_cate
+order by dska_dska]]>
+	</queryString>
+	<field name="dska_cod" class="java.lang.String"/>
+	<field name="dska_nom_prod" class="java.lang.String">
+		<fieldDescription><![CDATA[Nombre que identifica al producto]]></fieldDescription>
+	</field>
+	<field name="refe_nombre" class="java.lang.String"/>
+	<field name="marca_nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[Nombre de la marca ]]></fieldDescription>
+	</field>
+	<field name="cate_desc" class="java.lang.String"/>
+	<title>
+		<band height="79" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="802" height="79" uuid="2c21a05d-a62c-4d02-a9f7-d8680ea13469"/>
+				<staticText>
+					<reportElement x="0" y="0" width="802" height="35" uuid="3d25d59e-f8ba-45b1-9922-d24489ba9cea"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="15" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Reporte General de Productos]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="41" width="152" height="20" uuid="1370f74f-03f9-47c0-b5e7-93046a0e7991"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Codigo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="377" y="41" width="177" height="20" uuid="e2accf95-3a22-4c2f-9188-e09b513701b9"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Marca Producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="554" y="41" width="248" height="20" uuid="c62cfcf5-1348-4c25-a26b-a2175f606e5c"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Categoria Producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="152" y="41" width="225" height="20" uuid="ef8487be-7480-4c58-8e1e-d03bf1bae2c3"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre Producto]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="152" height="20" uuid="3435fdc9-a204-4a97-80ea-0cfd12fe75d1"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dska_cod}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="152" y="0" width="225" height="20" uuid="6b5d3942-105b-48d9-aace-ab4e5333da02"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dska_nom_prod}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="377" y="0" width="177" height="20" uuid="19a4fe17-a070-4574-aac0-de423350289c"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{marca_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="554" y="0" width="248" height="20" uuid="f27940be-f553-40e1-9cf5-2b965fa2e7b9"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cate_desc}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
 </jasperReport>

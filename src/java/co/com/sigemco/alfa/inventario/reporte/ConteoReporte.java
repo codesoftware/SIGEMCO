@@ -31,7 +31,10 @@ public class ConteoReporte extends ActionSupport implements SessionAware, Usuari
     private InputStream fileInputStream;
     private long contentLength;
     private String contentName;
-
+    /**
+     * Funcion encargada de realizar la accion de generar el reporte de conteo en pdf
+     * @return 
+     */
     public String generaReporteConteo() {
         try {
             HttpServletRequest request = ServletActionContext.getRequest();
@@ -44,6 +47,30 @@ public class ConteoReporte extends ActionSupport implements SessionAware, Usuari
                 fileInputStream = new FileInputStream(reporteDestino);
                 this.contentLength = reporteDestino.length();
                 this.contentName = "conteo_" + conteo.getCopr_copr()+ ".pdf";
+            } else {
+                addActionError("Error al generar el reporte \n" + rta);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return SUCCESS;
+    }
+    /**
+     * Funcion encargada de realizar la accion de generar el reporte de conteo en excel
+     * @return 
+     */
+    public String generaReporteConteoXsl() {
+        try {
+            HttpServletRequest request = ServletActionContext.getRequest();
+            File reporte = new File(request.getSession().getServletContext().getRealPath("/WEB-INF/ACCIONES/REPORTES/FUENTES/" + nombreJasper));
+            File reporteDestino = new File(request.getSession().getServletContext().getRealPath("/IMAGENES/REPORTES/conteo_" + conteo.getCopr_copr()+ ".xls"));
+            String path = reporte.getPath();
+            Rep_ReporteLogica logica = new Rep_ReporteLogica();
+            String rta = logica.generarReporteConteoXLs(conteo.getCopr_copr(), path, reporteDestino.getPath());
+            if (rta.equalsIgnoreCase("Ok")) {
+                fileInputStream = new FileInputStream(reporteDestino);
+                this.contentLength = reporteDestino.length();
+                this.contentName = "conteo_" + conteo.getCopr_copr()+ ".xls";
             } else {
                 addActionError("Error al generar el reporte \n" + rta);
             }

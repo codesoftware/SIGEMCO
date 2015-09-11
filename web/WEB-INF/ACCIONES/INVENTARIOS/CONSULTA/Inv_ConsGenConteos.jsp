@@ -116,7 +116,9 @@
                                             <a href="#" onclick="iniciarConteo('<s:property value="copr_copr" />')">Abierto</a>
                                         </s:elseif>
                                         <s:elseif test="%{ copr_estado.equalsIgnoreCase('X') }">
-                                            <a href="#" onclick="generarReporte('<s:property value="copr_copr" />')">Cerrado</a>
+                                            Cerrado
+                                            <a href="#" onclick="generarReporte('<s:property value="copr_copr" />')">Pdf.</a>&nbsp;&nbsp;&nbsp;
+                                            <a href="#" onclick="generarReporteExcel('<s:property value="copr_copr" />')">Excel.</a>
                                         </s:elseif>
                                     </td>
                                 </tr>                                
