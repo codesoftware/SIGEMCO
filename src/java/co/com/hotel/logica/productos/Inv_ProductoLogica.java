@@ -114,6 +114,63 @@ public class Inv_ProductoLogica {
         }
         return r;
     }
+    
+     public ArrayList<Producto> buscaProductosXFiltro2(Producto obj, String sede) {
+        if(sede == null ){
+            sede = "1";
+        }
+        ArrayList<Producto> r = null;
+        EnvioFunction function = new EnvioFunction();
+        ResultSet rs = null;
+        int cont = 0;
+        try {
+            String sql = "select dska_refe referencia , dska_cod codigo , dska_nom_prod nombre, dska_desc descripcion, dska_marca marca, dska_dska id,"
+                    + "dska_iva iva, dska_porc_iva porcIva\n";
+            sql += ",  marca_nombre, refe_desc \n ";
+            sql += "from in_tdska,in_tmarca, in_trefe\n";
+            sql += " WHERE 1 = 1 ";
+            sql += " and marca_marca = dska_marca ";
+            sql += " and dska_refe = refe_refe ";
+            if (obj.getCodigo() != null & !"".equalsIgnoreCase(obj.getCodigo())) {
+                sql += " and dska_cod = '" + obj.getCodigo().trim() + "'\n";
+            }
+            if (obj.getNombre() != null & !"".equalsIgnoreCase(obj.getNombre())) {
+                sql += " AND dska_nom_prod = '" + obj.getNombre().trim() + "'\n";
+            }
+
+            if (obj.getReferencia() != null && !"".equalsIgnoreCase(obj.getReferencia()) && !"-1".equalsIgnoreCase(obj.getReferencia())) {
+                sql += " AND dska_refe = " + obj.getReferencia().trim() + " \n";
+            }
+            //System.out.println("Este es el sql:\n  " + sql );
+            rs = function.enviarSelect(sql);
+            while (rs.next()) {
+                if (cont == 0) {
+                    r = new ArrayList<Producto>();
+                    cont++;
+                }
+                Producto prod = new Producto();
+                prod.setReferencia(rs.getString("refe_desc"));
+                prod.setCodigo(rs.getString("codigo"));
+                prod.setNombre(rs.getString("nombre"));
+                prod.setMarca(rs.getString("marca_nombre"));
+                prod.setId(rs.getString("id"));
+                prod.setDescripcion(rs.getString("descripcion"));
+                prod.setIva(rs.getString("iva"));
+                prod.setPorcIva(rs.getString("porcIva"));
+                String aux = buscaCanProdExistenXId(prod.getId());
+                prod.setCantidad(aux);
+                prod.setCosto("No busco");
+                r.add(prod);
+            }
+        } catch (Exception e) {
+            System.out.println("Error Inv_ProductoLogica.buscaProductosXFiltro " + e);
+        } finally {
+            function.cerrarConexion();
+            function = null;
+        }
+        return r;
+    }
+
 
     /**
      * Funcion encargada de buscar un producto por el codigo del producto

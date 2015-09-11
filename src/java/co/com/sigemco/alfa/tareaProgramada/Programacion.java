@@ -50,7 +50,7 @@ public class Programacion {
         //Entre otros mas que pueden revisar en la documentacion
         //Trigger trigger = TriggerUtils.makeSecondlyTrigger(30);
         //Trigger trigger = TriggerUtils.makeDailyTrigger(2, 0);
-        Trigger trigger = TriggerUtils.makeDailyTrigger(1, 8);
+        Trigger trigger = TriggerUtils.makeDailyTrigger(3, 0);
         //En que momento va a iniciar la tarea
         trigger.setStartTime(new Date());
         //El nombre del trigger que debe ser unico
