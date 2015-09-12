@@ -50,7 +50,22 @@ public class RecetaDao {
         sql.append("SELECT rece_rece, rece_codigo, rece_nombre, rece_desc, rece_iva, rece_estado, ");
         sql.append("rece_fec_ingreso, rece_promedio, replace(cast(trunc(rece_costo,0) as varchar),'.','') rece_costo ");
         sql.append("FROM in_trece ");
-        sql.append("WHERE 1=1");
+        sql.append("WHERE 1=1 ");
+        if(objDto.getRece_nombre() != null & !"".equalsIgnoreCase(objDto.getRece_nombre().trim())){
+            sql.append("AND UPPER(rece_nombre) like UPPER('%");
+            sql.append(objDto.getRece_nombre());
+            sql.append("%')");
+        }
+        if(objDto.getRece_desc()!= null & !"".equalsIgnoreCase(objDto.getRece_desc().trim())){
+            sql.append("AND UPPER(rece_desc) like UPPER('%");
+            sql.append(objDto.getRece_desc());
+            sql.append("%')");
+        }
+        if(objDto.getRece_codigo()!= null & !"".equalsIgnoreCase(objDto.getRece_codigo().trim())){
+            sql.append("AND UPPER(rece_codigo) like UPPER('%");
+            sql.append(objDto.getRece_codigo());
+            sql.append("%')");
+        }
         return sql.toString();
     }
 

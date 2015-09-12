@@ -53,23 +53,23 @@
                             <div class="col-md-4 col-xs-12 col-sm-12 ">
                                 <div class="form-group">
                                     <label for="nombre">Nombre:</label>
-                                    <s:textfield name="rece_nombre" cssClass="form-control" />
+                                    <s:textfield name="receta.rece_nombre" cssClass="form-control" />
                                 </div>
                             </div>
                             <div class="col-md-4 col-xs-12 col-sm-12 ">
                                 <div class="form-group">
                                     <label for="descripcion">Descripcion:</label>
-                                    <s:textfield name="rece_desc" cssClass="form-control" />
+                                    <s:textfield name="receta.rece_desc" cssClass="form-control" />
                                 </div>
                             </div>
                             <div class="col-md-4 col-xs-12 col-sm-12 ">
                                 <div class="form-group">
                                     <label for="codigo">Codigo:</label>
-                                    <s:textfield name="rece_codigo" cssClass="form-control" />
+                                    <s:textfield name="receta.rece_codigo" cssClass="form-control" />
                                 </div>
                             </div>
                             <div class="col-md-12 col-xs-12 col-sm-12 text-right">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Consultar</button>
                             </div>
                         </div>
                     </div>

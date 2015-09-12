@@ -284,14 +284,35 @@ public class SubCuentaLogica {
         try (EnvioFunction function = new EnvioFunction()) {
             SubCuentaDao objDao = new SubCuentaDao();
             boolean valida = function.enviarUpdate(objDao.actualizasubCuenta(objDto));
-            if(valida){
+            if (valida) {
                 rta = "Ok";
-            }else{
+            } else {
                 rta = "Error";
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return rta;
+    }
+
+    /**
+     * Funcion la cual contiene la logica para obtener el numero de subcuentas
+     * que tiene una cuenta
+     *
+     * @param cuenta_cuenta
+     * @return
+     */
+    public int cuentaSubcuentasCuenta(String cuenta_cuenta) {
+        int conteo = 0;
+        try (EnvioFunction function = new EnvioFunction()) {
+            SubCuentaDao objDao = new SubCuentaDao();
+            ResultSet rs = function.enviarSelect(objDao.cuentaSubcuentas(cuenta_cuenta));
+            if (rs.next()) {
+                conteo = rs.getInt("conteo");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return conteo;
     }
 }

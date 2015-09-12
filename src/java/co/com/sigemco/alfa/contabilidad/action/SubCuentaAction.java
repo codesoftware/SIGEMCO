@@ -83,6 +83,14 @@ public class SubCuentaAction extends ActionSupport implements SessionAware, Usua
                 addActionError("Por favor seleccione una naturaleza para la subcuenta");
                 this.guadaDatos();
             }
+            SubCuentaLogica logicaSbcu = new SubCuentaLogica();
+            int conteo = logicaSbcu.cuentaSubcuentasCuenta(cuenta.getCuen_cuen());
+            if(conteo>=99){
+                addActionError("El numero de Subcuentas no puede exceder de 99 por favor reestructure las subcuentas para esta cuenta");
+                this.guadaDatos();
+            }
+            logicaSbcu = null;
+            
         }
     }
 

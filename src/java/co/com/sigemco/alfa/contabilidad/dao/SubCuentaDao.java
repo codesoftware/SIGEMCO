@@ -240,4 +240,20 @@ public class SubCuentaDao {
         sql.append(obj.getSbcu_sbcu());
         return sql.toString();
     }
+
+    /**
+     * Funcion encargade de realizar el Query para contar el numero de
+     * subcuentas que tiene una cuenta
+     *
+     * @param cuen_cuen
+     * @return
+     */
+    public String cuentaSubcuentas(String cuen_cuen) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("select count(*) conteo ");
+        sql.append("from co_tsbcu ");
+        sql.append("where sbcu_cuen = ");
+        sql.append(cuen_cuen);
+        return sql.toString();
+    }
 }
