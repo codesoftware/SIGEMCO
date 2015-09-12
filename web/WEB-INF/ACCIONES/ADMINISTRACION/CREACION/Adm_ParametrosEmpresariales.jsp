@@ -68,6 +68,10 @@
                                 <td><s:textfield cssClass="form-control" name="empresa.nit" /></td>
                             </tr>
                             <tr>
+                                <td>Resolución Factura No: </td>
+                                <td><s:textfield cssClass="form-control" name="empresa.resolucion" /></td>
+                            </tr>
+                            <tr>
                                 <td>Direcci&oacute;n: </td>
                                 <td><s:textfield cssClass="form-control" name="empresa.direccion" /></td>
                             </tr>

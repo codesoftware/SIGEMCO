@@ -23,7 +23,16 @@ public class Empresa {
     private String comisionPostpago;
     private String comisionReposicion;
     private String subcuentaBancos;
+    private String resolucion;
 
+    public String getResolucion() {
+        return resolucion;
+    }
+
+    public void setResolucion(String resolucion) {
+        this.resolucion = resolucion;
+    }
+    
     public String getNombre() {
         return nombre;
     }

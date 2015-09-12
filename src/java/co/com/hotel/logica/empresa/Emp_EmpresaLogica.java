@@ -46,6 +46,10 @@ public class Emp_EmpresaLogica {
             if (!inserts.equalsIgnoreCase("Ok")) {
                 return inserts;
             }
+            inserts = this.ingresaResolucion(empresa.getResolucion());
+            if (!inserts.equalsIgnoreCase("Ok")) {
+                return inserts;
+            }
             rta = "Ok";
         } catch (Exception e) {
             System.out.println("Error Emp_EmpresaLogica.ingresarParametrosPrincempresa " + e);
@@ -164,6 +168,39 @@ public class Emp_EmpresaLogica {
                 sql = "UPDATE em_tpara                          \n";
                 sql += "SET para_valor = '" + nitEmpresa + "'         \n";
                 sql += "WHERE upper(para_clave) = 'NIT'\n";
+            }
+            function.enviarUpdate(sql);
+        } catch (Exception e) {
+            System.err.println("Error Emp_EmpresaLogica.ingresaNombreEmpresa");
+            e.printStackTrace();
+            return "Error al insertar el nombre de la empresa: " + e;
+        } finally {
+            function.cerrarConexion();
+        }
+        return "Ok";
+    }
+    private String ingresaResolucion(String resolucion) {
+        EnvioFunction function = new EnvioFunction();
+        ResultSet rs = null;
+        String select = "";
+        String sql = "";
+        int cont = 0;
+        try {
+            select += "select COUNT(*)  contador       \n";
+            select += "from em_tpara                   \n";
+            select += "where upper(para_clave) = 'NIT' \n";
+            rs = function.enviarSelect(select);
+            while (rs.next()) {
+                cont = rs.getInt("contador");
+            }
+            if (cont == 0) {
+                sql = "insert into em_tpara(para_clave, para_valor) \n";
+                sql += "values('RESOLUCION', '" + resolucion + "')   \n";
+
+            } else {
+                sql = "UPDATE em_tpara                          \n";
+                sql += "SET para_valor = '" + resolucion + "'         \n";
+                sql += "WHERE upper(para_clave) = 'RESOLUCION'\n";
             }
             function.enviarUpdate(sql);
         } catch (Exception e) {
@@ -456,6 +493,7 @@ public class Emp_EmpresaLogica {
         int contador = 0;
         try {
             sql = "SELECT (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'NIT') NIT,               ";
+            sql += "       (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'RESOLUCION') RESOLUCION, ";
             sql += "       (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'NOMBREEMPRESA') NOMBRE, ";
             sql += "       (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'TELEFONOS') TELEFONOS,  ";
             sql += "       (SELECT para_valor FROM em_tpara where UPPER(para_clave) = 'DIRECCION') DIRECCION,  ";
@@ -485,6 +523,7 @@ public class Emp_EmpresaLogica {
                 obj.setComisionReposicion(rs.getString("COMISIONREP"));
                 obj.setSubcuentaBancos(rs.getString("SBCUTARJETA"));
                 obj.setIvaVentas(rs.getString("IVAPRVENTA"));
+                obj.setResolucion(rs.getString("RESOLUCION"));
             }
         } catch (Exception e) {
             System.out.println("Error Emp_EmpresaLogica.obtieneDatosEmpresa " + e);
