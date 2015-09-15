@@ -25,7 +25,11 @@ $(function () {
     }); 
     $('#cancelarFact').click(function(){
         $('#CancelaFactura').modal('show');
-    })
+    });
+    $('#cancelaFactuDef').click(function(){
+        var idFact = $('#fact_fact').val();
+        alert("Este es el id de la factura" + idFact);
+    });
 });
 
 function creaFactura(factura) {

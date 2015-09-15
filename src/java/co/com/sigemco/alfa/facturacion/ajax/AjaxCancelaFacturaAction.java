@@ -6,7 +6,6 @@
 package co.com.sigemco.alfa.facturacion.ajax;
 
 import co.com.hotel.datos.session.Usuario;
-import co.com.hotel.dto.facturacion.Factura;
 import co.com.hotel.utilidades.UsuarioHabilitado;
 import co.com.sigemco.alfa.facturacion.dto.FacturaDto;
 import co.com.sigemco.alfa.facturacion.logica.FacturaLogica;
@@ -67,6 +66,30 @@ public class AjaxCancelaFacturaAction extends ActionSupport implements SessionAw
             }
             objJson = gson.toJson(rta);
             out.print(objJson);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Funcion la cual se encarga de realizar la logica para cancelar una
+     * factura
+     */
+    public void cancelaFactura() {
+        Map<String, Object> rta = new HashMap<>();
+        String objJson;
+        Gson gson = new Gson();
+        try {
+            HttpServletResponse response = ServletActionContext.getResponse();
+            response.setContentType("text/plain;charset=utf-8");
+            PrintWriter out = response.getWriter();
+            FacturaLogica objLogica = new FacturaLogica();
+            Map<String, Object> rtaFun = objLogica.cancelaFactura(fact_fact);
+            if (rtaFun != null ){
+                rta.put("respuesta", "Factura cancelada correctamente");
+            }else{
+                rta.put("respuesta", "Error al cancelar la factura");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

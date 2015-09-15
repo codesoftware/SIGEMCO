@@ -9,6 +9,7 @@ import co.com.hotel.persistencia.general.EnvioFunction;
 import co.com.sigemco.alfa.facturacion.dao.FacturaDao;
 import co.com.sigemco.alfa.facturacion.dto.FacturaDto;
 import java.sql.ResultSet;
+import java.util.Map;
 
 /**
  *
@@ -83,6 +84,21 @@ public class FacturaLogica {
             e.printStackTrace();
         }
         return mvco_trans;
+    }
+    /**
+     * Funcion con la cual se cancela una factura
+     * @param idFact
+     * @return 
+     */
+    public Map<String, Object> cancelaFactura(Integer idFact){
+        Map<String, Object> rta = null;
+        try {
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            rta = null;
+        }
+        return rta;
     }
 
 }
