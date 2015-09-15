@@ -19,7 +19,8 @@ function cambioPlan(valor) {
             url: RutaSitio + "/AJAX/JSP/ajaxBuscaValorComisionXTppl.jsp",
             success: function (data, textStatus, jqXHR) {
                 if (data.respuesta == 'Ok') {
-                    var datoValor = mascaraMonedaConValor(data.valor);
+                    //var datoValor = mascaraMonedaConValor(data.valor);
+                    var datoValor = data.valor;
                     $('#comision').val(datoValor);
                 } else {
                     //Aqui muestro el mensaje de error
@@ -29,7 +30,5 @@ function cambioPlan(valor) {
 
     }else{
         $('#comision').val('');
-        
     }
-
 }
