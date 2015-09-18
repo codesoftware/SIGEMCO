@@ -8,7 +8,7 @@ function abrirDialogoAcCa(idDialog, usuario) {
     idDialog = "#" + idDialog;
     var postDialog = document.getElementById('numDialogo').value;
     $(idDialog).dialog({
-        modal: true,
+        modal: true,                 
         width: 500,
         show: {
             effect: "clip",
@@ -193,4 +193,48 @@ function eliminarPuntos(cadena) {
         }
     }
     return auxiliar;
+}
+
+
+
+function validaFormatoDecimal(objeto){
+    var texto = objeto.value.toString();
+    var puntos = contarCaracter(texto, "\.");
+    if( parseInt(puntos) > 1){
+        $('#textoMsn').html('El valor no puede tener mas de dos puntos por favor verifique el valor e ingreselo de nuevo');
+        $('#mensaje').modal('show');
+        objeto.value = '';
+    }else{
+        //Damos el formato de centavos
+        if(puntos == '0' ){
+            var formato = mascaraMonedaConValor(texto);
+            objeto.value = formato;
+        }else{
+            var vector = texto.split("\.");
+            var decimales = truncarDosCaracteres(vector[1]);
+            objeto.value = vector[0] +'\.' +decimales;
+        }
+    }
+}
+
+function contarCaracter(texto, carc){
+    var contador = 0;
+    for(var i = 0;i<texto.length; i++){
+        if(texto[i] == '\.'){
+            contador++;
+        }
+    }
+    return contador;
+}
+
+function truncarDosCaracteres(texto){
+    var res = '';
+    var contador = 0;
+    for(var i = 0;i<texto.length; i++){
+        if(contador<2){
+            res += texto[i];
+        }
+        contador++;
+    }
+    return res;
 }

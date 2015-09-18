@@ -52,8 +52,8 @@ function contabilizar() {
         $('.datosContabiliza').show('fast');
         var vlrProd = $('#costo').val();
         vlrProd = eliminarPuntos(vlrProd);
-        var vlrIva = $('#vlrIvaText').val();
-        var vlrTotal = parseInt(vlrProd) + parseInt(vlrIva);
+        var vlrIva = $('#vlrIvaText').val();        
+        var vlrTotal = parseFloat(vlrProd) + parseFloat(vlrIva);
         $('#vlrTotalText').val(vlrTotal);
         vlrTotal = mascaraMonedaConValor(vlrTotal.toString());
         $('#vlrTotal').html(vlrTotal);
@@ -149,11 +149,13 @@ function despuesEnter(valor) {
 //Funcion con la cual agrego cuentas a la lista
 function agrearCuenta() {
     var vlrAdd = $('#valorSubCuenta').val();
-    vlrAdd = eliminarPuntos(vlrAdd);
+    //vlrAdd = eliminarPuntos(vlrAdd);
     var vlrTotal = $('#vlrTotalText').val();
-    vlrTotal = eliminarPuntos(vlrTotal);
+    //vlrTotal = eliminarPuntos(vlrTotal);
     if (vlrAdd != '' && vlrAdd != '0') {
-        if (parseInt(vlrAdd) <= parseInt(vlrTotal)) {
+        var float = replaceAll(vlrAdd,",", "");
+        float = parseFloat(float);
+        if (float <= parseFloat(vlrTotal)) {
             var datos = new Object();
             datos.sbcu_codigo = $('#codigo_subcuenta').val();
             $.ajax({
@@ -174,7 +176,7 @@ function agrearCuenta() {
                         $('#codigo_subcuenta').focus();
                     } else {
                         var vlrSubCuenta = $('#valorSubCuenta').val();
-                        var valor = eliminarPuntos(vlrSubCuenta);
+                        var valor = replaceAll(vlrSubCuenta,",", "");
                         adicionaDetalleSubucentasAgregadas(data.objeto.sbcu_codigo, valor, 'C', 'S', '', 'U');
                         $('#valorSubCuenta').val('');
                     }
@@ -231,8 +233,9 @@ function adicionaDetalleSubucentasAgregadas(codigo, valor, naturaleza, elimina, 
                     } else {
                         natu = 'DEBITO';
                     }
-                    var vlrTotalSuma = parseInt(sumaValoresSubcuenta());
-                    vlrTotalSuma = vlrTotalSuma + parseInt(valor);
+                    var vlrTotalSuma = parseFloat(sumaValoresSubcuenta());
+                    vlrTotalSuma = vlrTotalSuma + parseFloat(valor);
+                    vlrTotalSuma = parseFloat(vlrTotalSuma).toFixed(2);
                     $('#vlrSumCuentasText').val(vlrTotalSuma);
                     $('#vlrSumCuentas').html(mascaraMonedaConValor(vlrTotalSuma.toString()));
                     var linea = '<tr class=\"filaAdicionada\">' +
@@ -286,7 +289,7 @@ function sumaValoresSubcuenta() {
     } else {
         var sumatoria = 0;
         $.each(valores, function (key, value) {
-            var aux = parseInt(value.value);
+            var aux = parseFloat(value.value);
             sumatoria = sumatoria + aux;
         });
         return sumatoria;
@@ -294,9 +297,9 @@ function sumaValoresSubcuenta() {
 }
 
 function insertar() {
-    var suma = parseInt(sumaValoresSubcuenta());
-    var costoAux = eliminarPuntos($('#vlrTotalText').val());
-    var costo = parseInt(costoAux);
+    var suma = parseFloat(sumaValoresSubcuenta()).toFixed(2);
+    var costoAux = $('#vlrTotalText').val();
+    var costo = parseFloat(costoAux).toFixed(2);
     if (suma == costo) {
         var costoSinDec = $('#costo').val();
         costoSinDec = eliminarPuntos(costoSinDec);

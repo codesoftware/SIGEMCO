@@ -169,7 +169,7 @@
                                     <td>
                                         <div class="input-group">
                                             <span class="input-group-addon">$</span>
-                                            <input type="text" id="valorSubCuenta" class="form-control" onkeypress="return validaNumeros(event)" onkeyup="mascaraMoneda(this)" />
+                                            <input type="text" id="valorSubCuenta" class="form-control" onkeyup="validaFormatoDecimal(this)"  />
                                         </div>
                                     </td>
                                 </tr>    
