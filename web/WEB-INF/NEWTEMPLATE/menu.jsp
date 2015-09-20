@@ -296,24 +296,26 @@
                 </ul>
             </li>            
             <%}
-                if (permisos.indexOf(".RpIn1.") >= 0 || permisos.indexOf(".RpUs1.") > 0) {%>
+                if (permisos.indexOf(".RpIn1.") >= 0 || permisos.indexOf(".RpUs1.") > 0 || permisos.indexOf(".RpIn2.") > 0 || permisos.indexOf(".RpIn3.") > 0) {%>
             <li><a href="#"><span class="glyphicon glyphicon-floppy-save"></span>&nbsp;Reportes</a>
                 <ul class="dropdown-menu">
                     <% if (permisos.indexOf(".RpUs1.") > 0) {%>
                     <li><a href="#">Usuarios</a>
                         <ul class="dropdown-menu">
                             <li><a href="reenvioGeneral.action?accion=431">Activos</a></li>
-                            <!--<li><a href="reenvioGeneral.action?accion=431">Facturación de Usuarios</a></li>-->
                         </ul>
                     </li>
                     <%}%>
-                    <% if (permisos.indexOf(".RpIn1.") > 0) {%>
-                    <li><a href="#">Inventario</a>
-                        <% if (permisos.indexOf(".RpIn1.") > 0) { %>
+                    <% if (permisos.indexOf(".RpIn1.") > 0 || permisos.indexOf(".RpIn2.") > 0 || permisos.indexOf(".RpIn3.") > 0) {%>
+                    <li><a href="#">Inventario</a>                        
                         <ul class="dropdown-menu">
+                            <% if (permisos.indexOf(".RpIn1.") > 0) { %>
                             <li><a href="reenvioGeneral.action?accion=411">Promedio Ponderado</a></li>
+                            <%}%>
+                            <% if (permisos.indexOf(".RpIn2.") > 0 || permisos.indexOf(".RpIn3.") > 0) { %>
+                            <li><a href="reenvioGeneral.action?accion=412">Reportes Basicos</a></li>
+                            <%}%>
                         </ul>
-                        <%}%>
                     </li>
                     <%}%>
                 </ul>

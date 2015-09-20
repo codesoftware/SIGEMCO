@@ -126,6 +126,7 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     // primer digito(3) segundo (inventarios = 1, productos = 2 , usuarios= 3)
     public static final int REP_INV_PONDERADO = 411;
     public static final int REP_INV_USUARIOS = 431;//Reportes de usuarios
+    public static final int REP_INV_BASICOS = 412;//Reportes basicos de inventarios
 
     //MODULO DE CONTABILIDAD (Primer digito 5)
     public static final int CON_CONSGENCLASES = 514;
@@ -167,6 +168,7 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     private Map<String, String> marcas;
     //Mapa por si se requiere parametrizar los reportes
     private Map<String, String> reportes;
+    private Map<String, String> reportesBasicos;
     private String modifica;
     private String bandera;
     private String estado;
@@ -309,6 +311,16 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
                     refeLogica = new ReferenciaLogica();
                     this.referencias = refeLogica.obtieneIdDescrReferenciaActivos();
                     nextPage = "rep_inv_ponderado";
+                    break;
+                case REP_INV_BASICOS:
+                    this.reportesBasicos = new HashMap<String, String>();
+                    if(usuario.getPermisos().contains(".RpIn2.")){
+                        this.reportesBasicos.put("existGene", "EXISTENCIAS GENERALES");
+                    }
+                    if(usuario.getPermisos().contains(".RpIn3.")){
+                        this.reportesBasicos.put("receProd", "PRODUCTOS RECETAS");
+                    }
+                    nextPage = "rep_inv_basicos";
                     break;
                 case INV_ACI_PRODUCTO:
                     nextPage = "inv_aci_producto";
@@ -894,4 +906,11 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
         this.recetasPantalla = recetasPantalla;
     }
 
+    public Map<String, String> getReportesBasicos() {
+        return reportesBasicos;
+    }
+
+    public void setReportesBasicos(Map<String, String> reportesBasicos) {
+        this.reportesBasicos = reportesBasicos;
+    }
 }

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" uuid="ac454c58-22da-4760-8027-e8f378609725">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="192"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select dska_cod, dska_nom_prod, kapr_cost_saldo_uni,kapr_cost_saldo_tot, kapr_cant_saldo
+from in_tdska, in_tkapr
+where kapr_dska = dska_dska
+and kapr_kapr = (select max(inv.kapr_kapr) from in_tkapr inv where inv.kapr_dska = dska_dska)
+order by dska_dska]]>
+	</queryString>
+	<field name="dska_cod" class="java.lang.String"/>
+	<field name="dska_nom_prod" class="java.lang.String">
+		<fieldDescription><![CDATA[Nombre que identifica al producto]]></fieldDescription>
+	</field>
+	<field name="kapr_cost_saldo_uni" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[Saldo en costos de cada producto en bodega(Promedio ponderado de cada producto)]]></fieldDescription>
+	</field>
+	<field name="kapr_cost_saldo_tot" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[Saldo en costos de los productos existentes a la fecha por todos los productos en bodega]]></fieldDescription>
+	</field>
+	<field name="kapr_cant_saldo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Cantidad de productos existentes a la fecha en bodega]]></fieldDescription>
+	</field>
+	<title>
+		<band height="30" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="832" height="30" uuid="cf48642b-0eab-4a1a-8aa9-576c32ebace6"/>
+				<staticText>
+					<reportElement x="0" y="0" width="832" height="30" uuid="00a12019-3593-4508-a45e-22032308eea2"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="15" isBold="true"/>
+					</textElement>
+					<text><![CDATA[REPORTE GENERAL DE EXISTENCIAS DE PRODUCTOS]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="92" height="30" uuid="8cc8e74e-f52e-4323-b1ec-acc0bab96b94"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="92" y="0" width="240" height="30" uuid="b4c0159c-9191-400b-9b5d-a5363dbb52ab"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="332" y="0" width="166" height="30" uuid="8258c924-2b5c-4e01-8acc-5a9115a656ec"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROM. POND. UNIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="498" y="0" width="166" height="30" uuid="67ed2d71-8128-4519-9ebf-9142d3c56478"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROM. POND TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="664" y="0" width="166" height="30" uuid="5a841417-afe7-488b-bea9-ecb6858749ac"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EXISTENCIAS]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="92" height="40" uuid="5fc4f92c-21dc-49e7-8eba-881d15671ed5"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dska_cod}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="92" y="0" width="240" height="40" uuid="fdbed3a6-b9ec-43fc-b45a-a1c57c8b6a92"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dska_nom_prod}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="332" y="0" width="166" height="40" uuid="b47dab5b-72c2-4c81-a623-f24d1fc97354"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{kapr_cost_saldo_uni}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="498" y="0" width="166" height="40" uuid="03fe2aca-dfc1-48d9-94e7-004798a587dc"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{kapr_cost_saldo_tot}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="664" y="0" width="166" height="40" uuid="8cfc780c-9fbb-495f-810a-f4985dea64f5"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{kapr_cant_saldo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

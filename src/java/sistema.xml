@@ -44,6 +44,7 @@
             <result name="inv_con_servicio">/WEB-INF/ACCIONES/INVENTARIOS/CONSULTA/Inv_ConsGenServ.jsp</result>
             <result name="inv_upd_producto">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_UpdProducto.jsp</result>
             <result name="rep_inv_ponderado">/WEB-INF/ACCIONES/REPORTES/JSP/inv_reporteinventario.jsp</result>
+            <result name="rep_inv_basicos">/WEB-INF/ACCIONES/REPORTES/JSP/Inv_reportesGenerales.jsp</result>
             <result name="inv_upd_servicio">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_UpdServicio.jsp</result>
             <result name="inv_aci_producto">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_ActIncProductos.jsp</result>
             <result name="inv_par_preciospr">/WEB-INF/ACCIONES/INVENTARIOS/MODIFICAR/Inv_ParPrecioProd.jsp</result>

@@ -585,8 +585,14 @@
                                                     <tr>
                                                         <td style="width: 30%;">Promedio Ponderado</td>
                                                         <td style="width: 20%;"><input type="checkbox" value="RpIn1" id="RpIn1"/></td>
-                                                        <td style="width: 30%;">&nbsp;</td>
-                                                        <td style="width: 20%;">&nbsp;</td>
+                                                        <td style="width: 30%;">Existencias Generales</td>
+                                                        <td style="width: 20%;"><input type="checkbox" value="RpIn2" id="RpIn2"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 30%;">Productos Recetas</td>
+                                                        <td style="width: 20%;"><input type="checkbox" value="RpIn3" id="RpIn3"/></td>
+                                                        <td style="width: 30%;">&nbsp;&nbsp;&nbsp;</td>
+                                                        <td style="width: 20%;"></td>
                                                     </tr>
                                                 </tbody>
                                                 <tbody  class="subPermisoCierreD">

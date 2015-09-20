@@ -29,9 +29,12 @@ public class ProductoReporte extends ActionSupport implements SessionAware, Usua
     private InputStream fileInputStream;
     private long contentLength;
     private String contentName;
+    private String tipoReporte;
 
     /**
-     * Funcion encargada de generar el reporte de productos por medio de un excel
+     * Funcion encargada de generar el reporte de productos por medio de un
+     * excel
+     *
      * @return
      */
     public String generaReporteProducto() {
@@ -45,6 +48,46 @@ public class ProductoReporte extends ActionSupport implements SessionAware, Usua
                 fileInputStream = new FileInputStream(reporteDestino);
                 this.contentLength = reporteDestino.length();
                 this.contentName = "productos.xls";
+            } else {
+                addActionError("Error al generar el reporte \n" + rta);
+            }
+            String path = reporte.getPath();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return SUCCESS;
+    }
+
+    /**
+     * Funcion encargada de generar el reporte de productos por medio de un
+     * excel
+     *
+     * @return
+     */
+    public String reportBasicosInv() {
+        try {
+            HttpServletRequest request = ServletActionContext.getRequest();
+            File reporte = null;
+            File reporteDestino = null;
+            if ("existGene".equalsIgnoreCase(this.tipoReporte)) {
+                this.nombreJasper = "ExsistenciasProductosReport.jasper";
+                reporte = new File(request.getSession().getServletContext().getRealPath("/WEB-INF/ACCIONES/REPORTES/FUENTES/" + nombreJasper));
+                reporteDestino = new File(request.getSession().getServletContext().getRealPath("/IMAGENES/REPORTES/productos_exis.xls"));
+            } else if ("receProd".equalsIgnoreCase(this.tipoReporte)) {
+                this.nombreJasper = "ProductosRecetasReport.jasper";
+                reporte = new File(request.getSession().getServletContext().getRealPath("/WEB-INF/ACCIONES/REPORTES/FUENTES/" + nombreJasper));
+                reporteDestino = new File(request.getSession().getServletContext().getRealPath("/IMAGENES/REPORTES/recetaProducto.xls"));
+            }
+            Rep_ReporteLogica logica = new Rep_ReporteLogica();
+            String rta = logica.generaReporteBasico(reporte.getPath(), reporteDestino.getPath());
+            if (rta.equalsIgnoreCase("Ok")) {
+                fileInputStream = new FileInputStream(reporteDestino);
+                this.contentLength = reporteDestino.length();
+                if ("existGene".equalsIgnoreCase(this.tipoReporte)) {
+                    this.contentName = "productos_exis.xls";
+                } else if ("receProd".equalsIgnoreCase(this.tipoReporte)) {
+                    this.contentName = "productos_receta.xls";
+                }
             } else {
                 addActionError("Error al generar el reporte \n" + rta);
             }
@@ -101,6 +144,14 @@ public class ProductoReporte extends ActionSupport implements SessionAware, Usua
 
     public void setContentName(String contentName) {
         this.contentName = contentName;
+    }
+
+    public String getTipoReporte() {
+        return tipoReporte;
+    }
+
+    public void setTipoReporte(String tipoReporte) {
+        this.tipoReporte = tipoReporte;
     }
 
 }

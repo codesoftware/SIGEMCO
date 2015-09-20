@@ -17,13 +17,13 @@ order by dska_dska]]>
 	</field>
 	<field name="refe_nombre" class="java.lang.String"/>
 	<field name="marca_nombre" class="java.lang.String">
-		<fieldDescription><![CDATA[Nombre de la marca ]]></fieldDescription>
+		<fieldDescription><![CDATA[Nombre de la marca]]></fieldDescription>
 	</field>
 	<field name="cate_desc" class="java.lang.String"/>
 	<title>
-		<band height="79" splitType="Stretch">
+		<band height="35" splitType="Stretch">
 			<frame>
-				<reportElement x="0" y="0" width="802" height="79" uuid="2c21a05d-a62c-4d02-a9f7-d8680ea13469"/>
+				<reportElement x="0" y="0" width="802" height="35" uuid="2c21a05d-a62c-4d02-a9f7-d8680ea13469"/>
 				<staticText>
 					<reportElement x="0" y="0" width="802" height="35" uuid="3d25d59e-f8ba-45b1-9922-d24489ba9cea"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -35,9 +35,9 @@ order by dska_dska]]>
 		</band>
 	</title>
 	<columnHeader>
-		<band height="61" splitType="Stretch">
+		<band height="40" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="41" width="152" height="20" uuid="1370f74f-03f9-47c0-b5e7-93046a0e7991"/>
+				<reportElement x="0" y="20" width="152" height="20" uuid="1370f74f-03f9-47c0-b5e7-93046a0e7991"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -51,7 +51,7 @@ order by dska_dska]]>
 				<text><![CDATA[Codigo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="377" y="41" width="177" height="20" uuid="e2accf95-3a22-4c2f-9188-e09b513701b9"/>
+				<reportElement x="377" y="20" width="177" height="20" uuid="e2accf95-3a22-4c2f-9188-e09b513701b9"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -65,7 +65,7 @@ order by dska_dska]]>
 				<text><![CDATA[Marca Producto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="554" y="41" width="248" height="20" uuid="c62cfcf5-1348-4c25-a26b-a2175f606e5c"/>
+				<reportElement x="554" y="20" width="248" height="20" uuid="c62cfcf5-1348-4c25-a26b-a2175f606e5c"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -79,7 +79,7 @@ order by dska_dska]]>
 				<text><![CDATA[Categoria Producto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="152" y="41" width="225" height="20" uuid="ef8487be-7480-4c58-8e1e-d03bf1bae2c3"/>
+				<reportElement x="152" y="20" width="225" height="20" uuid="ef8487be-7480-4c58-8e1e-d03bf1bae2c3"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -95,9 +95,9 @@ order by dska_dska]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="20" splitType="Stretch">
+		<band height="40" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="152" height="20" uuid="3435fdc9-a204-4a97-80ea-0cfd12fe75d1"/>
+				<reportElement x="0" y="0" width="152" height="40" isPrintWhenDetailOverflows="true" uuid="3435fdc9-a204-4a97-80ea-0cfd12fe75d1"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -109,7 +109,7 @@ order by dska_dska]]>
 				<textFieldExpression><![CDATA[$F{dska_cod}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="152" y="0" width="225" height="20" uuid="6b5d3942-105b-48d9-aace-ab4e5333da02"/>
+				<reportElement x="152" y="0" width="225" height="40" isPrintWhenDetailOverflows="true" uuid="6b5d3942-105b-48d9-aace-ab4e5333da02"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -123,7 +123,7 @@ order by dska_dska]]>
 				<textFieldExpression><![CDATA[$F{dska_nom_prod}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="377" y="0" width="177" height="20" uuid="19a4fe17-a070-4574-aac0-de423350289c"/>
+				<reportElement x="377" y="0" width="177" height="40" isPrintWhenDetailOverflows="true" uuid="19a4fe17-a070-4574-aac0-de423350289c"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -135,7 +135,7 @@ order by dska_dska]]>
 				<textFieldExpression><![CDATA[$F{marca_nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="554" y="0" width="248" height="20" uuid="f27940be-f553-40e1-9cf5-2b965fa2e7b9"/>
+				<reportElement x="554" y="0" width="248" height="40" isPrintWhenDetailOverflows="true" uuid="f27940be-f553-40e1-9cf5-2b965fa2e7b9"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
