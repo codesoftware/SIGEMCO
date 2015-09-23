@@ -10,7 +10,8 @@ function consultaCierre() {
     if (valida) {
         var fecha = $('#inv_consCierre_fecha').val();
         var sede = $('#sede').val();
-        var url = "inv_ReporteCierre?cierreDiario.cier_fech=" + fecha + "&cierreDiario.cier_sede=" + sede;
+        var url = "inv_ReporteCierreExcel?cierreDiario.cier_fech=" + fecha + "&cierreDiario.cier_sede=" + sede;
+        //var url = "inv_ReporteCierre?cierreDiario.cier_fech=" + fecha + "&cierreDiario.cier_sede=" + sede;
         window.open(url);
         document.getElementById('inv_ReporteCierre').submit();
     }

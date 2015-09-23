@@ -141,6 +141,34 @@ public class CierreDiarioAction extends ActionSupport implements UsuarioHabilita
         return SUCCESS;
 
     }
+    
+    /**
+     * Función que permite generar el reporte del cierre diario en excel
+     *
+     * @return
+     */
+    public String generarReporteExcel() {
+        HttpServletRequest request = ServletActionContext.getRequest();
+        File reporte = new File(request.getSession().getServletContext().getRealPath("/WEB-INF/ACCIONES/REPORTES/FUENTES/" + nombreJasper));
+        File reporteDestino = new File(request.getSession().getServletContext().getRealPath("/IMAGENES/REPORTES/reporteCierreDiario.xls"));
+        try {
+            String path = reporte.getPath();
+            CierreDiarioLogica logica = new CierreDiarioLogica();
+            String rta = logica.generarReporteCierreExcel(cierreDiario, path, reporteDestino.getPath());
+            if (rta.equalsIgnoreCase("Ok")) {
+                fileInputStream = new FileInputStream(reporteDestino);
+                this.contentLength = reporteDestino.length();
+                this.contentName = "reporteCierreDiario.xls";
+            } else {
+                addActionError("Error al generar el reporte \n" + rta);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return SUCCESS;
+
+    }
 
     public Usuario getUsuario() {
         return usuario;

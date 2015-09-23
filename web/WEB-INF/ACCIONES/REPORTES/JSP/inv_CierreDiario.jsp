@@ -13,18 +13,7 @@
             .ocultar{display: none;}
         </style>
     </head>
-    <body>
-        <%
-            String IP;
-            String host;
-            String req = "";
-            req = request.getRemoteAddr();
-            IP = java.net.InetAddress.getLocalHost().getHostAddress();
-            host = java.net.InetAddress.getLocalHost().getHostName();
-            System.out.println("host ip" + IP + request.getRemoteHost());
-            System.out.println("host " + host + request.getRemoteAddr());
-
-        %>
+    <body>       
         <s:div cssClass="header">
             <s:include value="/WEB-INF/NEWTEMPLATE/FrameTop.jsp" > 
                 <s:param name="nombre"><s:text name="usuario.apellido"/> <s:text name="usuario.nombre"/></s:param>

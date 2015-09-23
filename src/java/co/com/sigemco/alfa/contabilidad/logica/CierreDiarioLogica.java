@@ -5,6 +5,7 @@
  */
 package co.com.sigemco.alfa.contabilidad.logica;
 
+import co.com.hotel.logica.reportes.Rep_ReporteLogica;
 import co.com.hotel.persistencia.general.EnvioFunction;
 import co.com.sigemco.alfa.contabilidad.dao.CierreDiarioDao;
 import co.com.sigemco.alfa.contabilidad.dto.CierreDiarioDto;
@@ -14,10 +15,14 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
@@ -61,12 +66,14 @@ public class CierreDiarioLogica {
         }
         return rta;
     }
+
     /**
      * metodo que genera el pdf para el cierre
+     *
      * @param cierr
      * @param ruta
      * @param rutaDestino
-     * @return 
+     * @return
      */
 
     public String generarReporteCierre(CierreDiarioDao cierr, String ruta, String rutaDestino) {
@@ -89,6 +96,47 @@ public class CierreDiarioLogica {
                 conn.close();
             } catch (SQLException ex) {
                 ex.printStackTrace();
+            }
+        }
+        return rta;
+    }
+
+    /**
+     * metodo que genera el pdf para el cierre en excel
+     *
+     * @param cierr
+     * @param ruta
+     * @param rutaDestino
+     * @return
+     */
+    public String generarReporteCierreExcel(CierreDiarioDao cierr, String ruta, String rutaDestino) {
+        String rta = "Ok";
+        Connection conn = null;
+        try {
+            conn = this.generarConexion();
+            String ubicacionReporte = ruta;
+            String print = null;
+            Map<String, Object> properties = new HashMap<String, Object>();
+            properties.put("FECHA", cierr.getCier_fech());
+            properties.put("SEDE", cierr.getCier_sede());
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(ubicacionReporte);
+            print = JasperFillManager.fillReportToFile(ubicacionReporte,
+                    properties, conn);
+            //JasperPrint print = JasperFillManager.fillReport(jasperReport, properties, conn);
+            //JasperExportManager.exportReportToPdfFile(print, rutaDestino);
+            JRXlsExporter exporter = new JRXlsExporter();
+
+            exporter.setParameter(JRExporterParameter.INPUT_FILE_NAME,print);
+            exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME,rutaDestino);
+            exporter.exportReport();
+        } catch (Exception e) {
+            e.printStackTrace();
+            rta = "Error " + e;
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Rep_ReporteLogica.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return rta;
