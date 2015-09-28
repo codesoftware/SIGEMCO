@@ -92,7 +92,6 @@ public class CierreDiarioAction extends ActionSupport implements UsuarioHabilita
             d =cal.getTime();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             String fechaf = sdf.format(d);
-            System.out.println("f" + fechaf);
             lista = logicaSede.consultaGeneralSede("A");
             for (Sede lista1 : lista) {
                 logica.insertaCierreDiario("1", lista1.getSede_sede(), fechaf);

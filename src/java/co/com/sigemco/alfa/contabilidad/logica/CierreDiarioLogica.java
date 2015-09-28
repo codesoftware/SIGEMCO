@@ -8,7 +8,6 @@ package co.com.sigemco.alfa.contabilidad.logica;
 import co.com.hotel.logica.reportes.Rep_ReporteLogica;
 import co.com.hotel.persistencia.general.EnvioFunction;
 import co.com.sigemco.alfa.contabilidad.dao.CierreDiarioDao;
-import co.com.sigemco.alfa.contabilidad.dto.CierreDiarioDto;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -44,8 +43,8 @@ public class CierreDiarioLogica {
         try (EnvioFunction function = new EnvioFunction()) {
             function.adicionarNombre("IN_FINSERT_CIERRE_DIARIO");
             function.addicionarParametroDate(fecha);
-            function.adicionarNumeric(sede);
             function.adicionarNumeric(usuario);
+            function.adicionarNumeric(sede);
             rta = function.llamarFunction(function.getSql());
             function.recuperarString();
             String[] rtaVector = rta.split("-");
