@@ -85,6 +85,11 @@
                                     CONSULTAR                                    
                                 </a>
                             </div>
+                            <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                                <a href="#" class="btn btn-primary" onclick="consultaCierreDetalle()" >  
+                                    CONSULTAR DETALLE                                    
+                                </a>
+                            </div>
                         </div>                        
                     </div>                    
                 </s:form>

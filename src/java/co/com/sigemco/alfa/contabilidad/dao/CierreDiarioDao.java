@@ -83,7 +83,13 @@ public class CierreDiarioDao {
     public void setCier_estado(int cier_estado) {
         this.cier_estado = cier_estado;
     }
-    
-    
+
+    public String consultaFiltros(String filtros) {
+        String select = "";
+        select += "SELECT cier_cier, cier_fech, cier_sede\n";
+        select += "  FROM ad_tcier   where   " + filtros;
+        System.out.println(select);
+        return select;
+    }
 
 }

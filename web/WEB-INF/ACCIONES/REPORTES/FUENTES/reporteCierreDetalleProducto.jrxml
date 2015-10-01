@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteCierreDetalleProducto" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="0173c221-678e-4c3b-a814-72710f62e756">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="CIERRE" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select codigo,cantidades,to_char(valor_total ,'LFM9,999,999.00') valor_total ,producto.dska_nom_prod
+from (select '1-'||dtpr_dska codigo, sum(dtpr_cant) cantidades,sum(dtpr_vlr_total) valor_total
+from 
+fa_tdtpr,fa_tfact,in_tdska
+where fact_fact =  dtpr_fact 
+and dska_dska = dtpr_dska 
+and fact_cierre = cast($P{CIERRE} as int)
+group by dtpr_dska ) agrupacion, in_tdska producto
+where  agrupacion.codigo = producto.dska_cod
+union
+select codigo, cantidades,to_char(valor_total,'LFM9,999,999.00') valor_total,producto.rece_nombre
+from (select '3-'||dtre_rece codigo, sum(dtre_cant)cantidades, sum(dtre_vlr_venta_tot) valor_total
+from fa_tdtre,fa_tfact,in_trece
+where fact_fact = dtre_fact 
+and fact_cierre = cast($P{CIERRE} as int)
+and rece_rece = dtre_rece
+group by dtre_rece) agrupacion, in_trece producto
+where agrupacion.codigo = producto.rece_codigo]]>
+	</queryString>
+	<field name="codigo" class="java.lang.String"/>
+	<field name="cantidades" class="java.lang.Long"/>
+	<field name="valor_total" class="java.lang.String"/>
+	<field name="dska_nom_prod" class="java.lang.String">
+		<fieldDescription><![CDATA[Nombre que identifica al producto]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="61" height="22" uuid="f05122f3-7069-47c1-a805-887e9d250b7e"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Codigo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="61" y="0" width="307" height="22" uuid="4ddedef6-31bc-4bce-8456-9be56605fec4"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="368" y="0" width="79" height="22" uuid="4fabe80e-9aac-4844-9888-6c7553c4f045"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="447" y="0" width="108" height="22" uuid="15014304-79e4-48a1-8122-5ce0e385d883"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21">
+			<textField>
+				<reportElement x="0" y="0" width="61" height="20" uuid="92768b1d-7cf6-4eb3-8c62-fea1304a846f"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="368" y="0" width="79" height="20" uuid="4cb7ee8e-0af7-4eda-b65b-5467763ceaba"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cantidades}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="61" y="0" width="307" height="20" uuid="a353dbfd-7e9a-4613-b14b-da6f1c15cec8"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{dska_nom_prod}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="447" y="0" width="108" height="20" uuid="6a9766f4-c5ec-47e9-8a80-b75ef6af23f9"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{valor_total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

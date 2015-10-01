@@ -10,6 +10,7 @@ import co.com.hotel.persistencia.general.EnvioFunction;
 import co.com.sigemco.alfa.contabilidad.dao.CierreDiarioDao;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -74,7 +75,6 @@ public class CierreDiarioLogica {
      * @param rutaDestino
      * @return
      */
-
     public String generarReporteCierre(CierreDiarioDao cierr, String ruta, String rutaDestino) {
         String rta = "Ok";
         Connection conn = null;
@@ -125,8 +125,47 @@ public class CierreDiarioLogica {
             //JasperExportManager.exportReportToPdfFile(print, rutaDestino);
             JRXlsExporter exporter = new JRXlsExporter();
 
-            exporter.setParameter(JRExporterParameter.INPUT_FILE_NAME,print);
-            exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME,rutaDestino);
+            exporter.setParameter(JRExporterParameter.INPUT_FILE_NAME, print);
+            exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, rutaDestino);
+            exporter.exportReport();
+        } catch (Exception e) {
+            e.printStackTrace();
+            rta = "Error " + e;
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Rep_ReporteLogica.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return rta;
+    }
+
+    public String generarReporteCierreDetalladoExcel(CierreDiarioDao cierr, String ruta, String rutaDestino) {
+        String rta = "Ok";
+        Connection conn = null;
+        try {
+            conn = this.generarConexion();
+            String ubicacionReporte = ruta;
+            String print = null;
+
+            Map<String, Object> properties = new HashMap<String, Object>();
+            int cierreId = obtieneCodigoCierre(cierr);
+            properties.put("CIERRE", ""+cierreId);
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(ubicacionReporte);
+            try {
+                print = JasperFillManager.fillReportToFile(ubicacionReporte,
+                        properties, conn);
+            } catch (Error e) {
+                e.printStackTrace();
+            }
+
+            //JasperPrint print = JasperFillManager.fillReport(jasperReport, properties, conn);
+            //JasperExportManager.exportReportToPdfFile(print, rutaDestino);
+            JRXlsExporter exporter = new JRXlsExporter();
+
+            exporter.setParameter(JRExporterParameter.INPUT_FILE_NAME, print);
+            exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, rutaDestino);
             exporter.exportReport();
         } catch (Exception e) {
             e.printStackTrace();
@@ -158,6 +197,23 @@ public class CierreDiarioLogica {
             e.printStackTrace();
         }
         return con;
+    }
+
+    public int obtieneCodigoCierre(CierreDiarioDao cierr) {
+        int cod_cierre = 0;
+
+        try (EnvioFunction function = new EnvioFunction();) {
+            CierreDiarioDao objDao = new CierreDiarioDao();
+            ResultSet rs = function.enviarSelect(objDao.consultaFiltros("cier_sede = " + cierr.getCier_sede() + " and cier_fech = ('" + cierr.getCier_fech() + "')"));
+            while (rs.next()) {
+                cod_cierre = rs.getInt(1);
+            }
+            System.out.println("CIERRE" + cod_cierre);
+            System.out.println("CIERREF" + cierr.getCier_fech());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return cod_cierre;
     }
 
 }
