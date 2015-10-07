@@ -25,6 +25,9 @@
 	</style>
 	<parameter name="FECHA" class="java.lang.String"/>
 	<parameter name="SEDE" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\proyectos\\codeSoftware\\SIGEMCO\\web\\WEB-INF\\ACCIONES\\REPORTES\\FUENTES\\"]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT fact_fact FACTURA ,tius_usuario,'$'||to_char((fact_vlr_total + fact_vlr_iva-fact_vlr_dcto),'999,999,999.99') TOTAL,
 CASE WHEN  FACT_TIPO_PAGO = 'E' THEN 'EFECTIVO'
@@ -32,9 +35,10 @@ WHEN FACT_TIPO_PAGO = 'M' THEN 'MIXTO'
 ELSE 
 'TARJETA'
 END TIPOPAGO,
-fact_vlr_dcto DESCUENTO,
-fact_vlr_efectivo VLR_EFECTIVO,
-fact_vlr_tarjeta  VLR_TARJETA
+to_char(fact_vlr_dcto,'9,999,999,999.00') DESCUENTO,
+to_char(fact_vlr_efectivo,'9,999,999,999.00') VLR_EFECTIVO,
+to_char(fact_vlr_tarjeta,'9,999,999,999.00')  VLR_TARJETA,
+fact_cierre
 FROM fa_tfact, us_ttius
 where fact_tius = tius_tius
 AND fact_cierre = (SELECT cier_cier FROM ad_tcier WHERE cier_sede = cast($P{SEDE} as int) AND cast(cier_fech as date) = to_date($P{FECHA}, 'dd/mm/yyyy') )]]>
@@ -43,9 +47,12 @@ AND fact_cierre = (SELECT cier_cier FROM ad_tcier WHERE cier_sede = cast($P{SEDE
 	<field name="tius_usuario" class="java.lang.String"/>
 	<field name="total" class="java.lang.String"/>
 	<field name="tipopago" class="java.lang.String"/>
-	<field name="descuento" class="java.math.BigDecimal"/>
-	<field name="vlr_efectivo" class="java.math.BigDecimal"/>
-	<field name="vlr_tarjeta" class="java.math.BigDecimal"/>
+	<field name="descuento" class="java.lang.String"/>
+	<field name="vlr_efectivo" class="java.lang.String"/>
+	<field name="vlr_tarjeta" class="java.lang.String"/>
+	<field name="fact_cierre" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Referencia el id del cierre en el cual fue realizado la factura]]></fieldDescription>
+	</field>
 	<title>
 		<band height="140" splitType="Stretch">
 			<staticText>
@@ -55,6 +62,14 @@ AND fact_cierre = (SELECT cier_cier FROM ad_tcier WHERE cier_sede = cast($P{SEDE
 				</textElement>
 				<text><![CDATA[REPORTE CIERRE  DIARIO]]></text>
 			</staticText>
+			<subreport>
+				<reportElement x="0" y="40" width="802" height="100" uuid="6fa70964-0ff5-47af-9a53-f027c1989fc9"/>
+				<subreportParameter name="CIER_CIER">
+					<subreportParameterExpression><![CDATA[$F{fact_cierre}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubReporteCierreDiario.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</title>
 	<columnHeader>
@@ -71,7 +86,7 @@ AND fact_cierre = (SELECT cier_cier FROM ad_tcier WHERE cier_sede = cast($P{SEDE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[ID FACT.]]></text>
+				<text><![CDATA[ID FACT. ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="114" y="0" width="114" height="30" uuid="d63ba16c-13d1-44fb-aa41-7cc6922b8393"/>
