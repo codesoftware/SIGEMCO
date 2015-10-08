@@ -12,6 +12,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -151,7 +154,7 @@ public class CierreDiarioLogica {
 
             Map<String, Object> properties = new HashMap<String, Object>();
             int cierreId = obtieneCodigoCierre(cierr);
-            properties.put("CIERRE", ""+cierreId);
+            properties.put("CIERRE", "" + cierreId);
             JasperReport jasperReport = (JasperReport) JRLoader.loadObject(ubicacionReporte);
             try {
                 print = JasperFillManager.fillReportToFile(ubicacionReporte,
@@ -201,10 +204,19 @@ public class CierreDiarioLogica {
 
     public int obtieneCodigoCierre(CierreDiarioDao cierr) {
         int cod_cierre = 0;
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM/dd");
+        DateFormat sf1 = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        try {
+            date = sf1.parse(cierr.getCier_fech());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        String fech = sf.format(date);
         try (EnvioFunction function = new EnvioFunction();) {
             CierreDiarioDao objDao = new CierreDiarioDao();
-            ResultSet rs = function.enviarSelect(objDao.consultaFiltros("cier_sede = " + cierr.getCier_sede() + " and cier_fech = ('" + cierr.getCier_fech() + "')"));
+            ResultSet rs = function.enviarSelect(objDao.consultaFiltros("cier_sede = " + cierr.getCier_sede() + " and cier_fech = ('" + fech + "')"));
             while (rs.next()) {
                 cod_cierre = rs.getInt(1);
             }
