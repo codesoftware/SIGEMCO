@@ -26,7 +26,7 @@
 	<parameter name="FECHA" class="java.lang.String"/>
 	<parameter name="SEDE" class="java.lang.String"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["D:\\proyectos\\codeSoftware\\SIGEMCO\\web\\WEB-INF\\ACCIONES\\REPORTES\\FUENTES\\"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["/opt/Servidores/apache-tomcat-8.0.23/webapps/SIGEMCO/WEB-INF/ACCIONES/REPORTES/FUENTES/"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT fact_fact FACTURA ,tius_usuario,'$'||to_char((fact_vlr_total + fact_vlr_iva-fact_vlr_dcto),'999,999,999.99') TOTAL,
@@ -68,14 +68,14 @@ AND fact_cierre = (SELECT cier_cier FROM ad_tcier WHERE cier_sede = cast($P{SEDE
 					<subreportParameterExpression><![CDATA[$F{fact_cierre}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubReporteCierreDiario.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubReporteCierreDiario1.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</title>
 	<columnHeader>
 		<band height="30">
 			<staticText>
-				<reportElement x="0" y="0" width="114" height="30" uuid="f7bf3d18-fd22-4845-91a9-77b6455c0f88"/>
+				<reportElement x="1" y="0" width="114" height="30" uuid="f7bf3d18-fd22-4845-91a9-77b6455c0f88"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -86,7 +86,7 @@ AND fact_cierre = (SELECT cier_cier FROM ad_tcier WHERE cier_sede = cast($P{SEDE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[ID FACT. ]]></text>
+				<text><![CDATA[ID FACT .  ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="114" y="0" width="114" height="30" uuid="d63ba16c-13d1-44fb-aa41-7cc6922b8393"/>

@@ -4,8 +4,8 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="CIERRE" class="java.lang.String"/>
-	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["D:\\proyectos\\codeSoftware\\SIGEMCO\\web\\WEB-INF\\ACCIONES\\REPORTES\\FUENTES\\"]]></defaultValueExpression>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["/opt/Servidores/apache-tomcat-8.0.23/webapps/SIGEMCO/WEB-INF/ACCIONES/REPORTES/FUENTES/"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[select codigo,cantidades,to_char(valor_total ,'LFM9,999,999.00') valor_total ,producto.dska_nom_prod
@@ -44,7 +44,7 @@ where agrupacion.codigo = producto.rece_codigo]]>
 					<subreportParameterExpression><![CDATA[$P{CIERRE}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubReporteCierreDiario.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubReporteCierreDiario1.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</title>
