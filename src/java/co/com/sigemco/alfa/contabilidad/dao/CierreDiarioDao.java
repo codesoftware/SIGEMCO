@@ -88,7 +88,7 @@ public class CierreDiarioDao {
         String select = "";
         select += "SELECT cier_cier, cier_fech, cier_sede\n";
         select += "  FROM ad_tcier   where   " + filtros;
-        System.out.println(select);
+        //System.out.println(select);
         return select;
     }
 

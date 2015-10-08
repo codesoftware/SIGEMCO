@@ -208,8 +208,8 @@ public class CierreDiarioLogica {
             while (rs.next()) {
                 cod_cierre = rs.getInt(1);
             }
-            System.out.println("CIERRE" + cod_cierre);
-            System.out.println("CIERREF" + cierr.getCier_fech());
+            //System.out.println("CIERRE" + cod_cierre);
+            //System.out.println("CIERREF" + cierr.getCier_fech());
         } catch (Exception e) {
             e.printStackTrace();
         }

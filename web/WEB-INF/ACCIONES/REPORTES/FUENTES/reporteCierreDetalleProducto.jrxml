@@ -4,6 +4,9 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="CIERRE" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\proyectos\\codeSoftware\\SIGEMCO\\web\\WEB-INF\\ACCIONES\\REPORTES\\FUENTES\\"]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[select codigo,cantidades,to_char(valor_total ,'LFM9,999,999.00') valor_total ,producto.dska_nom_prod
 from (select '1-'||dtpr_dska codigo, sum(dtpr_cant) cantidades,sum(dtpr_vlr_total) valor_total
@@ -33,6 +36,18 @@ where agrupacion.codigo = producto.rece_codigo]]>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
+	<title>
+		<band height="100">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="100" uuid="6ac7ed34-48b5-4467-80c5-4a64a80e694f"/>
+				<subreportParameter name="CIER_CIER">
+					<subreportParameterExpression><![CDATA[$P{CIERRE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubReporteCierreDiario.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
 	<columnHeader>
 		<band height="22" splitType="Stretch">
 			<staticText>
@@ -130,6 +145,7 @@ where agrupacion.codigo = producto.rece_codigo]]>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{valor_total}]]></textFieldExpression>
 			</textField>
 		</band>

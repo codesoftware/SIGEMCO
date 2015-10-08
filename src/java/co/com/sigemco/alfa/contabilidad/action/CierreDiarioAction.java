@@ -179,7 +179,7 @@ public class CierreDiarioAction extends ActionSupport implements UsuarioHabilita
             if (rta.equalsIgnoreCase("Ok")) {
                 fileInputStream = new FileInputStream(reporteDestino);
                 this.contentLength = reporteDestino.length();
-                this.contentName = "reporteCierreDetalleProducto.xls";
+                this.contentName = this.cierreDiario.getCier_fech() +".xls";
             } else {
                 addActionError("Error al generar el reporte \n" + rta);
             }
