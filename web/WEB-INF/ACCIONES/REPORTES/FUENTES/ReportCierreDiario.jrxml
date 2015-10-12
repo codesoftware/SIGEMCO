@@ -64,6 +64,9 @@ AND fact_cierre = (SELECT cier_cier FROM ad_tcier WHERE cier_sede = cast($P{SEDE
 			</staticText>
 			<subreport>
 				<reportElement x="0" y="40" width="802" height="100" uuid="6fa70964-0ff5-47af-9a53-f027c1989fc9"/>
+				<subreportParameter name="CIER_FECHA">
+					<subreportParameterExpression><![CDATA[$P{FECHA}]]></subreportParameterExpression>
+				</subreportParameter>
 				<subreportParameter name="CIER_CIER">
 					<subreportParameterExpression><![CDATA[$F{fact_cierre}]]></subreportParameterExpression>
 				</subreportParameter>

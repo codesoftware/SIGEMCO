@@ -7,9 +7,11 @@
 	<parameter name="SUBREPORT_DIR" class="java.lang.String">
 		<defaultValueExpression><![CDATA["/opt/Servidores/apache-tomcat-8.0.23/webapps/SIGEMCO/WEB-INF/ACCIONES/REPORTES/FUENTES/"]]></defaultValueExpression>
 	</parameter>
+	<parameter name="FECHA_CIER" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select codigo,cantidades,to_char(valor_total ,'LFM9,999,999.00') valor_total ,producto.dska_nom_prod
-from (select '1-'||dtpr_dska codigo, sum(dtpr_cant) cantidades,sum(dtpr_vlr_total) valor_total
+		<![CDATA[select *
+from (select codigo,cantidades,to_char(valor_total ,'LFM9,999,999.00') valor_total ,producto.dska_nom_prod, dtpr_dska, 1 orden
+from (select '1-'||dtpr_dska codigo, sum(dtpr_cant) cantidades,sum(dtpr_vlr_total) valor_total, dtpr_dska 
 from 
 fa_tdtpr,fa_tfact,in_tdska
 where fact_fact =  dtpr_fact 
@@ -18,14 +20,15 @@ and fact_cierre = cast($P{CIERRE} as int)
 group by dtpr_dska ) agrupacion, in_tdska producto
 where  agrupacion.codigo = producto.dska_cod
 union
-select codigo, cantidades,to_char(valor_total,'LFM9,999,999.00') valor_total,producto.rece_nombre
-from (select '3-'||dtre_rece codigo, sum(dtre_cant)cantidades, sum(dtre_vlr_venta_tot) valor_total
+select codigo, cantidades,to_char(valor_total,'LFM9,999,999.00') valor_total,producto.rece_nombre, dtre_rece, 2 orden
+from (select '3-'||dtre_rece codigo, sum(dtre_cant)cantidades, sum(dtre_vlr_venta_tot) valor_total, dtre_rece
 from fa_tdtre,fa_tfact,in_trece
 where fact_fact = dtre_fact 
 and fact_cierre = cast($P{CIERRE} as int)
 and rece_rece = dtre_rece
 group by dtre_rece) agrupacion, in_trece producto
-where agrupacion.codigo = producto.rece_codigo]]>
+where agrupacion.codigo = producto.rece_codigo) as tabla 
+order by orden,dtpr_dska]]>
 	</queryString>
 	<field name="codigo" class="java.lang.String"/>
 	<field name="cantidades" class="java.lang.Long"/>
@@ -33,6 +36,10 @@ where agrupacion.codigo = producto.rece_codigo]]>
 	<field name="dska_nom_prod" class="java.lang.String">
 		<fieldDescription><![CDATA[Nombre que identifica al producto]]></fieldDescription>
 	</field>
+	<field name="dtpr_dska" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Llave foranea con el producto la tabla in_tdska]]></fieldDescription>
+	</field>
+	<field name="orden" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -40,6 +47,9 @@ where agrupacion.codigo = producto.rece_codigo]]>
 		<band height="100">
 			<subreport>
 				<reportElement x="0" y="0" width="555" height="100" uuid="6ac7ed34-48b5-4467-80c5-4a64a80e694f"/>
+				<subreportParameter name="CIER_FECHA">
+					<subreportParameterExpression><![CDATA[$P{FECHA_CIER}]]></subreportParameterExpression>
+				</subreportParameter>
 				<subreportParameter name="CIER_CIER">
 					<subreportParameterExpression><![CDATA[$P{CIERRE}]]></subreportParameterExpression>
 				</subreportParameter>

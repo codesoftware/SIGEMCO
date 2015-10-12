@@ -89,7 +89,7 @@ public class CierreDiarioAction extends ActionSupport implements UsuarioHabilita
             cal.setTimeInMillis(fecha.getTime());
             cal.add(Calendar.DATE, -1);
             Date d = new Date();
-            d =cal.getTime();
+            d = cal.getTime();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             String fechaf = sdf.format(d);
             lista = logicaSede.consultaGeneralSede("A");
@@ -140,7 +140,7 @@ public class CierreDiarioAction extends ActionSupport implements UsuarioHabilita
         return SUCCESS;
 
     }
-    
+
     /**
      * Función que permite generar el reporte del cierre diario en excel
      *
@@ -168,6 +168,12 @@ public class CierreDiarioAction extends ActionSupport implements UsuarioHabilita
         return SUCCESS;
 
     }
+
+    /**
+     * Funcion con la cual obtengo el reporte de cierre detallado por productos
+     *
+     * @return
+     */
     public String generarReporteDetalladoExcel() {
         HttpServletRequest request = ServletActionContext.getRequest();
         File reporte = new File(request.getSession().getServletContext().getRealPath("/WEB-INF/ACCIONES/REPORTES/FUENTES/" + nombreJasper));
@@ -179,7 +185,7 @@ public class CierreDiarioAction extends ActionSupport implements UsuarioHabilita
             if (rta.equalsIgnoreCase("Ok")) {
                 fileInputStream = new FileInputStream(reporteDestino);
                 this.contentLength = reporteDestino.length();
-                this.contentName = this.cierreDiario.getCier_fech() +".xls";
+                this.contentName = this.cierreDiario.getCier_fech() + ".xls";
             } else {
                 addActionError("Error al generar el reporte \n" + rta);
             }

@@ -144,6 +144,14 @@ public class CierreDiarioLogica {
         return rta;
     }
 
+    /**
+     * Funcion con la cual genero la logica del reporte detallado de productos
+     *
+     * @param cierr
+     * @param ruta
+     * @param rutaDestino
+     * @return
+     */
     public String generarReporteCierreDetalladoExcel(CierreDiarioDao cierr, String ruta, String rutaDestino) {
         String rta = "Ok";
         Connection conn = null;
@@ -151,10 +159,10 @@ public class CierreDiarioLogica {
             conn = this.generarConexion();
             String ubicacionReporte = ruta;
             String print = null;
-
             Map<String, Object> properties = new HashMap<String, Object>();
             int cierreId = obtieneCodigoCierre(cierr);
             properties.put("CIERRE", "" + cierreId);
+            properties.put("FECHA_CIER", "" + cierr.getCier_fech());
             JasperReport jasperReport = (JasperReport) JRLoader.loadObject(ubicacionReporte);
             try {
                 print = JasperFillManager.fillReportToFile(ubicacionReporte,
