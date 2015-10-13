@@ -85,7 +85,26 @@
                                 <td>Sede: </td>
                                 <td><s:select cssClass="form-control" list="sedes"  name="usuaNuevo.sede" headerKey="-1" headerValue="Sede de ingreso" /></td>
                             </tr>
+                            <s:if  test="parametrosComparar.equalsIgnoreCase('S')">
+                                <tr>
+                                    <td>Comision equipos: </td>
+                                    <td><s:textfield cssClass="form-control"  required="true" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Comision Accesorios: </td>
+                                    <td><s:textfield cssClass="form-control"  required="true" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Comision Reposiciones: </td>
+                                    <td><s:textfield cssClass="form-control"  required="true" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Comision planes: </td>
+                                    <td><s:textfield cssClass="form-control"  required="true" /></td>
+                                </tr>
+                            </s:if>
                         </tbody>
+
                         <tfoot>
                             <tr>
                                 <td colspan="2">
@@ -96,6 +115,7 @@
                                 </td>
                             </tr>
                         </tfoot>
+                    </table>
                     </table>
                 </s:form>
             </div>

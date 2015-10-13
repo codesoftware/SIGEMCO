@@ -188,7 +188,7 @@ public class Emp_EmpresaLogica {
         try {
             select += "select COUNT(*)  contador       \n";
             select += "from em_tpara                   \n";
-            select += "where upper(para_clave) = 'NIT' \n";
+            select += "where upper(para_clave) = 'RESOLUCION' \n";
             rs = function.enviarSelect(select);
             while (rs.next()) {
                 cont = rs.getInt("contador");
