@@ -31,8 +31,7 @@ public class IngresaUsuario {
                     + "\n\n USUARIO: " + usuario.getUsuario()
                     + "\n\n CONTRASEÑA: " + stringContra
                     + "\n\n Si esta solicitud no fue realizada por usted por favor omita este mensaje";
-            
-            
+
             SendMail sm = new SendMail(msg, usuario.getCorreo(), asunto);
             if (sm.send()) {
                 return "Correo enviado";
@@ -59,6 +58,14 @@ public class IngresaUsuario {
         param = function.adicionarParametro(contra.replace(",", " "));
         param = function.adicionarParametro(usuario.getIdPerfil());
         param = function.adicionarNumeric(usuario.getSede());
+        try{
+        param = function.adicionarParametro(usuario.getCampo1().replace(",", " "));
+        param = function.adicionarParametro(usuario.getCampo2().replace(",", " "));
+        param = function.adicionarParametro(usuario.getCampo3().replace(",", " "));
+        param = function.adicionarParametro(usuario.getCampo4().replace(",", " "));
+        }catch(Exception e){
+            System.out.println("Usuario sin campos");
+        }
         String rtaPg = function.llamarFunction(function.getSql());
         function.recuperarString();
         function.cerrarConexion();

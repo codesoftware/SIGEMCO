@@ -87,20 +87,28 @@
                             </tr>
                             <s:if  test="parametrosComparar.equalsIgnoreCase('S')">
                                 <tr>
-                                    <td>Comision equipos: </td>
-                                    <td><s:textfield cssClass="form-control"  required="true" /></td>
+                                    <td><s:i18n name="co.com.sigemco.alfa.archivos.MessagesBundleUsuario" >
+                                            <s:text name="campo1" />
+                                        </s:i18n></td>
+                                    <td><s:textfield cssClass="form-control" name="usuaNuevo.campo1" required="true" /></td>
                                 </tr>
                                 <tr>
-                                    <td>Comision Accesorios: </td>
-                                    <td><s:textfield cssClass="form-control"  required="true" /></td>
+                                    <td><s:i18n name="co.com.sigemco.alfa.archivos.MessagesBundleUsuario" >
+                                            <s:text name="campo2" />
+                                        </s:i18n></td>
+                                    <td><s:textfield cssClass="form-control" name="usuaNuevo.campo2" required="true" /></td>
                                 </tr>
                                 <tr>
-                                    <td>Comision Reposiciones: </td>
-                                    <td><s:textfield cssClass="form-control"  required="true" /></td>
+                                    <td><s:i18n name="co.com.sigemco.alfa.archivos.MessagesBundleUsuario" >
+                                            <s:text name="campo3" />
+                                        </s:i18n></td>
+                                    <td><s:textfield cssClass="form-control" name="usuaNuevo.campo3" required="true" /></td>
                                 </tr>
                                 <tr>
-                                    <td>Comision planes: </td>
-                                    <td><s:textfield cssClass="form-control"  required="true" /></td>
+                                    <td><s:i18n name="co.com.sigemco.alfa.archivos.MessagesBundleUsuario" >
+                                            <s:text name="campo4" />
+                                        </s:i18n></td>
+                                    <td><s:textfield cssClass="form-control" name="usuaNuevo.campo4"  required="true" /></td>
                                 </tr>
                             </s:if>
                         </tbody>

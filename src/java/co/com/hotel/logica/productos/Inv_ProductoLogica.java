@@ -288,9 +288,11 @@ public class Inv_ProductoLogica {
             sql += "from in_tkapr, in_tmvin, em_tsede                      \n";
             sql += "where kapr_dska = " + id + "                               \n";
             sql += "and kapr_mvin = mvin_mvin                              \n";
-            sql += "and kapr_fecha between '" + fechaIni + "' and '" + fechaFin + "' \n";
+            sql += "and kapr_fecha between to_date('" + fechaIni + "','dd/mm/yyyy') and to_date('" + fechaFin + "','dd/mm/yyyy') \n";
             sql += "and kapr_sede = sede_sede    ";
             sql += "order by kapr_cons_pro asc                             \n";
+            
+            System.out.println("sqlito"+sql);
             rs = function.enviarSelect(sql);
             while (rs.next()) {
                 if (cont == 0) {

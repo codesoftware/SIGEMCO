@@ -163,7 +163,7 @@
             </result>
         </action>
         <action name="inv_ReportePromPonXProd" class="co.com.sigemco.alfa.inventario.reporte.ProductoSticker" method="generarRepKardexPromPond" >
-            <param name="nombreJasper">PromedioPonderadoBasico.jasper</param>
+            <param name="nombreJasper">PromedioPonderadoBasico1.jasper</param>
             <result name="success" type="stream">
                 <param name="redirect">/WEB-INF/ACCIONES/REPORTES/JSP/inv_reportInvPdf.jsp</param>
                 <!-- nombre del atributo del action que contiene el InputStream a devolver, por defecto se considera inputStream -->
