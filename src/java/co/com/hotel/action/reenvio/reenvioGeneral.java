@@ -23,6 +23,8 @@ import co.com.sigemco.alfa.inventario.logica.MarcaLogica;
 import co.com.sigemco.alfa.inventario.logica.PantallaPrincipalLogica;
 import co.com.sigemco.alfa.inventario.logica.ProveedorLogica;
 import co.com.sigemco.alfa.inventario.logica.ReferenciaLogica;
+import co.com.sigemco.alfa.parametros.dto.ParametrosAdminDto;
+import co.com.sigemco.alfa.parametros.logica.ParametrosAdminLogica;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -177,6 +179,9 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     //
     private ArrayList<PantallaPrincipalDto> productosPantalla;
     private ArrayList<PantallaPrincipalDto> recetasPantalla;
+    //Mapa para consultar los parametros detallados de la empresa
+    private Map<String, String> parametrosEspeciales;
+    private String parametrosComparar;
 
     /**
      *
@@ -193,6 +198,8 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
         Emp_EmpresaLogica logicaEmp = null;
         ClaseLogica logicaClase = null;
         MarcaLogica logicaMarca = null;
+        ParametrosAdminLogica logicaParametros = null;
+
         try {
             switch (this.accion) {
                 case ADM_CON_USUARIO:
@@ -205,6 +212,13 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
                     nextPage = "adm_con_usuario";
                     break;
                 case ADM_INS_USUARIO:
+                    logicaParametros = new ParametrosAdminLogica();
+                    this.parametrosEspeciales = logicaParametros.consultaParametrosAdm();
+                    if ("S".equalsIgnoreCase(this.parametrosEspeciales.get("Comision"))) {
+                        setParametrosComparar("S");
+                    } else {
+                        setParametrosComparar("N");
+                    }
                     periflObj = new Adm_PerfilLogica();
                     sedeLogica = new Adm_SedeLogica();
                     this.perfiles = periflObj.obtieneNomPerfil();
@@ -314,10 +328,10 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
                     break;
                 case REP_INV_BASICOS:
                     this.reportesBasicos = new HashMap<String, String>();
-                    if(usuario.getPermisos().contains(".RpIn2.")){
+                    if (usuario.getPermisos().contains(".RpIn2.")) {
                         this.reportesBasicos.put("existGene", "EXISTENCIAS GENERALES");
                     }
-                    if(usuario.getPermisos().contains(".RpIn3.")){
+                    if (usuario.getPermisos().contains(".RpIn3.")) {
                         this.reportesBasicos.put("receProd", "PRODUCTOS RECETAS");
                     }
                     nextPage = "rep_inv_basicos";
@@ -913,4 +927,21 @@ public class reenvioGeneral extends ActionSupport implements UsuarioHabilitado, 
     public void setReportesBasicos(Map<String, String> reportesBasicos) {
         this.reportesBasicos = reportesBasicos;
     }
+
+    public Map<String, String> getParametrosEspeciales() {
+        return parametrosEspeciales;
+    }
+
+    public void setParametrosEspeciales(Map<String, String> parametrosEspeciales) {
+        this.parametrosEspeciales = parametrosEspeciales;
+    }
+
+    public String getParametrosComparar() {
+        return parametrosComparar;
+    }
+
+    public void setParametrosComparar(String parametrosComparar) {
+        this.parametrosComparar = parametrosComparar;
+    }
+
 }

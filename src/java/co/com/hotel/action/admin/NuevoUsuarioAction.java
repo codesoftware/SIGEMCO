@@ -8,6 +8,7 @@ import co.com.hotel.logica.usuarios.IngresaUsuario;
 import co.com.hotel.utilidades.UsuarioHabilitado;
 import co.com.hotel.validacion.ValidaCampos;
 import co.com.hotel.validacion.ValidaDuplicados;
+import co.com.sigemco.alfa.parametros.logica.ParametrosAdminLogica;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,10 +37,19 @@ public class NuevoUsuarioAction extends ActionSupport implements SessionAware, U
     private Map<String, String> estadoMap;
     private Map<String, String> sedes;
     private String modifica;
+    private String parametrosComparar;
 
     @SkipValidation
     public String execute() {
         return SUCCESS;
+    }
+
+    public String getParametrosComparar() {
+        return parametrosComparar;
+    }
+
+    public void setParametrosComparar(String parametrosComparar) {
+        this.parametrosComparar = parametrosComparar;
     }
 
     /**
@@ -57,7 +67,7 @@ public class NuevoUsuarioAction extends ActionSupport implements SessionAware, U
         usuaNuevo.setUsuario(aliasUsuarioNuevo);
         String rta = nuevoUsuario.ingresarUsuario(this.usuaNuevo, this.usuaNuevo.getFechaNacimiento());
         if (!rta.equalsIgnoreCase("Error")) {
-            addActionMessage("Usuario insertado correctamente\n Su contraseña Auxiliar para el sistema es: "+ rta + "\n y su Usuario e: " + aliasUsuarioNuevo );
+            addActionMessage("Usuario insertado correctamente\n Su contraseña Auxiliar para el sistema es: " + rta + "\n y su Usuario e: " + aliasUsuarioNuevo);
             usuaNuevo = null;
             aliasUsuarioNuevo = "";
         } else {
@@ -71,7 +81,7 @@ public class NuevoUsuarioAction extends ActionSupport implements SessionAware, U
         Adm_PerfilLogica periflObj = null;
         try {
             periflObj = new Adm_PerfilLogica();
-            this.perfilesMap = periflObj.obitnePerfilIdNombre(); 
+            this.perfilesMap = periflObj.obitnePerfilIdNombre();
             this.estadoMap = new HashMap<>();
             this.estadoMap.put("A", "Activo");
             this.estadoMap.put("I", "Inactivo");
@@ -79,12 +89,12 @@ public class NuevoUsuarioAction extends ActionSupport implements SessionAware, U
             this.usuaNuevo.setUsuario(aliasUsuarioNuevo);
             usuaNuevo = logica.buscaUsuarioXFiltros(this.usuaNuevo);
             modifica = logica.getTrajoDatos();
-            if("N".equalsIgnoreCase(modifica)){
+            if ("N".equalsIgnoreCase(modifica)) {
                 addActionError("No se encontraron coincidencias al buscar el usario");
-            }else{
+            } else {
                 this.aliasUsuarioNuevo = usuaNuevo.getUsuario();
             }
-            Adm_SedeLogica sedeLogica  = new Adm_SedeLogica();
+            Adm_SedeLogica sedeLogica = new Adm_SedeLogica();
             this.sedes = sedeLogica.obtieneSedes();
         } catch (Exception e) {
             System.out.println("Error NuevoUsuarioAction.consultaUsuario " + e);
@@ -102,6 +112,14 @@ public class NuevoUsuarioAction extends ActionSupport implements SessionAware, U
      *
      */
     public void validate() {
+        ParametrosAdminLogica logicaParametros = null;
+        logicaParametros = new ParametrosAdminLogica();
+        Map<String, String> parametrosEspeciales = logicaParametros.consultaParametrosAdm();
+        if ("S".equalsIgnoreCase(parametrosEspeciales.get("Comision"))) {
+            setParametrosComparar("S");
+        } else {
+            setParametrosComparar("N");
+        }
         ValidaCampos valida = new ValidaCampos();
         ValidaDuplicados duplicados = new ValidaDuplicados();
         boolean validacion = false;
@@ -182,7 +200,7 @@ public class NuevoUsuarioAction extends ActionSupport implements SessionAware, U
         }
         Adm_PerfilLogica periflObj = new Adm_PerfilLogica();
         setPerfiles(periflObj.obtieneNomPerfil());
-        Adm_SedeLogica sedeLogica  = new Adm_SedeLogica();
+        Adm_SedeLogica sedeLogica = new Adm_SedeLogica();
         setSedes(sedeLogica.obtieneSedes());
     }
 
@@ -229,7 +247,7 @@ public class NuevoUsuarioAction extends ActionSupport implements SessionAware, U
     public void setModifica(String modifica) {
         this.modifica = modifica;
     }
-    
+
     public Map<String, String> getPerfilesMap() {
         return perfilesMap;
     }
