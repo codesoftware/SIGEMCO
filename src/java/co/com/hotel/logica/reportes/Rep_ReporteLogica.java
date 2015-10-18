@@ -251,7 +251,7 @@ public class Rep_ReporteLogica {
      * @param dska
      * @return
      */
-    public String generarPromPondXProd(String ruta, String rutaDestino, String fechaIni, String fechaFin, String dska) {
+    public String generarPromPondXProd(String ruta, String rutaDestino, String fechaIni, String fechaFin, String dska, String rutaSubreporte) {
         String rta = "Ok";
         Connection conn = null;
         try {
@@ -261,6 +261,7 @@ public class Rep_ReporteLogica {
             properties.put("fechaInicial", fechaIni);
             properties.put("fechaFinal", fechaFin);
             properties.put("dska", dska);
+            properties.put("SUBREPORT_DIR", rutaSubreporte);
             JasperReport jasperReport = (JasperReport) JRLoader.loadObject(ubicacionReporte);
             JasperPrint print = JasperFillManager.fillReport(jasperReport, properties, conn);
             JasperExportManager.exportReportToPdfFile(print, rutaDestino);

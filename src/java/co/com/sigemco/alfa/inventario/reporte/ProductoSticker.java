@@ -80,11 +80,13 @@ public class ProductoSticker extends ActionSupport implements SessionAware, Usua
     public String generarRepKardexPromPond() {
         try {
             HttpServletRequest request = ServletActionContext.getRequest();
+            String rutaSubReporte = request.getSession().getServletContext().getRealPath("/WEB-INF/ACCIONES/REPORTES/FUENTES/");
+            rutaSubReporte += "\\";
             File reporte = new File(request.getSession().getServletContext().getRealPath("/WEB-INF/ACCIONES/REPORTES/FUENTES/" + nombreJasper));
             File reporteDestino = new File(request.getSession().getServletContext().getRealPath("/IMAGENES/REPORTES/promPond_"+dska_dska+".pdf"));
             String path = reporte.getPath();
             Rep_ReporteLogica logica = new Rep_ReporteLogica();
-            String rta = logica.generarPromPondXProd(path, reporteDestino.getPath(), fechaIni, fechaFin,dska_dska);
+            String rta = logica.generarPromPondXProd(path, reporteDestino.getPath(), fechaIni, fechaFin,dska_dska, rutaSubReporte);
             if (rta.equalsIgnoreCase("Ok")) {
                 fileInputStream = new FileInputStream(reporteDestino);
                 this.contentLength = reporteDestino.length();

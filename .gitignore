@@ -53,3 +53,4 @@ nbproject/genfiles.properties
 /dist/
 src/java/struts_2.xml
 nbproject/private/profiler/configurations.xml
+*.class
