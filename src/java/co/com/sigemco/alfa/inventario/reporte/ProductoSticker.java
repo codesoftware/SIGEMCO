@@ -81,7 +81,11 @@ public class ProductoSticker extends ActionSupport implements SessionAware, Usua
         try {
             HttpServletRequest request = ServletActionContext.getRequest();
             String rutaSubReporte = request.getSession().getServletContext().getRealPath("/WEB-INF/ACCIONES/REPORTES/FUENTES/");
-            rutaSubReporte += "\\";
+            char[] variable = rutaSubReporte.toCharArray();
+            String ultimoCaracter = ""+variable[rutaSubReporte.length()-1];
+            if(!ultimoCaracter.equalsIgnoreCase("/")){
+                rutaSubReporte += "/";
+            }
             File reporte = new File(request.getSession().getServletContext().getRealPath("/WEB-INF/ACCIONES/REPORTES/FUENTES/" + nombreJasper));
             File reporteDestino = new File(request.getSession().getServletContext().getRealPath("/IMAGENES/REPORTES/promPond_"+dska_dska+".pdf"));
             String path = reporte.getPath();
