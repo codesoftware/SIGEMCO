@@ -13,5 +13,5 @@ function cleanForm(){
 }
 
 function addNewUser(){
-   $('.addNewUser').submit();
+   $('.formInsertUsuario').submit();
 }
