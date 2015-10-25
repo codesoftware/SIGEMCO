@@ -179,6 +179,7 @@ public class Emp_EmpresaLogica {
         }
         return "Ok";
     }
+
     private String ingresaResolucion(String resolucion) {
         EnvioFunction function = new EnvioFunction();
         ResultSet rs = null;
@@ -656,6 +657,30 @@ public class Emp_EmpresaLogica {
             function.cerrarConexion();
         }
         return "Ok";
+    }
+
+    /**
+     * Funcion con la cual obtengo el valor del iva parametrizado en el sistema
+     *
+     * @return
+     */
+    public String obtieneValorIvaCompras() {
+        String porcIva = null;
+        try (EnvioFunction function = new EnvioFunction()) {
+            String sql = "select PARA_VALOR ";
+            sql += "from em_tpara ";
+            sql += "WHERE PARA_CLAVE = 'IVAPR' ";
+            ResultSet rs = function.enviarSelect(sql);
+            if (rs.next()) {
+                porcIva = rs.getString("PARA_VALOR");
+            } else {
+                porcIva = "0";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            porcIva = null;
+        }
+        return porcIva;
     }
 
 }

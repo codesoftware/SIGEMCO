@@ -1,4 +1,23 @@
+var ivaCompras = 0;
 $(function () {
+    //Funcion con la cual busco el porcentaje del iva parametrizado
+    $.ajax({
+        url: RutaSitio +"/buscaIvaCompras.action",
+        dataType: 'json',
+        cache: false,
+        async: false,
+        success: function (data, textStatus, jqXHR) {
+            if(data.respuesta = "Ok"){
+                ivaCompras = data.ivacompras;
+            }else{
+                $('#textoMsn').html('El iva para las compras no se encuentra parametrizado por favor ingresarlo o el valorr por defecto es 16');
+                $('#mensaje').modal('show');
+                ivaCompras = 16;
+            }
+            
+        }
+    });
+    
     $('.input-group.date').datepicker({
         format: 'mm/dd/yyyy'
     });
@@ -11,6 +30,7 @@ $(function () {
                 url: RutaSitio + "/consultaSubCuentaXCodigo.action",
                 data: datos,
                 dataType: 'json',
+                cache: false,
                 success: function (data, textStatus, jqXHR) {
                     $('#codigo_subcuenta').autocomplete({
                         source: data,
@@ -125,7 +145,7 @@ function cambioVlr(valor) {
         $('#vlrIva').html('0');
     } else {
         $('#vlrProd').html(valor);
-        var vlrIva = (vlrInt * 16) / 100;
+        var vlrIva = (vlrInt * ivaCompras) / 100;
         var vlrIvaMas = mascaraMonedaConValor(vlrIva.toString())
         $('#vlrIvaText').val(vlrIva);
         $('#vlrIva').html(vlrIvaMas);

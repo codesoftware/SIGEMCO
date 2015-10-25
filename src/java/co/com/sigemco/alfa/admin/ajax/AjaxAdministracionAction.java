@@ -6,6 +6,7 @@
 package co.com.sigemco.alfa.admin.ajax;
 
 import co.com.hotel.datos.session.Usuario;
+import co.com.hotel.logica.empresa.Emp_EmpresaLogica;
 import co.com.hotel.utilidades.UsuarioHabilitado;
 import co.com.sigemco.alfa.admin.logica.AdministracionLogica;
 import co.com.sigemco.alfa.inventario.dto.ProductoDto;
@@ -75,6 +76,32 @@ public class AjaxAdministracionAction extends ActionSupport implements SessionAw
             if(rta != null){
                 respuesta.put("respuesta", "Ok");
                 respuesta.put("para", rta);
+            }else{
+                respuesta.put("respuesta", "Error obtener los productos");
+            }
+            objJson = gson.toJson(respuesta);
+            out.println(objJson);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    /**
+     * Funcion con la cual obtengo el iva de las compras
+     */
+    public void buscaIvaCompras() {
+        Emp_EmpresaLogica objLogica = new Emp_EmpresaLogica();
+        Map<String,Object> respuesta;
+        respuesta = new HashMap<>();
+        HttpServletResponse response = ServletActionContext.getResponse();
+        response.setContentType("text/plain;charset=utf-8");
+        try {
+            PrintWriter out = response.getWriter();
+            Gson gson = new Gson();
+            String objJson;
+            String rta = objLogica.obtieneValorIvaCompras();
+            if(rta != null){
+                respuesta.put("respuesta", "Ok");
+                respuesta.put("ivacompras", rta);
             }else{
                 respuesta.put("respuesta", "Error obtener los productos");
             }

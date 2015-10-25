@@ -74,5 +74,9 @@
         <action name="buscaFacturaXId" class="co.com.sigemco.alfa.facturacion.ajax.AjaxCancelaFacturaAction" method="buscaFacturaXId">
         </action>
         <!--Fin Cancelacion Facturacion Facturacion -->        
+        <!--Ini Busca Iva para las compras -->
+        <action name="buscaIvaCompras" class="co.com.sigemco.alfa.admin.ajax.AjaxAdministracionAction" method="buscaIvaCompras">
+        </action>
+        <!--Fin -->
     </package>
 </struts>
