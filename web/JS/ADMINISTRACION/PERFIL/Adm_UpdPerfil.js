@@ -1,17 +1,17 @@
-$(function() {
+$(function () {
     /*$('#perfil_nombre').autocomplete({
-        source: nombrePerfil,
-        select: function(event, ui) {
-            var perfilSelect = ui.item.value;
-            consultarPerfil();
-            //var valida = buscaNombre(usuarioSelect);
-            /*if (valida) {
-             $("#info").show("fold", 1000);
-             document.getElementById('find').focus();
-             }*/
-       /* }
-    });*/
-       
+     source: nombrePerfil,
+     select: function(event, ui) {
+     var perfilSelect = ui.item.value;
+     consultarPerfil();
+     //var valida = buscaNombre(usuarioSelect);
+     /*if (valida) {
+     $("#info").show("fold", 1000);
+     document.getElementById('find').focus();
+     }*/
+    /* }
+     });*/
+
 
 });
 
@@ -69,12 +69,18 @@ function consultarPerfil() {
 }
 
 function llenaPerfil(obj) {
-    document.getElementsByName("perfil.nombre")[0].value = obj[0].nombre;
-    document.getElementsByName("perfil.descripcion")[0].value = obj[0].descripcion;
-    document.getElementsByName("perfil.estado")[0].value = obj[0].estado;
-    document.getElementsByName("perfil.id")[0].value = obj[0].id;
-    $(".divBtnConsulta").hide();
-    $(".divBtnActualizar").show();
+    if (obj.length == 0) {
+        $('#textoMsn').html('La consulta no arrojo ningun resultado');
+        $('#mensaje').modal('show');
+
+    } else {
+        document.getElementsByName("perfil.nombre")[0].value = obj[0].nombre;
+        document.getElementsByName("perfil.descripcion")[0].value = obj[0].descripcion;
+        document.getElementsByName("perfil.estado")[0].value = obj[0].estado;
+        document.getElementsByName("perfil.id")[0].value = obj[0].id;
+        $(".divBtnConsulta").hide();
+        $(".divBtnActualizar").show();
+    }
 }
 
 function actualizar() {

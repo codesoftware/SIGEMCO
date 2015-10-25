@@ -123,5 +123,22 @@
                 document.getElementById('perfil.estado').value = '-1';
             </script>            
         </s:else>
+        <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="mensaje">
+            <div class="modal-dialog">                
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">INFORMACION</h4>
+                    </div>
+                    <div class="modal-body">
+                        <span id="textoMsn"></span>
+                    </div>
+                    <div class="modal-footer">                        
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            ACEPTAR
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

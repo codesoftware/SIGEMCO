@@ -98,7 +98,7 @@ public class Adm_PerfilLogica {
         if (nombre == null || nombre.equalsIgnoreCase("") || nombre.isEmpty() || nombre == "null") {
             sql += "where perf_nomb = perf_nomb\n";
         } else {
-            sql += "where perf_nomb like '%" + nombre + "%'\n";
+            sql += "where upper(perf_nomb) like upper('%" + nombre + "%')\n";
         }
 
         if (desc == null || desc.equalsIgnoreCase("") || desc.isEmpty()) {
