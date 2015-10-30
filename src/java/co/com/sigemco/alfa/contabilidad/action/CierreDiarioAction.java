@@ -94,7 +94,7 @@ public class CierreDiarioAction extends ActionSupport implements UsuarioHabilita
             String fechaf = sdf.format(d);
             lista = logicaSede.consultaGeneralSede("A");
             for (Sede lista1 : lista) {
-                logica.insertaCierreDiario("1", lista1.getSede_sede(), fechaf);
+                System.out.println(logica.insertaCierreDiario("1", lista1.getSede_sede(), fechaf));
             }
 
         } catch (Exception e) {
